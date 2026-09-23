@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@config "../tailwind.config.ts";
+
+@layer base {
+  :root {
+    --bg-primary: #fcfcfa;
+    --bg-surface: #ffffff;
+    --bg-surface-elevated: #f7f7f4;
+    --border-subtle: #e5e5df;
+    --border-divider: #ebebe5;
+    --text-primary: #11151a;
+    --text-secondary: #525e6e;
+    --text-muted: #798797;
+    --accent: #d97706;
+    --accent-hover: #b45309;
+    --accent-subtle: rgba(217, 119, 6, 0.08);
+  }
+
+  .dark {
+    --bg-primary: #090c0f;
+    --bg-surface: #11161d;
+    --bg-surface-elevated: #161c24;
+    --border-subtle: #202732;
+    --border-divider: #1b222c;
+    --text-primary: #f0f3f7;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --accent: #d97706;
+    --accent-hover: #b45309;
+    --accent-subtle: rgba(217, 119, 6, 0.12);
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+}
+
+/* Tabular figures for construction metrics & measurements */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hairline technical architectural divider */
+.tech-divider {
+  height: 1px;
+  background-color: var(--border-subtle);
+}
+
+/* Focus ring for precision controls */
+.tech-focus {
+  outline: none;
+}
+.tech-focus:focus-visible {
+  outline: 2px solid #d97706;
+  outline-offset: 1px;
+}
+
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  header, footer, .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .tech-card, .rounded-tech-lg {
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+}
+

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var originalFetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function () {
+              return originalFetch;
+            },
+            set: function (newFetch) {
+              originalFetch = newFetch;
+            },
+            configurable: true,
+            enumerable: true,
+          });
+        } catch (err) {
+          /* no-op fallback */
+        }
+      })();
+    </script>
+    <title>Structura — Precision Construction Calculators & Material Estimation</title>
+    <meta name="description" content="High-precision construction material estimators and interactive 3D spatial calculators for concrete, masonry, paint, and project planning." />
+    <meta property="og:title" content="Structura — Precision Construction Calculators & Material Estimation" />
+    <meta property="og:description" content="High-precision construction material estimators and interactive 3D spatial calculators for concrete, masonry, paint, and project planning." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Structura",
+      "applicationCategory": "ConstructionApplication",
+      "operatingSystem": "All",
+      "description": "High-precision construction material estimators and interactive 3D spatial calculators for concrete, masonry, paint, and project planning.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

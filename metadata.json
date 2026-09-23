@@ -1,0 +1,6 @@
+{
+  "name": "Structura - Modern Construction Calculators",
+  "description": "High-precision construction material estimators and interactive 3D spatial calculators for concrete, masonry, paint, and project planning.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

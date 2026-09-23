@@ -1,0 +1,4 @@
+# Ads.txt configuration for Structura
+# NOTE: Production advertising is disabled pending official AdSense approval.
+# To activate once approved, set VITE_ADSENSE_PUBLISHER_ID in environment variables and update below:
+# Example: google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0

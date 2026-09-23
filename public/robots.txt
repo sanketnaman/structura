@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Disallow internal or parameterized query URLs from duplicate indexation
+Disallow: /*?*unit=
+Disallow: /*?*l=
+Disallow: /*?*w=
+Disallow: /*?*t=
+
+Sitemap: https://structura.build/sitemap.xml

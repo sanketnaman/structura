@@ -17,8 +17,8 @@ import { CookiePolicyPage } from './components/legal/CookiePolicyPage';
 import { AdvertisingDisclosurePage } from './components/legal/AdvertisingDisclosurePage';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { Error404Page } from './components/common/Error404Page';
-import { siteConfig } from './lib/config/site';
-import { getToolBySlug } from './lib/tools/registry';
+import { SEO } from './components/common/SEO';
+import { getRouteSEO } from './lib/seo';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -79,6 +79,7 @@ function AppContent() {
   };
 
   const activeView = getActiveViewFromPath(location.pathname);
+  const seo = getRouteSEO(location.pathname);
 
   const handleNavigate = (view: string) => {
     let targetPath = '/';
@@ -109,164 +110,105 @@ function AppContent() {
     }
   };
 
-  // Dynamic SEO meta update on route change
-  useEffect(() => {
-    if (typeof document === 'undefined') return;
-
-    const titles: Record<string, { title: string; desc: string }> = {
-      overview: {
-        title: `${siteConfig.name} — Construction Calculators & 3D Material Estimation`,
-        desc: siteConfig.description,
-      },
-      calculators: {
-        title: `Construction Calculator Directory | ${siteConfig.name}`,
-        desc: `Comprehensive index of interactive 3D construction calculators, material takeoffs, and engineering volume tools for contractors, builders, and trades.`,
-      },
-      guides: {
-        title: `Construction Takeoff & Field Guides | ${siteConfig.name}`,
-        desc: `Practical construction references explaining volumetric concrete formulas, masonry coursing geometry, paint coverage rates, and contractor waste margins.`,
-      },
-      about: {
-        title: `About ${siteConfig.name} — Visual Construction Engineering`,
-        desc: `Learn about ${siteConfig.name}’s mission to replace opaque online calculators with dynamic parametric 3D models and verified engineering formulas.`,
-      },
-      contact: {
-        title: `Contact Engineering Support | ${siteConfig.name}`,
-        desc: `Get in touch with ${siteConfig.name} regarding construction calculator formulas, feature requests, or technical partnerships.`,
-      },
-      privacy: {
-        title: `Privacy Policy | ${siteConfig.name}`,
-        desc: `${siteConfig.name} privacy policy. Understand how local browser storage, advertising disclosures, and client-side calculations protect your privacy.`,
-      },
-      terms: {
-        title: `Terms of Use | ${siteConfig.name}`,
-        desc: `Terms and conditions governing the use of ${siteConfig.name} construction calculators and estimation tools.`,
-      },
-      disclaimer: {
-        title: `Construction Planning Disclaimer | ${siteConfig.name}`,
-        desc: `Important legal disclaimer: ${siteConfig.name} provides mathematical quantity estimates for logistical planning. Field verification and licensed professional engineering review required.`,
-      },
-      'cookie-policy': {
-        title: `Cookie & Storage Policy | ${siteConfig.name}`,
-        desc: `Technical disclosures regarding browser localStorage for unit systems and advertising partner cookies.`,
-      },
-      advertising: {
-        title: `Advertising Disclosure | ${siteConfig.name}`,
-        desc: `Transparent disclosure regarding third-party ad serving and non-deceptive advertising principles on ${siteConfig.name}.`,
-      },
-    };
-
-    if (titles[activeView]) {
-      document.title = titles[activeView].title;
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) {
-        metaDesc.setAttribute('content', titles[activeView].desc);
-      }
-    } else {
-      const tool = getToolBySlug(activeView);
-      if (tool) {
-        document.title = `${tool.seoTitle} | ${siteConfig.name}`;
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) {
-          metaDesc.setAttribute('content', tool.seoDescription);
-        }
-      } else {
-        document.title = `Page Not Found | ${siteConfig.name}`;
-      }
-    }
-  }, [activeView]);
-
   return (
-    <ErrorBoundary onNavigate={handleNavigate}>
-      <GlobalLayout
-        activeView={activeView}
-        onNavigate={handleNavigate}
-        unitSystem={unitSystem}
-        onUnitSystemChange={handleUnitSystemChange}
-      >
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <HomePage
-                unitSystem={unitSystem}
-                onNavigateToTool={handleNavigate}
-              />
-            }
-          />
-          <Route
-            path="/calculators/concrete-slab-calculator"
-            element={
-              <ConcreteCalculatorWorkspace
-                unitSystem={unitSystem}
-                onUnitSystemChange={handleUnitSystemChange}
-                onNavigateToTool={handleNavigate}
-              />
-            }
-          />
-          <Route
-            path="/calculators/brick-mortar-calculator"
-            element={
-              <BrickCalculatorWorkspace
-                unitSystem={unitSystem}
-                onUnitSystemChange={handleUnitSystemChange}
-                onNavigateToTool={handleNavigate}
-              />
-            }
-          />
-          <Route
-            path="/calculators/paint-calculator"
-            element={
-              <PaintCalculatorWorkspace
-                unitSystem={unitSystem}
-                onUnitSystemChange={handleUnitSystemChange}
-                onNavigateToTool={handleNavigate}
-              />
-            }
-          />
-          <Route
-            path="/calculators"
-            element={<CalculatorsDirectoryPage onNavigateToTool={handleNavigate} />}
-          />
-          <Route
-            path="/guides"
-            element={<GuidesPage onNavigateToTool={handleNavigate} />}
-          />
-          <Route
-            path="/about"
-            element={<AboutPage onNavigate={handleNavigate} />}
-          />
-          <Route
-            path="/contact"
-            element={<ContactPage onNavigate={handleNavigate} />}
-          />
-          <Route
-            path="/privacy"
-            element={<PrivacyPage onNavigate={handleNavigate} />}
-          />
-          <Route
-            path="/terms"
-            element={<TermsPage onNavigate={handleNavigate} />}
-          />
-          <Route
-            path="/disclaimer"
-            element={<DisclaimerPage onNavigate={handleNavigate} />}
-          />
-          <Route
-            path="/cookie-policy"
-            element={<CookiePolicyPage onNavigate={handleNavigate} />}
-          />
-          <Route
-            path="/advertising"
-            element={<AdvertisingDisclosurePage onNavigate={handleNavigate} />}
-          />
-          <Route
-            path="*"
-            element={<Error404Page onNavigate={handleNavigate} />}
-          />
-        </Routes>
-      </GlobalLayout>
-    </ErrorBoundary>
+    <>
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        canonicalPath={seo.canonicalPath}
+        noindex={seo.noindex}
+      />
+      <ErrorBoundary onNavigate={handleNavigate}>
+        <GlobalLayout
+          activeView={activeView}
+          onNavigate={handleNavigate}
+          unitSystem={unitSystem}
+          onUnitSystemChange={handleUnitSystemChange}
+        >
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <HomePage
+                  unitSystem={unitSystem}
+                  onNavigateToTool={handleNavigate}
+                />
+              }
+            />
+            <Route
+              path="/calculators/concrete-slab-calculator"
+              element={
+                <ConcreteCalculatorWorkspace
+                  unitSystem={unitSystem}
+                  onUnitSystemChange={handleUnitSystemChange}
+                  onNavigateToTool={handleNavigate}
+                />
+              }
+            />
+            <Route
+              path="/calculators/brick-mortar-calculator"
+              element={
+                <BrickCalculatorWorkspace
+                  unitSystem={unitSystem}
+                  onUnitSystemChange={handleUnitSystemChange}
+                  onNavigateToTool={handleNavigate}
+                />
+              }
+            />
+            <Route
+              path="/calculators/paint-calculator"
+              element={
+                <PaintCalculatorWorkspace
+                  unitSystem={unitSystem}
+                  onUnitSystemChange={handleUnitSystemChange}
+                  onNavigateToTool={handleNavigate}
+                />
+              }
+            />
+            <Route
+              path="/calculators"
+              element={<CalculatorsDirectoryPage onNavigateToTool={handleNavigate} />}
+            />
+            <Route
+              path="/guides"
+              element={<GuidesPage onNavigateToTool={handleNavigate} />}
+            />
+            <Route
+              path="/about"
+              element={<AboutPage onNavigate={handleNavigate} />}
+            />
+            <Route
+              path="/contact"
+              element={<ContactPage onNavigate={handleNavigate} />}
+            />
+            <Route
+              path="/privacy"
+              element={<PrivacyPage onNavigate={handleNavigate} />}
+            />
+            <Route
+              path="/terms"
+              element={<TermsPage onNavigate={handleNavigate} />}
+            />
+            <Route
+              path="/disclaimer"
+              element={<DisclaimerPage onNavigate={handleNavigate} />}
+            />
+            <Route
+              path="/cookie-policy"
+              element={<CookiePolicyPage onNavigate={handleNavigate} />}
+            />
+            <Route
+              path="/advertising"
+              element={<AdvertisingDisclosurePage onNavigate={handleNavigate} />}
+            />
+            <Route
+              path="*"
+              element={<Error404Page onNavigate={handleNavigate} />}
+            />
+          </Routes>
+        </GlobalLayout>
+      </ErrorBoundary>
+    </>
   );
 }
 

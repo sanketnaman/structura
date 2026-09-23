@@ -17,6 +17,7 @@ import { CookiePolicyPage } from './components/legal/CookiePolicyPage';
 import { AdvertisingDisclosurePage } from './components/legal/AdvertisingDisclosurePage';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { Error404Page } from './components/common/Error404Page';
+import { siteConfig } from './lib/config/site';
 import { getToolBySlug } from './lib/tools/registry';
 
 function AppContent() {
@@ -114,44 +115,44 @@ function AppContent() {
 
     const titles: Record<string, { title: string; desc: string }> = {
       overview: {
-        title: 'STRUCTURA — Construction Calculators & 3D Material Estimation',
-        desc: 'Interactive 3D construction calculators for concrete slabs, masonry brick coursing, and paint surface takeoffs. Formula-based material estimation with live spatial models.',
+        title: `${siteConfig.name} — Construction Calculators & 3D Material Estimation`,
+        desc: siteConfig.description,
       },
       calculators: {
-        title: 'Construction Calculator Directory | STRUCTURA',
-        desc: 'Comprehensive index of interactive 3D construction calculators, material takeoffs, and engineering volume tools for contractors, builders, and trades.',
+        title: `Construction Calculator Directory | ${siteConfig.name}`,
+        desc: `Comprehensive index of interactive 3D construction calculators, material takeoffs, and engineering volume tools for contractors, builders, and trades.`,
       },
       guides: {
-        title: 'Construction Takeoff & Field Guides | STRUCTURA',
-        desc: 'Practical construction references explaining volumetric concrete formulas, masonry coursing geometry, paint coverage rates, and contractor waste margins.',
+        title: `Construction Takeoff & Field Guides | ${siteConfig.name}`,
+        desc: `Practical construction references explaining volumetric concrete formulas, masonry coursing geometry, paint coverage rates, and contractor waste margins.`,
       },
       about: {
-        title: 'About STRUCTURA — Visual Construction Engineering',
-        desc: 'Learn about STRUCTURA’s mission to replace opaque online calculators with dynamic parametric 3D models and verified engineering formulas.',
+        title: `About ${siteConfig.name} — Visual Construction Engineering`,
+        desc: `Learn about ${siteConfig.name}’s mission to replace opaque online calculators with dynamic parametric 3D models and verified engineering formulas.`,
       },
       contact: {
-        title: 'Contact Engineering Support | STRUCTURA',
-        desc: 'Get in touch with STRUCTURA regarding construction calculator formulas, feature requests, or technical partnerships.',
+        title: `Contact Engineering Support | ${siteConfig.name}`,
+        desc: `Get in touch with ${siteConfig.name} regarding construction calculator formulas, feature requests, or technical partnerships.`,
       },
       privacy: {
-        title: 'Privacy Policy | STRUCTURA',
-        desc: 'STRUCTURA privacy policy. Understand how local browser storage, advertising disclosures, and client-side calculations protect your privacy.',
+        title: `Privacy Policy | ${siteConfig.name}`,
+        desc: `${siteConfig.name} privacy policy. Understand how local browser storage, advertising disclosures, and client-side calculations protect your privacy.`,
       },
       terms: {
-        title: 'Terms of Use | STRUCTURA',
-        desc: 'Terms and conditions governing the use of STRUCTURA construction calculators and estimation tools.',
+        title: `Terms of Use | ${siteConfig.name}`,
+        desc: `Terms and conditions governing the use of ${siteConfig.name} construction calculators and estimation tools.`,
       },
       disclaimer: {
-        title: 'Construction Planning Disclaimer | STRUCTURA',
-        desc: 'Important legal disclaimer: STRUCTURA provides mathematical quantity estimates for logistical planning. Field verification and licensed professional engineering review required.',
+        title: `Construction Planning Disclaimer | ${siteConfig.name}`,
+        desc: `Important legal disclaimer: ${siteConfig.name} provides mathematical quantity estimates for logistical planning. Field verification and licensed professional engineering review required.`,
       },
       'cookie-policy': {
-        title: 'Cookie & Storage Policy | STRUCTURA',
-        desc: 'Technical disclosures regarding browser localStorage for unit systems and advertising partner cookies.',
+        title: `Cookie & Storage Policy | ${siteConfig.name}`,
+        desc: `Technical disclosures regarding browser localStorage for unit systems and advertising partner cookies.`,
       },
       advertising: {
-        title: 'Advertising Disclosure | STRUCTURA',
-        desc: 'Transparent disclosure regarding third-party ad serving and non-deceptive advertising principles on STRUCTURA.',
+        title: `Advertising Disclosure | ${siteConfig.name}`,
+        desc: `Transparent disclosure regarding third-party ad serving and non-deceptive advertising principles on ${siteConfig.name}.`,
       },
     };
 
@@ -164,13 +165,13 @@ function AppContent() {
     } else {
       const tool = getToolBySlug(activeView);
       if (tool) {
-        document.title = `${tool.seoTitle} | STRUCTURA`;
+        document.title = `${tool.seoTitle} | ${siteConfig.name}`;
         const metaDesc = document.querySelector('meta[name="description"]');
         if (metaDesc) {
           metaDesc.setAttribute('content', tool.seoDescription);
         }
       } else {
-        document.title = 'Page Not Found | STRUCTURA';
+        document.title = `Page Not Found | ${siteConfig.name}`;
       }
     }
   }, [activeView]);

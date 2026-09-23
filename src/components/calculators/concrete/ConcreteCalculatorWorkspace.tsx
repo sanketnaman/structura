@@ -640,7 +640,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                   : `${result.baseVolumeYards} yd³ net`}
               </div>
               <p className="text-caption text-slate-600 dark:text-slate-400 mt-2">
-                Theoretical volume from exact CAD dimensions before accounting for site losses.
+                Theoretical geometric volume from entered dimensions before accounting for planning allowances.
               </p>
             </div>
             <div className="pt-4 mt-4 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-mono">
@@ -980,7 +980,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                 How many 80 lb bags of concrete equal one cubic yard?
               </h4>
               <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-                One 80-pound bag yields approximately 0.60 cubic feet. Since one cubic yard contains 27 cubic feet, it takes exactly 45 bags of 80 lb concrete (or 60 bags of 60 lb concrete) to make one cubic yard.
+                One 80-pound bag yields approximately 0.60 cubic feet. Since one cubic yard contains 27 cubic feet, it mathematically requires approximately 45 bags of 80 lb concrete (or 60 bags of 60 lb concrete) per cubic yard based on this planning assumption.
               </p>
             </div>
             <div className="py-3.5 space-y-1">

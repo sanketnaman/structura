@@ -663,9 +663,9 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
               Standard Opening Deduction Allowances
             </h3>
-            <p>
-              Architectural takeoffs deduct 21 sq ft (2.0 m²) for each standard interior door (3'-0" × 7'-0") and 15 sq ft (1.4 m²) for each standard double-hung or casement window (3'-0" × 5'-0"). For expansive picture windows or sliding patio doors, measure exact dimensions and deduct manually.
-            </p>
+              <p>
+                Architectural takeoffs deduct 21 sq ft (2.0 m²) for each standard interior door (3'-0" × 7'-0") and 15 sq ft (1.4 m²) for each standard double-hung or casement window (3'-0" × 5'-0"). For expansive picture windows or sliding patio doors, measure actual dimensions and deduct manually.
+              </p>
           </div>
         </div>
 

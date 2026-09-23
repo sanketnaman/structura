@@ -40,13 +40,13 @@ export const CalculatorsDirectoryPage: React.FC<CalculatorsDirectoryPageProps> =
       <div className="border-b border-paper-300 dark:border-charcoal-750 pb-6 space-y-3">
         <div className="flex items-center gap-2 text-micro font-mono text-accent uppercase tracking-wider">
           <Calculator className="w-4 h-4" />
-          <span>Complete Engineering Index</span>
+          <span>Complete Calculator Index</span>
         </div>
         <h1 className="text-display sm:text-display-md font-bold text-slate-900 dark:text-white">
           Construction Calculator Directory
         </h1>
         <p className="text-body text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Explore production 3D estimators and engineering takeoff tools organized by trade discipline.
+          Explore production 3D estimators and material takeoff tools organized by trade discipline.
         </p>
       </div>
 

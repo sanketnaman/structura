@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { GlobalLayout } from './components/layout/GlobalLayout';
 import type { UnitSystem } from './types/layout';
 import { HomePage } from './components/home/HomePage';
@@ -18,20 +19,9 @@ import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { Error404Page } from './components/common/Error404Page';
 import { getToolBySlug } from './lib/tools/registry';
 
-export default function App() {
-  const [activeView, setActiveView] = useState<string>(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const tool = params.get('tool');
-      if (tool) {
-        if (tool === 'concrete' || tool === 'concrete-slab-calculator') return 'concrete-slab-calculator';
-        if (tool === 'brick' || tool === 'brick-mortar-calculator') return 'brick-mortar-calculator';
-        if (tool === 'paint' || tool === 'paint-calculator') return 'paint-calculator';
-        return tool;
-      }
-    }
-    return 'overview';
-  });
+function AppContent() {
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [unitSystem, setUnitSystem] = useState<UnitSystem>(() => {
     if (typeof window !== 'undefined') {
@@ -44,35 +34,77 @@ export default function App() {
     return 'imperial';
   });
 
-  // Handle URL updates and SEO metadata synchronization on view change
-  const handleNavigate = (view: string) => {
-    let normalizedView = view;
-    if (view === 'concrete') normalizedView = 'concrete-slab-calculator';
-    if (view === 'brick') normalizedView = 'brick-mortar-calculator';
-    if (view === 'paint') normalizedView = 'paint-calculator';
-
-    setActiveView(normalizedView);
-
-    if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href);
-      if (normalizedView === 'overview' || normalizedView === 'home') {
-        url.searchParams.delete('tool');
-      } else {
-        url.searchParams.set('tool', normalizedView);
+  // Handle legacy ?tool= query parameter redirection at root
+  useEffect(() => {
+    if (location.pathname === '/' || location.pathname === '') {
+      const params = new URLSearchParams(location.search);
+      const tool = params.get('tool');
+      const unit = params.get('unit');
+      if (unit && (unit === 'metric' || unit === 'imperial')) {
+        setUnitSystem(unit);
       }
-      url.searchParams.set('unit', unitSystem);
-      window.history.pushState({}, '', url.toString());
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (tool) {
+        let targetPath = '/';
+        if (tool === 'overview' || tool === 'home') targetPath = '/';
+        else if (tool === 'calculators') targetPath = '/calculators';
+        else if (tool === 'concrete' || tool === 'concrete-slab-calculator') targetPath = '/calculators/concrete-slab-calculator';
+        else if (tool === 'brick' || tool === 'brick-mortar-calculator') targetPath = '/calculators/brick-mortar-calculator';
+        else if (tool === 'paint' || tool === 'paint-calculator') targetPath = '/calculators/paint-calculator';
+        else if (['guides', 'about', 'contact', 'privacy', 'terms', 'disclaimer', 'cookie-policy', 'advertising'].includes(tool)) {
+          targetPath = `/${tool}`;
+        }
+        params.delete('tool');
+        const search = params.toString() ? `?${params.toString()}` : '';
+        navigate(`${targetPath}${search}`, { replace: true });
+      }
     }
+  }, [location, navigate]);
+
+  const getActiveViewFromPath = (pathname: string) => {
+    if (pathname === '/' || pathname === '') return 'overview';
+    if (pathname === '/calculators') return 'calculators';
+    if (pathname === '/calculators/concrete-slab-calculator') return 'concrete-slab-calculator';
+    if (pathname === '/calculators/brick-mortar-calculator') return 'brick-mortar-calculator';
+    if (pathname === '/calculators/paint-calculator') return 'paint-calculator';
+    if (pathname === '/guides') return 'guides';
+    if (pathname === '/about') return 'about';
+    if (pathname === '/contact') return 'contact';
+    if (pathname === '/privacy') return 'privacy';
+    if (pathname === '/terms') return 'terms';
+    if (pathname === '/disclaimer') return 'disclaimer';
+    if (pathname === '/cookie-policy') return 'cookie-policy';
+    if (pathname === '/advertising') return 'advertising';
+    return '404';
   };
 
-  // Sync unit system into URL
+  const activeView = getActiveViewFromPath(location.pathname);
+
+  const handleNavigate = (view: string) => {
+    let targetPath = '/';
+    if (view === 'overview' || view === 'home') targetPath = '/';
+    else if (view === 'calculators') targetPath = '/calculators';
+    else if (view === 'concrete' || view === 'concrete-slab-calculator') targetPath = '/calculators/concrete-slab-calculator';
+    else if (view === 'brick' || view === 'brick-mortar-calculator') targetPath = '/calculators/brick-mortar-calculator';
+    else if (view === 'paint' || view === 'paint-calculator') targetPath = '/calculators/paint-calculator';
+    else if (['guides', 'about', 'contact', 'privacy', 'terms', 'disclaimer', 'cookie-policy', 'advertising'].includes(view)) {
+      targetPath = `/${view}`;
+    } else {
+      targetPath = `/${view}`;
+    }
+
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set('unit', unitSystem);
+    const search = searchParams.toString() ? `?${searchParams.toString()}` : '';
+    navigate(`${targetPath}${search}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleUnitSystemChange = (system: UnitSystem) => {
     setUnitSystem(system);
     if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href);
-      url.searchParams.set('unit', system);
-      window.history.replaceState({}, '', url.toString());
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set('unit', system);
+      navigate({ search: searchParams.toString() }, { replace: true });
     }
   };
 
@@ -151,109 +183,96 @@ export default function App() {
         unitSystem={unitSystem}
         onUnitSystemChange={handleUnitSystemChange}
       >
-        {/* 1. HOMEPAGE VIEW */}
-        {(activeView === 'overview' || activeView === 'home') && (
-          <HomePage
-            unitSystem={unitSystem}
-            onNavigateToTool={handleNavigate}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage
+                unitSystem={unitSystem}
+                onNavigateToTool={handleNavigate}
+              />
+            }
           />
-        )}
-
-        {/* 2. CONCRETE CALCULATOR WORKSPACE */}
-        {(activeView === 'concrete' || activeView === 'concrete-slab-calculator') && (
-          <ConcreteCalculatorWorkspace
-            unitSystem={unitSystem}
-            onUnitSystemChange={handleUnitSystemChange}
-            onNavigateToTool={handleNavigate}
+          <Route
+            path="/calculators/concrete-slab-calculator"
+            element={
+              <ConcreteCalculatorWorkspace
+                unitSystem={unitSystem}
+                onUnitSystemChange={handleUnitSystemChange}
+                onNavigateToTool={handleNavigate}
+              />
+            }
           />
-        )}
-
-        {/* 3. BRICK CALCULATOR WORKSPACE */}
-        {(activeView === 'brick' || activeView === 'brick-mortar-calculator') && (
-          <BrickCalculatorWorkspace
-            unitSystem={unitSystem}
-            onUnitSystemChange={handleUnitSystemChange}
-            onNavigateToTool={handleNavigate}
+          <Route
+            path="/calculators/brick-mortar-calculator"
+            element={
+              <BrickCalculatorWorkspace
+                unitSystem={unitSystem}
+                onUnitSystemChange={handleUnitSystemChange}
+                onNavigateToTool={handleNavigate}
+              />
+            }
           />
-        )}
-
-        {/* 4. PAINT CALCULATOR WORKSPACE */}
-        {(activeView === 'paint' || activeView === 'paint-calculator') && (
-          <PaintCalculatorWorkspace
-            unitSystem={unitSystem}
-            onUnitSystemChange={handleUnitSystemChange}
-            onNavigateToTool={handleNavigate}
+          <Route
+            path="/calculators/paint-calculator"
+            element={
+              <PaintCalculatorWorkspace
+                unitSystem={unitSystem}
+                onUnitSystemChange={handleUnitSystemChange}
+                onNavigateToTool={handleNavigate}
+              />
+            }
           />
-        )}
-
-        {/* 5. CALCULATORS DIRECTORY */}
-        {activeView === 'calculators' && (
-          <CalculatorsDirectoryPage onNavigateToTool={handleNavigate} />
-        )}
-
-        {/* 6. GUIDES & FIELD REFERENCES */}
-        {activeView === 'guides' && (
-          <GuidesPage onNavigateToTool={handleNavigate} />
-        )}
-
-        {/* 7. ABOUT PAGE */}
-        {activeView === 'about' && (
-          <AboutPage onNavigate={handleNavigate} />
-        )}
-
-        {/* 8. CONTACT PAGE */}
-        {activeView === 'contact' && (
-          <ContactPage onNavigate={handleNavigate} />
-        )}
-
-        {/* 9. LEGAL: PRIVACY POLICY */}
-        {activeView === 'privacy' && (
-          <PrivacyPage onNavigate={handleNavigate} />
-        )}
-
-        {/* 10. LEGAL: TERMS OF USE */}
-        {activeView === 'terms' && (
-          <TermsPage onNavigate={handleNavigate} />
-        )}
-
-        {/* 11. LEGAL: CONSTRUCTION DISCLAIMER */}
-        {activeView === 'disclaimer' && (
-          <DisclaimerPage onNavigate={handleNavigate} />
-        )}
-
-        {/* 12. LEGAL: COOKIE POLICY */}
-        {activeView === 'cookie-policy' && (
-          <CookiePolicyPage onNavigate={handleNavigate} />
-        )}
-
-        {/* 13. LEGAL: ADVERTISING DISCLOSURE */}
-        {activeView === 'advertising' && (
-          <AdvertisingDisclosurePage onNavigate={handleNavigate} />
-        )}
-
-        {/* 14. 404 NOT FOUND FALLBACK */}
-        {![
-          'overview',
-          'home',
-          'concrete',
-          'concrete-slab-calculator',
-          'brick',
-          'brick-mortar-calculator',
-          'paint',
-          'paint-calculator',
-          'calculators',
-          'guides',
-          'about',
-          'contact',
-          'privacy',
-          'terms',
-          'disclaimer',
-          'cookie-policy',
-          'advertising',
-        ].includes(activeView) && (
-          <Error404Page onNavigate={handleNavigate} />
-        )}
+          <Route
+            path="/calculators"
+            element={<CalculatorsDirectoryPage onNavigateToTool={handleNavigate} />}
+          />
+          <Route
+            path="/guides"
+            element={<GuidesPage onNavigateToTool={handleNavigate} />}
+          />
+          <Route
+            path="/about"
+            element={<AboutPage onNavigate={handleNavigate} />}
+          />
+          <Route
+            path="/contact"
+            element={<ContactPage onNavigate={handleNavigate} />}
+          />
+          <Route
+            path="/privacy"
+            element={<PrivacyPage onNavigate={handleNavigate} />}
+          />
+          <Route
+            path="/terms"
+            element={<TermsPage onNavigate={handleNavigate} />}
+          />
+          <Route
+            path="/disclaimer"
+            element={<DisclaimerPage onNavigate={handleNavigate} />}
+          />
+          <Route
+            path="/cookie-policy"
+            element={<CookiePolicyPage onNavigate={handleNavigate} />}
+          />
+          <Route
+            path="/advertising"
+            element={<AdvertisingDisclosurePage onNavigate={handleNavigate} />}
+          />
+          <Route
+            path="*"
+            element={<Error404Page onNavigate={handleNavigate} />}
+          />
+        </Routes>
       </GlobalLayout>
     </ErrorBoundary>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }

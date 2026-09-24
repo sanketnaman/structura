@@ -18,6 +18,7 @@ import { AdvertisingDisclosurePage } from './components/legal/AdvertisingDisclos
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { Error404Page } from './components/common/Error404Page';
 import { SEO } from './components/common/SEO';
+import { StructuredData } from './components/common/StructuredData';
 import { getRouteSEO } from './lib/seo';
 
 function AppContent() {
@@ -118,6 +119,7 @@ function AppContent() {
         canonicalPath={seo.canonicalPath}
         noindex={seo.noindex}
       />
+      <StructuredData pathname={location.pathname} />
       <ErrorBoundary onNavigate={handleNavigate}>
         <GlobalLayout
           activeView={activeView}

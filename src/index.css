@@ -16,11 +16,12 @@
     --accent-hover: #b45309;
     --accent-subtle: rgba(217, 119, 6, 0.08);
 
-    /* Production calculators section — light: construction amber */
-    --production-bg: #f5a31a;
+    /* Production calculators section — light: muted brand orange
+       (softened 60%-saturation version of accent #d97706, same ~31° hue) */
+    --production-bg: #d69a5c;
     --production-heading: #16120a;
     --production-body: rgba(32, 27, 17, 0.82);
-    --production-eyebrow: #7c3503;
+    --production-eyebrow: #4a2103;
     --production-border: rgba(74, 47, 8, 0.3);
     --production-divider: rgba(74, 47, 8, 0.22);
     --production-card: #fffdf6;

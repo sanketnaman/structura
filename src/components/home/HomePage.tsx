@@ -213,10 +213,10 @@ export const HomePage: React.FC<HomePageProps> = ({
       </section>
 
       {/* 3. PRODUCTION CALCULATORS DIRECTORY SECTION */}
-      <section id="production-calculators" className="space-y-8 p-8 rounded-tech-lg bg-charcoal-900 text-white border border-charcoal-750 shadow-tech-elevated">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-charcoal-800 pb-6">
+      <section id="production-calculators" className="space-y-8 p-8 rounded-tech-lg bg-[var(--production-bg)] text-[var(--production-heading)] border border-[var(--production-border)] shadow-tech-elevated">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[var(--production-divider)] pb-6">
           <div>
-            <div className="flex items-center gap-2 text-micro font-mono text-accent uppercase tracking-wider mb-2">
+            <div className="flex items-center gap-2 text-micro font-mono uppercase tracking-wider mb-2 text-[var(--production-eyebrow)]">
               <span>Production Suite</span>
               <span aria-hidden="true">·</span>
               <span>Active Calculators</span>
@@ -224,7 +224,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <h2 className="text-heading-lg sm:text-display font-bold">
               Production 3D Construction Calculators
             </h2>
-            <p className="text-caption text-slate-400 max-w-xl mt-2">
+            <p className="text-caption text-[var(--production-body)] max-w-xl mt-2">
               Interactive 3D spatial models paired with rigorous mathematical formulas and instant copy/print takeoffs.
             </p>
           </div>
@@ -234,29 +234,29 @@ export const HomePage: React.FC<HomePageProps> = ({
           {TOOL_REGISTRY.filter((t) => t.implemented).map((tool) => (
             <div
               key={tool.slug}
-              className="p-6 rounded-tech bg-charcoal-850 border border-charcoal-750 hover:border-accent transition-all duration-200 flex flex-col justify-between group"
+              className="p-6 rounded-tech bg-[var(--production-card)] border border-[var(--production-card-border)] hover:border-accent transition-all duration-200 flex flex-col justify-between group"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-micro font-mono uppercase px-2 py-0.5 rounded bg-accent/10 text-accent font-semibold">
                     {tool.category}
                   </span>
-                  <span className="text-micro font-mono text-emerald-400 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <span className="text-micro font-mono text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-700 dark:bg-emerald-400" />
                     Live Workspace
                   </span>
                 </div>
                 <div>
-                  <h3 className="text-heading-md font-bold text-white group-hover:text-accent transition-colors">
+                  <h3 className="text-heading-md font-bold text-[var(--production-card-heading)] group-hover:text-accent transition-colors">
                     {tool.name}
                   </h3>
-                  <p className="text-caption text-slate-400 mt-2 line-clamp-3">
+                  <p className="text-caption text-[var(--production-card-body)] mt-2 line-clamp-3">
                     {tool.description}
                   </p>
                 </div>
               </div>
 
-              <div className="pt-6 border-t border-charcoal-800 mt-6">
+              <div className="pt-6 border-t border-[var(--production-card-divider)] mt-6">
                 <button
                   type="button"
                   onClick={() => onNavigateToTool(tool.slug)}

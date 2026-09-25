@@ -15,6 +15,19 @@
     --accent: #d97706;
     --accent-hover: #b45309;
     --accent-subtle: rgba(217, 119, 6, 0.08);
+
+    /* Production calculators section — light: construction amber */
+    --production-bg: #f5a31a;
+    --production-heading: #16120a;
+    --production-body: rgba(32, 27, 17, 0.82);
+    --production-eyebrow: #7c3503;
+    --production-border: rgba(74, 47, 8, 0.3);
+    --production-divider: rgba(74, 47, 8, 0.22);
+    --production-card: #fffdf6;
+    --production-card-border: rgba(74, 47, 8, 0.16);
+    --production-card-divider: rgba(74, 47, 8, 0.14);
+    --production-card-heading: #16120a;
+    --production-card-body: #4a4335;
   }
 
   .dark {
@@ -29,6 +42,19 @@
     --accent: #d97706;
     --accent-hover: #b45309;
     --accent-subtle: rgba(217, 119, 6, 0.12);
+
+    /* Production calculators section — dark: existing graphite (unchanged) */
+    --production-bg: #0e1318;
+    --production-heading: #ffffff;
+    --production-body: #94a3b8;
+    --production-eyebrow: #d97706;
+    --production-border: #232c37;
+    --production-divider: #1b222b;
+    --production-card: #141a21;
+    --production-card-border: #232c37;
+    --production-card-divider: #1b222b;
+    --production-card-heading: #ffffff;
+    --production-card-body: #94a3b8;
   }
 
   body {

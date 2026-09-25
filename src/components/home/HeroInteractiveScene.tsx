@@ -33,10 +33,7 @@ export const HeroInteractiveScene: React.FC<HeroInteractiveSceneProps> = ({
   });
 
   return (
-    <section className="relative pt-6 pb-12 overflow-hidden">
-      {/* Editorial Grid Background Motif */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(30,41,59,0.10)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.10)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
-
+    <section className="relative pt-6 pb-12">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
         {/* Left Column: Editorial SaaS Typography & Direct Controls (6 cols) */}
         <div className="lg:col-span-6 space-y-8">

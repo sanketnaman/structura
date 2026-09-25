@@ -39,6 +39,33 @@
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
   }
+
+  /* Site-wide architectural drafting grid (light = graphite on warm off-white) */
+  :root {
+    --grid-primary: rgba(30, 41, 59, 0.11);
+    --grid-secondary: rgba(30, 41, 59, 0.05);
+    --grid-size: 32px;
+  }
+  .dark {
+    --grid-primary: rgba(255, 255, 255, 0.045);
+    --grid-secondary: rgba(255, 255, 255, 0.018);
+    --grid-size: 32px;
+  }
+}
+
+/* Reusable site-wide grid background utility.
+   Applied to the main page surface only — never to cards, inputs, header, or footer. */
+.tech-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-primary) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-primary) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-secondary) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-secondary) 1px, transparent 1px);
+  background-size:
+    var(--grid-size) var(--grid-size),
+    var(--grid-size) var(--grid-size),
+    calc(var(--grid-size) / 4) calc(var(--grid-size) / 4),
+    calc(var(--grid-size) / 4) calc(var(--grid-size) / 4);
 }
 
 /* Tabular figures for construction metrics & measurements */

@@ -64,8 +64,10 @@ export const GlobalLayout: React.FC<GlobalLayoutProps> = ({
       />
 
       {/* Main Content Workspace */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
-        {children}
+      <main className="flex-1 w-full tech-grid">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+          {children}
+        </div>
       </main>
 
       {/* Comprehensive Architectural Trade & Legal Footer */}

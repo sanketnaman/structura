@@ -44,12 +44,20 @@
   :root {
     --grid-primary: rgba(30, 41, 59, 0.11);
     --grid-secondary: rgba(30, 41, 59, 0.05);
-    --grid-size: 32px;
+    --grid-size: 56px;
   }
   .dark {
     --grid-primary: rgba(255, 255, 255, 0.045);
     --grid-secondary: rgba(255, 255, 255, 0.018);
-    --grid-size: 32px;
+    --grid-size: 56px;
+  }
+  @media (max-width: 640px) {
+    :root {
+      --grid-size: 40px;
+    }
+    .dark {
+      --grid-size: 40px;
+    }
   }
 }
 

@@ -107,10 +107,28 @@ export const CalculatorsDirectoryPage: React.FC<CalculatorsDirectoryPageProps> =
           return (
             <div
               key={tool.slug}
-              className="p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 hover:border-accent dark:hover:border-accent shadow-tech-card hover:-translate-y-0.5 cursor-pointer transition-all duration-200 flex flex-col justify-between"
+              className="group rounded-tech-lg overflow-hidden bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 hover:border-accent dark:hover:border-accent shadow-tech-card hover:-translate-y-0.5 cursor-pointer transition-all duration-200 flex flex-col justify-between"
               onClick={() => onNavigateToTool(tool.slug)}
             >
-              <div>
+              {tool.image && (
+                <div className="relative h-36 bg-paper-200 dark:bg-charcoal-900 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/45 via-transparent to-transparent z-10" />
+                  <img
+                    src={tool.image}
+                    alt={tool.imageAlt ?? tool.name}
+                    width={900}
+                    height={600}
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              )}
+
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-10 h-10 rounded-tech bg-amber-50 dark:bg-amber-950/50 text-accent flex items-center justify-center border border-amber-200/50 dark:border-amber-800/40">
                     {tool.iconName === 'Box' && <Box className="w-5 h-5" />}
@@ -136,15 +154,16 @@ export const CalculatorsDirectoryPage: React.FC<CalculatorsDirectoryPageProps> =
                 <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
                   {tool.description}
                 </p>
-              </div>
+                </div>
 
-              <div className="pt-4 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-medium">
-                <span className="text-micro font-mono text-slate-500 uppercase">
-                  {tool.visualizationType.replace('-', ' ')}
-                </span>
-                <span className="text-accent flex items-center gap-1 font-semibold">
-                  Launch Workspace <ArrowRight className="w-4 h-4" />
-                </span>
+                <div className="pt-4 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-medium">
+                  <span className="text-micro font-mono text-slate-500 uppercase">
+                    {tool.visualizationType.replace('-', ' ')}
+                  </span>
+                  <span className="text-accent flex items-center gap-1 font-semibold">
+                    Launch Workspace <ArrowRight className="w-4 h-4" />
+                  </span>
+                </div>
               </div>
             </div>
           );

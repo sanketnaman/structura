@@ -68,9 +68,9 @@ export const HomePage: React.FC<HomePageProps> = ({
               {/* Local Image Asset with proper SEO attributes & fallback */}
               <img
                 src="/images/construction/concrete-slab-construction.webp"
-                alt="Concrete slab construction showing length, width, and depth measurements"
-                width={600}
-                height={400}
+                alt="Crew pouring concrete over a reinforcing steel grid to form a structural slab"
+                width={900}
+                height={600}
                 loading="lazy"
                 onError={(e) => {
                   // Fallback visual container if image not yet generated
@@ -118,9 +118,9 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-transparent z-10" />
               <img
                 src="/images/construction/brick-masonry-wall.webp"
-                alt="Brick masonry wall showing coursing and mortar application"
-                width={600}
-                height={400}
+                alt="Red brick masonry wall with running bond coursing and mortar joints"
+                width={900}
+                height={600}
                 loading="lazy"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
@@ -167,9 +167,9 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-transparent z-10" />
               <img
                 src="/images/construction/interior-wall-painting.webp"
-                alt="Interior wall painting showing surface coating and roller application"
-                width={600}
-                height={400}
+                alt="Freshly painted interior wall beside paint cans and a roller"
+                width={900}
+                height={600}
                 loading="lazy"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';

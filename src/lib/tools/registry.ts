@@ -17,6 +17,8 @@ export interface ToolDefinition {
   implemented: boolean;
   phase: 1 | 2 | 3;
   visualizationType: '3d-slab' | '3d-wall' | '3d-room' | '3d-footing' | '3d-column' | 'none';
+  image?: string;
+  imageAlt?: string;
   keywords: string[];
   seoTitle: string;
   seoDescription: string;
@@ -37,6 +39,8 @@ export const TOOL_REGISTRY: ToolDefinition[] = [
     implemented: true,
     phase: 1,
     visualizationType: '3d-slab',
+    image: '/images/calculators/concrete-slab-calculator.webp',
+    imageAlt: 'Reinforcing steel grid and timber formwork prepared for a concrete slab pour',
     keywords: ['concrete slab calculator', 'concrete volume', 'cubic yards concrete', 'concrete bags', 'patio slab', 'driveway concrete'],
     seoTitle: 'Concrete Slab Calculator — 3D Volumetric Takeoff & Yards Estimator',
     seoDescription: 'Calculate concrete volume in cubic yards, cubic feet, and 80lb/60lb bags. Real-time 3D parametric slab visualization with trade waste allowance.',
@@ -54,6 +58,8 @@ export const TOOL_REGISTRY: ToolDefinition[] = [
     implemented: true,
     phase: 1,
     visualizationType: '3d-wall',
+    image: '/images/calculators/brick-mortar-calculator.webp',
+    imageAlt: 'Close-up of a red brick wall showing mortar joints between units',
     keywords: ['brick calculator', 'brick mortar calculator', 'bricks per square foot', 'mortar bags', 'brick wall estimator', 'masonry takeoff'],
     seoTitle: 'Brick & Mortar Calculator — 3D Masonry Wall & Brick Unit Estimator',
     seoDescription: 'Calculate brick quantities, Type N mortar bags, and wall area with interactive 3D coursing. Supports custom brick dimensions and wythe depths.',
@@ -71,6 +77,8 @@ export const TOOL_REGISTRY: ToolDefinition[] = [
     implemented: true,
     phase: 1,
     visualizationType: '3d-room',
+    image: '/images/calculators/interior-paint-calculator.webp',
+    imageAlt: 'Paint brushes and a roller resting in a paint tray',
     keywords: ['paint calculator', 'room paint estimator', 'wall paint gallons', 'drywall coverage', 'paint coats', 'interior paint takeoff'],
     seoTitle: 'Architectural Paint Calculator — 3D Cutaway Room & Gallon Estimator',
     seoDescription: 'Calculate paint coverage in gallons and 5-gal pails with door/window deductions and multi-coat planning. Interactive 3D room visualization.',

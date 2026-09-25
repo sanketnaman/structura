@@ -8,6 +8,7 @@ import {
 } from '../../../lib/calculators/quickCalculations';
 import type { UnitSystem } from '../../../types/layout';
 import { AdSlot } from '../../common/AdSlot';
+import { TechnicalDiagram } from '../../common/TechnicalDiagram';
 import {
   Box,
   Truck,
@@ -600,24 +601,37 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
         {/* Primary Metrics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Card 1: Primary Result - Concrete Required */}
-          <div className="p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border-2 border-accent dark:border-accent shadow-tech-card flex flex-col justify-between">
+          <div className="p-6 rounded-tech-lg bg-charcoal-900 text-white border-2 border-accent shadow-tech-elevated flex flex-col justify-between">
             <div>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Primary Order Quantity (With {waste}% Allowance)
-              </span>
-              <div className="text-display-lg font-bold text-slate-900 dark:text-white font-mono tabular-nums tracking-tight mt-2">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-micro font-mono uppercase tracking-wider text-accent font-bold">
+                  CONCRETE REQUIRED
+                </span>
+                <span className="text-micro font-mono px-2 py-0.5 rounded bg-accent/20 text-accent font-semibold">
+                  Primary Takeoff
+                </span>
+              </div>
+              <div className="text-display-lg font-bold text-white font-mono tabular-nums tracking-tight my-3">
                 {isMetric ? `${result.totalVolumeM3} m³` : `${result.totalCubicYards} yd³`}
               </div>
-              <div className="text-heading-sm font-semibold text-accent font-mono tabular-nums mt-1">
-                {isMetric ? `${Math.round(result.totalVolumeM3 * 1000)} Liters` : `${result.totalCuFt} ft³`}
+              <div className="space-y-1.5 pt-3 border-t border-charcoal-800 text-caption font-mono">
+                <div className="flex justify-between text-slate-300">
+                  <span>Base volume:</span>
+                  <span className="text-white font-semibold">{isMetric ? `${result.baseVolumeM3} m³` : `${result.baseVolumeYards} yd³`}</span>
+                </div>
+                <div className="flex justify-between text-slate-300">
+                  <span>Planning allowance:</span>
+                  <span className="text-accent font-semibold">{waste}% (+{isMetric ? `${result.wasteVolumeM3} m³` : `${result.wasteVolumeYards} yd³`})</span>
+                </div>
+                <div className="flex justify-between text-slate-300">
+                  <span>Ordering quantity:</span>
+                  <span className="text-white font-bold">{isMetric ? `${result.totalVolumeM3} m³` : `${result.totalCubicYards} yd³`}</span>
+                </div>
               </div>
-              <p className="text-caption text-slate-600 dark:text-slate-400 mt-2">
-                Final estimated volume to place with your ready-mix concrete supplier or bulk distributor.
-              </p>
             </div>
-            <div className="pt-4 mt-4 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-mono">
-              <span className="text-slate-500">Ready-Mix Deliveries:</span>
-              <span className="font-semibold text-slate-900 dark:text-white">
+            <div className="pt-4 mt-4 border-t border-charcoal-800 flex items-center justify-between text-caption font-mono">
+              <span className="text-slate-400">Ready-Mix Deliveries:</span>
+              <span className="font-semibold text-accent">
                 ~{result.truckLoads} Trucks (~9 yd³ drum)
               </span>
             </div>
@@ -676,6 +690,9 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
           </div>
         </div>
       </section>
+
+      {/* Technical Workflow Diagram */}
+      <TechnicalDiagram type="concrete" />
 
       {/* 4. CALCULATION BREAKDOWN & STEP-BY-STEP PROOF */}
       <section className="p-6 sm:p-8 rounded-tech-lg bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 space-y-6">

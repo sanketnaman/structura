@@ -5,6 +5,7 @@ import { calculatePaint } from '../../../lib/calculators/paint/calculator';
 import type { UnitSystem } from '../../../types/layout';
 import { formatNumber } from '../../../lib/calculators/common/math';
 import { AdSlot } from '../../common/AdSlot';
+import { TechnicalDiagram } from '../../common/TechnicalDiagram';
 import {
   PaintBucket,
   Copy,
@@ -586,6 +587,9 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
           </div>
         </div>
       </div>
+
+      {/* Technical Workflow Diagram */}
+      <TechnicalDiagram type="paint" />
 
       {/* 2. CALCULATION BREAKDOWN */}
       <section className="p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 shadow-tech-card space-y-4">

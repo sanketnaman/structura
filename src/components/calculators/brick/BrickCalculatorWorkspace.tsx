@@ -5,6 +5,7 @@ import { calculateBrick } from '../../../lib/calculators/brick/calculator';
 import type { UnitSystem } from '../../../types/layout';
 import { formatNumber } from '../../../lib/calculators/common/math';
 import { AdSlot } from '../../common/AdSlot';
+import { TechnicalDiagram } from '../../common/TechnicalDiagram';
 import {
   Layers,
   Copy,
@@ -591,6 +592,9 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
           </div>
         </div>
       </div>
+
+      {/* Technical Workflow Diagram */}
+      <TechnicalDiagram type="brick" />
 
       {/* 2. CALCULATION BREAKDOWN */}
       <section className="p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 shadow-tech-card space-y-4">

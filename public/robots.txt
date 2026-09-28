@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://structura.build/sitemap.xml
+Sitemap: https://mixtally.com/sitemap.xml

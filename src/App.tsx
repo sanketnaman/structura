@@ -82,25 +82,10 @@ function AppContent() {
   const activeView = getActiveViewFromPath(location.pathname);
   const seo = getRouteSEO(location.pathname);
 
-  const handleNavigate = (view: string) => {
-    let targetPath = '/';
-    if (view === 'overview' || view === 'home') targetPath = '/';
-    else if (view === 'calculators') targetPath = '/calculators';
-    else if (view === 'concrete' || view === 'concrete-slab-calculator') targetPath = '/calculators/concrete-slab-calculator';
-    else if (view === 'brick' || view === 'brick-mortar-calculator') targetPath = '/calculators/brick-mortar-calculator';
-    else if (view === 'paint' || view === 'paint-calculator') targetPath = '/calculators/paint-calculator';
-    else if (['guides', 'about', 'contact', 'privacy', 'terms', 'disclaimer', 'cookie-policy', 'advertising'].includes(view)) {
-      targetPath = `/${view}`;
-    } else {
-      targetPath = `/${view}`;
-    }
-
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.set('unit', unitSystem);
-    const search = searchParams.toString() ? `?${searchParams.toString()}` : '';
-    navigate(`${targetPath}${search}`);
+  // Scroll to top whenever the route path changes (internal Link/NavLink navigation)
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, [location.pathname]);
 
   const handleUnitSystemChange = (system: UnitSystem) => {
     setUnitSystem(system);
@@ -120,22 +105,16 @@ function AppContent() {
         noindex={seo.noindex}
       />
       <StructuredData pathname={location.pathname} />
-      <ErrorBoundary onNavigate={handleNavigate}>
+      <ErrorBoundary>
         <GlobalLayout
           activeView={activeView}
-          onNavigate={handleNavigate}
           unitSystem={unitSystem}
           onUnitSystemChange={handleUnitSystemChange}
         >
           <Routes>
             <Route
               path="/"
-              element={
-                <HomePage
-                  unitSystem={unitSystem}
-                  onNavigateToTool={handleNavigate}
-                />
-              }
+              element={<HomePage unitSystem={unitSystem} />}
             />
             <Route
               path="/calculators/concrete-slab-calculator"
@@ -143,7 +122,6 @@ function AppContent() {
                 <ConcreteCalculatorWorkspace
                   unitSystem={unitSystem}
                   onUnitSystemChange={handleUnitSystemChange}
-                  onNavigateToTool={handleNavigate}
                 />
               }
             />
@@ -153,7 +131,6 @@ function AppContent() {
                 <BrickCalculatorWorkspace
                   unitSystem={unitSystem}
                   onUnitSystemChange={handleUnitSystemChange}
-                  onNavigateToTool={handleNavigate}
                 />
               }
             />
@@ -163,50 +140,19 @@ function AppContent() {
                 <PaintCalculatorWorkspace
                   unitSystem={unitSystem}
                   onUnitSystemChange={handleUnitSystemChange}
-                  onNavigateToTool={handleNavigate}
                 />
               }
             />
-            <Route
-              path="/calculators"
-              element={<CalculatorsDirectoryPage onNavigateToTool={handleNavigate} />}
-            />
-            <Route
-              path="/guides"
-              element={<GuidesPage onNavigateToTool={handleNavigate} />}
-            />
-            <Route
-              path="/about"
-              element={<AboutPage onNavigate={handleNavigate} />}
-            />
-            <Route
-              path="/contact"
-              element={<ContactPage onNavigate={handleNavigate} />}
-            />
-            <Route
-              path="/privacy"
-              element={<PrivacyPage onNavigate={handleNavigate} />}
-            />
-            <Route
-              path="/terms"
-              element={<TermsPage onNavigate={handleNavigate} />}
-            />
-            <Route
-              path="/disclaimer"
-              element={<DisclaimerPage onNavigate={handleNavigate} />}
-            />
-            <Route
-              path="/cookie-policy"
-              element={<CookiePolicyPage onNavigate={handleNavigate} />}
-            />
-            <Route
-              path="/advertising"
-              element={<AdvertisingDisclosurePage onNavigate={handleNavigate} />}
-            />
-            <Route
-              path="*"
-              element={<Error404Page onNavigate={handleNavigate} />}
-            />
+            <Route path="/calculators" element={<CalculatorsDirectoryPage />} />
+            <Route path="/guides" element={<GuidesPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/disclaimer" element={<DisclaimerPage />} />
+            <Route path="/cookie-policy" element={<CookiePolicyPage />} />
+            <Route path="/advertising" element={<AdvertisingDisclosurePage />} />
+            <Route path="*" element={<Error404Page />} />
           </Routes>
         </GlobalLayout>
       </ErrorBoundary>

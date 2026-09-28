@@ -1,9 +1,11 @@
 import React, { useState, useId, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ConstructionScene } from '../../3d/ConstructionScene';
 import { RoomModel } from '../../3d/RoomModel';
 import { calculatePaint } from '../../../lib/calculators/paint/calculator';
 import type { UnitSystem } from '../../../types/layout';
 import { formatNumber } from '../../../lib/calculators/common/math';
+import { viewToPath } from '../../../lib/routes';
 import { AdSlot } from '../../common/AdSlot';
 import { TechnicalDiagram } from '../../common/TechnicalDiagram';
 import {
@@ -25,13 +27,11 @@ import {
 interface PaintCalculatorWorkspaceProps {
   unitSystem: UnitSystem;
   onUnitSystemChange: (system: UnitSystem) => void;
-  onNavigateToTool?: (toolSlug: string) => void;
 }
 
 export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> = ({
   unitSystem,
   onUnitSystemChange,
-  onNavigateToTool,
 }) => {
   const isMetric = unitSystem === 'metric';
 
@@ -106,7 +106,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
   const handleCopyEstimate = () => {
     const unitText = isMetric ? 'm' : 'ft';
     const summary = [
-      `STRUCTURA ARCHITECTURAL PAINT TAKEOFF`,
+      `MIXTALLY ARCHITECTURAL PAINT TAKEOFF`,
       `----------------------------------------`,
       `Room Dimensions: ${roomLength} ${unitText} L × ${roomWidth} ${unitText} W × ${wallHeight} ${unitText} Ceiling H`,
       `Wall Perimeter: ${result.perimeter} ${unitText}`,
@@ -120,7 +120,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
         ? `Estimated Paint Material Cost: $${result.estimatedCost.toFixed(2)} (@ $${parsedPrice.toFixed(2)}/${isMetric ? 'L' : 'gal'})`
         : null,
       `----------------------------------------`,
-      `Generated at ${new Date().toLocaleDateString()} via Structura Construction Technology`,
+      `Generated at ${new Date().toLocaleDateString()} via MixTally Construction Technology`,
     ]
       .filter(Boolean)
       .join('\n');
@@ -167,22 +167,20 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 border-b border-paper-300 dark:border-charcoal-750 pb-4">
         <div>
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-micro font-mono text-slate-500 mb-1">
-            <button
-              type="button"
-              onClick={() => onNavigateToTool?.('overview')}
+            <Link
+              to={viewToPath('overview')}
               className="hover:text-accent transition-colors flex items-center gap-1"
             >
               <Home className="w-3.5 h-3.5" />
               <span>Home</span>
-            </button>
+            </Link>
             <ChevronRight className="w-3 h-3" />
-            <button
-              type="button"
-              onClick={() => onNavigateToTool?.('calculators')}
+            <Link
+              to={viewToPath('calculators')}
               className="hover:text-accent transition-colors"
             >
               Calculators
-            </button>
+            </Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-slate-900 dark:text-white font-semibold" aria-current="page">Architectural Paint</span>
           </nav>
@@ -679,9 +677,8 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             Related Construction Calculators
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <button
-              type="button"
-              onClick={() => onNavigateToTool?.('concrete-slab-calculator')}
+            <Link
+              to={viewToPath('concrete-slab-calculator')}
               className="p-4 rounded-tech bg-white dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 hover:border-accent text-left transition-colors flex items-center justify-between"
             >
               <div>
@@ -693,10 +690,9 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                 </span>
               </div>
               <ArrowRight className="w-4 h-4 text-accent" />
-            </button>
-            <button
-              type="button"
-              onClick={() => onNavigateToTool?.('brick-mortar-calculator')}
+            </Link>
+            <Link
+              to={viewToPath('brick-mortar-calculator')}
               className="p-4 rounded-tech bg-white dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 hover:border-accent text-left transition-colors flex items-center justify-between"
             >
               <div>
@@ -708,7 +704,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                 </span>
               </div>
               <ArrowRight className="w-4 h-4 text-accent" />
-            </button>
+            </Link>
           </div>
         </div>
       </section>

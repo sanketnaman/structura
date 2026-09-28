@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { siteConfig } from '../../lib/config/site';
+import { BRICK_FAQ } from '../../lib/calculators/brick/faq';
 
 interface StructuredDataProps {
   pathname: string;
@@ -7,8 +8,8 @@ interface StructuredDataProps {
 
 export const StructuredData: React.FC<StructuredDataProps> = ({ pathname }) => {
   useEffect(() => {
-    // Remove any existing dynamic structura json-ld scripts on route change
-    const existingScripts = document.querySelectorAll('script[data-structura-ld="true"]');
+    // Remove any existing dynamic mixtally json-ld scripts on route change
+    const existingScripts = document.querySelectorAll('script[data-mixtally-ld="true"]');
     existingScripts.forEach((script) => script.remove());
 
     const schemas: object[] = [];
@@ -83,12 +84,12 @@ export const StructuredData: React.FC<StructuredDataProps> = ({ pathname }) => {
       schemas.push({
         '@context': 'https://schema.org',
         '@type': 'WebApplication',
-        name: 'Brick & Mortar Calculator',
+        name: 'Brick Calculator',
         url: `${siteConfig.domain}/calculators/brick-mortar-calculator`,
         applicationCategory: 'UtilitiesApplication',
         operatingSystem: 'Web',
         description:
-          'Estimate bricks, mortar, wall area, and material quantities with an interactive 3D brick wall calculator and transparent assumptions.',
+          'Estimate bricks needed for a wall with this brick calculator: brick quantity, mortar, wall dimensions in metric or imperial, plus interactive 3D visualization.',
       });
       schemas.push({
         '@context': 'https://schema.org',
@@ -96,8 +97,20 @@ export const StructuredData: React.FC<StructuredDataProps> = ({ pathname }) => {
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteConfig.domain}/` },
           { '@type': 'ListItem', position: 2, name: 'Calculators', item: `${siteConfig.domain}/calculators` },
-          { '@type': 'ListItem', position: 3, name: 'Brick & Mortar Calculator', item: `${siteConfig.domain}/calculators/brick-mortar-calculator` },
+          { '@type': 'ListItem', position: 3, name: 'Brick Calculator', item: `${siteConfig.domain}/calculators/brick-mortar-calculator` },
         ],
+      });
+      schemas.push({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: BRICK_FAQ.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
       });
     } else if (pathname === '/calculators/paint-calculator') {
       schemas.push({
@@ -124,13 +137,13 @@ export const StructuredData: React.FC<StructuredDataProps> = ({ pathname }) => {
     schemas.forEach((schemaObj) => {
       const script = document.createElement('script');
       script.type = 'application/ld+json';
-      script.setAttribute('data-structura-ld', 'true');
+      script.setAttribute('data-mixtally-ld', 'true');
       script.text = JSON.stringify(schemaObj);
       document.head.appendChild(script);
     });
 
     return () => {
-      const cleanupScripts = document.querySelectorAll('script[data-structura-ld="true"]');
+      const cleanupScripts = document.querySelectorAll('script[data-mixtally-ld="true"]');
       cleanupScripts.forEach((script) => script.remove());
     };
   }, [pathname]);

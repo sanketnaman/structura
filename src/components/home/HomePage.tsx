@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { HeroInteractiveScene } from './HeroInteractiveScene';
 import type { UnitSystem } from '../../types/layout';
 import { TOOL_REGISTRY, CATEGORIES } from '../../lib/tools/registry';
+import { viewToPath } from '../../lib/routes';
 import {
   Box,
   Layers,
@@ -20,13 +22,9 @@ import { AdSlot } from '../common/AdSlot';
 
 interface HomePageProps {
   unitSystem: UnitSystem;
-  onNavigateToTool: (toolSlug: string) => void;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({
-  unitSystem,
-  onNavigateToTool,
-}) => {
+export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
   const isMetric = unitSystem === 'metric';
 
   return (
@@ -34,7 +32,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 1. HERO SECTION: Editorial Dark/Graphite Product Showcase */}
       <HeroInteractiveScene
         unitSystem={unitSystem}
-        onLaunchCalculator={() => onNavigateToTool('concrete-slab-calculator')}
+        calculatorTo={viewToPath('concrete-slab-calculator')}
         onExploreTools={() => {
           const el = document.getElementById('production-calculators');
           el?.scrollIntoView({ behavior: 'smooth' });
@@ -100,14 +98,13 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
 
               <div className="pt-4 border-t border-paper-200 dark:border-charcoal-800">
-                <button
-                  type="button"
-                  onClick={() => onNavigateToTool('concrete-slab-calculator')}
+                <Link
+                  to={viewToPath('concrete-slab-calculator')}
                   className="w-full py-2.5 rounded-tech bg-paper-100 dark:bg-charcoal-800 text-slate-900 dark:text-white group-hover:bg-accent group-hover:text-white text-caption font-semibold transition-colors flex items-center justify-center gap-2"
                 >
                   <span>Open Concrete Workspace</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -149,14 +146,13 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
 
               <div className="pt-4 border-t border-paper-200 dark:border-charcoal-800">
-                <button
-                  type="button"
-                  onClick={() => onNavigateToTool('brick-mortar-calculator')}
+                <Link
+                  to={viewToPath('brick-mortar-calculator')}
                   className="w-full py-2.5 rounded-tech bg-paper-100 dark:bg-charcoal-800 text-slate-900 dark:text-white group-hover:bg-accent group-hover:text-white text-caption font-semibold transition-colors flex items-center justify-center gap-2"
                 >
                   <span>Open Brick Workspace</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -198,14 +194,13 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
 
               <div className="pt-4 border-t border-paper-200 dark:border-charcoal-800">
-                <button
-                  type="button"
-                  onClick={() => onNavigateToTool('paint-calculator')}
+                <Link
+                  to={viewToPath('paint-calculator')}
                   className="w-full py-2.5 rounded-tech bg-paper-100 dark:bg-charcoal-800 text-slate-900 dark:text-white group-hover:bg-accent group-hover:text-white text-caption font-semibold transition-colors flex items-center justify-center gap-2"
                 >
                   <span>Open Paint Workspace</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -257,14 +252,13 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
 
               <div className="pt-6 border-t border-[var(--production-card-divider)] mt-6">
-                <button
-                  type="button"
-                  onClick={() => onNavigateToTool(tool.slug)}
+                <Link
+                  to={viewToPath(tool.slug)}
                   className="w-full py-2.5 rounded-tech bg-charcoal-800 text-white group-hover:bg-accent group-hover:text-white text-caption font-semibold transition-colors flex items-center justify-center gap-2"
                 >
                   <span>Launch Calculator</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
               </div>
             </div>
           ))}
@@ -286,7 +280,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             See the calculation, not just the number.
           </h2>
           <p className="text-body text-slate-600 dark:text-slate-400 max-w-2xl mt-2">
-            STRUCTURA connects physical site dimensions directly to parametric 3D geometry and verified mathematical formulas to provide clear planning estimates.
+            MixTally connects physical site dimensions directly to parametric 3D geometry and verified mathematical formulas to provide clear planning estimates.
           </p>
         </div>
 

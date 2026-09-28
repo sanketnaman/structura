@@ -7,7 +7,6 @@ import type { ThemeMode, UnitSystem } from '../../types/layout';
 interface GlobalLayoutProps {
   children: React.ReactNode;
   activeView?: string;
-  onNavigate?: (view: string) => void;
   unitSystem?: UnitSystem;
   onUnitSystemChange?: (system: UnitSystem) => void;
 }
@@ -15,7 +14,6 @@ interface GlobalLayoutProps {
 export const GlobalLayout: React.FC<GlobalLayoutProps> = ({
   children,
   activeView = 'overview',
-  onNavigate = () => {},
   unitSystem: externalUnitSystem,
   onUnitSystemChange: externalOnUnitSystemChange,
 }) => {
@@ -60,7 +58,6 @@ export const GlobalLayout: React.FC<GlobalLayoutProps> = ({
         unitSystem={unitSystem}
         onUnitSystemChange={handleUnitSystemChange}
         activeView={activeView}
-        onNavigate={onNavigate}
       />
 
       {/* Main Content Workspace */}
@@ -71,10 +68,10 @@ export const GlobalLayout: React.FC<GlobalLayoutProps> = ({
       </main>
 
       {/* Comprehensive Architectural Trade & Legal Footer */}
-      <Footer onNavigate={onNavigate} />
+      <Footer />
 
       {/* Consent & Privacy Preferences Management */}
-      <ConsentBanner onNavigateToPolicy={(policy) => onNavigate(policy)} />
+      <ConsentBanner />
     </div>
   );
 };

@@ -1,11 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Compass, Box, Layers, Calculator, ShieldAlert, Users, Target } from 'lucide-react';
+import { viewToPath } from '../../lib/routes';
 
-interface AboutPageProps {
-  onNavigate?: (view: string) => void;
-}
-
-export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
+export const AboutPage: React.FC = () => {
   return (
     <article className="max-w-4xl mx-auto space-y-12 py-4 text-slate-800 dark:text-slate-200">
       {/* Header */}
@@ -15,11 +13,27 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           <span>About The Platform</span>
         </div>
         <h1 className="text-display sm:text-display-md font-bold text-slate-900 dark:text-white">
-          About STRUCTURA
+          About MixTally
         </h1>
         <p className="text-body text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          STRUCTURA is an open construction technology platform providing formula-based material quantity estimation paired with real-time interactive 3D spatial visualization.
+          MixTally is an open construction technology platform providing formula-based material quantity estimation paired with real-time interactive 3D spatial visualization.
         </p>
+      </div>
+
+      {/* Brand visual */}
+      <div className="relative h-56 sm:h-72 lg:h-80 rounded-tech-lg overflow-hidden border border-paper-300 dark:border-charcoal-750 bg-paper-200 dark:bg-charcoal-900 shadow-tech-card">
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/35 via-transparent to-transparent z-10" />
+        <img
+          src="/images/about/mixtally-construction-planning.webp"
+          alt="Site worker writing notes on a clipboard over construction drawings"
+          width={900}
+          height={600}
+          loading="lazy"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none';
+          }}
+          className="w-full h-full object-cover"
+        />
       </div>
 
       {/* The Problem We Solve */}
@@ -44,7 +58,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           <span>Why Interactive 3D Spatial Modeling Matters</span>
         </h2>
         <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-          By coupling numerical input fields directly to a parametric WebGL 3D model, STRUCTURA provides immediate visual feedback. If a user accidentally enters a 4-inch slab as 4.0 feet, the slab physically morphs into a monolithic cube in the viewport, catching the input error before any material orders are placed.
+          By coupling numerical input fields directly to a parametric WebGL 3D model, MixTally provides immediate visual feedback. If a user accidentally enters a 4-inch slab as 4.0 feet, the slab physically morphs into a monolithic cube in the viewport, catching the input error before any material orders are placed.
         </p>
       </section>
 
@@ -80,7 +94,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* Who Uses Structura */}
+      {/* Who Uses MixTally */}
       <section className="space-y-4">
         <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white">
           Who the Platform is Designed For
@@ -123,14 +137,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           <span>Platform Scope & Limitations</span>
         </h2>
         <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-          STRUCTURA provides mathematical estimates for budgeting and purchasing. We do not provide licensed structural engineering, load calculations, or stamped permit drawings. Consult a licensed civil engineer or architect for structural safety decisions. Review our full{' '}
-          <button
-            type="button"
-            onClick={() => onNavigate?.('disclaimer')}
-            className="text-accent underline font-medium"
+          MixTally provides mathematical estimates for budgeting and purchasing. We do not provide licensed structural engineering, load calculations, or stamped permit drawings. Consult a licensed civil engineer or architect for structural safety decisions. Review our full{' '}
+          <Link
+            to={viewToPath('disclaimer')}
+            className="inline-block text-accent underline font-medium"
           >
             Construction Disclaimer
-          </button>
+          </Link>
           .
         </p>
       </section>

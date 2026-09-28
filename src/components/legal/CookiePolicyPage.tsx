@@ -1,11 +1,7 @@
 import React from 'react';
 import { Cookie, Settings, ShieldCheck, Database } from 'lucide-react';
 
-interface CookiePolicyPageProps {
-  onNavigate?: (view: string) => void;
-}
-
-export const CookiePolicyPage: React.FC<CookiePolicyPageProps> = ({ onNavigate }) => {
+export const CookiePolicyPage: React.FC = () => {
   return (
     <article className="max-w-4xl mx-auto space-y-10 py-4 text-slate-800 dark:text-slate-200">
       <div className="border-b border-paper-300 dark:border-charcoal-750 pb-6 space-y-3">
@@ -32,11 +28,11 @@ export const CookiePolicyPage: React.FC<CookiePolicyPageProps> = ({ onNavigate }
 
       <section className="space-y-4">
         <h2 className="text-heading-md font-bold text-slate-900 dark:text-white">
-          2. How STRUCTURA Uses Local Storage
+          2. How MixTally Uses Local Storage
         </h2>
         <div className="space-y-3 text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
           <p>
-            Unlike heavy multi-tenant platforms, STRUCTURA operates primarily client-side. We utilize browser <code>localStorage</code> for the following essential operational purposes:
+            Unlike heavy multi-tenant platforms, MixTally operates primarily client-side. We utilize browser <code>localStorage</code> for the following essential operational purposes:
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">

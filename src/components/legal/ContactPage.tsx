@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { Mail, MessageSquare, CheckCircle, ShieldCheck } from 'lucide-react';
 
-interface ContactPageProps {
-  onNavigate?: (view: string) => void;
-}
-
-export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
+export const ContactPage: React.FC = () => {
   // Use configurable contact email from environment variable or standard platform address
   const contactEmail =
     (typeof import.meta !== 'undefined' && import.meta.env?.VITE_CONTACT_EMAIL) ||
-    'support@structura.build';
+    'support@mixtally.com';
 
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
@@ -19,7 +15,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
     e.preventDefault();
     // Provide a direct mailto flow so user message is reliably sent to the real address
     const mailtoUrl = `mailto:${contactEmail}?subject=${encodeURIComponent(
-      subject || 'STRUCTURA Inquiry'
+      subject || 'MixTally Inquiry'
     )}&body=${encodeURIComponent(message)}`;
     window.location.href = mailtoUrl;
     setSubmitted(true);
@@ -33,7 +29,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
           <span>Technical Support & Inquiries</span>
         </div>
         <h1 className="text-display sm:text-display-md font-bold text-slate-900 dark:text-white">
-          Contact STRUCTURA
+          Contact MixTally
         </h1>
         <p className="text-body text-slate-600 dark:text-slate-400 leading-relaxed">
           Questions regarding calculator formulas, bug reports, feature requests, or technical partnerships.

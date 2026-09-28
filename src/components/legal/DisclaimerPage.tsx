@@ -1,11 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { AlertTriangle, ShieldCheck, Scale, FileText } from 'lucide-react';
+import { viewToPath } from '../../lib/routes';
 
-interface DisclaimerPageProps {
-  onNavigate?: (view: string) => void;
-}
-
-export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onNavigate }) => {
+export const DisclaimerPage: React.FC = () => {
   return (
     <article className="max-w-4xl mx-auto space-y-10 py-4 text-slate-800 dark:text-slate-200">
       {/* Header */}
@@ -29,14 +27,14 @@ export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onNavigate }) =>
           <span>General Construction & Planning Estimates Notice</span>
         </div>
         <p className="text-caption text-slate-700 dark:text-slate-300 leading-relaxed">
-          STRUCTURA provides mathematical quantity and material estimates created solely for preliminary planning, purchasing logistics, and budgetary coordination. STRUCTURA does <strong>not</strong> provide licensed structural engineering, certified architectural specifications, stamped drawings, geotechnical foundation analysis, or building-code compliance certifications.
+          MixTally provides mathematical quantity and material estimates created solely for preliminary planning, purchasing logistics, and budgetary coordination. MixTally does <strong>not</strong> provide licensed structural engineering, certified architectural specifications, stamped drawings, geotechnical foundation analysis, or building-code compliance certifications.
         </p>
       </div>
 
       {/* Key Scope Limitations */}
       <section className="space-y-4">
         <h2 className="text-heading-md font-bold text-slate-900 dark:text-white">
-          1. What STRUCTURA Does Not Provide
+          1. What MixTally Does Not Provide
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-caption">
           <div className="p-4 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-2">
@@ -118,23 +116,21 @@ export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onNavigate }) =>
 
       {/* Related Legal Links */}
       <div className="pt-6 border-t border-paper-300 dark:border-charcoal-750 flex flex-wrap gap-4 text-micro font-mono text-accent">
-        <button
-          type="button"
-          onClick={() => onNavigate?.('terms')}
+        <Link
+          to={viewToPath('terms')}
           className="hover:underline flex items-center gap-1"
         >
           <FileText className="w-3.5 h-3.5" />
           <span>Terms of Use</span>
-        </button>
+        </Link>
         <span>·</span>
-        <button
-          type="button"
-          onClick={() => onNavigate?.('privacy')}
+        <Link
+          to={viewToPath('privacy')}
           className="hover:underline flex items-center gap-1"
         >
           <ShieldCheck className="w-3.5 h-3.5" />
           <span>Privacy Policy</span>
-        </button>
+        </Link>
       </div>
     </article>
   );

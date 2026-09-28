@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useId } from 'react';
+import { Link } from 'react-router-dom';
 import { ConstructionScene } from '../../3d/ConstructionScene';
 import { ConcreteSlab } from '../../3d/ConcreteSlab';
 import {
@@ -7,6 +8,7 @@ import {
   roundTo,
 } from '../../../lib/calculators/quickCalculations';
 import type { UnitSystem } from '../../../types/layout';
+import { viewToPath } from '../../../lib/routes';
 import { AdSlot } from '../../common/AdSlot';
 import { TechnicalDiagram } from '../../common/TechnicalDiagram';
 import {
@@ -31,7 +33,6 @@ import {
 interface ConcreteCalculatorWorkspaceProps {
   unitSystem: UnitSystem;
   onUnitSystemChange: (system: UnitSystem) => void;
-  onNavigateToTool?: (tool: string) => void;
 }
 
 type PresetType = 'walkway' | 'standard' | 'garage' | 'custom';
@@ -39,7 +40,6 @@ type PresetType = 'walkway' | 'standard' | 'garage' | 'custom';
 export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspaceProps> = ({
   unitSystem,
   onUnitSystemChange,
-  onNavigateToTool,
 }) => {
   const isMetric = unitSystem === 'metric';
 
@@ -153,7 +153,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
     const baseVolume = isMetric ? `${result.baseVolumeM3} m³` : `${result.baseVolumeCuFt} ft³ (${result.baseVolumeYards} yd³)`;
 
     const summary = [
-      `STRUCTURA CONCRETE SLAB TAKEOFF`,
+      `MIXTALLY CONCRETE SLAB TAKEOFF`,
       `----------------------------------------`,
       `Project Dimensions: ${length} ${unitText} × ${width} ${unitText} × ${thickText}`,
       `Base Volume: ${baseVolume}`,
@@ -165,7 +165,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
         ? `Estimated Material Cost: $${estimatedCost.toFixed(2)} (@ $${parsedPrice.toFixed(2)}/${isMetric ? 'm³' : 'yd³'})`
         : null,
       `----------------------------------------`,
-      `Generated at ${new Date().toLocaleDateString()} via Structura Construction Technology`,
+      `Generated at ${new Date().toLocaleDateString()} via MixTally Construction Technology`,
     ]
       .filter(Boolean)
       .join('\n');
@@ -213,22 +213,20 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
 
       {/* Breadcrumb Navigation */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-micro font-mono text-slate-500">
-        <button
-          type="button"
-          onClick={() => onNavigateToTool?.('overview')}
+        <Link
+          to={viewToPath('overview')}
           className="hover:text-accent flex items-center gap-1"
         >
           <Home className="w-3.5 h-3.5" />
           <span>Home</span>
-        </button>
+        </Link>
         <span>/</span>
-        <button
-          type="button"
-          onClick={() => onNavigateToTool?.('calculators')}
+        <Link
+          to={viewToPath('calculators')}
           className="hover:text-accent"
         >
           Calculators
-        </button>
+        </Link>
         <span>/</span>
         <span className="text-slate-900 dark:text-white font-semibold" aria-current="page">
           Concrete Slab Calculator
@@ -1020,56 +1018,52 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
         </section>
 
         {/* Section 7: Related Calculators */}
-        {onNavigateToTool && (
-          <section className="space-y-4 pt-4 border-t border-paper-300 dark:border-charcoal-750">
-            <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white">
-              Related Calculators
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <button
-                type="button"
-                onClick={() => onNavigateToTool('brick')}
-                className="p-4 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 hover:border-accent dark:hover:border-accent text-left transition-colors flex items-center justify-between group shadow-tech-subtle"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded bg-amber-50 dark:bg-amber-950/40 text-accent flex items-center justify-center">
-                    <Layers className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-body-sm font-semibold text-slate-900 dark:text-white block group-hover:text-accent transition-colors">
-                      Brick & Mortar Calculator
-                    </span>
-                    <span className="text-micro text-slate-500">
-                      Standard modular coursing and Type N mortar takeoffs
-                    </span>
-                  </div>
+        <section className="space-y-4 pt-4 border-t border-paper-300 dark:border-charcoal-750">
+          <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white">
+            Related Calculators
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link
+              to={viewToPath('brick-mortar-calculator')}
+              className="p-4 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 hover:border-accent dark:hover:border-accent text-left transition-colors flex items-center justify-between group shadow-tech-subtle"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded bg-amber-50 dark:bg-amber-950/40 text-accent flex items-center justify-center">
+                  <Layers className="w-4 h-4" />
                 </div>
-                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-accent transition-colors" />
-              </button>
+                <div>
+                  <span className="text-body-sm font-semibold text-slate-900 dark:text-white block group-hover:text-accent transition-colors">
+                    Brick & Mortar Calculator
+                  </span>
+                  <span className="text-micro text-slate-500">
+                    Standard modular coursing and Type N mortar takeoffs
+                  </span>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-accent transition-colors" />
+            </Link>
 
-              <button
-                type="button"
-                onClick={() => onNavigateToTool('paint')}
-                className="p-4 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 hover:border-accent dark:hover:border-accent text-left transition-colors flex items-center justify-between group shadow-tech-subtle"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded bg-amber-50 dark:bg-amber-950/40 text-accent flex items-center justify-center">
-                    <PaintBucket className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-body-sm font-semibold text-slate-900 dark:text-white block group-hover:text-accent transition-colors">
-                      Architectural Paint Calculator
-                    </span>
-                    <span className="text-micro text-slate-500">
-                      Multi-coat wall coverage and commercial packaging
-                    </span>
-                  </div>
+            <Link
+              to={viewToPath('paint-calculator')}
+              className="p-4 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 hover:border-accent dark:hover:border-accent text-left transition-colors flex items-center justify-between group shadow-tech-subtle"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded bg-amber-50 dark:bg-amber-950/40 text-accent flex items-center justify-center">
+                  <PaintBucket className="w-4 h-4" />
                 </div>
-                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-accent transition-colors" />
-              </button>
-            </div>
-          </section>
-        )}
+                <div>
+                  <span className="text-body-sm font-semibold text-slate-900 dark:text-white block group-hover:text-accent transition-colors">
+                    Architectural Paint Calculator
+                  </span>
+                  <span className="text-micro text-slate-500">
+                    Multi-coat wall coverage and commercial packaging
+                  </span>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-accent transition-colors" />
+            </Link>
+          </div>
+        </section>
       </article>
     </div>
   );

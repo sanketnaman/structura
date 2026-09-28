@@ -1,11 +1,7 @@
 import React from 'react';
 import { Scale, FileText, AlertCircle, ShieldAlert } from 'lucide-react';
 
-interface TermsPageProps {
-  onNavigate?: (view: string) => void;
-}
-
-export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
+export const TermsPage: React.FC = () => {
   return (
     <article className="max-w-4xl mx-auto space-y-10 py-4 text-slate-800 dark:text-slate-200">
       <div className="border-b border-paper-300 dark:border-charcoal-750 pb-6 space-y-3">
@@ -26,7 +22,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
           1. Agreement to Terms
         </h2>
         <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-          By accessing or using STRUCTURA, you agree to be bound by these Terms of Use and our Construction Disclaimer. If you disagree with any portion of these terms, your sole remedy is to cease using the platform.
+          By accessing or using MixTally, you agree to be bound by these Terms of Use and our Construction Disclaimer. If you disagree with any portion of these terms, your sole remedy is to cease using the platform.
         </p>
       </section>
 
@@ -36,7 +32,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
         </h2>
         <div className="p-4 rounded-tech bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 space-y-2 text-caption text-slate-700 dark:text-slate-300 leading-relaxed">
           <p>
-            The software, interactive calculators, 3D representations, and material estimations provided on STRUCTURA do not create a professional engineer-client or architect-client relationship. STRUCTURA is an informational calculation tool designed for preliminary logistical planning and purchasing estimates.
+            The software, interactive calculators, 3D representations, and material estimations provided on MixTally do not create a professional engineer-client or architect-client relationship. MixTally is an informational calculation tool designed for preliminary logistical planning and purchasing estimates.
           </p>
           <p>
             Users are strictly responsible for having critical construction specifications, load designs, foundation depths, and structural framing evaluated and stamped by a licensed professional engineer (PE) or registered architect in their jurisdiction.
@@ -63,7 +59,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
           4. Limitation of Liability
         </h2>
         <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-          To the maximum extent permitted by applicable law, STRUCTURA, its creators, and contributors shall not be liable for any direct, indirect, incidental, consequential, special, or exemplary damages—including but not limited to material shortages, overages, contractor delays, demolition costs, structural defects, or lost profits—arising out of or in connection with the use of this website.
+          To the maximum extent permitted by applicable law, MixTally, its creators, and contributors shall not be liable for any direct, indirect, incidental, consequential, special, or exemplary damages—including but not limited to material shortages, overages, contractor delays, demolition costs, structural defects, or lost profits—arising out of or in connection with the use of this website.
         </p>
       </section>
 
@@ -82,8 +78,8 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
         </h2>
         <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
           For legal inquiries, contact{' '}
-          <a href="mailto:support@structura.build" className="text-accent underline font-mono">
-            support@structura.build
+          <a href="mailto:support@mixtally.com" className="text-accent underline font-mono">
+            support@mixtally.com
           </a>
           .
         </p>

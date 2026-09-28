@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Cookie, X } from 'lucide-react';
+import { viewToPath } from '../../lib/routes';
 
-interface ConsentBannerProps {
-  onNavigateToPolicy?: (policy: 'privacy' | 'cookie-policy') => void;
-}
-
-export const ConsentBanner: React.FC<ConsentBannerProps> = ({ onNavigateToPolicy }) => {
+export const ConsentBanner: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
 
@@ -16,7 +14,7 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({ onNavigateToPolicy
   useEffect(() => {
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
-        const savedConsent = window.localStorage.getItem('structura_cookie_consent');
+        const savedConsent = window.localStorage.getItem('mixtally_cookie_consent');
         if (!savedConsent) {
           const timer = setTimeout(() => setIsVisible(true), 800);
           return () => clearTimeout(timer);
@@ -30,7 +28,7 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({ onNavigateToPolicy
   const saveToStorage = (data: object) => {
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
-        window.localStorage.setItem('structura_cookie_consent', JSON.stringify(data));
+        window.localStorage.setItem('mixtally_cookie_consent', JSON.stringify(data));
       }
     } catch {
       // Storage unavailable or blocked
@@ -95,7 +93,7 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({ onNavigateToPolicy
       </div>
 
       <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-        Structura uses essential local browser storage to retain calculator dimensions, unit toggles (Imperial/Metric), and dark mode. We may also use privacy-focused analytics and advertising partners to maintain our free engineering tools.
+        MixTally uses essential local browser storage to retain calculator dimensions, unit toggles (Imperial/Metric), and dark mode. We may also use privacy-focused analytics and advertising partners to maintain our free engineering tools.
       </p>
 
       {preferencesOpen ? (
@@ -148,21 +146,19 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({ onNavigateToPolicy
 
       <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-paper-200 dark:border-charcoal-800 text-caption">
         <div className="flex items-center gap-3 text-micro text-slate-500">
-          <button
-            type="button"
-            onClick={() => onNavigateToPolicy?.('privacy')}
-            className="hover:underline"
+          <Link
+            to={viewToPath('privacy')}
+            className="inline-block hover:underline"
           >
             Privacy Policy
-          </button>
+          </Link>
           <span>·</span>
-          <button
-            type="button"
-            onClick={() => onNavigateToPolicy?.('cookie-policy')}
-            className="hover:underline"
+          <Link
+            to={viewToPath('cookie-policy')}
+            className="inline-block hover:underline"
           >
             Cookie Policy
-          </button>
+          </Link>
         </div>
 
         <div className="flex items-center gap-2">

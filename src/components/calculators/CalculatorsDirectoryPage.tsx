@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { TOOL_REGISTRY, CATEGORIES } from '../../lib/tools/registry';
+import { viewToPath } from '../../lib/routes';
 import {
   Box,
   Layers,
@@ -11,13 +13,7 @@ import {
 } from 'lucide-react';
 import { AdSlot } from '../common/AdSlot';
 
-interface CalculatorsDirectoryPageProps {
-  onNavigateToTool: (toolSlug: string) => void;
-}
-
-export const CalculatorsDirectoryPage: React.FC<CalculatorsDirectoryPageProps> = ({
-  onNavigateToTool,
-}) => {
+export const CalculatorsDirectoryPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -105,10 +101,10 @@ export const CalculatorsDirectoryPage: React.FC<CalculatorsDirectoryPageProps> =
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredTools.map((tool) => {
           return (
-            <div
+            <Link
               key={tool.slug}
+              to={viewToPath(tool.slug)}
               className="group rounded-tech-lg overflow-hidden bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 hover:border-accent dark:hover:border-accent shadow-tech-card hover:-translate-y-0.5 cursor-pointer transition-all duration-200 flex flex-col justify-between"
-              onClick={() => onNavigateToTool(tool.slug)}
             >
               {tool.image && (
                 <div className="relative h-36 bg-paper-200 dark:bg-charcoal-900 overflow-hidden">
@@ -165,7 +161,7 @@ export const CalculatorsDirectoryPage: React.FC<CalculatorsDirectoryPageProps> =
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

@@ -61,8 +61,8 @@ export const TOOL_REGISTRY: ToolDefinition[] = [
     image: '/images/calculators/brick-mortar-calculator.webp',
     imageAlt: 'Close-up of a red brick wall showing mortar joints between units',
     keywords: ['brick calculator', 'brick mortar calculator', 'bricks per square foot', 'mortar bags', 'brick wall estimator', 'masonry takeoff'],
-    seoTitle: 'Brick & Mortar Calculator — 3D Masonry Wall & Brick Unit Estimator',
-    seoDescription: 'Calculate brick quantities, Type N mortar bags, and wall area with interactive 3D coursing. Supports custom brick dimensions and wythe depths.',
+    seoTitle: 'Brick Calculator — Bricks & Mortar Estimate',
+    seoDescription: 'Estimate bricks needed for a wall, mortar bags, and wall area with an interactive 3D wall view. Supports custom brick dimensions and metric or imperial units.',
     relatedToolSlugs: ['concrete-slab-calculator', 'tile-calculator', 'material-cost-calculator'],
   },
   {

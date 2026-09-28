@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ConstructionScene } from '../3d/ConstructionScene';
 import { ConcreteSlab } from '../3d/ConcreteSlab';
 import { calculateConcrete } from '../../lib/calculators/concrete/calculator';
@@ -8,13 +9,13 @@ import { ArrowRight, Sliders, Box, Compass } from 'lucide-react';
 
 interface HeroInteractiveSceneProps {
   unitSystem: UnitSystem;
-  onLaunchCalculator: () => void;
+  calculatorTo: string;
   onExploreTools: () => void;
 }
 
 export const HeroInteractiveScene: React.FC<HeroInteractiveSceneProps> = ({
   unitSystem,
-  onLaunchCalculator,
+  calculatorTo,
   onExploreTools,
 }) => {
   const isMetric = unitSystem === 'metric';
@@ -134,14 +135,13 @@ export const HeroInteractiveScene: React.FC<HeroInteractiveSceneProps> = ({
 
           {/* Action CTAs */}
           <div className="flex flex-wrap items-center gap-4 pt-2">
-            <button
-              type="button"
-              onClick={onLaunchCalculator}
+            <Link
+              to={calculatorTo}
               className="px-6 py-3.5 rounded-tech bg-accent text-white font-semibold text-body-sm hover:opacity-90 transition-all flex items-center gap-2 shadow-tech-elevated"
             >
               <span>Explore Calculators</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </Link>
             <button
               type="button"
               onClick={onExploreTools}

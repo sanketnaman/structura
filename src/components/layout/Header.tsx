@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Sun, Moon, Menu, X, Calculator, ChevronDown } from 'lucide-react';
+import { Link, NavLink } from 'react-router-dom';
+import { Sun, Moon, Menu, X, ChevronDown } from 'lucide-react';
 import type { ThemeMode, UnitSystem } from '../../types/layout';
+import { viewToPath } from '../../lib/routes';
 
 interface HeaderProps {
   theme: ThemeMode;
@@ -8,7 +10,6 @@ interface HeaderProps {
   unitSystem: UnitSystem;
   onUnitSystemChange: (system: UnitSystem) => void;
   activeView: string;
-  onNavigate: (view: string) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -17,7 +18,6 @@ export const Header: React.FC<HeaderProps> = ({
   unitSystem,
   onUnitSystemChange,
   activeView,
-  onNavigate,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [calcDropdownOpen, setCalcDropdownOpen] = useState(false);
@@ -30,8 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
   const isGuides = activeView === 'guides';
   const isAbout = activeView === 'about';
 
-  const handleNavClick = (view: string) => {
-    onNavigate(view);
+  const closeMenus = () => {
     setMobileMenuOpen(false);
     setCalcDropdownOpen(false);
   };
@@ -41,45 +40,50 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand / Wordmark */}
         <div className="flex items-center gap-6">
-          <button
-            type="button"
-            onClick={() => handleNavClick('overview')}
+          <Link
+            to={viewToPath('overview')}
+            onClick={closeMenus}
             className="text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded transition-opacity hover:opacity-85"
-            aria-label="Structura Homepage"
+            aria-label="MixTally Homepage"
           >
             <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-sans">
-              STRUCTURA
+              MixTally
             </span>
-          </button>
+          </Link>
 
           {/* Desktop Navigation Links */}
           <nav
             aria-label="Main Navigation"
             className="hidden md:flex items-center gap-6 text-body-sm font-medium text-slate-600 dark:text-slate-300"
           >
-            <button
-              type="button"
-              onClick={() => handleNavClick('overview')}
-              className={`transition-colors py-1 hover:text-slate-950 dark:hover:text-white ${
-                isHome ? 'text-accent dark:text-amber-400 font-semibold' : ''
-              }`}
+            <NavLink
+              to={viewToPath('overview')}
+              end
+              onClick={closeMenus}
+              className={() =>
+                `transition-colors py-1 hover:text-slate-950 dark:hover:text-white ${
+                  isHome ? 'text-accent dark:text-amber-400 font-semibold' : ''
+                }`
+              }
             >
               Overview
-            </button>
+            </NavLink>
 
             {/* Calculators Dropdown / Hub */}
             <div className="relative group">
-              <button
-                type="button"
-                onClick={() => handleNavClick('calculators')}
+              <NavLink
+                to={viewToPath('calculators')}
+                onClick={closeMenus}
                 onMouseEnter={() => setCalcDropdownOpen(true)}
-                className={`transition-colors py-1 hover:text-slate-950 dark:hover:text-white flex items-center gap-1 ${
-                  isCalculators ? 'text-accent dark:text-amber-400 font-semibold' : ''
-                }`}
+                className={() =>
+                  `transition-colors py-1 hover:text-slate-950 dark:hover:text-white flex items-center gap-1 ${
+                    isCalculators ? 'text-accent dark:text-amber-400 font-semibold' : ''
+                  }`
+                }
               >
                 <span>Calculators</span>
                 <ChevronDown className="w-3.5 h-3.5 opacity-70" />
-              </button>
+              </NavLink>
 
               {/* Flyout menu on hover */}
               <div
@@ -89,61 +93,65 @@ export const Header: React.FC<HeaderProps> = ({
                 }`}
               >
                 <div className="p-2 rounded-tech bg-white dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-700 shadow-xl space-y-1 text-caption">
-                  <button
-                    type="button"
-                    onClick={() => handleNavClick('calculators')}
-                    className="w-full text-left px-3 py-1.5 rounded-tech text-slate-900 dark:text-white hover:bg-paper-100 dark:hover:bg-charcoal-800 font-medium"
+                  <Link
+                    to={viewToPath('calculators')}
+                    onClick={closeMenus}
+                    className="block w-full text-left px-3 py-1.5 rounded-tech text-slate-900 dark:text-white hover:bg-paper-100 dark:hover:bg-charcoal-800 font-medium"
                   >
                     Directory (All Tools)
-                  </button>
+                  </Link>
                   <div className="h-px bg-paper-200 dark:bg-charcoal-800 my-1" />
-                  <button
-                    type="button"
-                    onClick={() => handleNavClick('concrete-slab-calculator')}
-                    className="w-full text-left px-3 py-1.5 rounded-tech text-slate-700 dark:text-slate-300 hover:bg-paper-100 dark:hover:bg-charcoal-800 flex items-center justify-between"
+                  <Link
+                    to={viewToPath('concrete-slab-calculator')}
+                    onClick={closeMenus}
+                    className="block w-full text-left px-3 py-1.5 rounded-tech text-slate-700 dark:text-slate-300 hover:bg-paper-100 dark:hover:bg-charcoal-800 flex items-center justify-between"
                   >
                     <span>Concrete Slab</span>
                     <span className="text-[10px] font-mono text-emerald-500 font-semibold">3D</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleNavClick('brick-mortar-calculator')}
-                    className="w-full text-left px-3 py-1.5 rounded-tech text-slate-700 dark:text-slate-300 hover:bg-paper-100 dark:hover:bg-charcoal-800 flex items-center justify-between"
+                  </Link>
+                  <Link
+                    to={viewToPath('brick-mortar-calculator')}
+                    onClick={closeMenus}
+                    className="block w-full text-left px-3 py-1.5 rounded-tech text-slate-700 dark:text-slate-300 hover:bg-paper-100 dark:hover:bg-charcoal-800 flex items-center justify-between"
                   >
                     <span>Brick & Mortar</span>
                     <span className="text-[10px] font-mono text-emerald-500 font-semibold">3D</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleNavClick('paint-calculator')}
-                    className="w-full text-left px-3 py-1.5 rounded-tech text-slate-700 dark:text-slate-300 hover:bg-paper-100 dark:hover:bg-charcoal-800 flex items-center justify-between"
+                  </Link>
+                  <Link
+                    to={viewToPath('paint-calculator')}
+                    onClick={closeMenus}
+                    className="block w-full text-left px-3 py-1.5 rounded-tech text-slate-700 dark:text-slate-300 hover:bg-paper-100 dark:hover:bg-charcoal-800 flex items-center justify-between"
                   >
                     <span>Architectural Paint</span>
                     <span className="text-[10px] font-mono text-emerald-500 font-semibold">3D</span>
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={() => handleNavClick('guides')}
-              className={`transition-colors py-1 hover:text-slate-950 dark:hover:text-white ${
-                isGuides ? 'text-accent dark:text-amber-400 font-semibold' : ''
-              }`}
+            <NavLink
+              to={viewToPath('guides')}
+              onClick={closeMenus}
+              className={() =>
+                `transition-colors py-1 hover:text-slate-950 dark:hover:text-white ${
+                  isGuides ? 'text-accent dark:text-amber-400 font-semibold' : ''
+                }`
+              }
             >
               Guides
-            </button>
+            </NavLink>
 
-            <button
-              type="button"
-              onClick={() => handleNavClick('about')}
-              className={`transition-colors py-1 hover:text-slate-950 dark:hover:text-white ${
-                isAbout ? 'text-accent dark:text-amber-400 font-semibold' : ''
-              }`}
+            <NavLink
+              to={viewToPath('about')}
+              onClick={closeMenus}
+              className={() =>
+                `transition-colors py-1 hover:text-slate-950 dark:hover:text-white ${
+                  isAbout ? 'text-accent dark:text-amber-400 font-semibold' : ''
+                }`
+              }
             >
               About
-            </button>
+            </NavLink>
           </nav>
         </div>
 
@@ -212,89 +220,114 @@ export const Header: React.FC<HeaderProps> = ({
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-paper-300 dark:border-charcoal-750 bg-white dark:bg-charcoal-900 px-4 py-5 space-y-4 animate-in fade-in slide-in-from-top-2">
           <div className="space-y-1 text-body-sm font-medium">
-            <button
-              type="button"
-              onClick={() => handleNavClick('overview')}
-              className={`w-full text-left px-3 py-2 rounded-tech ${
-                isHome ? 'bg-accent/10 text-accent font-semibold' : 'text-slate-700 dark:text-slate-300'
-              }`}
+            <NavLink
+              to={viewToPath('overview')}
+              end
+              onClick={closeMenus}
+              className={() =>
+                `block w-full text-left px-3 py-2 rounded-tech ${
+                  isHome ? 'bg-accent/10 text-accent font-semibold' : 'text-slate-700 dark:text-slate-300'
+                }`
+              }
             >
               Overview
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNavClick('calculators')}
-              className={`w-full text-left px-3 py-2 rounded-tech ${
-                activeView === 'calculators' ? 'bg-accent/10 text-accent font-semibold' : 'text-slate-700 dark:text-slate-300'
-              }`}
+            </NavLink>
+            <NavLink
+              to={viewToPath('calculators')}
+              onClick={closeMenus}
+              className={() =>
+                `block w-full text-left px-3 py-2 rounded-tech ${
+                  activeView === 'calculators'
+                    ? 'bg-accent/10 text-accent font-semibold'
+                    : 'text-slate-700 dark:text-slate-300'
+                }`
+              }
             >
               All Calculators Directory
-            </button>
+            </NavLink>
             <div className="pl-4 space-y-1 pt-1 border-l-2 border-paper-200 dark:border-charcoal-800 ml-3">
-              <button
-                type="button"
-                onClick={() => handleNavClick('concrete-slab-calculator')}
-                className={`w-full text-left px-2 py-1.5 text-caption rounded-tech ${
-                  isConcrete ? 'text-accent font-semibold' : 'text-slate-600 dark:text-slate-400'
-                }`}
+              <NavLink
+                to={viewToPath('concrete-slab-calculator')}
+                onClick={closeMenus}
+                className={() =>
+                  `block w-full text-left px-2 py-1.5 text-caption rounded-tech ${
+                    isConcrete ? 'text-accent font-semibold' : 'text-slate-600 dark:text-slate-400'
+                  }`
+                }
               >
                 Concrete Slab Calculator
-              </button>
-              <button
-                type="button"
-                onClick={() => handleNavClick('brick-mortar-calculator')}
-                className={`w-full text-left px-2 py-1.5 text-caption rounded-tech ${
-                  isBrick ? 'text-accent font-semibold' : 'text-slate-600 dark:text-slate-400'
-                }`}
+              </NavLink>
+              <NavLink
+                to={viewToPath('brick-mortar-calculator')}
+                onClick={closeMenus}
+                className={() =>
+                  `block w-full text-left px-2 py-1.5 text-caption rounded-tech ${
+                    isBrick ? 'text-accent font-semibold' : 'text-slate-600 dark:text-slate-400'
+                  }`
+                }
               >
                 Brick & Mortar Calculator
-              </button>
-              <button
-                type="button"
-                onClick={() => handleNavClick('paint-calculator')}
-                className={`w-full text-left px-2 py-1.5 text-caption rounded-tech ${
-                  isPaint ? 'text-accent font-semibold' : 'text-slate-600 dark:text-slate-400'
-                }`}
+              </NavLink>
+              <NavLink
+                to={viewToPath('paint-calculator')}
+                onClick={closeMenus}
+                className={() =>
+                  `block w-full text-left px-2 py-1.5 text-caption rounded-tech ${
+                    isPaint ? 'text-accent font-semibold' : 'text-slate-600 dark:text-slate-400'
+                  }`
+                }
               >
                 Architectural Paint Calculator
-              </button>
+              </NavLink>
             </div>
-            <button
-              type="button"
-              onClick={() => handleNavClick('guides')}
-              className={`w-full text-left px-3 py-2 rounded-tech ${
-                isGuides ? 'bg-accent/10 text-accent font-semibold' : 'text-slate-700 dark:text-slate-300'
-              }`}
+            <NavLink
+              to={viewToPath('guides')}
+              onClick={closeMenus}
+              className={() =>
+                `block w-full text-left px-3 py-2 rounded-tech ${
+                  isGuides ? 'bg-accent/10 text-accent font-semibold' : 'text-slate-700 dark:text-slate-300'
+                }`
+              }
             >
               Field Guides
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNavClick('about')}
-              className={`w-full text-left px-3 py-2 rounded-tech ${
-                isAbout ? 'bg-accent/10 text-accent font-semibold' : 'text-slate-700 dark:text-slate-300'
-              }`}
+            </NavLink>
+            <NavLink
+              to={viewToPath('about')}
+              onClick={closeMenus}
+              className={() =>
+                `block w-full text-left px-3 py-2 rounded-tech ${
+                  isAbout ? 'bg-accent/10 text-accent font-semibold' : 'text-slate-700 dark:text-slate-300'
+                }`
+              }
             >
-              About STRUCTURA
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNavClick('contact')}
-              className={`w-full text-left px-3 py-2 rounded-tech ${
-                activeView === 'contact' ? 'bg-accent/10 text-accent font-semibold' : 'text-slate-700 dark:text-slate-300'
-              }`}
+              About MixTally
+            </NavLink>
+            <NavLink
+              to={viewToPath('contact')}
+              onClick={closeMenus}
+              className={() =>
+                `block w-full text-left px-3 py-2 rounded-tech ${
+                  activeView === 'contact'
+                    ? 'bg-accent/10 text-accent font-semibold'
+                    : 'text-slate-700 dark:text-slate-300'
+                }`
+              }
             >
               Contact Support
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNavClick('disclaimer')}
-              className={`w-full text-left px-3 py-2 rounded-tech ${
-                activeView === 'disclaimer' ? 'bg-accent/10 text-accent font-semibold' : 'text-slate-700 dark:text-slate-300'
-              }`}
+            </NavLink>
+            <NavLink
+              to={viewToPath('disclaimer')}
+              onClick={closeMenus}
+              className={() =>
+                `block w-full text-left px-3 py-2 rounded-tech ${
+                  activeView === 'disclaimer'
+                    ? 'bg-accent/10 text-accent font-semibold'
+                    : 'text-slate-700 dark:text-slate-300'
+                }`
+              }
             >
               Construction Disclaimer
-            </button>
+            </NavLink>
           </div>
         </div>
       )}

@@ -27,9 +27,9 @@ export const seoRegistry: Record<string, RouteSEO> = {
     canonicalPath: '/calculators/concrete-slab-calculator',
   },
   '/calculators/brick-mortar-calculator': {
-    title: `Brick & Mortar Calculator — 3D Material Estimate | ${siteConfig.name}`,
+    title: `Brick Calculator — Bricks & Mortar Estimate | ${siteConfig.name}`,
     description:
-      'Estimate bricks, mortar, wall area, and material quantities with an interactive 3D brick wall calculator and transparent assumptions.',
+      'Estimate bricks needed for a wall with this brick calculator: brick quantity, mortar, wall dimensions in metric or imperial, plus interactive 3D visualization.',
     canonicalPath: '/calculators/brick-mortar-calculator',
   },
   '/calculators/paint-calculator': {
@@ -41,49 +41,49 @@ export const seoRegistry: Record<string, RouteSEO> = {
   '/guides': {
     title: `Construction Guides & Field References — ${siteConfig.name}`,
     description:
-      'Practical construction guides, material references, estimation concepts, and calculator guidance from STRUCTURA.',
+      `Practical construction guides, material references, estimation concepts, and calculator guidance from ${siteConfig.name}.`,
     canonicalPath: '/guides',
   },
   '/about': {
     title: `About ${siteConfig.name} — Construction Estimation Tools`,
     description:
-      'Learn about STRUCTURA, a construction estimation platform focused on transparent calculations, interactive 3D visualization, and practical planning tools.',
+      `Learn about ${siteConfig.name}, a construction estimation platform focused on transparent calculations, interactive 3D visualization, and practical planning tools.`,
     canonicalPath: '/about',
   },
   '/contact': {
     title: `Contact ${siteConfig.name} — Support & Feedback`,
     description:
-      'Contact STRUCTURA for support, feedback, calculator questions, and website-related inquiries.',
+      `Contact ${siteConfig.name} for support, feedback, calculator questions, and website-related inquiries.`,
     canonicalPath: '/contact',
   },
   '/privacy': {
     title: `Privacy Policy — ${siteConfig.name}`,
     description:
-      'Read the STRUCTURA Privacy Policy covering website usage, calculator data, cookies, analytics, advertising, and privacy practices.',
+      `Read the ${siteConfig.name} Privacy Policy covering website usage, calculator data, cookies, analytics, advertising, and privacy practices.`,
     canonicalPath: '/privacy',
   },
   '/terms': {
     title: `Terms of Use — ${siteConfig.name}`,
     description:
-      'Review the Terms of Use governing access to and use of STRUCTURA construction calculators and website services.',
+      `Review the Terms of Use governing access to and use of ${siteConfig.name} construction calculators and website services.`,
     canonicalPath: '/terms',
   },
   '/disclaimer': {
     title: `Construction Disclaimer — ${siteConfig.name}`,
     description:
-      'Important information about STRUCTURA calculations, assumptions, estimates, and limitations. Review before relying on calculator results.',
+      `Important information about ${siteConfig.name} calculations, assumptions, estimates, and limitations. Review before relying on calculator results.`,
     canonicalPath: '/disclaimer',
   },
   '/cookie-policy': {
     title: `Cookie Policy — ${siteConfig.name}`,
     description:
-      'Learn how STRUCTURA uses cookies and similar technologies on the website.',
+      `Learn how ${siteConfig.name} uses cookies and similar technologies on the website.`,
     canonicalPath: '/cookie-policy',
   },
   '/advertising': {
     title: `Advertising Disclosure — ${siteConfig.name}`,
     description:
-      'Learn how advertising may appear on STRUCTURA and how advertising relationships are disclosed.',
+      `Learn how advertising may appear on ${siteConfig.name} and how advertising relationships are disclosed.`,
     canonicalPath: '/advertising',
   },
   '404': {

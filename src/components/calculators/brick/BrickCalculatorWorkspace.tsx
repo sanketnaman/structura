@@ -1,9 +1,12 @@
 import React, { useState, useId, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ConstructionScene } from '../../3d/ConstructionScene';
 import { BrickWall } from '../../3d/BrickWall';
 import { calculateBrick } from '../../../lib/calculators/brick/calculator';
 import type { UnitSystem } from '../../../types/layout';
 import { formatNumber } from '../../../lib/calculators/common/math';
+import { viewToPath } from '../../../lib/routes';
+import { BRICK_FAQ } from '../../../lib/calculators/brick/faq';
 import { AdSlot } from '../../common/AdSlot';
 import { TechnicalDiagram } from '../../common/TechnicalDiagram';
 import {
@@ -26,13 +29,11 @@ import {
 interface BrickCalculatorWorkspaceProps {
   unitSystem: UnitSystem;
   onUnitSystemChange: (system: UnitSystem) => void;
-  onNavigateToTool?: (toolSlug: string) => void;
 }
 
 export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> = ({
   unitSystem,
   onUnitSystemChange,
-  onNavigateToTool,
 }) => {
   const isMetric = unitSystem === 'metric';
 
@@ -124,7 +125,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
   const handleCopyEstimate = () => {
     const unitText = isMetric ? 'm' : 'ft';
     const summary = [
-      `STRUCTURA BRICK & MORTAR TAKEOFF`,
+      `MIXTALLY BRICK & MORTAR TAKEOFF`,
       `----------------------------------------`,
       `Wall Dimensions: ${wallLength} ${unitText} L × ${wallHeight} ${unitText} H`,
       `Wall Face Area: ${result.wallArea} ${isMetric ? 'm²' : 'sq ft'} (${wythes === 2 ? 'Double Wythe' : 'Single Wythe'})`,
@@ -136,7 +137,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
         ? `Estimated Brick Material Cost: $${result.estimatedCost.toFixed(2)} (@ $${parsedPrice.toFixed(2)}/brick)`
         : null,
       `----------------------------------------`,
-      `Generated at ${new Date().toLocaleDateString()} via Structura Construction Technology`,
+      `Generated at ${new Date().toLocaleDateString()} via MixTally Construction Technology`,
     ]
       .filter(Boolean)
       .join('\n');
@@ -181,30 +182,30 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 border-b border-paper-300 dark:border-charcoal-750 pb-4">
         <div>
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-micro font-mono text-slate-500 mb-1">
-            <button
-              type="button"
-              onClick={() => onNavigateToTool?.('overview')}
+            <Link
+              to={viewToPath('overview')}
               className="hover:text-accent transition-colors flex items-center gap-1"
             >
               <Home className="w-3.5 h-3.5" />
               <span>Home</span>
-            </button>
+            </Link>
             <ChevronRight className="w-3 h-3" />
-            <button
-              type="button"
-              onClick={() => onNavigateToTool?.('calculators')}
+            <Link
+              to={viewToPath('calculators')}
               className="hover:text-accent transition-colors"
             >
               Calculators
-            </button>
+            </Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-slate-900 dark:text-white font-semibold" aria-current="page">Brick & Mortar</span>
+            <span className="text-slate-900 dark:text-white font-semibold" aria-current="page">Brick Calculator</span>
           </nav>
           <h1 className="text-display font-bold text-slate-900 dark:text-white tracking-tight">
-            Brick & Mortar Calculator
+            Brick Calculator
           </h1>
           <p className="text-body-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
-            Calculate facing brick counts, bed joint mortar volume, and Type N bag allowances with real-time 3D masonry wall coursing and dynamic dimensional verification.
+            Estimate bricks required, wall area, mortar allowance, and optional brick material cost for single or
+            double wythe walls. Enter metric or imperial dimensions and review an interactive 3D masonry wall
+            visualization before you order materials.
           </p>
         </div>
 
@@ -492,13 +493,13 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             <div className="flex items-center justify-between text-micro text-slate-500 font-mono px-1">
               <span className="text-slate-700 dark:text-slate-300 font-medium flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                Live 3D Masonry Inspector
+                Interactive 3D Masonry Wall Visualization
               </span>
               <span>Arbitrary Aspect Scale · Orbit 360°</span>
             </div>
 
             <ConstructionScene
-              title="3D Masonry Wall Inspector"
+              title="3D Masonry Wall Visualization"
               className="w-full h-[400px] sm:h-[480px] lg:h-[500px]"
               cameraPosition={[6.0, 4.0, 7.5]}
             >
@@ -647,34 +648,261 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
       {/* Non-intrusive AdSlot */}
       <AdSlot slotId="brick-calc-mid-ad" />
 
-      {/* 3. SEO-STRUCTURED ARCHITECTURAL GUIDE */}
+      {/* 3. SEO-STRUCTURED MASONRY GUIDE */}
       <section className="space-y-8 pt-4 border-t border-paper-300 dark:border-charcoal-750 text-body-sm leading-relaxed text-slate-600 dark:text-slate-400">
-        <div className="space-y-3">
-          <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white tracking-tight">
-            How to Calculate Bricks and Mortar for Masonry Construction
-          </h2>
+        <div className="space-y-3 max-w-3xl">
           <p>
-            Accurate brick estimation requires calculating the gross wall surface area, dividing by the modular brick face including bed and head mortar joints, and accounting for wythe depth. Standard U.S. modular bricks measure 7⅝" long by 2¼" high by 3⅝" deep. When laid with a standard ⅜" mortar joint, each modular brick occupies an effective wall face of 8" × 2⅝", yielding approximately 6.85 bricks per square foot of single-wythe wall.
+            This brick calculator estimates how many bricks you need for a wall from wall length, wall height, brick
+            dimensions, mortar joint thickness, wythe count, and waste allowance. Wall dimensions and allowances are
+            entered directly, while brick dimensions and joint thickness are loaded from the brick preset you choose.
+            From those values it reports wall face area, a mortar allowance for planning, and an optional brick material
+            cost, alongside an interactive 3D masonry wall visualization. Metric and imperial dimensions are supported
+            throughout, and every result updates as you change an input.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* How many bricks do I need */}
+        <div className="space-y-3">
+          <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white tracking-tight">
+            How Many Bricks Do I Need for a Wall?
+          </h2>
+          <p>
+            A brick takeoff for a wall follows the same five steps whether you work them out by hand or use the
+            calculator above:
+          </p>
+          <ol className="space-y-2 list-decimal list-inside marker:text-accent marker:font-semibold">
+            <li>
+              <strong className="text-slate-900 dark:text-white font-semibold">Calculate the wall face area</strong> by
+              multiplying wall length by wall height.
+            </li>
+            <li>
+              <strong className="text-slate-900 dark:text-white font-semibold">Determine the effective brick face
+              area</strong> by adding mortar joint thickness to the brick length and brick height, then multiplying the
+              two results.
+            </li>
+            <li>
+              <strong className="text-slate-900 dark:text-white font-semibold">Divide the wall area by the effective
+              brick face area</strong> to get the base brick quantity.
+            </li>
+            <li>
+              <strong className="text-slate-900 dark:text-white font-semibold">Multiply for additional wythes</strong> —
+              a double-wythe wall needs twice the bricks of a single-wythe wall with the same face area.
+            </li>
+            <li>
+              <strong className="text-slate-900 dark:text-white font-semibold">Add a waste allowance</strong> for cuts,
+              breakage, and handling to reach the number of bricks to order.
+            </li>
+          </ol>
+        </div>
+
+        {/* Methodology */}
+        <div className="space-y-5">
+          <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white tracking-tight">
+            How to Calculate Bricks for a Wall
+          </h2>
+          <p>
+            The formulas below are the same ones this calculator runs. They produce a planning estimate from the
+            dimensions you enter, using the wall face area, effective brick area, base bricks, waste bricks, and total
+            bricks terminology shown in the calculation breakdown.
+          </p>
+
           <div className="space-y-2">
             <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-              Single Wythe vs. Double Wythe
+              Step 1: Calculate Wall Area
             </h3>
+            <div className="p-4 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 font-mono text-caption text-slate-800 dark:text-slate-200 space-y-1">
+              <p>wall face area = wall length × wall height</p>
+              <p className="text-slate-500 dark:text-slate-400">
+                example: 20 ft × 8 ft = 160 sq ft (metric: m × m = m²)
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
+              Step 2: Account for Brick Dimensions and Mortar Joints
+            </h3>
+            <div className="p-4 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 font-mono text-caption text-slate-800 dark:text-slate-200 space-y-1">
+              <p>effective brick length = brick length + mortar joint thickness</p>
+              <p>effective brick height = brick height + mortar joint thickness</p>
+              <p>effective brick area = effective brick length × effective brick height</p>
+              <p>bricks per unit area = 1 ÷ effective brick area</p>
+            </div>
             <p>
-              A single wythe (also termed a single skin or half-brick leaf) is one brick thick (nominally 4 inches / 10 cm). It is common in residential veneer siding over timber framing. Double wythe construction consists of two parallel brick leaves bonded together (nominally 8 inches / 20 cm), providing structural gravity load-bearing strength or perimeter fire barrier containment.
+              A modular brick (7⅝ in × 2¼ in) laid with a ⅜ in joint covers an effective face of 8 in × 2⅝ in, which
+              is about 6.86 bricks per square foot. In metric units the modular preset (194 mm × 57 mm) with a 10 mm
+              joint covers 204 mm × 67 mm, or roughly 70 bricks per square metre.
             </p>
           </div>
 
           <div className="space-y-2">
             <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-              Mortar Bag Rules of Thumb
+              Step 3: Calculate Base Brick Quantity
             </h3>
-            <p>
-              One 80 lb (36 kg) bag of pre-mixed Type N masonry cement typically bonds between 120 and 140 standard modular facing bricks when laid with standard ⅜" (10 mm) concave joints. For structural below-grade retaining walls, ASTM C270 Type S mortar is specified for elevated compressive bonding.
+            <div className="p-4 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 font-mono text-caption text-slate-800 dark:text-slate-200 space-y-1">
+              <p>single-wythe bricks = wall face area × bricks per square foot (rounded)</p>
+              <p>base bricks = single-wythe bricks × number of wythes</p>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
+              Step 4: Add Waste Allowance
+            </h3>
+            <div className="p-4 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 font-mono text-caption text-slate-800 dark:text-slate-200 space-y-1">
+              <p>waste bricks = base bricks × waste percentage, rounded up</p>
+              <p>total bricks = base bricks + waste bricks</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Worked Example */}
+        <div className="space-y-4">
+          <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white tracking-tight">
+            Brick Calculator Worked Example
+          </h2>
+          <p className="italic">
+            Illustrative example only — it shows how one set of inputs flows through the calculation above. Your own
+            result depends on your dimensions, joint thickness, wythe count, and waste allowance, so treat it as a
+            planning estimate rather than a fixed answer for every wall.
+          </p>
+          <div className="p-5 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 shadow-tech-subtle space-y-3">
+            <div className="flex items-center justify-between border-b border-paper-200 dark:border-charcoal-800 pb-2">
+              <span className="text-micro font-mono uppercase tracking-wider text-accent font-semibold">
+                Inputs
+              </span>
+              <span className="text-micro font-mono text-slate-500">
+                Imperial · single wythe · 10% waste
+              </span>
+            </div>
+            <ul className="space-y-1.5 font-mono text-caption text-slate-700 dark:text-slate-300">
+              <li>Wall length: 20 ft · Wall height: 8 ft</li>
+              <li>Brick: standard modular · Mortar joint: ⅜ in</li>
+            </ul>
+            <div className="pt-2 border-t border-paper-200 dark:border-charcoal-800 space-y-1.5 font-mono text-caption text-slate-700 dark:text-slate-300">
+              <p>
+                Wall area: <span className="text-slate-900 dark:text-white font-bold">20 × 8 = 160 sq ft</span>
+              </p>
+              <p>
+                Effective brick face: <span className="text-slate-900 dark:text-white font-bold">8 in × 2⅝ in</span>
+              </p>
+              <p>
+                Bricks per square foot: <span className="text-slate-900 dark:text-white font-bold">approximately 6.86</span>
+              </p>
+              <p>
+                Base brick quantity: <span className="text-slate-900 dark:text-white font-bold">approximately 1,097 bricks</span>
+              </p>
+              <p>
+                10% waste: <span className="text-accent font-bold">approximately 110 bricks</span>
+              </p>
+              <p>
+                Total: <span className="text-accent font-bold">approximately 1,207 bricks</span>
+              </p>
+              <p>
+                Mortar (planning assumption): <span className="text-slate-900 dark:text-white font-bold">10 × 80 lb Type N bags</span>
+              </p>
+            </div>
+            <p className="text-micro text-slate-500 pt-1">
+              Rounding the rate to 6.86 bricks per square foot first gives roughly 1,098 base bricks — a single brick
+              difference from the unrounded rate this calculator uses.
             </p>
+          </div>
+        </div>
+
+        {/* Mortar */}
+        <div className="space-y-3">
+          <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white tracking-tight">
+            How Much Mortar Do I Need?
+          </h2>
+          <p>
+            The calculator converts your total brick count into 80 lb bags of pre-mixed Type N mortar using a planning
+            assumption of approximately <strong className="text-slate-900 dark:text-white font-semibold">130 modular
+            bricks per bag</strong>, and shows the approximate dry mix volume alongside the bag count. This is a
+            planning assumption used by this tool, not a universal construction standard.
+          </p>
+          <p>
+            Actual mortar requirements vary with brick dimensions, joint thickness, wall construction, workmanship, and
+            product yield. The mortar quantity displayed here is an estimate for planning purposes, so confirm coverage
+            on the product you intend to buy and keep a margin on hand for site conditions.
+          </p>
+        </div>
+
+        {/* Wythe */}
+        <div className="space-y-3">
+          <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white tracking-tight">
+            Single Wythe vs. Double Wythe
+          </h2>
+          <p>
+            A <strong className="text-slate-900 dark:text-white font-semibold">single wythe</strong> is one layer
+            (also called a leaf or skin) of brick — the thickness of a single course laid face to face. A{" "}
+            <strong className="text-slate-900 dark:text-white font-semibold">double wythe</strong> is two layers of
+            brick placed together, so two leaves are built for every square foot of wall face.
+          </p>
+          <p>
+            The calculator multiplies the base brick quantity by the selected wythe count, so choosing two wythes
+            roughly doubles the bricks and the mortar estimate for the same wall area. Select the option that matches
+            the wall you are planning; the tool reports material quantities only and does not evaluate whether a
+            particular wall is structurally adequate or code-compliant.
+          </p>
+        </div>
+
+        {/* Sizes & joints */}
+        <div className="space-y-3">
+          <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white tracking-tight">
+            Brick Sizes and Mortar Joints
+          </h2>
+          <p>
+            The calculator offers three brick presets — <strong className="text-slate-900 dark:text-white font-semibold">Modular</strong>,{" "}
+            <strong className="text-slate-900 dark:text-white font-semibold">Queen</strong>, and{" "}
+            <strong className="text-slate-900 dark:text-white font-semibold">King</strong>. Each preset loads a
+            matching brick length and brick height plus a default mortar joint thickness, in metric (mm) or imperial
+            (in) units depending on the unit control, so switching presets changes the effective brick face and the
+            resulting brick count.
+          </p>
+          <p>
+            Mortar joint thickness is part of the effective brick face, so it directly affects the estimated brick
+            quantity. A thicker joint increases the area each brick covers and lowers the count per unit of wall; a
+            thinner joint does the opposite. The joint thickness in use is shown beneath the 3D wall and in the
+            calculation breakdown, together with the bricks per unit area it produces.
+          </p>
+        </div>
+
+        {/* Bond */}
+        <div className="space-y-3">
+          <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white tracking-tight">
+            Brick Bond Considerations
+          </h2>
+          <p>
+            The pattern bricks are laid in is called the bond. Common examples include{" "}
+            <strong className="text-slate-900 dark:text-white font-semibold">stretcher bond</strong> (every course
+            runs with stretchers and half-bond offsets),{" "}
+            <strong className="text-slate-900 dark:text-white font-semibold">English bond</strong> (alternating
+            courses of stretchers and headers), and{" "}
+            <strong className="text-slate-900 dark:text-white font-semibold">Flemish bond</strong> (stretchers and
+            headers alternating within each course).
+          </p>
+          <p>
+            Bond and layout can affect cuts, detailing, and material usage at corners, openings, and coursing changes.
+            This calculator estimates quantity primarily from wall dimensions, brick dimensions, mortar joint
+            thickness, and wythe count, plus the waste allowance you select — it does not model a specific bond
+            pattern, and no bond selector has been added to the tool.
+          </p>
+        </div>
+
+        {/* FAQ */}
+        <div className="space-y-5">
+          <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white tracking-tight">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-5">
+            {BRICK_FAQ.map((item) => (
+              <div key={item.question} className="space-y-1.5">
+                <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
+                  {item.question}
+                </h3>
+                <p>{item.answer}</p>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -684,9 +912,8 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             Related Construction Calculators
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <button
-              type="button"
-              onClick={() => onNavigateToTool?.('concrete-slab-calculator')}
+            <Link
+              to={viewToPath('concrete-slab-calculator')}
               className="p-4 rounded-tech bg-white dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 hover:border-accent text-left transition-colors flex items-center justify-between"
             >
               <div>
@@ -698,10 +925,9 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                 </span>
               </div>
               <ArrowRight className="w-4 h-4 text-accent" />
-            </button>
-            <button
-              type="button"
-              onClick={() => onNavigateToTool?.('paint-calculator')}
+            </Link>
+            <Link
+              to={viewToPath('paint-calculator')}
               className="p-4 rounded-tech bg-white dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 hover:border-accent text-left transition-colors flex items-center justify-between"
             >
               <div>
@@ -713,7 +939,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                 </span>
               </div>
               <ArrowRight className="w-4 h-4 text-accent" />
-            </button>
+            </Link>
           </div>
         </div>
       </section>

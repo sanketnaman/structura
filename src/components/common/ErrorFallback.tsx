@@ -1,16 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { AlertOctagon, RotateCcw, Home } from 'lucide-react';
+import { viewToPath } from '../../lib/routes';
 
 interface ErrorFallbackProps {
   error?: Error;
   resetErrorBoundary?: () => void;
-  onNavigate?: (view: string) => void;
 }
 
 export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
   error,
   resetErrorBoundary,
-  onNavigate,
 }) => {
   return (
     <div className="max-w-2xl mx-auto py-16 text-center space-y-6">
@@ -48,20 +48,13 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
           </button>
         )}
 
-        <button
-          type="button"
-          onClick={() => {
-            if (onNavigate) {
-              onNavigate('overview');
-            } else {
-              window.location.href = '/';
-            }
-          }}
+        <Link
+          to={viewToPath('overview')}
           className="px-4 py-2 rounded-tech border border-paper-300 dark:border-charcoal-700 bg-white dark:bg-charcoal-850 text-slate-800 dark:text-slate-200 text-caption font-medium hover:bg-paper-100 dark:hover:bg-charcoal-800 transition-colors flex items-center gap-2"
         >
           <Home className="w-4 h-4" />
           <span>Return Home</span>
-        </button>
+        </Link>
       </div>
     </div>
   );

@@ -1,11 +1,7 @@
 import React from 'react';
 import { DollarSign, ShieldCheck, Info, ExternalLink } from 'lucide-react';
 
-interface AdvertisingDisclosurePageProps {
-  onNavigate?: (view: string) => void;
-}
-
-export const AdvertisingDisclosurePage: React.FC<AdvertisingDisclosurePageProps> = ({ onNavigate }) => {
+export const AdvertisingDisclosurePage: React.FC = () => {
   return (
     <article className="max-w-4xl mx-auto space-y-10 py-4 text-slate-800 dark:text-slate-200">
       <div className="border-b border-paper-300 dark:border-charcoal-750 pb-6 space-y-3">
@@ -26,7 +22,7 @@ export const AdvertisingDisclosurePage: React.FC<AdvertisingDisclosurePageProps>
           1. Why We Display Advertisements
         </h2>
         <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-          STRUCTURA provides professional-grade 3D construction calculators, material takeoffs, and engineering reference tools free of charge to contractors, architects, students, and homebuilders worldwide. To offset ongoing cloud hosting, GPU WebGL rendering bandwidth, and domain infrastructure expenses, STRUCTURA may display advertisements served by third-party advertising partners, such as Google AdSense.
+          MixTally provides professional-grade 3D construction calculators, material takeoffs, and engineering reference tools free of charge to contractors, architects, students, and homebuilders worldwide. To offset ongoing cloud hosting, GPU WebGL rendering bandwidth, and domain infrastructure expenses, MixTally may display advertisements served by third-party advertising partners, such as Google AdSense.
         </p>
       </section>
 

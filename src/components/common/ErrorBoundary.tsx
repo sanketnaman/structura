@@ -3,7 +3,6 @@ import { ErrorFallback } from './ErrorFallback';
 
 interface Props {
   children: ReactNode;
-  onNavigate?: (view: string) => void;
 }
 
 interface State {
@@ -24,7 +23,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: unknown, errorInfo: ErrorInfo) {
-    console.error('STRUCTURA Uncaught Error:', error, errorInfo);
+    console.error('MixTally Uncaught Error:', error, errorInfo);
   }
 
   public resetErrorBoundary = () => {
@@ -37,7 +36,6 @@ export class ErrorBoundary extends Component<Props, State> {
         <ErrorFallback
           error={this.state.error}
           resetErrorBoundary={this.resetErrorBoundary}
-          onNavigate={this.props.onNavigate}
         />
       );
     }

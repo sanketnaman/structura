@@ -1,11 +1,7 @@
 import React from 'react';
 import { ShieldCheck, Lock, Eye, Server, Globe } from 'lucide-react';
 
-interface PrivacyPageProps {
-  onNavigate?: (view: string) => void;
-}
-
-export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
+export const PrivacyPage: React.FC = () => {
   return (
     <article className="max-w-4xl mx-auto space-y-10 py-4 text-slate-800 dark:text-slate-200">
       <div className="border-b border-paper-300 dark:border-charcoal-750 pb-6 space-y-3">
@@ -26,7 +22,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
           1. Overview & Commitment
         </h2>
         <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-          STRUCTURA ("we", "our", or "the Platform") respects your privacy. This Privacy Policy discloses what information is processed when you visit our website, utilize our interactive calculators, or communicate with us.
+          MixTally ("we", "our", or "the Platform") respects your privacy. This Privacy Policy discloses what information is processed when you visit our website, utilize our interactive calculators, or communicate with us.
         </p>
       </section>
 
@@ -56,7 +52,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
         </h2>
         <div className="p-4 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 text-caption text-slate-600 dark:text-slate-400 space-y-2 leading-relaxed">
           <p>
-            STRUCTURA may partner with third-party advertising vendors, including Google AdSense, to display non-intrusive advertisements that support the hosting of free construction engineering tools.
+            MixTally may partner with third-party advertising vendors, including Google AdSense, to display non-intrusive advertisements that support the hosting of free construction engineering tools.
           </p>
           <p>
             Google and third-party vendors use cookies to serve ads based on prior visits to this website or other sites on the Internet. Google's use of advertising cookies enables it and its partners to serve ads to users based on their visits to websites.
@@ -73,7 +69,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
         </h2>
         <div className="space-y-3 text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
           <p>
-            Depending on your geographic jurisdiction (such as the European Economic Area, UK, or California), you may have statutory rights regarding your personal information, including the right to request access, rectification, erasure, or restriction of processing. Because STRUCTURA does not maintain user accounts or persistent identifiable profiles, we do not sell or share personal data.
+            Depending on your geographic jurisdiction (such as the European Economic Area, UK, or California), you may have statutory rights regarding your personal information, including the right to request access, rectification, erasure, or restriction of processing. Because MixTally does not maintain user accounts or persistent identifiable profiles, we do not sell or share personal data.
           </p>
         </div>
       </section>
@@ -94,10 +90,10 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
         <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
           For privacy inquiries or data rights requests, please contact our privacy compliance team via email at{' '}
           <a
-            href="mailto:support@structura.build"
+            href="mailto:support@mixtally.com"
             className="text-accent underline font-mono"
           >
-            support@structura.build
+            support@mixtally.com
           </a>
           .
         </p>

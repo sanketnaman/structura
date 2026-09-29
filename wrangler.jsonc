@@ -1,0 +1,12 @@
+{
+  // Cloudflare Workers Static Assets — Vite React SPA
+  // Build: npm run build  →  ./dist
+  // Deploy: npm run deploy
+  "name": "mixtally",
+  "compatibility_date": "2026-09-28",
+  "assets": {
+    "directory": "./dist",
+    // Serves index.html for any unmatched path so React Router owns the routes.
+    "not_found_handling": "single-page-application"
+  }
+}

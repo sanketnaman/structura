@@ -6,3 +6,8 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Cloudflare Wrangler — local state and secrets must never be committed
+.wrangler/
+.dev.vars
+.dev.vars.*

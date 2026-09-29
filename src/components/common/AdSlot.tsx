@@ -9,13 +9,13 @@ interface AdSlotProps {
 
 /**
  * AdSlot Component
- * 
+ *
  * Complies with Google AdSense Policies:
- * - Stable, reserved height preventing Layout Shifts (CLS)
+ * - Renders nothing unless live AdSense is configured via environment variables
+ * - Stable, reserved height preventing Layout Shifts (CLS) once an ad is live
  * - Clear, non-deceptive boundary distinctly labeled "ADVERTISEMENT"
  * - Does not overlap interactive controls, forms, or 3D viewports
  * - Configurable via VITE_ADSENSE_CLIENT_ID / VITE_ENABLE_ADS
- * - Development fallback clearly marks placeholder space without fake mock ads
  */
 export const AdSlot: React.FC<AdSlotProps> = ({
   slotId,
@@ -26,6 +26,11 @@ export const AdSlot: React.FC<AdSlotProps> = ({
   // Check if live AdSense is enabled via environment variables
   const isAdsEnabled = typeof import.meta !== 'undefined' && import.meta.env?.VITE_ENABLE_ADS === 'true';
   const publisherId = typeof import.meta !== 'undefined' && import.meta.env?.VITE_ADSENSE_CLIENT_ID;
+
+  // No ad configured: render nothing (no placeholder card, no empty gap)
+  if (!isAdsEnabled || !publisherId) {
+    return null;
+  }
 
   // Reserved height classes based on standard IAB sizes to eliminate CLS
   const formatClasses = {
@@ -45,27 +50,14 @@ export const AdSlot: React.FC<AdSlotProps> = ({
         {label}
       </span>
 
-      {isAdsEnabled && publisherId ? (
-        // When production AdSense is active
-        <ins
-          className="adsbygoogle block w-full"
-          style={{ display: 'block' }}
-          data-ad-client={publisherId}
-          data-ad-slot={slotId || '0000000000'}
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        />
-      ) : (
-        // Non-deceptive reserved placeholder during evaluation / local development
-        <div className="w-full flex-1 flex flex-col items-center justify-center text-center p-4">
-          <p className="text-micro font-mono text-slate-400 dark:text-slate-500">
-            Reserved Advertising Space
-          </p>
-          <p className="text-[11px] text-slate-400/80 max-w-sm mt-1">
-            Display spaces are kept non-intrusive and separate from calculator inputs and 3D visual geometry.
-          </p>
-        </div>
-      )}
+      <ins
+        className="adsbygoogle block w-full"
+        style={{ display: 'block' }}
+        data-ad-client={publisherId}
+        data-ad-slot={slotId || '0000000000'}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { HeroInteractiveScene } from './HeroInteractiveScene';
 import type { UnitSystem } from '../../types/layout';
 import { TOOL_REGISTRY, CATEGORIES } from '../../lib/tools/registry';
-import { viewToPath } from '../../lib/routes';
+import { useViewToPath } from '../../lib/routes';
 import {
   Box,
   Layers,
@@ -19,6 +19,8 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { AdSlot } from '../common/AdSlot';
+import { useLocale } from '../../lib/i18n/context';
+import { useToolText } from '../../lib/i18n/toolText';
 
 interface HomePageProps {
   unitSystem: UnitSystem;
@@ -26,6 +28,9 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
   const isMetric = unitSystem === 'metric';
+  const { t } = useLocale();
+  const viewToPath = useViewToPath();
+  const toolText = useToolText();
 
   return (
     <div className="space-y-24 pb-12">
@@ -45,15 +50,15 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
           <div>
             <div className="flex items-center gap-2 text-micro font-mono text-accent uppercase tracking-wider mb-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-              <span>Architectural Ecosystem</span>
+              <span>{t('home.categoriesEyebrow1')}</span>
               <span aria-hidden="true">·</span>
-              <span>Trade Categories</span>
+              <span>{t('home.categoriesEyebrow2')}</span>
             </div>
             <h2 className="text-display sm:text-display-lg font-bold tracking-tight text-slate-900 dark:text-white">
-              Tools for the way you build.
+              {t('home.categoriesTitle')}
             </h2>
             <p className="text-body text-slate-600 dark:text-slate-400 max-w-2xl mt-2">
-              Precision calculation workspaces built specifically for structural concrete, masonry coursing, and architectural surface coatings.
+              {t('home.categoriesBody')}
             </p>
           </div>
         </div>
@@ -66,7 +71,7 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
               {/* Local Image Asset with proper SEO attributes & fallback */}
               <img
                 src="/images/construction/concrete-slab-construction.webp"
-                alt="Crew pouring concrete over a reinforcing steel grid to form a structural slab"
+                alt={t('home.concreteAlt')}
                 width={900}
                 height={600}
                 loading="lazy"
@@ -81,19 +86,19 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
               </div>
               <div className="absolute bottom-3 left-4 right-4 z-20 flex items-center justify-between">
                 <span className="text-micro font-mono uppercase px-2.5 py-1 rounded bg-accent/90 text-white font-semibold">
-                  Structural Concrete
+                  {t('home.concreteBadge')}
                 </span>
-                <span className="text-micro font-mono text-slate-300">Active Workspace</span>
+                <span className="text-micro font-mono text-slate-300">{t('home.activeWorkspace')}</span>
               </div>
             </div>
 
             <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
               <div className="space-y-2">
                 <h3 className="text-heading-md font-bold text-slate-900 dark:text-white group-hover:text-accent transition-colors">
-                  Concrete Slab & Volume
+                  {t('home.concreteTitle')}
                 </h3>
                 <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Calculate cubic yards, ready-mix truckloads, and 80lb/60lb pre-mix bags with subgrade gravel allowances and expansion joint calculations.
+                  {t('home.concreteBody')}
                 </p>
               </div>
 
@@ -102,7 +107,7 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
                   to={viewToPath('concrete-slab-calculator')}
                   className="w-full py-2.5 rounded-tech bg-paper-100 dark:bg-charcoal-800 text-slate-900 dark:text-white group-hover:bg-accent group-hover:text-white text-caption font-semibold transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>Open Concrete Workspace</span>
+                  <span>{t('home.openConcrete')}</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -115,7 +120,7 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-transparent z-10" />
               <img
                 src="/images/construction/brick-masonry-wall.webp"
-                alt="Red brick masonry wall with running bond coursing and mortar joints"
+                alt={t('home.masonryAlt')}
                 width={900}
                 height={600}
                 loading="lazy"
@@ -129,19 +134,19 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
               </div>
               <div className="absolute bottom-3 left-4 right-4 z-20 flex items-center justify-between">
                 <span className="text-micro font-mono uppercase px-2.5 py-1 rounded bg-accent/90 text-white font-semibold">
-                  Masonry & Walls
+                  {t('home.masonryBadge')}
                 </span>
-                <span className="text-micro font-mono text-slate-300">Active Workspace</span>
+                <span className="text-micro font-mono text-slate-300">{t('home.activeWorkspace')}</span>
               </div>
             </div>
 
             <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
               <div className="space-y-2">
                 <h3 className="text-heading-md font-bold text-slate-900 dark:text-white group-hover:text-accent transition-colors">
-                  Brick & Mortar Estimator
+                  {t('home.masonryTitle')}
                 </h3>
                 <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Compute facing bricks and Type N mortar bag quantities with live running-bond masonry coursing across Modular, Queen, and King sizes.
+                  {t('home.masonryBody')}
                 </p>
               </div>
 
@@ -150,7 +155,7 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
                   to={viewToPath('brick-mortar-calculator')}
                   className="w-full py-2.5 rounded-tech bg-paper-100 dark:bg-charcoal-800 text-slate-900 dark:text-white group-hover:bg-accent group-hover:text-white text-caption font-semibold transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>Open Brick Workspace</span>
+                  <span>{t('home.openBrick')}</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -163,7 +168,7 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-transparent z-10" />
               <img
                 src="/images/construction/interior-wall-painting.webp"
-                alt="Freshly painted interior wall beside paint cans and a roller"
+                alt={t('home.paintAlt')}
                 width={900}
                 height={600}
                 loading="lazy"
@@ -177,19 +182,19 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
               </div>
               <div className="absolute bottom-3 left-4 right-4 z-20 flex items-center justify-between">
                 <span className="text-micro font-mono uppercase px-2.5 py-1 rounded bg-accent/90 text-white font-semibold">
-                  Surfaces & Coatings
+                  {t('home.paintBadge')}
                 </span>
-                <span className="text-micro font-mono text-slate-300">Active Workspace</span>
+                <span className="text-micro font-mono text-slate-300">{t('home.activeWorkspace')}</span>
               </div>
             </div>
 
             <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
               <div className="space-y-2">
                 <h3 className="text-heading-md font-bold text-slate-900 dark:text-white group-hover:text-accent transition-colors">
-                  Architectural Paint Estimator
+                  {t('home.paintTitle')}
                 </h3>
                 <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Calculate required gallons and 5-gal commercial pails with door and window deductions, multi-coat coverage, and a 3D room cutaway.
+                  {t('home.paintBody')}
                 </p>
               </div>
 
@@ -198,7 +203,7 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
                   to={viewToPath('paint-calculator')}
                   className="w-full py-2.5 rounded-tech bg-paper-100 dark:bg-charcoal-800 text-slate-900 dark:text-white group-hover:bg-accent group-hover:text-white text-caption font-semibold transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>Open Paint Workspace</span>
+                  <span>{t('home.openPaint')}</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -212,21 +217,21 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[var(--production-divider)] pb-6">
           <div>
             <div className="flex items-center gap-2 text-micro font-mono uppercase tracking-wider mb-2 text-[var(--production-eyebrow)]">
-              <span>Production Suite</span>
+              <span>{t('home.productionEyebrow1')}</span>
               <span aria-hidden="true">·</span>
-              <span>Active Calculators</span>
+              <span>{t('home.productionEyebrow2')}</span>
             </div>
             <h2 className="text-heading-lg sm:text-display font-bold">
-              Production 3D Construction Calculators
+              {t('home.productionTitle')}
             </h2>
             <p className="text-caption text-[var(--production-body)] max-w-xl mt-2">
-              Interactive 3D spatial models paired with rigorous mathematical formulas and instant copy/print takeoffs.
+              {t('home.productionBody')}
             </p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {TOOL_REGISTRY.filter((t) => t.implemented).map((tool) => (
+          {TOOL_REGISTRY.filter((entry) => entry.implemented).map((tool) => (
             <div
               key={tool.slug}
               className="p-6 rounded-tech bg-[var(--production-card)] border border-[var(--production-card-border)] hover:border-accent transition-all duration-200 flex flex-col justify-between group"
@@ -243,10 +248,10 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
                 </div>
                 <div>
                   <h3 className="text-heading-md font-bold text-[var(--production-card-heading)] group-hover:text-accent transition-colors">
-                    {tool.name}
+                    {toolText(tool.slug, 'name', tool.name)}
                   </h3>
                   <p className="text-caption text-[var(--production-card-body)] mt-2 line-clamp-3">
-                    {tool.description}
+                    {toolText(tool.slug, 'description', tool.description)}
                   </p>
                 </div>
               </div>
@@ -256,7 +261,7 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
                   to={viewToPath(tool.slug)}
                   className="w-full py-2.5 rounded-tech bg-charcoal-800 text-white group-hover:bg-accent group-hover:text-white text-caption font-semibold transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>Launch Calculator</span>
+                  <span>{t('home.launchCalculator')}</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -272,68 +277,68 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
       <section className="space-y-8">
         <div className="border-b border-paper-300 dark:border-charcoal-750 pb-6">
           <div className="flex items-center gap-2 text-micro font-mono text-accent uppercase tracking-wider mb-2">
-            <span>Engineering Workflow</span>
+            <span>{t('home.workflowEyebrow1')}</span>
             <span aria-hidden="true">·</span>
-            <span>Transparent Calculation Pipeline</span>
+            <span>{t('home.workflowEyebrow2')}</span>
           </div>
           <h2 className="text-display font-bold text-slate-900 dark:text-white">
-            See the calculation, not just the number.
+            {t('home.workflowTitle')}
           </h2>
           <p className="text-body text-slate-600 dark:text-slate-400 max-w-2xl mt-2">
-            MixTally connects physical site dimensions directly to parametric 3D geometry and verified mathematical formulas to provide clear planning estimates.
+            {t('home.workflowBody')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-micro font-mono text-accent font-bold">01. DIMENSIONS</span>
+              <span className="text-micro font-mono text-accent font-bold">{t('home.step1Label')}</span>
               <Ruler className="w-4 h-4 text-slate-400" />
             </div>
             <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-              Field Measurements
+              {t('home.step1Title')}
             </h3>
             <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-              Enter real measurements in Imperial or Metric. Arbitrary decimal values are accepted with instant bounds validation.
+              {t('home.step1Body')}
             </p>
           </div>
 
           <div className="p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-micro font-mono text-accent font-bold">02. 3D SPATIAL MODEL</span>
+              <span className="text-micro font-mono text-accent font-bold">{t('home.step2Label')}</span>
               <Maximize2 className="w-4 h-4 text-slate-400" />
             </div>
             <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-              Parametric Visualization
+              {t('home.step2Title')}
             </h3>
             <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-              Mesh coordinates dynamically scale along X, Y, and Z axes. Dimension callouts visually verify proportions.
+              {t('home.step2Body')}
             </p>
           </div>
 
           <div className="p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-micro font-mono text-accent font-bold">03. FORMULA ENGINE</span>
+              <span className="text-micro font-mono text-accent font-bold">{t('home.step3Label')}</span>
               <Calculator className="w-4 h-4 text-slate-400" />
             </div>
             <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-              Volume & Waste Math
+              {t('home.step3Title')}
             </h3>
             <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-              Standard geometric equations combined with configurable trade allowances for subgrade dips and cutting waste.
+              {t('home.step3Body')}
             </p>
           </div>
 
           <div className="p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-micro font-mono text-accent font-bold">04. ORDER TAKEOFF</span>
+              <span className="text-micro font-mono text-accent font-bold">{t('home.step4Label')}</span>
               <Truck className="w-4 h-4 text-slate-400" />
             </div>
             <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-              Purchasing Units
+              {t('home.step4Title')}
             </h3>
             <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-              Volumes translate immediately into real commercial units: ready-mix truckloads, pre-mix bags, or commercial pails.
+              {t('home.step4Body')}
             </p>
           </div>
         </div>
@@ -344,50 +349,50 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem }) => {
         <div className="border-b border-paper-200 dark:border-charcoal-800 pb-6">
           <div className="flex items-center gap-2 text-micro font-mono text-accent uppercase tracking-wider mb-2">
             <HelpCircle className="w-4 h-4" />
-            <span>Field Knowledge Base</span>
+            <span>{t('home.faqEyebrow')}</span>
           </div>
           <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white">
-            Practical Construction Takeoff Principles
+            {t('home.faqTitle')}
           </h2>
           <p className="text-caption text-slate-600 dark:text-slate-400 max-w-2xl mt-1">
-            Frequently asked questions about subgrade deflection, waste factors, mortar allowances, and opening deductions.
+            {t('home.faqBody')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-caption">
           <div className="space-y-2 p-5 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750">
             <h3 className="text-body-sm font-semibold text-slate-900 dark:text-white">
-              Why must an ordering allowance be added to concrete slabs?
+              {t('home.faq1Question')}
             </h3>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-              Excavated subgrades are rarely laser-level. Minor dips and depressions of even 1/2 inch across a 20×20 ft patio increase concrete consumption by nearly 0.6 cubic yards. Wooden formwork also flexes slightly outward under wet hydrostatic pressure. Adding 5% to 10% ordering margin prevents cold joints caused by short-pour emergencies.
+              {t('home.faq1Answer')}
             </p>
           </div>
 
           <div className="space-y-2 p-5 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750">
             <h3 className="text-body-sm font-semibold text-slate-900 dark:text-white">
-              How many modular bricks are needed per square foot of wall?
+              {t('home.faq2Question')}
             </h3>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-              Standard modular facing bricks (7-5/8" × 2-1/4" × 3-5/8") with a standard 3/8" bed and head joint yield an effective coursing face of 8" × 2-2/3". This mathematically equates to approximately 6.75 to 7.0 bricks per square foot of single-wythe wall area.
+              {t('home.faq2Answer')}
             </p>
           </div>
 
           <div className="space-y-2 p-5 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750">
             <h3 className="text-body-sm font-semibold text-slate-900 dark:text-white">
-              When should openings be deducted in paint estimation?
+              {t('home.faq3Question')}
             </h3>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-              Standard interior passage doors typically measure ~21 sq ft (2.0 m²) and standard residential windows occupy ~15 sq ft (1.4 m²). Deducting major openings prevents substantial paint over-purchasing on multi-room projects.
+              {t('home.faq3Answer')}
             </p>
           </div>
 
           <div className="space-y-2 p-5 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750">
             <h3 className="text-body-sm font-semibold text-slate-900 dark:text-white">
-              How do bag yields compare to delivered ready-mix trucks?
+              {t('home.faq4Question')}
             </h3>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-              One cubic yard contains 27 cubic feet. A standard 80 lb pre-mix concrete bag yields approximately 0.60 cubic feet, meaning it requires 45 bags of 80 lb concrete (or 60 bags of 60 lb concrete) to make one cubic yard. For pours over 2 cubic yards, delivered ready-mix trucks are typically more economical.
+              {t('home.faq4Answer')}
             </p>
           </div>
         </div>

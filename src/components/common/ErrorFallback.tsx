@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AlertOctagon, RotateCcw, Home } from 'lucide-react';
-import { viewToPath } from '../../lib/routes';
+import { useViewToPath } from '../../lib/routes';
+import { useLocale } from '../../lib/i18n/context';
 
 interface ErrorFallbackProps {
   error?: Error;
@@ -12,6 +13,9 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
   error,
   resetErrorBoundary,
 }) => {
+  const { t } = useLocale();
+  const viewToPath = useViewToPath();
+
   return (
     <div className="max-w-2xl mx-auto py-16 text-center space-y-6">
       <div className="w-16 h-16 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center mx-auto border border-red-500/20">
@@ -20,13 +24,13 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
 
       <div className="space-y-2">
         <span className="text-micro font-mono text-red-500 uppercase tracking-wider">
-          Runtime Exception Caught
+          {t('error.eyebrow')}
         </span>
         <h1 className="text-display sm:text-display-md font-bold text-slate-900 dark:text-white">
-          Calculation Engine Halted
+          {t('error.title')}
         </h1>
         <p className="text-caption sm:text-body text-slate-600 dark:text-slate-400 max-w-md mx-auto leading-relaxed">
-          An unexpected error occurred during state recalculation or 3D geometry initialization. Your browser has safely caught the exception.
+          {t('error.body')}
         </p>
       </div>
 
@@ -44,7 +48,7 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
             className="px-4 py-2 rounded-tech bg-accent text-white text-caption font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
           >
             <RotateCcw className="w-4 h-4" />
-            <span>Retry Calculation</span>
+            <span>{t('error.retry')}</span>
           </button>
         )}
 
@@ -53,7 +57,7 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
           className="px-4 py-2 rounded-tech border border-paper-300 dark:border-charcoal-700 bg-white dark:bg-charcoal-850 text-slate-800 dark:text-slate-200 text-caption font-medium hover:bg-paper-100 dark:hover:bg-charcoal-800 transition-colors flex items-center gap-2"
         >
           <Home className="w-4 h-4" />
-          <span>Return Home</span>
+          <span>{t('error.returnHome')}</span>
         </Link>
       </div>
     </div>

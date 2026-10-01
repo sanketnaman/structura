@@ -5,9 +5,10 @@ import { RoomModel } from '../../3d/RoomModel';
 import { calculatePaint } from '../../../lib/calculators/paint/calculator';
 import type { UnitSystem } from '../../../types/layout';
 import { formatNumber } from '../../../lib/calculators/common/math';
-import { viewToPath } from '../../../lib/routes';
+import { useViewToPath } from '../../../lib/routes';
 import { AdSlot } from '../../common/AdSlot';
 import { TechnicalDiagram } from '../../common/TechnicalDiagram';
+import { useLocale } from '../../../lib/i18n/context';
 import {
   PaintBucket,
   Copy,
@@ -34,6 +35,8 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
   onUnitSystemChange,
 }) => {
   const isMetric = unitSystem === 'metric';
+  const { t } = useLocale();
+  const viewToPath = useViewToPath();
 
   // Form IDs
   const lengthId = useId();
@@ -105,28 +108,41 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
   // Copy estimate
   const handleCopyEstimate = () => {
     const unitText = isMetric ? 'm' : 'ft';
+    const areaUnit = isMetric ? 'm²' : 'sq ft';
     const summary = [
-      `MIXTALLY ARCHITECTURAL PAINT TAKEOFF`,
-      `----------------------------------------`,
-      `Room Dimensions: ${roomLength} ${unitText} L × ${roomWidth} ${unitText} W × ${wallHeight} ${unitText} Ceiling H`,
-      `Wall Perimeter: ${result.perimeter} ${unitText}`,
-      `Gross Wall Area: ${result.grossWallArea} ${isMetric ? 'm²' : 'sq ft'}`,
-      `Opening Deductions: -${result.totalDeductions} ${isMetric ? 'm²' : 'sq ft'} (${doorsCount} doors, ${windowsCount} windows)`,
-      `Net Wall Surface: ${result.netWallArea} ${isMetric ? 'm²' : 'sq ft'}`,
-      `Total Coated Surface (${coats} coats): ${result.totalCoatedArea} ${isMetric ? 'm²' : 'sq ft'}`,
-      `Paint Volume Required: ${result.primaryQuantity} ${isMetric ? 'Liters' : 'Gallons'}`,
-      `Packaging Breakdown: ${result.pails5Gal} × 5-Gal Pails + ${result.extraUnits} × 1-Gal Cans`,
+      t('paint.copy.header'),
+      t('paint.copy.separator'),
+      t('paint.copy.room', { l: roomLength, u: unitText, w: roomWidth, h: wallHeight }),
+      t('paint.copy.perimeter', { v: result.perimeter, u: unitText }),
+      t('paint.copy.gross', { v: result.grossWallArea, u: areaUnit }),
+      t('paint.copy.deductions', {
+        v: result.totalDeductions,
+        u: areaUnit,
+        d: doorsCount,
+        w: windowsCount,
+      }),
+      t('paint.copy.net', { v: result.netWallArea, u: areaUnit }),
+      t('paint.copy.coated', { c: coats, v: result.totalCoatedArea, u: areaUnit }),
+      t('paint.copy.volume', {
+        v: result.primaryQuantity,
+        u: isMetric ? 'Liters' : 'Gallons',
+      }),
+      t('paint.copy.packaging', { p: result.pails5Gal, e: result.extraUnits }),
       enableCost && parsedPrice > 0
-        ? `Estimated Paint Material Cost: $${result.estimatedCost.toFixed(2)} (@ $${parsedPrice.toFixed(2)}/${isMetric ? 'L' : 'gal'})`
+        ? t('paint.copy.cost', {
+            cost: result.estimatedCost.toFixed(2),
+            price: parsedPrice.toFixed(2),
+            unit: isMetric ? 'L' : 'gal',
+          })
         : null,
-      `----------------------------------------`,
-      `Generated at ${new Date().toLocaleDateString()} via MixTally Construction Technology`,
+      t('paint.copy.separator'),
+      t('common.copyGenerated', { date: new Date().toLocaleDateString() }),
     ]
       .filter(Boolean)
       .join('\n');
 
     navigator.clipboard.writeText(summary);
-    showToast('Takeoff estimate copied to clipboard');
+    showToast(t('common.copied'));
   };
 
   // Share URL
@@ -146,7 +162,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
     }
     const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
     navigator.clipboard.writeText(shareUrl);
-    showToast('Shareable project URL copied to clipboard');
+    showToast(t('common.shared'));
   };
 
   return (
@@ -166,35 +182,35 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
       {/* Header & Breadcrumb */}
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 border-b border-paper-300 dark:border-charcoal-750 pb-4">
         <div>
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-micro font-mono text-slate-500 mb-1">
+          <nav aria-label={t('common.breadcrumb')} className="flex items-center gap-2 text-micro font-mono text-slate-500 mb-1">
             <Link
               to={viewToPath('overview')}
               className="hover:text-accent transition-colors flex items-center gap-1"
             >
               <Home className="w-3.5 h-3.5" />
-              <span>Home</span>
+              <span>{t('common.home')}</span>
             </Link>
             <ChevronRight className="w-3 h-3" />
             <Link
               to={viewToPath('calculators')}
               className="hover:text-accent transition-colors"
             >
-              Calculators
+              {t('common.calculators')}
             </Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-slate-900 dark:text-white font-semibold" aria-current="page">Architectural Paint</span>
+            <span className="text-slate-900 dark:text-white font-semibold" aria-current="page">{t('nav.architecturalPaint')}</span>
           </nav>
           <h1 className="text-display font-bold text-slate-900 dark:text-white tracking-tight">
-            Architectural Paint Calculator
+            {t('nav.paintCalculator')}
           </h1>
           <p className="text-body-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
-            Calculate paint gallons, commercial 5-gallon pails, and coverage requirements with opening deductions and real-time 3D cutaway room visualization.
+            {t('paint.headerBody')}
           </p>
         </div>
 
         {/* Unit Toggle */}
         <div className="flex items-center gap-2 shrink-0">
-          <span className="text-micro font-mono text-slate-500 uppercase">Units:</span>
+          <span className="text-micro font-mono text-slate-500 uppercase">{t('common.units')}</span>
           <div className="flex p-0.5 rounded-tech bg-paper-200 dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 text-micro font-medium">
             <button
               type="button"
@@ -205,7 +221,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                   : 'text-slate-600 dark:text-slate-400'
               }`}
             >
-              Imperial (ft / gal)
+              {t('paint.imperial')}
             </button>
             <button
               type="button"
@@ -216,7 +232,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                   : 'text-slate-600 dark:text-slate-400'
               }`}
             >
-              Metric (m / L)
+              {t('paint.metric')}
             </button>
           </div>
         </div>
@@ -229,16 +245,16 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
           <div className="p-5 sm:p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 shadow-tech-card space-y-5">
             <div className="flex items-center justify-between border-b border-paper-200 dark:border-charcoal-800 pb-3">
               <span className="text-caption font-semibold uppercase font-mono tracking-wider text-slate-700 dark:text-slate-300">
-                Room Parameters & Openings
+                {t('paint.paramsTitle')}
               </span>
-              <span className="text-micro font-mono text-accent">Real-time Takeoff</span>
+              <span className="text-micro font-mono text-accent">{t('paint.realtimeTakeoff')}</span>
             </div>
 
             {/* 1. Room Length */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label htmlFor={lengthId} className="text-body-sm font-medium text-slate-800 dark:text-slate-200">
-                  Room Length
+                  {t('paint.roomLength')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
                   {formatNumber(roomLength)} {isMetric ? 'm' : 'ft'}
@@ -276,7 +292,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label htmlFor={widthId} className="text-body-sm font-medium text-slate-800 dark:text-slate-200">
-                  Room Width
+                  {t('paint.roomWidth')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
                   {formatNumber(roomWidth)} {isMetric ? 'm' : 'ft'}
@@ -314,7 +330,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label htmlFor={heightId} className="text-body-sm font-medium text-slate-800 dark:text-slate-200">
-                  Ceiling Height
+                  {t('paint.ceilingHeight')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
                   {formatNumber(wallHeight)} {isMetric ? 'm' : 'ft'}
@@ -353,7 +369,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
               <div className="space-y-1.5">
                 <label htmlFor={doorsId} className="text-micro font-mono uppercase text-slate-500 flex items-center gap-1">
                   <DoorOpen className="w-3.5 h-3.5" />
-                  <span>Doors (-{isMetric ? '2.0m²' : '21 sq ft'})</span>
+                  <span>{t('paint.doorsLabel', { deduction: isMetric ? '2.0m²' : '21 sq ft' })}</span>
                 </label>
                 <div className="flex gap-1">
                   {[0, 1, 2, 3].map((d) => (
@@ -375,7 +391,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
 
               <div className="space-y-1.5">
                 <label htmlFor={windowsId} className="text-micro font-mono uppercase text-slate-500 flex items-center gap-1">
-                  <span>Windows (-{isMetric ? '1.4m²' : '15 sq ft'})</span>
+                  <span>{t('paint.windowsLabel', { deduction: isMetric ? '1.4m²' : '15 sq ft' })}</span>
                 </label>
                 <div className="flex gap-1">
                   {[0, 1, 2, 4].map((w) => (
@@ -400,10 +416,10 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-body-sm font-medium text-slate-800 dark:text-slate-200">
-                  Number of Finish Coats
+                  {t('paint.coatsLabel')}
                 </span>
                 <span className="text-caption font-mono text-accent font-semibold">
-                  {coats} {coats === 1 ? 'Coat (Primer/Recolor)' : 'Coats (Recommended Standard)'}
+                  {coats} {coats === 1 ? t('paint.coatsSummarySingular') : t('paint.coatsSummaryPlural')}
                 </span>
               </div>
               <div className="grid grid-cols-3 gap-2">
@@ -418,7 +434,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                         : 'bg-paper-100 dark:bg-charcoal-900 text-slate-700 dark:text-slate-300 border-paper-300 dark:border-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-800'
                     }`}
                   >
-                    {c} {c === 1 ? 'Coat' : 'Coats'}
+                    {c} {c === 1 ? t('paint.coatSingular') : t('paint.coatPlural')}
                   </button>
                 ))}
               </div>
@@ -431,7 +447,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
               <div className="flex items-center gap-2">
                 <DollarSign className="w-4 h-4 text-accent" />
                 <span className="text-caption font-semibold text-slate-900 dark:text-white">
-                  Paint Material Cost Estimate
+                  {t('paint.costTitle')}
                 </span>
               </div>
               <button
@@ -443,14 +459,14 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                     : 'bg-paper-200 dark:bg-charcoal-800 text-slate-500'
                 }`}
               >
-                {enableCost ? 'Active' : '+ Add Unit Price'}
+                {enableCost ? t('paint.costActive') : t('paint.costAdd')}
               </button>
             </div>
 
             {enableCost && (
               <div className="pt-2 border-t border-paper-200 dark:border-charcoal-800 space-y-2 animate-in fade-in">
                 <label htmlFor={priceId} className="text-micro font-mono text-slate-500 block">
-                  Paint Price ($ per {isMetric ? 'Liter' : 'Gallon'}):
+                  {t('paint.priceLabel', { unit: isMetric ? t('paint.unitLiter') : t('paint.unitGallon') })}
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-2 text-caption font-mono text-slate-400">$</span>
@@ -458,7 +474,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                     id={priceId}
                     type="number"
                     step="any"
-                    placeholder="e.g. 52.00"
+                    placeholder={t('paint.pricePlaceholder')}
                     value={unitPrice}
                     onChange={(e) => setUnitPrice(e.target.value)}
                     className="w-full pl-7 pr-3 py-1.5 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-700 text-slate-900 dark:text-white font-mono text-body-sm tech-focus"
@@ -466,7 +482,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                 </div>
                 {parsedPrice > 0 && (
                   <div className="flex justify-between items-center text-caption font-mono pt-1 text-slate-700 dark:text-slate-300">
-                    <span>Estimated Paint Cost:</span>
+                    <span>{t('paint.estimatedCost')}</span>
                     <span className="text-emerald-600 dark:text-emerald-400 font-bold text-body-sm">
                       ${result.estimatedCost.toFixed(2)}
                     </span>
@@ -483,13 +499,13 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             <div className="flex items-center justify-between text-micro text-slate-500 font-mono px-1">
               <span className="text-slate-700 dark:text-slate-300 font-medium flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                Live 3D Cutaway Room Inspector
+                {t('paint.sceneTitle')}
               </span>
-              <span>Visual Deductions · Orbit 360°</span>
+              <span>{t('paint.sceneHint')}</span>
             </div>
 
             <ConstructionScene
-              title="3D Room Paint Inspector"
+              title={t('paint.sceneAria')}
               className="w-full h-[400px] sm:h-[480px] lg:h-[500px]"
               cameraPosition={[6.2, 5.0, 7.8]}
             >
@@ -506,9 +522,9 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
 
             <div className="flex items-center justify-between text-micro text-slate-500 px-1 font-mono">
               <span>
-                Net Area: {formatNumber(result.netWallArea)} {isMetric ? 'm²' : 'sq ft'} · Deductions: -{formatNumber(result.totalDeductions)} {isMetric ? 'm²' : 'sq ft'}
+                {t('paint.netAreaLabel')} {formatNumber(result.netWallArea)} {isMetric ? 'm²' : 'sq ft'} · {t('paint.deductionsLabel')} -{formatNumber(result.totalDeductions)} {isMetric ? 'm²' : 'sq ft'}
               </span>
-              <span className="text-accent">Coverage: {result.coverageRate} {isMetric ? 'm²/L' : 'sq ft/gal'}</span>
+              <span className="text-accent">{t('paint.coverageLabel')} {result.coverageRate} {isMetric ? 'm²/L' : 'sq ft/gal'}</span>
             </div>
           </div>
 
@@ -517,19 +533,22 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             {/* Primary Card: Gallons / Liters */}
             <div className="sm:col-span-2 p-5 rounded-tech-lg bg-white dark:bg-charcoal-850 border-2 border-accent shadow-tech-card relative overflow-hidden">
               <div className="text-micro font-mono uppercase tracking-wider text-accent font-semibold mb-1">
-                Paint Required ({coats} Finish {coats === 1 ? 'Coat' : 'Coats'})
+                {t('paint.requiredWithCoats', {
+                  count: coats,
+                  coat: coats === 1 ? t('paint.coatSingular') : t('paint.coatPlural'),
+                })}
               </div>
               <div className="flex items-baseline gap-3">
                 <span className="text-display font-bold font-mono text-slate-900 dark:text-white tabular-nums tracking-tight">
                   {result.primaryQuantity}
                 </span>
                 <span className="text-heading-sm font-mono text-slate-600 dark:text-slate-400">
-                  {isMetric ? 'Liters' : 'Gallons'}
+                  {isMetric ? t('paint.liters') : t('paint.gallons')}
                 </span>
               </div>
               <div className="mt-3 pt-3 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-mono text-slate-600 dark:text-slate-400">
-                <span>Exact: {result.rawVolume} {isMetric ? 'L' : 'gal'}</span>
-                <span className="text-accent">Total Coated: {formatNumber(result.totalCoatedArea)} {isMetric ? 'm²' : 'sq ft'}</span>
+                <span>{t('paint.exactLabel')} {result.rawVolume} {isMetric ? 'L' : 'gal'}</span>
+                <span className="text-accent">{t('paint.totalCoatedLabel')} {formatNumber(result.totalCoatedArea)} {isMetric ? 'm²' : 'sq ft'}</span>
               </div>
             </div>
 
@@ -537,19 +556,21 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             <div className="p-5 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 shadow-tech-subtle flex flex-col justify-between">
               <div>
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
-                  Packaging Strategy
+                  {t('paint.packagingStrategy')}
                 </div>
                 <div className="text-heading-md font-bold font-mono text-slate-900 dark:text-white">
-                  {result.pails5Gal > 0 ? `${result.pails5Gal} × 5-Gal` : '1-Gal Cans'}
+                  {result.pails5Gal > 0
+                    ? t('paint.pailsOf5', { count: result.pails5Gal })
+                    : t('paint.oneGalCans')}
                 </div>
                 <div className="text-micro font-mono text-slate-400 mt-0.5">
                   {result.pails5Gal > 0 && result.extraUnits > 0
-                    ? `+ ${result.extraUnits} × 1-Gal cans`
-                    : `${result.primaryQuantity} cans total`}
+                    ? t('paint.extraCans', { count: result.extraUnits })
+                    : t('paint.cansTotal', { count: result.primaryQuantity })}
                 </div>
               </div>
               <div className="text-micro font-mono text-slate-500 pt-2 border-t border-paper-200 dark:border-charcoal-800">
-                Prevents over-buying pails
+                {t('paint.preventsOverbuy')}
               </div>
             </div>
           </div>
@@ -563,7 +584,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                 className="px-3.5 py-2 rounded-tech bg-white dark:bg-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-700 text-slate-800 dark:text-slate-200 border border-paper-300 dark:border-charcoal-700 text-body-sm font-medium transition-colors flex items-center gap-2"
               >
                 <Copy className="w-4 h-4 text-accent" />
-                <span>Copy Estimate</span>
+                <span>{t('common.copyEstimate')}</span>
               </button>
               <button
                 type="button"
@@ -571,7 +592,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                 className="px-3.5 py-2 rounded-tech bg-white dark:bg-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-700 text-slate-800 dark:text-slate-200 border border-paper-300 dark:border-charcoal-700 text-body-sm font-medium transition-colors flex items-center gap-2"
               >
                 <Share2 className="w-4 h-4 text-accent" />
-                <span>Share Project</span>
+                <span>{t('common.shareProject')}</span>
               </button>
             </div>
             <button
@@ -580,7 +601,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
               className="px-3.5 py-2 rounded-tech bg-white dark:bg-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-700 text-slate-800 dark:text-slate-200 border border-paper-300 dark:border-charcoal-700 text-body-sm font-medium transition-colors flex items-center gap-2"
             >
               <Printer className="w-4 h-4 text-slate-500" />
-              <span>Print Sheet</span>
+              <span>{t('common.printSheet')}</span>
             </button>
           </div>
         </div>
@@ -594,44 +615,75 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
         <div className="flex items-center gap-2 border-b border-paper-200 dark:border-charcoal-800 pb-3">
           <Info className="w-5 h-5 text-accent" />
           <h2 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-            Transparent Paint & Surface Calculation Breakdown
+            {t('paint.breakdownTitle')}
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-caption">
           <div className="p-4 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 space-y-2">
             <span className="font-mono text-micro uppercase text-accent font-semibold block">
-              Step 1: Gross Wall Perimeter & Area
+              {t('paint.step1Title')}
             </span>
             <p className="font-mono text-slate-800 dark:text-slate-200">
-              Perimeter = ({formatNumber(roomLength)} + {formatNumber(roomWidth)}) × 2 = {result.perimeter} {isMetric ? 'm' : 'ft'}
+              {t('paint.step1Line1', {
+                a: formatNumber(roomLength),
+                b: formatNumber(roomWidth),
+                c: result.perimeter,
+                unit: isMetric ? 'm' : 'ft',
+              })}
             </p>
             <p className="text-slate-500">
-              Gross Area = {result.perimeter} × {formatNumber(wallHeight)} = <span className="text-slate-900 dark:text-white font-bold">{formatNumber(result.grossWallArea)} {isMetric ? 'm²' : 'sq ft'}</span>
+              {t('paint.step1Line2Lead', {
+                a: result.perimeter,
+                b: formatNumber(wallHeight),
+              })}{' '}
+              <span className="text-slate-900 dark:text-white font-bold">
+                {formatNumber(result.grossWallArea)} {isMetric ? 'm²' : 'sq ft'}
+              </span>
             </p>
           </div>
 
           <div className="p-4 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 space-y-2">
             <span className="font-mono text-micro uppercase text-accent font-semibold block">
-              Step 2: Architectural Deductions
+              {t('paint.step2Title')}
             </span>
             <p className="font-mono text-slate-800 dark:text-slate-200">
-              {doorsCount} Doors ({result.doorsDeduction}) + {windowsCount} Windows ({result.windowsDeduction})
+              {t('paint.step2Line1', {
+                doors: doorsCount,
+                doorsDeduction: result.doorsDeduction,
+                windows: windowsCount,
+                windowsDeduction: result.windowsDeduction,
+              })}
             </p>
             <p className="text-slate-500">
-              Net Wall Surface = {result.grossWallArea} - {result.totalDeductions} = <span className="text-slate-900 dark:text-white font-bold">{formatNumber(result.netWallArea)} {isMetric ? 'm²' : 'sq ft'}</span>
+              {t('paint.step2Line2Lead', {
+                a: result.grossWallArea,
+                b: result.totalDeductions,
+              })}{' '}
+              <span className="text-slate-900 dark:text-white font-bold">
+                {formatNumber(result.netWallArea)} {isMetric ? 'm²' : 'sq ft'}
+              </span>
             </p>
           </div>
 
           <div className="p-4 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 space-y-2">
             <span className="font-mono text-micro uppercase text-accent font-semibold block">
-              Step 3: Coverage & Volume Takeoff
+              {t('paint.step3Title')}
             </span>
             <p className="font-mono text-slate-800 dark:text-slate-200">
-              {formatNumber(result.netWallArea)} × {coats} coats ÷ {result.coverageRate} {isMetric ? 'm²/L' : 'sq ft/gal'}
+              {t('paint.step3Line1', {
+                area: formatNumber(result.netWallArea),
+                coats,
+                rate: result.coverageRate,
+                unit: isMetric ? 'm²/L' : 'sq ft/gal',
+              })}
             </p>
             <p className="text-slate-500">
-              = <span className="text-accent font-bold">{result.primaryQuantity} {isMetric ? 'Liters' : 'Gallons'}</span> total required.
+              {t('paint.step3Line2Lead')}{' '}
+              <span className="text-accent font-bold">
+                {result.primaryQuantity} {isMetric ? t('paint.liters') : t('paint.gallons')}
+              </span>{' '}
+              {t('paint.step3Line2Tail')}
             </p>
           </div>
         </div>
@@ -674,7 +726,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
         {/* Related Calculators Cross-links */}
         <div className="p-6 rounded-tech-lg bg-paper-100 dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-4">
           <h2 className="text-heading-sm font-bold text-slate-900 dark:text-white">
-            Related Construction Calculators
+            {t('common.relatedConstructionCalculators')}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Link
@@ -683,10 +735,10 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             >
               <div>
                 <span className="text-caption font-semibold text-slate-900 dark:text-white block">
-                  Concrete Slab Calculator
+                  {t('nav.concreteSlabCalculator')}
                 </span>
                 <span className="text-micro font-mono text-slate-500">
-                  Volumetric 3D slab takeoff
+                  {t('paint.relatedConcreteSub')}
                 </span>
               </div>
               <ArrowRight className="w-4 h-4 text-accent" />
@@ -697,10 +749,10 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             >
               <div>
                 <span className="text-caption font-semibold text-slate-900 dark:text-white block">
-                  Brick & Mortar Calculator
+                  {t('nav.brickMortarCalculator')}
                 </span>
                 <span className="text-micro font-mono text-slate-500">
-                  Masonry coursing & mortar bags
+                  {t('paint.relatedBrickSub')}
                 </span>
               </div>
               <ArrowRight className="w-4 h-4 text-accent" />

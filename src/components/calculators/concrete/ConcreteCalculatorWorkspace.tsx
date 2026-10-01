@@ -8,9 +8,10 @@ import {
   roundTo,
 } from '../../../lib/calculators/quickCalculations';
 import type { UnitSystem } from '../../../types/layout';
-import { viewToPath } from '../../../lib/routes';
+import { useViewToPath } from '../../../lib/routes';
 import { AdSlot } from '../../common/AdSlot';
 import { TechnicalDiagram } from '../../common/TechnicalDiagram';
+import { useLocale } from '../../../lib/i18n/context';
 import {
   Box,
   Truck,
@@ -42,6 +43,8 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
   onUnitSystemChange,
 }) => {
   const isMetric = unitSystem === 'metric';
+  const { t } = useLocale();
+  const viewToPath = useViewToPath();
 
   // Form IDs for accessibility
   const lengthId = useId();
@@ -153,25 +156,35 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
     const baseVolume = isMetric ? `${result.baseVolumeM3} m³` : `${result.baseVolumeCuFt} ft³ (${result.baseVolumeYards} yd³)`;
 
     const summary = [
-      `MIXTALLY CONCRETE SLAB TAKEOFF`,
-      `----------------------------------------`,
-      `Project Dimensions: ${length} ${unitText} × ${width} ${unitText} × ${thickText}`,
-      `Base Volume: ${baseVolume}`,
-      `Waste / Over-order Allowance: ${waste}% (${isMetric ? result.wasteVolumeM3 + ' m³' : result.wasteVolumeCuFt + ' ft³'})`,
-      `Final Quantity Required: ${primaryVolume} (${isMetric ? result.totalVolumeM3 + ' m³' : result.totalCuFt + ' ft³'})`,
-      `Bagged Concrete Mix: ${result.bags80lb} × 80 lb bags (or ${result.bags60lb} × 60 lb bags)`,
-      `Ready-Mix Truck Deliveries: ~${result.truckLoads} truck loads (~9 yd³ drum capacity)`,
+      t('concrete.copy.header'),
+      t('concrete.copy.separator'),
+      t('concrete.copy.dimensions', { l: length, u: unitText, w: width, th: thickText }),
+      t('concrete.copy.baseVolume', { v: baseVolume }),
+      t('concrete.copy.waste', {
+        pct: waste,
+        v: isMetric ? result.wasteVolumeM3 + ' m³' : result.wasteVolumeCuFt + ' ft³',
+      }),
+      t('concrete.copy.finalQty', {
+        v: primaryVolume,
+        alt: isMetric ? result.totalVolumeM3 + ' m³' : result.totalCuFt + ' ft³',
+      }),
+      t('concrete.copy.bags', { b80: result.bags80lb, b60: result.bags60lb }),
+      t('concrete.copy.trucks', { count: result.truckLoads }),
       enableCost && parsedPrice > 0
-        ? `Estimated Material Cost: $${estimatedCost.toFixed(2)} (@ $${parsedPrice.toFixed(2)}/${isMetric ? 'm³' : 'yd³'})`
+        ? t('concrete.copy.cost', {
+            cost: estimatedCost.toFixed(2),
+            price: parsedPrice.toFixed(2),
+            unit: isMetric ? 'm³' : 'yd³',
+          })
         : null,
-      `----------------------------------------`,
-      `Generated at ${new Date().toLocaleDateString()} via MixTally Construction Technology`,
+      t('concrete.copy.separator'),
+      t('common.copyGenerated', { date: new Date().toLocaleDateString() }),
     ]
       .filter(Boolean)
       .join('\n');
 
     navigator.clipboard.writeText(summary);
-    showToast('Takeoff estimate copied to clipboard');
+    showToast(t('common.copied'));
   };
 
   // Share via URL State
@@ -189,7 +202,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
     }
     const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
     navigator.clipboard.writeText(shareUrl);
-    showToast('Shareable project URL copied to clipboard');
+    showToast(t('common.shared'));
   };
 
   // Print Action
@@ -218,18 +231,18 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
           className="hover:text-accent flex items-center gap-1"
         >
           <Home className="w-3.5 h-3.5" />
-          <span>Home</span>
+          <span>{t('common.home')}</span>
         </Link>
         <span>/</span>
         <Link
           to={viewToPath('calculators')}
           className="hover:text-accent"
         >
-          Calculators
+          {t('common.calculators')}
         </Link>
         <span>/</span>
         <span className="text-slate-900 dark:text-white font-semibold" aria-current="page">
-          Concrete Slab Calculator
+          {t('nav.concreteSlabCalculator')}
         </span>
       </nav>
 
@@ -237,21 +250,21 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 border-b border-paper-300 dark:border-charcoal-750 pb-4">
         <div>
           <div className="flex items-center gap-2 text-micro font-mono text-accent uppercase tracking-wider mb-1">
-            <span>Volumetric Material Takeoff</span>
+            <span>{t('concrete.eyebrow1')}</span>
             <span aria-hidden="true">·</span>
-            <span>3D Spatial Engine</span>
+            <span>{t('concrete.eyebrow2')}</span>
           </div>
           <h1 className="text-display font-bold text-slate-900 dark:text-white tracking-tight">
-            Concrete Slab Calculator
+            {t('nav.concreteSlabCalculator')}
           </h1>
           <p className="text-body-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
-            Compute cubic yards, cubic feet, pre-mix bags, and supplier orders with real-time 3D dimensional verification and transparent mathematical formulas.
+            {t('concrete.headerBody')}
           </p>
         </div>
 
         {/* Unit Toggle */}
         <div className="flex items-center gap-2 shrink-0">
-          <span className="text-micro font-mono text-slate-500 uppercase">Units:</span>
+          <span className="text-micro font-mono text-slate-500 uppercase">{t('common.units')}</span>
           <div className="flex p-0.5 rounded-tech bg-paper-200 dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 text-micro font-medium">
             <button
               type="button"
@@ -262,7 +275,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                   : 'text-slate-600 dark:text-slate-400'
               }`}
             >
-              Imperial (ft / in)
+              {t('concrete.imperial')}
             </button>
             <button
               type="button"
@@ -273,7 +286,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                   : 'text-slate-600 dark:text-slate-400'
               }`}
             >
-              Metric (m / cm)
+              {t('concrete.metric')}
             </button>
           </div>
         </div>
@@ -286,10 +299,10 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
           <div className="p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 shadow-tech-subtle space-y-6">
             <div className="flex items-center justify-between border-b border-paper-200 dark:border-charcoal-800 pb-3">
               <span className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-                Slab Dimensions
+                {t('concrete.slabDimensions')}
               </span>
               <span className="text-micro font-mono text-slate-500">
-                {isMetric ? 'Metric (Meters / Centimeters)' : 'US Customary (Feet / Inches)'}
+                {isMetric ? t('concrete.unitsMetric') : t('concrete.unitsImperial')}
               </span>
             </div>
 
@@ -297,11 +310,11 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-micro text-slate-500 font-mono uppercase">
-                  Project Presets:
+                  {t('concrete.presetsLabel')}
                 </span>
                 {activePreset === 'custom' && (
                   <span className="text-micro font-mono text-accent font-semibold">
-                    Custom Project Active
+                    {t('concrete.customActive')}
                   </span>
                 )}
               </div>
@@ -315,7 +328,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                       : 'bg-paper-100 dark:bg-charcoal-900 text-slate-700 dark:text-slate-300 border-paper-300 dark:border-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-800'
                   }`}
                 >
-                  {isMetric ? 'Walkway (4×3m)' : 'Walkway / Patio (12×10\')'}
+                  {isMetric ? t('concrete.presetWalkwayMetric') : t('concrete.presetWalkwayImperial')}
                 </button>
                 <button
                   type="button"
@@ -326,7 +339,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                       : 'bg-paper-100 dark:bg-charcoal-900 text-slate-700 dark:text-slate-300 border-paper-300 dark:border-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-800'
                   }`}
                 >
-                  {isMetric ? 'Standard (6×3m)' : 'Standard Slab (20×10\')'}
+                  {isMetric ? t('concrete.presetStandardMetric') : t('concrete.presetStandardImperial')}
                 </button>
                 <button
                   type="button"
@@ -337,7 +350,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                       : 'bg-paper-100 dark:bg-charcoal-900 text-slate-700 dark:text-slate-300 border-paper-300 dark:border-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-800'
                   }`}
                 >
-                  {isMetric ? 'Garage (7×6m, 15cm)' : '2-Car Garage (24×20\', 6")'}
+                  {isMetric ? t('concrete.presetGarageMetric') : t('concrete.presetGarageImperial')}
                 </button>
               </div>
             </div>
@@ -346,7 +359,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label htmlFor={lengthId} className="text-body-sm font-medium text-slate-800 dark:text-slate-200">
-                  Length
+                  {t('concrete.length')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
                   {length} {isMetric ? 'm' : 'ft'}
@@ -355,7 +368,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
               <div className="flex items-center gap-3">
                 <input
                   type="range"
-                  aria-label="Slab length slider"
+                  aria-label={t('concrete.lengthSliderAria')}
                   min={isMetric ? 1 : 4}
                   max={isMetric ? 25 : 80}
                   step={isMetric ? 0.5 : 1}
@@ -385,7 +398,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label htmlFor={widthId} className="text-body-sm font-medium text-slate-800 dark:text-slate-200">
-                  Width
+                  {t('concrete.width')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
                   {width} {isMetric ? 'm' : 'ft'}
@@ -394,7 +407,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
               <div className="flex items-center gap-3">
                 <input
                   type="range"
-                  aria-label="Slab width slider"
+                  aria-label={t('concrete.widthSliderAria')}
                   min={isMetric ? 1 : 3}
                   max={isMetric ? 15 : 50}
                   step={isMetric ? 0.5 : 1}
@@ -425,10 +438,14 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
               <div className="flex items-center justify-between">
                 <div>
                   <label htmlFor={thicknessId} className="text-body-sm font-medium text-slate-800 dark:text-slate-200">
-                    Thickness / Depth
+                    {t('concrete.thickness')}
                   </label>
                   <span className="text-micro text-slate-500 block">
-                    {thickness <= 4 ? 'Standard sidewalk / patio' : thickness <= 6 ? 'Vehicle driveway / garage floor' : 'Heavy commercial pad'}
+                    {thickness <= 4
+                      ? t('concrete.thickHintSidewalk')
+                      : thickness <= 6
+                        ? t('concrete.thickHintDriveway')
+                        : t('concrete.thickHintCommercial')}
                   </span>
                 </div>
                 <span className="text-caption font-mono font-semibold text-accent">
@@ -474,7 +491,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
               <div className="flex items-center gap-3 pt-1">
                 <input
                   type="range"
-                  aria-label="Slab thickness slider"
+                  aria-label={t('concrete.thicknessSliderAria')}
                   min={isMetric ? 5 : 2}
                   max={isMetric ? 40 : 16}
                   step={isMetric ? 1 : 0.5}
@@ -505,10 +522,10 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
               <div className="flex items-center justify-between">
                 <div>
                   <label htmlFor={wasteId} className="text-body-sm font-medium text-slate-800 dark:text-slate-200">
-                    Waste / Over-order Allowance
+                    {t('concrete.wasteLabel')}
                   </label>
                   <span className="text-micro text-slate-500 block">
-                    Additional quantity to account for placement losses, uneven forms and ordering margin.
+                    {t('concrete.wasteHint')}
                   </span>
                 </div>
                 <span className="text-caption font-mono font-semibold text-accent">
@@ -518,7 +535,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
               <input
                 id={wasteId}
                 type="range"
-                aria-label="Waste and over-order percentage slider"
+                aria-label={t('concrete.wasteSliderAria')}
                 min={0}
                 max={25}
                 step={1}
@@ -527,9 +544,9 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                 className="w-full accent-accent cursor-pointer tech-focus"
               />
               <div className="flex justify-between text-micro text-slate-400 font-mono">
-                <span>0% (Exact CAD)</span>
-                <span>10% (Trade Standard)</span>
-                <span>20% (Rough Ground)</span>
+                <span>{t('concrete.wasteScale0')}</span>
+                <span>{t('concrete.wasteScale10')}</span>
+                <span>{t('concrete.wasteScale20')}</span>
               </div>
             </div>
           </div>
@@ -540,21 +557,27 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
           <div className="flex items-center justify-between text-caption text-slate-600 dark:text-slate-400">
             <span className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              Live Parametric 3D Slab
+              {t('concrete.liveSlab')}
             </span>
             <span className="text-micro font-mono text-slate-500">
-              Dimensions: {length}×{width} {isMetric ? 'm' : 'ft'}, {thickness} {isMetric ? 'cm' : 'in'} thick
+              {t('concrete.dimensionsMeta', {
+                l: length,
+                w: width,
+                unit: isMetric ? 'm' : 'ft',
+                th: thickness,
+                thickUnit: isMetric ? 'cm' : 'in',
+              })}
             </span>
           </div>
 
           {/* 3D Scene Viewport */}
           <div
             role="region"
-            aria-label="3D Parametric Concrete Slab Model"
+            aria-label={t('concrete.regionAria')}
             className="w-full"
           >
             <ConstructionScene
-              title="3D Slab Dimension Inspector"
+              title={t('concrete.sceneTitle')}
               className="w-full h-[380px] sm:h-[440px] lg:h-[480px]"
               cameraPosition={[6.8, 5.2, 7.8]}
             >
@@ -570,12 +593,22 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
 
           {/* Screen-reader accessible dimension summary */}
           <div className="sr-only" aria-live="polite">
-            Current slab geometry: length {length} {isMetric ? 'meters' : 'feet'}, width {width} {isMetric ? 'meters' : 'feet'}, thickness {thickness} {isMetric ? 'centimeters' : 'inches'}. Total required concrete volume is {isMetric ? `${result.totalVolumeM3} cubic meters` : `${result.totalCubicYards} cubic yards`}.
+            {t('concrete.srSummary', {
+              length,
+              lenUnit: isMetric ? t('concrete.unitMeters') : t('concrete.unitFeet'),
+              width,
+              widUnit: isMetric ? t('concrete.unitMeters') : t('concrete.unitFeet'),
+              thickness,
+              thickUnit: isMetric ? t('concrete.unitCentimeters') : t('concrete.unitInches'),
+              volume: isMetric
+                ? `${result.totalVolumeM3} ${t('volumeUnit.m3')}`
+                : `${result.totalCubicYards} ${t('volumeUnit.yd3')}`,
+            })}
           </div>
 
           <div className="p-3 rounded-tech bg-paper-200/60 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-800 text-micro text-slate-500 flex items-center justify-between">
-            <span>Left-click / touch to rotate 360° · Scroll / pinch to zoom</span>
-            <span className="font-mono text-accent">Dimensions update automatically</span>
+            <span>{t('concrete.rotateHint')}</span>
+            <span className="font-mono text-accent">{t('concrete.autoUpdate')}</span>
           </div>
         </div>
       </div>
@@ -585,14 +618,14 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
         <div className="flex items-baseline justify-between border-b border-paper-200 dark:border-charcoal-800 pb-3">
           <div>
             <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white">
-              Estimated Concrete Required
+              {t('concrete.resultsTitle')}
             </h2>
             <p className="text-caption text-slate-600 dark:text-slate-400">
-              Rational precision with trade-calibrated over-order margin
+              {t('concrete.resultsSubtitle')}
             </p>
           </div>
           <span className="text-micro font-mono text-slate-500">
-            ASTM Ready-Mix & Pre-Mix Equivalents
+            {t('concrete.astmLabel')}
           </span>
         </div>
 
@@ -603,10 +636,10 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-micro font-mono uppercase tracking-wider text-accent font-bold">
-                  CONCRETE REQUIRED
+                  {t('concrete.requiredLabel')}
                 </span>
                 <span className="text-micro font-mono px-2 py-0.5 rounded bg-accent/20 text-accent font-semibold">
-                  Primary Takeoff
+                  {t('concrete.primaryTakeoff')}
                 </span>
               </div>
               <div className="text-display-lg font-bold text-white font-mono tabular-nums tracking-tight my-3">
@@ -614,23 +647,23 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
               </div>
               <div className="space-y-1.5 pt-3 border-t border-charcoal-800 text-caption font-mono">
                 <div className="flex justify-between text-slate-300">
-                  <span>Base volume:</span>
+                  <span>{t('concrete.baseVolumeLabel')}</span>
                   <span className="text-white font-semibold">{isMetric ? `${result.baseVolumeM3} m³` : `${result.baseVolumeYards} yd³`}</span>
                 </div>
                 <div className="flex justify-between text-slate-300">
-                  <span>Planning allowance:</span>
+                  <span>{t('concrete.planningAllowance')}</span>
                   <span className="text-accent font-semibold">{waste}% (+{isMetric ? `${result.wasteVolumeM3} m³` : `${result.wasteVolumeYards} yd³`})</span>
                 </div>
                 <div className="flex justify-between text-slate-300">
-                  <span>Ordering quantity:</span>
+                  <span>{t('concrete.orderingQuantity')}</span>
                   <span className="text-white font-bold">{isMetric ? `${result.totalVolumeM3} m³` : `${result.totalCubicYards} yd³`}</span>
                 </div>
               </div>
             </div>
             <div className="pt-4 mt-4 border-t border-charcoal-800 flex items-center justify-between text-caption font-mono">
-              <span className="text-slate-400">Ready-Mix Deliveries:</span>
+              <span className="text-slate-400">{t('concrete.readyMixDeliveries')}</span>
               <span className="font-semibold text-accent">
-                ~{result.truckLoads} Trucks (~9 yd³ drum)
+                {t('concrete.trucks', { count: result.truckLoads })}
               </span>
             </div>
           </div>
@@ -639,7 +672,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
           <div className="p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 shadow-tech-subtle flex flex-col justify-between">
             <div>
               <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Base Geometric Volume
+                {t('concrete.baseGeoVolume')}
               </span>
               <div className="text-display font-bold text-slate-800 dark:text-slate-200 font-mono tabular-nums tracking-tight mt-2">
                 {isMetric
@@ -649,14 +682,14 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
               <div className="text-heading-sm text-slate-500 font-mono tabular-nums mt-1">
                 {isMetric
                   ? `${result.baseVolumeYards} yd³`
-                  : `${result.baseVolumeYards} yd³ net`}
+                  : t('concrete.yardsNet', { v: result.baseVolumeYards })}
               </div>
               <p className="text-caption text-slate-600 dark:text-slate-400 mt-2">
-                Theoretical geometric volume from entered dimensions before accounting for planning allowances.
+                {t('concrete.baseGeoBody')}
               </p>
             </div>
             <div className="pt-4 mt-4 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-mono">
-              <span className="text-slate-500">Over-Order Allowance ({waste}%):</span>
+              <span className="text-slate-500">{t('concrete.overOrderAllowance', { pct: waste })}</span>
               <span className="font-semibold text-accent">
                 +{isMetric ? `${result.wasteVolumeM3} m³` : `${result.wasteVolumeCuFt} ft³ (${result.wasteVolumeYards} yd³)`}
               </span>
@@ -667,20 +700,20 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
           <div className="p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 shadow-tech-subtle flex flex-col justify-between">
             <div>
               <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Pre-Mix Dry Bag Alternative
+                {t('concrete.preMixTitle')}
               </span>
               <div className="text-display font-bold text-slate-800 dark:text-slate-200 font-mono tabular-nums tracking-tight mt-2">
-                {result.bags80lb} <span className="text-heading-sm font-normal text-slate-500">Bags (80 lb)</span>
+                {result.bags80lb} <span className="text-heading-sm font-normal text-slate-500">{t('concrete.bags80')}</span>
               </div>
               <div className="text-heading-sm text-slate-500 font-mono tabular-nums mt-1">
-                or {result.bags60lb} Bags (60 lb)
+                {t('concrete.orBags60', { count: result.bags60lb })}
               </div>
               <p className="text-caption text-slate-600 dark:text-slate-400 mt-2">
-                If mixing dry concrete bags on site with a portable drum mixer or wheelbarrow.
+                {t('concrete.preMixBody')}
               </p>
             </div>
             <div className="pt-4 mt-4 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-mono">
-              <span className="text-slate-500">Yield Factors:</span>
+              <span className="text-slate-500">{t('concrete.yieldFactors')}</span>
               <span className="text-slate-600 dark:text-slate-400 text-micro">
                 80lb = 0.60 ft³ · 60lb = 0.45 ft³
               </span>
@@ -697,7 +730,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
         <div className="flex items-center gap-2 border-b border-paper-200 dark:border-charcoal-800 pb-3">
           <Info className="w-4 h-4 text-accent" />
           <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-            Transparent Calculation Breakdown
+            {t('concrete.breakdownTitle')}
           </h3>
         </div>
 
@@ -705,7 +738,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
           {/* Step 1: Unit Conversion */}
           <div className="p-4 rounded-tech bg-white dark:bg-charcoal-950 border border-paper-300 dark:border-charcoal-800 space-y-2">
             <span className="text-micro font-mono uppercase text-accent font-bold">
-              Step 1: Convert Thickness
+              {t('concrete.step1Title')}
             </span>
             <div className="font-mono text-body-sm text-slate-900 dark:text-white font-semibold">
               {isMetric
@@ -713,14 +746,14 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                 : `${thickness} in ÷ 12 = ${result.thicknessInFeet} ft`}
             </div>
             <p className="text-slate-600 dark:text-slate-400 text-micro leading-relaxed">
-              Thickness must be in the same dimensional units as length and width before computing volume.
+              {t('concrete.step1Note')}
             </p>
           </div>
 
           {/* Step 2: Base Geometric Volume */}
           <div className="p-4 rounded-tech bg-white dark:bg-charcoal-950 border border-paper-300 dark:border-charcoal-800 space-y-2">
             <span className="text-micro font-mono uppercase text-accent font-bold">
-              Step 2: Net Base Volume
+              {t('concrete.step2Title')}
             </span>
             <div className="font-mono text-body-sm text-slate-900 dark:text-white font-semibold">
               {isMetric
@@ -729,15 +762,21 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             </div>
             <p className="text-slate-600 dark:text-slate-400 text-micro leading-relaxed">
               {isMetric
-                ? `Net geometric displacement: ${result.baseVolumeM3} m³ (${result.baseVolumeYards} yd³).`
-                : `${result.baseVolumeCuFt} ft³ ÷ 27 = ${result.baseVolumeYards} cubic yards net.`}
+                ? t('concrete.step2NoteMetric', {
+                    v: result.baseVolumeM3,
+                    y: result.baseVolumeYards,
+                  })
+                : t('concrete.step2NoteImperial', {
+                    v: result.baseVolumeCuFt,
+                    y: result.baseVolumeYards,
+                  })}
             </p>
           </div>
 
           {/* Step 3: Allowance Addition */}
           <div className="p-4 rounded-tech bg-white dark:bg-charcoal-950 border border-paper-300 dark:border-charcoal-800 space-y-2">
             <span className="text-micro font-mono uppercase text-accent font-bold">
-              Step 3: Add Over-Order ({waste}%)
+              {t('concrete.step3Title', { pct: waste })}
             </span>
             <div className="font-mono text-body-sm text-slate-900 dark:text-white font-semibold">
               {isMetric
@@ -746,8 +785,11 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             </div>
             <p className="text-slate-600 dark:text-slate-400 text-micro leading-relaxed">
               {isMetric
-                ? `Final volume with safety margin: ${result.totalVolumeM3} m³.`
-                : `${result.totalCuFt} ft³ ÷ 27 = ${result.totalCubicYards} cubic yards to order.`}
+                ? t('concrete.step3NoteMetric', { v: result.totalVolumeM3 })
+                : t('concrete.step3NoteImperial', {
+                    v: result.totalCuFt,
+                    y: result.totalCubicYards,
+                  })}
             </p>
           </div>
         </div>
@@ -755,7 +797,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
         <div className="pt-2 border-t border-paper-200 dark:border-charcoal-800 flex items-start gap-2.5 text-micro text-slate-600 dark:text-slate-400 leading-relaxed">
           <ShieldCheck className="w-4 h-4 text-accent shrink-0 mt-0.5" />
           <span>
-            <strong>Practical Field Note:</strong> Ground subgrades are never laser-flat. Minor depressions, formwork deflection under wet hydrostatic pressure, and residual concrete stuck inside the delivery truck chute routinely consume 5% to 10% more volume than theoretical drawings. Always order with adequate margin.
+            <strong>{t('concrete.fieldNoteLead')}</strong> {t('concrete.fieldNoteBody')}
           </span>
         </div>
       </section>
@@ -767,11 +809,11 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             <div className="flex items-center gap-2">
               <DollarSign className="w-4 h-4 text-accent" />
               <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-                Optional Material Cost Estimate
+                {t('concrete.costTitle')}
               </h3>
             </div>
             <p className="text-caption text-slate-600 dark:text-slate-400">
-              Provide your local supplier quote to calculate estimated material costs
+              {t('concrete.costSubtitle')}
             </p>
           </div>
 
@@ -782,7 +824,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
               onChange={(e) => setEnableCost(e.target.checked)}
               className="rounded accent-accent w-4 h-4 cursor-pointer"
             />
-            <span>Enable Cost Calculation</span>
+            <span>{t('concrete.enableCost')}</span>
           </label>
         </div>
 
@@ -791,7 +833,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             {/* Price Input */}
             <div className="space-y-1.5">
               <label htmlFor={priceId} className="text-caption font-medium text-slate-700 dark:text-slate-300 block">
-                Local Concrete Price ({isMetric ? '$ / m³' : '$ / yd³'})
+                {t('concrete.priceLabel', { unit: isMetric ? '$ / m³' : '$ / yd³' })}
               </label>
               <div className="relative max-w-xs">
                 <span className="absolute left-3 top-2.5 text-caption font-mono text-slate-400 pointer-events-none">
@@ -802,7 +844,11 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                   type="number"
                   min={0}
                   step={5}
-                  placeholder={isMetric ? 'e.g. 150.00' : 'e.g. 145.00'}
+                  placeholder={
+                    isMetric
+                      ? t('concrete.pricePlaceholderMetric')
+                      : t('concrete.pricePlaceholderImperial')
+                  }
                   value={unitPrice}
                   onChange={(e) => setUnitPrice(e.target.value)}
                   className="w-full pl-8 pr-16 py-2 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-700 text-slate-900 dark:text-white font-mono tabular-nums text-body-sm tech-focus"
@@ -812,7 +858,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                 </span>
               </div>
               <span className="text-micro text-slate-500 block">
-                Contact your local batch plant for current delivered pricing.
+                {t('concrete.priceHint')}
               </span>
             </div>
 
@@ -820,20 +866,20 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             <div className="p-4 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 flex flex-col justify-between">
               <div>
                 <span className="text-micro font-mono uppercase text-slate-500">
-                  Estimated Concrete Material Cost
+                  {t('concrete.estCostLabel')}
                 </span>
                 <div className="text-display font-bold font-mono text-slate-900 dark:text-white tabular-nums mt-1">
                   ${estimatedCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
               </div>
               <span className="text-micro text-slate-500 mt-2">
-                Estimate only. Excludes supplier environmental charges, short-load fees, pumping costs, form lumber, rebar, and finishing labor.
+                {t('concrete.estCostNote')}
               </span>
             </div>
           </div>
         ) : (
           <p className="text-caption text-slate-500 dark:text-slate-400 italic">
-            Check the box above to enter your supplier's per-yard (or per-cubic-meter) quote and compute material cost.
+            {t('concrete.costDisabledNote')}
           </p>
         )}
       </section>
@@ -841,7 +887,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
       {/* 6. LIGHTWEIGHT UTILITY ACTIONS: COPY / SHARE / PRINT */}
       <section className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-tech-lg bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 no-print">
         <div className="text-caption font-medium text-slate-700 dark:text-slate-300">
-          Save or export this concrete takeoff:
+          {t('concrete.saveExport')}
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
@@ -851,7 +897,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             className="px-4 py-2 rounded-tech text-body-sm font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-charcoal-800 hover:bg-paper-200 dark:hover:bg-charcoal-750 border border-paper-300 dark:border-charcoal-700 transition-colors flex items-center gap-1.5 shadow-tech-subtle"
           >
             <Copy className="w-3.5 h-3.5 text-accent" />
-            <span>Copy Estimate</span>
+            <span>{t('common.copyEstimate')}</span>
           </button>
 
           <button
@@ -860,7 +906,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             className="px-4 py-2 rounded-tech text-body-sm font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-charcoal-800 hover:bg-paper-200 dark:hover:bg-charcoal-750 border border-paper-300 dark:border-charcoal-700 transition-colors flex items-center gap-1.5 shadow-tech-subtle"
           >
             <Share2 className="w-3.5 h-3.5 text-accent" />
-            <span>Share Project</span>
+            <span>{t('common.shareProject')}</span>
           </button>
 
           <button
@@ -869,7 +915,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             className="px-4 py-2 rounded-tech text-body-sm font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-charcoal-800 hover:bg-paper-200 dark:hover:bg-charcoal-750 border border-paper-300 dark:border-charcoal-700 transition-colors flex items-center gap-1.5 shadow-tech-subtle"
           >
             <Printer className="w-3.5 h-3.5 text-accent" />
-            <span>Print Sheet</span>
+            <span>{t('common.printSheet')}</span>
           </button>
         </div>
       </section>
@@ -987,31 +1033,31 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
         {/* Section 6: FAQ */}
         <section className="space-y-4">
           <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white">
-            Frequently Asked Questions
+            {t('common.faqTitle')}
           </h2>
           <div className="divide-y divide-paper-200 dark:divide-charcoal-800">
             <div className="py-3.5 space-y-1">
               <h4 className="font-semibold text-slate-900 dark:text-white text-body-sm">
-                How many 80 lb bags of concrete equal one cubic yard?
+                {t('concrete.faqQ1')}
               </h4>
               <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-                One 80-pound bag yields approximately 0.60 cubic feet. Since one cubic yard contains 27 cubic feet, it mathematically requires approximately 45 bags of 80 lb concrete (or 60 bags of 60 lb concrete) per cubic yard based on this planning assumption.
+                {t('concrete.faqA1')}
               </p>
             </div>
             <div className="py-3.5 space-y-1">
               <h4 className="font-semibold text-slate-900 dark:text-white text-body-sm">
-                How thick should a concrete slab be?
+                {t('concrete.faqQ2')}
               </h4>
               <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-                Sidewalks, walkways, and patios typically require 4 inches (10 cm). Vehicle driveways, garage slabs, and heavy storage pads require a minimum of 5 to 6 inches (13 to 15 cm) with steel rebar or wire mesh reinforcement.
+                {t('concrete.faqA2')}
               </p>
             </div>
             <div className="py-3.5 space-y-1">
               <h4 className="font-semibold text-slate-900 dark:text-white text-body-sm">
-                What does a cubic yard of concrete weigh?
+                {t('concrete.faqQ3')}
               </h4>
               <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-                Standard normal-weight concrete weighs approximately 4,050 lbs (about 2 tons or 1,840 kg) per cubic yard when wet.
+                {t('concrete.faqA3')}
               </p>
             </div>
           </div>
@@ -1020,7 +1066,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
         {/* Section 7: Related Calculators */}
         <section className="space-y-4 pt-4 border-t border-paper-300 dark:border-charcoal-750">
           <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white">
-            Related Calculators
+            {t('common.relatedCalculators')}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Link
@@ -1033,10 +1079,10 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                 </div>
                 <div>
                   <span className="text-body-sm font-semibold text-slate-900 dark:text-white block group-hover:text-accent transition-colors">
-                    Brick & Mortar Calculator
+                    {t('tool.brick-mortar-calculator.name')}
                   </span>
                   <span className="text-micro text-slate-500">
-                    Standard modular coursing and Type N mortar takeoffs
+                    {t('concrete.relatedBrickSub')}
                   </span>
                 </div>
               </div>
@@ -1053,10 +1099,10 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                 </div>
                 <div>
                   <span className="text-body-sm font-semibold text-slate-900 dark:text-white block group-hover:text-accent transition-colors">
-                    Architectural Paint Calculator
+                    {t('tool.paint-calculator.name')}
                   </span>
                   <span className="text-micro text-slate-500">
-                    Multi-coat wall coverage and commercial packaging
+                    {t('concrete.relatedPaintSub')}
                   </span>
                 </div>
               </div>

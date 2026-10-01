@@ -66,6 +66,15 @@
     min-height: 100vh;
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+
   /* Site-wide architectural drafting grid (light = graphite on warm off-white) */
   :root {
     --grid-primary: rgba(30, 41, 59, 0.11);

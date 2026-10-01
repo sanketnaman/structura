@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Sun, Moon, Menu, X, ChevronDown } from 'lucide-react';
 import type { ThemeMode, UnitSystem } from '../../types/layout';
-import { viewToPath } from '../../lib/routes';
+import { useViewToPath } from '../../lib/routes';
+import { useLocale } from '../../lib/i18n/context';
+import { LanguageSelector } from './LanguageSelector';
 
 interface HeaderProps {
   theme: ThemeMode;
@@ -21,6 +23,8 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [calcDropdownOpen, setCalcDropdownOpen] = useState(false);
+  const { t } = useLocale();
+  const viewToPath = useViewToPath();
 
   const isConcrete = activeView === 'concrete' || activeView === 'concrete-slab-calculator';
   const isBrick = activeView === 'brick' || activeView === 'brick-mortar-calculator';
@@ -44,7 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
             to={viewToPath('overview')}
             onClick={closeMenus}
             className="text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded transition-opacity hover:opacity-85"
-            aria-label="MixTally Homepage"
+            aria-label={t('header.homepageLabel')}
           >
             <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-sans">
               MixTally
@@ -53,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Desktop Navigation Links */}
           <nav
-            aria-label="Main Navigation"
+            aria-label={t('header.mainNavigation')}
             className="hidden md:flex items-center gap-6 text-body-sm font-medium text-slate-600 dark:text-slate-300"
           >
             <NavLink
@@ -66,7 +70,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }`
               }
             >
-              Overview
+              {t('nav.overview')}
             </NavLink>
 
             {/* Calculators Dropdown / Hub */}
@@ -81,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }`
                 }
               >
-                <span>Calculators</span>
+                <span>{t('nav.calculators')}</span>
                 <ChevronDown className="w-3.5 h-3.5 opacity-70" />
               </NavLink>
 
@@ -98,7 +102,7 @@ export const Header: React.FC<HeaderProps> = ({
                     onClick={closeMenus}
                     className="block w-full text-left px-3 py-1.5 rounded-tech text-slate-900 dark:text-white hover:bg-paper-100 dark:hover:bg-charcoal-800 font-medium"
                   >
-                    Directory (All Tools)
+                    {t('nav.directoryAllTools')}
                   </Link>
                   <div className="h-px bg-paper-200 dark:bg-charcoal-800 my-1" />
                   <Link
@@ -106,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({
                     onClick={closeMenus}
                     className="block w-full text-left px-3 py-1.5 rounded-tech text-slate-700 dark:text-slate-300 hover:bg-paper-100 dark:hover:bg-charcoal-800 flex items-center justify-between"
                   >
-                    <span>Concrete Slab</span>
+                    <span>{t('nav.concreteSlab')}</span>
                     <span className="text-[10px] font-mono text-emerald-500 font-semibold">3D</span>
                   </Link>
                   <Link
@@ -114,7 +118,7 @@ export const Header: React.FC<HeaderProps> = ({
                     onClick={closeMenus}
                     className="block w-full text-left px-3 py-1.5 rounded-tech text-slate-700 dark:text-slate-300 hover:bg-paper-100 dark:hover:bg-charcoal-800 flex items-center justify-between"
                   >
-                    <span>Brick & Mortar</span>
+                    <span>{t('nav.brickMortar')}</span>
                     <span className="text-[10px] font-mono text-emerald-500 font-semibold">3D</span>
                   </Link>
                   <Link
@@ -122,7 +126,7 @@ export const Header: React.FC<HeaderProps> = ({
                     onClick={closeMenus}
                     className="block w-full text-left px-3 py-1.5 rounded-tech text-slate-700 dark:text-slate-300 hover:bg-paper-100 dark:hover:bg-charcoal-800 flex items-center justify-between"
                   >
-                    <span>Architectural Paint</span>
+                    <span>{t('nav.architecturalPaint')}</span>
                     <span className="text-[10px] font-mono text-emerald-500 font-semibold">3D</span>
                   </Link>
                 </div>
@@ -138,7 +142,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }`
               }
             >
-              Guides
+              {t('nav.guides')}
             </NavLink>
 
             <NavLink
@@ -150,7 +154,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }`
               }
             >
-              About
+              {t('nav.about')}
             </NavLink>
           </nav>
         </div>
@@ -160,7 +164,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Unit Toggle */}
           <div
             role="group"
-            aria-label="Unit system selector"
+            aria-label={t('header.unitSystemSelector')}
             className="flex items-center bg-paper-200 dark:bg-charcoal-850 p-0.5 rounded-tech border border-paper-300 dark:border-charcoal-750 text-micro font-medium"
           >
             <button
@@ -173,7 +177,7 @@ export const Header: React.FC<HeaderProps> = ({
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              Imperial (ft/in)
+              {t('header.imperial')}
             </button>
             <button
               type="button"
@@ -185,15 +189,20 @@ export const Header: React.FC<HeaderProps> = ({
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              Metric (m/mm)
+              {t('header.metric')}
             </button>
           </div>
+
+          {/* Language Selector (sm+; mobile uses the drawer entry below) */}
+          <LanguageSelector className="hidden sm:block" />
 
           {/* Theme Toggle */}
           <button
             type="button"
             onClick={onToggleTheme}
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            aria-label={
+              theme === 'dark' ? t('header.switchToLightMode') : t('header.switchToDarkMode')
+            }
             className="p-2 rounded-tech text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-paper-200 dark:hover:bg-charcoal-800 border border-paper-300 dark:border-charcoal-750 transition-colors"
           >
             {theme === 'dark' ? (
@@ -207,7 +216,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle mobile menu"
+            aria-label={t('header.toggleMobileMenu')}
             aria-expanded={mobileMenuOpen}
             className="md:hidden p-2 rounded-tech text-slate-600 dark:text-slate-300 hover:bg-paper-200 dark:hover:bg-charcoal-800 border border-paper-300 dark:border-charcoal-750"
           >
@@ -219,6 +228,8 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-paper-300 dark:border-charcoal-750 bg-white dark:bg-charcoal-900 px-4 py-5 space-y-4 animate-in fade-in slide-in-from-top-2">
+          {/* Language Selector (full-width row on narrow screens) */}
+          <LanguageSelector variant="block" />
           <div className="space-y-1 text-body-sm font-medium">
             <NavLink
               to={viewToPath('overview')}
@@ -230,7 +241,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }`
               }
             >
-              Overview
+              {t('nav.overview')}
             </NavLink>
             <NavLink
               to={viewToPath('calculators')}
@@ -243,7 +254,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }`
               }
             >
-              All Calculators Directory
+              {t('nav.allCalculatorsDirectory')}
             </NavLink>
             <div className="pl-4 space-y-1 pt-1 border-l-2 border-paper-200 dark:border-charcoal-800 ml-3">
               <NavLink
@@ -255,7 +266,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }`
                 }
               >
-                Concrete Slab Calculator
+                {t('nav.concreteSlabCalculator')}
               </NavLink>
               <NavLink
                 to={viewToPath('brick-mortar-calculator')}
@@ -266,7 +277,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }`
                 }
               >
-                Brick & Mortar Calculator
+                {t('nav.brickMortarCalculator')}
               </NavLink>
               <NavLink
                 to={viewToPath('paint-calculator')}
@@ -277,7 +288,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }`
                 }
               >
-                Architectural Paint Calculator
+                {t('nav.paintCalculator')}
               </NavLink>
             </div>
             <NavLink
@@ -289,7 +300,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }`
               }
             >
-              Field Guides
+              {t('nav.fieldGuides')}
             </NavLink>
             <NavLink
               to={viewToPath('about')}
@@ -300,7 +311,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }`
               }
             >
-              About MixTally
+              {t('nav.aboutMixTally')}
             </NavLink>
             <NavLink
               to={viewToPath('contact')}
@@ -313,7 +324,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }`
               }
             >
-              Contact Support
+              {t('nav.contactSupport')}
             </NavLink>
             <NavLink
               to={viewToPath('disclaimer')}
@@ -326,7 +337,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }`
               }
             >
-              Construction Disclaimer
+              {t('nav.constructionDisclaimer')}
             </NavLink>
           </div>
         </div>

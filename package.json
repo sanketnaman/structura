@@ -11,6 +11,11 @@
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
     "test": "vitest run",
+    "sitemap": "tsx scripts/generate-sitemap.ts",
+    "build:ssr": "vite build --ssr src/entry-server.tsx --outDir node_modules/.cache/mixtally-ssr --emptyOutDir",
+    "prerender": "npm run build:ssr && tsx scripts/prerender-cli.ts",
+    "prebuild": "npm run sitemap",
+    "postbuild": "npm run prerender",
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
@@ -33,6 +38,7 @@
     "@types/react-dom": "^19.3.0",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.0",
+    "jsdom": "^29.1.1",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.21.0",
     "typescript": "^7.0.2",

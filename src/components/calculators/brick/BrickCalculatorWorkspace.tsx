@@ -5,10 +5,11 @@ import { BrickWall } from '../../3d/BrickWall';
 import { calculateBrick } from '../../../lib/calculators/brick/calculator';
 import type { UnitSystem } from '../../../types/layout';
 import { formatNumber } from '../../../lib/calculators/common/math';
-import { viewToPath } from '../../../lib/routes';
+import { useViewToPath } from '../../../lib/routes';
 import { BRICK_FAQ } from '../../../lib/calculators/brick/faq';
 import { AdSlot } from '../../common/AdSlot';
 import { TechnicalDiagram } from '../../common/TechnicalDiagram';
+import { useLocale } from '../../../lib/i18n/context';
 import {
   Layers,
   Copy,
@@ -31,11 +32,36 @@ interface BrickCalculatorWorkspaceProps {
   onUnitSystemChange: (system: UnitSystem) => void;
 }
 
+/** Dictionary keys for the FAQ entries rendered below the calculator. */
+const FAQ_QUESTION_KEYS = [
+  'brick.faqQ1',
+  'brick.faqQ2',
+  'brick.faqQ3',
+  'brick.faqQ4',
+  'brick.faqQ5',
+  'brick.faqQ6',
+  'brick.faqQ7',
+  'brick.faqQ8',
+] as const;
+
+const FAQ_ANSWER_KEYS = [
+  'brick.faqA1',
+  'brick.faqA2',
+  'brick.faqA3',
+  'brick.faqA4',
+  'brick.faqA5',
+  'brick.faqA6',
+  'brick.faqA7',
+  'brick.faqA8',
+] as const;
+
 export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> = ({
   unitSystem,
   onUnitSystemChange,
 }) => {
   const isMetric = unitSystem === 'metric';
+  const { t } = useLocale();
+  const viewToPath = useViewToPath();
 
   // Form IDs
   const lengthId = useId();
@@ -125,25 +151,39 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
   const handleCopyEstimate = () => {
     const unitText = isMetric ? 'm' : 'ft';
     const summary = [
-      `MIXTALLY BRICK & MORTAR TAKEOFF`,
-      `----------------------------------------`,
-      `Wall Dimensions: ${wallLength} ${unitText} L × ${wallHeight} ${unitText} H`,
-      `Wall Face Area: ${result.wallArea} ${isMetric ? 'm²' : 'sq ft'} (${wythes === 2 ? 'Double Wythe' : 'Single Wythe'})`,
-      `Base Brick Count: ${result.baseBricks} units`,
-      `Waste Allowance (${waste}%): +${result.wasteBricks} units`,
-      `Total Bricks Required: ${result.totalBricks} units`,
-      `Type N Mortar (80 lb bags): ${result.mortarBags} bags (~${result.mortarVolumeCuFt} cu ft)`,
+      t('brick.copy.header'),
+      t('concrete.copy.separator'),
+      t('brick.copy.dimensions', {
+        l: wallLength,
+        u: unitText,
+        h: wallHeight,
+      }),
+      t('brick.copy.faceArea', {
+        v: result.wallArea,
+        u: isMetric ? 'm²' : 'sq ft',
+        wythe: wythes === 2 ? t('brick.doubleWytheTag') : t('brick.singleWytheTag'),
+      }),
+      t('brick.copy.baseCount', { count: result.baseBricks }),
+      t('brick.copy.waste', { pct: waste, count: result.wasteBricks }),
+      t('brick.copy.total', { count: result.totalBricks }),
+      t('brick.copy.mortar', {
+        bags: result.mortarBags,
+        cuft: result.mortarVolumeCuFt,
+      }),
       enableCost && parsedPrice > 0
-        ? `Estimated Brick Material Cost: $${result.estimatedCost.toFixed(2)} (@ $${parsedPrice.toFixed(2)}/brick)`
+        ? t('brick.copy.cost', {
+            cost: result.estimatedCost.toFixed(2),
+            price: parsedPrice.toFixed(2),
+          })
         : null,
-      `----------------------------------------`,
-      `Generated at ${new Date().toLocaleDateString()} via MixTally Construction Technology`,
+      t('concrete.copy.separator'),
+      t('common.copyGenerated', { date: new Date().toLocaleDateString() }),
     ]
       .filter(Boolean)
       .join('\n');
 
     navigator.clipboard.writeText(summary);
-    showToast('Takeoff estimate copied to clipboard');
+    showToast(t('common.copied'));
   };
 
   // Share URL
@@ -161,7 +201,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
     }
     const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
     navigator.clipboard.writeText(shareUrl);
-    showToast('Shareable project URL copied to clipboard');
+    showToast(t('common.shared'));
   };
 
   return (
@@ -187,31 +227,29 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
               className="hover:text-accent transition-colors flex items-center gap-1"
             >
               <Home className="w-3.5 h-3.5" />
-              <span>Home</span>
+              <span>{t('common.home')}</span>
             </Link>
             <ChevronRight className="w-3 h-3" />
             <Link
               to={viewToPath('calculators')}
               className="hover:text-accent transition-colors"
             >
-              Calculators
+              {t('common.calculators')}
             </Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-slate-900 dark:text-white font-semibold" aria-current="page">Brick Calculator</span>
+            <span className="text-slate-900 dark:text-white font-semibold" aria-current="page">{t('brick.breadcrumb')}</span>
           </nav>
           <h1 className="text-display font-bold text-slate-900 dark:text-white tracking-tight">
-            Brick Calculator
+            {t('brick.h1')}
           </h1>
           <p className="text-body-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
-            Estimate bricks required, wall area, mortar allowance, and optional brick material cost for single or
-            double wythe walls. Enter metric or imperial dimensions and review an interactive 3D masonry wall
-            visualization before you order materials.
+            {t('brick.headerBody')}
           </p>
         </div>
 
         {/* Unit Toggle */}
         <div className="flex items-center gap-2 shrink-0">
-          <span className="text-micro font-mono text-slate-500 uppercase">Units:</span>
+          <span className="text-micro font-mono text-slate-500 uppercase">{t('common.units')}</span>
           <div className="flex p-0.5 rounded-tech bg-paper-200 dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 text-micro font-medium">
             <button
               type="button"
@@ -222,7 +260,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                   : 'text-slate-600 dark:text-slate-400'
               }`}
             >
-              Imperial (ft / in)
+              {t('brick.imperial')}
             </button>
             <button
               type="button"
@@ -233,7 +271,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                   : 'text-slate-600 dark:text-slate-400'
               }`}
             >
-              Metric (m / mm)
+              {t('brick.metric')}
             </button>
           </div>
         </div>
@@ -246,15 +284,15 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
           <div className="p-5 sm:p-6 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 shadow-tech-card space-y-5">
             <div className="flex items-center justify-between border-b border-paper-200 dark:border-charcoal-800 pb-3">
               <span className="text-caption font-semibold uppercase font-mono tracking-wider text-slate-700 dark:text-slate-300">
-                Wall Dimensions & Masonry Specs
+                {t('brick.wallSpecs')}
               </span>
-              <span className="text-micro font-mono text-accent">Real-time Takeoff</span>
+              <span className="text-micro font-mono text-accent">{t('brick.realtimeTakeoff')}</span>
             </div>
 
             {/* Brick Size Standard Selector */}
             <div>
               <span className="text-micro text-slate-500 font-mono uppercase block mb-2">
-                Brick Standard:
+                {t('brick.standardLabel')}
               </span>
               <div className="grid grid-cols-3 gap-2">
                 <button
@@ -266,7 +304,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                       : 'bg-paper-100 dark:bg-charcoal-900 text-slate-700 dark:text-slate-300 border-paper-300 dark:border-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-800'
                   }`}
                 >
-                  Modular ({isMetric ? '194×57mm' : '7⅝"×2¼"'})
+                  {t('brick.presetModular', { dims: isMetric ? '194×57mm' : '7⅝"×2¼"' })}
                 </button>
                 <button
                   type="button"
@@ -277,7 +315,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                       : 'bg-paper-100 dark:bg-charcoal-900 text-slate-700 dark:text-slate-300 border-paper-300 dark:border-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-800'
                   }`}
                 >
-                  Queen ({isMetric ? '200×70mm' : '7⅝"×2¾"'})
+                  {t('brick.presetQueen', { dims: isMetric ? '200×70mm' : '7⅝"×2¾"' })}
                 </button>
                 <button
                   type="button"
@@ -288,7 +326,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                       : 'bg-paper-100 dark:bg-charcoal-900 text-slate-700 dark:text-slate-300 border-paper-300 dark:border-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-800'
                   }`}
                 >
-                  King ({isMetric ? '245×68mm' : '9⅝"×2⅝"'})
+                  {t('brick.presetKing', { dims: isMetric ? '245×68mm' : '9⅝"×2⅝"' })}
                 </button>
               </div>
             </div>
@@ -297,7 +335,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label htmlFor={lengthId} className="text-body-sm font-medium text-slate-800 dark:text-slate-200">
-                  Wall Length
+                  {t('brick.wallLength')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
                   {formatNumber(wallLength)} {isMetric ? 'm' : 'ft'}
@@ -335,7 +373,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label htmlFor={heightId} className="text-body-sm font-medium text-slate-800 dark:text-slate-200">
-                  Wall Height
+                  {t('brick.wallHeight')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
                   {formatNumber(wallHeight)} {isMetric ? 'm' : 'ft'}
@@ -372,7 +410,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             {/* 3. Wythe Selection */}
             <div className="space-y-2">
               <label className="text-body-sm font-medium text-slate-800 dark:text-slate-200 block">
-                Wall Thickness (Wythes)
+                {t('brick.wythesLabel')}
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -384,9 +422,9 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                       : 'bg-paper-100 dark:bg-charcoal-900 border-paper-300 dark:border-charcoal-750 text-slate-600 dark:text-slate-400'
                   }`}
                 >
-                  <div className="font-semibold text-caption">Single Wythe (1 Leaf)</div>
+                  <div className="font-semibold text-caption">{t('brick.singleWythe')}</div>
                   <div className="text-micro font-mono text-slate-500">
-                    {isMetric ? '10 cm nominal facing' : '4" nominal facing veneer'}
+                    {isMetric ? t('brick.singleWytheMetric') : t('brick.singleWytheImperial')}
                   </div>
                 </button>
                 <button
@@ -398,9 +436,9 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                       : 'bg-paper-100 dark:bg-charcoal-900 border-paper-300 dark:border-charcoal-750 text-slate-600 dark:text-slate-400'
                   }`}
                 >
-                  <div className="font-semibold text-caption">Double Wythe (2 Leaves)</div>
+                  <div className="font-semibold text-caption">{t('brick.doubleWythe')}</div>
                   <div className="text-micro font-mono text-slate-500">
-                    {isMetric ? '20 cm structural masonry' : '8" structural cavity/solid'}
+                    {isMetric ? t('brick.doubleWytheMetric') : t('brick.doubleWytheImperial')}
                   </div>
                 </button>
               </div>
@@ -410,7 +448,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label htmlFor={wasteId} className="text-body-sm font-medium text-slate-800 dark:text-slate-200">
-                  Cutting Waste & Breakage Margin
+                  {t('brick.wasteLabel')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
                   +{waste}%
@@ -441,7 +479,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
               <div className="flex items-center gap-2">
                 <DollarSign className="w-4 h-4 text-accent" />
                 <span className="text-caption font-semibold text-slate-900 dark:text-white">
-                  Brick Material Cost Estimate
+                  {t('brick.costTitle')}
                 </span>
               </div>
               <button
@@ -453,14 +491,14 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                     : 'bg-paper-200 dark:bg-charcoal-800 text-slate-500'
                 }`}
               >
-                {enableCost ? 'Active' : '+ Add Unit Price'}
+                {enableCost ? t('brick.active') : t('brick.addUnitPrice')}
               </button>
             </div>
 
             {enableCost && (
               <div className="pt-2 border-t border-paper-200 dark:border-charcoal-800 space-y-2 animate-in fade-in">
                 <label htmlFor={priceId} className="text-micro font-mono text-slate-500 block">
-                  Brick Unit Price ($ / brick delivered):
+                  {t('brick.priceLabel')}
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-2 text-caption font-mono text-slate-400">$</span>
@@ -468,7 +506,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                     id={priceId}
                     type="number"
                     step="any"
-                    placeholder="e.g. 0.85"
+                    placeholder={t('brick.pricePlaceholder')}
                     value={unitPrice}
                     onChange={(e) => setUnitPrice(e.target.value)}
                     className="w-full pl-7 pr-3 py-1.5 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-700 text-slate-900 dark:text-white font-mono text-body-sm tech-focus"
@@ -476,7 +514,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                 </div>
                 {parsedPrice > 0 && (
                   <div className="flex justify-between items-center text-caption font-mono pt-1 text-slate-700 dark:text-slate-300">
-                    <span>Estimated Brick Takeoff:</span>
+                    <span>{t('brick.estTakeoffLabel')}</span>
                     <span className="text-emerald-600 dark:text-emerald-400 font-bold text-body-sm">
                       ${result.estimatedCost.toFixed(2)}
                     </span>
@@ -493,13 +531,13 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             <div className="flex items-center justify-between text-micro text-slate-500 font-mono px-1">
               <span className="text-slate-700 dark:text-slate-300 font-medium flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                Interactive 3D Masonry Wall Visualization
+                {t('brick.vizTitle')}
               </span>
-              <span>Arbitrary Aspect Scale · Orbit 360°</span>
+              <span>{t('brick.vizMeta')}</span>
             </div>
 
             <ConstructionScene
-              title="3D Masonry Wall Visualization"
+              title={t('brick.sceneTitle')}
               className="w-full h-[400px] sm:h-[480px] lg:h-[500px]"
               cameraPosition={[6.0, 4.0, 7.5]}
             >
@@ -516,9 +554,13 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
 
             <div className="flex items-center justify-between text-micro text-slate-500 px-1 font-mono">
               <span>
-                Surface: {formatNumber(result.wallArea)} {isMetric ? 'm²' : 'sq ft'} · {wythes === 2 ? 'Double Wythe' : 'Single Wythe'}
+                {t('brick.surfaceLine', {
+                  area: formatNumber(result.wallArea),
+                  unit: isMetric ? 'm²' : 'sq ft',
+                  wythe: wythes === 2 ? t('brick.doubleWytheTag') : t('brick.singleWytheTag'),
+                })}
               </span>
-              <span className="text-accent">Bed Joints: {isMetric ? '10mm' : '⅜"'} standard</span>
+              <span className="text-accent">{t('brick.bedJoints', { joint: isMetric ? '10mm' : '⅜"' })}</span>
             </div>
           </div>
 
@@ -527,19 +569,24 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             {/* Primary Card: Total Bricks */}
             <div className="sm:col-span-2 p-5 rounded-tech-lg bg-white dark:bg-charcoal-850 border-2 border-accent shadow-tech-card relative overflow-hidden">
               <div className="text-micro font-mono uppercase tracking-wider text-accent font-semibold mb-1">
-                Total Bricks Required (With Waste)
+                {t('brick.totalLabel')}
               </div>
               <div className="flex items-baseline gap-3">
                 <span className="text-display font-bold font-mono text-slate-900 dark:text-white tabular-nums tracking-tight">
                   {formatNumber(result.totalBricks, 0)}
                 </span>
                 <span className="text-caption font-mono text-slate-500">
-                  modular units
+                  {t('brick.units')}
                 </span>
               </div>
               <div className="mt-3 pt-3 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-mono text-slate-600 dark:text-slate-400">
-                <span>Base: {formatNumber(result.baseBricks, 0)} units</span>
-                <span className="text-accent">+{waste}% ({formatNumber(result.wasteBricks, 0)} cuts)</span>
+                <span>{t('brick.baseLine', { count: formatNumber(result.baseBricks, 0) })}</span>
+                <span className="text-accent">
+                  {t('brick.cutsLine', {
+                    pct: waste,
+                    count: formatNumber(result.wasteBricks, 0),
+                  })}
+                </span>
               </div>
             </div>
 
@@ -547,17 +594,17 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             <div className="p-5 rounded-tech-lg bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 shadow-tech-subtle flex flex-col justify-between">
               <div>
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
-                  Type N Mortar
+                  {t('brick.typeN')}
                 </div>
                 <div className="text-heading-lg font-bold font-mono text-slate-900 dark:text-white tabular-nums">
                   {result.mortarBags}
                 </div>
                 <div className="text-micro font-mono text-slate-400 mt-0.5">
-                  80 lb pre-mix bags
+                  {t('brick.bagsLabel')}
                 </div>
               </div>
               <div className="text-micro font-mono text-slate-500 pt-2 border-t border-paper-200 dark:border-charcoal-800">
-                ~{result.mortarVolumeCuFt} cu ft dry mix
+                {t('brick.dryMix', { v: result.mortarVolumeCuFt })}
               </div>
             </div>
           </div>
@@ -571,7 +618,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                 className="px-3.5 py-2 rounded-tech bg-white dark:bg-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-700 text-slate-800 dark:text-slate-200 border border-paper-300 dark:border-charcoal-700 text-body-sm font-medium transition-colors flex items-center gap-2"
               >
                 <Copy className="w-4 h-4 text-accent" />
-                <span>Copy Estimate</span>
+                <span>{t('common.copyEstimate')}</span>
               </button>
               <button
                 type="button"
@@ -579,7 +626,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                 className="px-3.5 py-2 rounded-tech bg-white dark:bg-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-700 text-slate-800 dark:text-slate-200 border border-paper-300 dark:border-charcoal-700 text-body-sm font-medium transition-colors flex items-center gap-2"
               >
                 <Share2 className="w-4 h-4 text-accent" />
-                <span>Share Project</span>
+                <span>{t('common.shareProject')}</span>
               </button>
             </div>
             <button
@@ -588,7 +635,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
               className="px-3.5 py-2 rounded-tech bg-white dark:bg-charcoal-750 hover:bg-paper-200 dark:hover:bg-charcoal-700 text-slate-800 dark:text-slate-200 border border-paper-300 dark:border-charcoal-700 text-body-sm font-medium transition-colors flex items-center gap-2"
             >
               <Printer className="w-4 h-4 text-slate-500" />
-              <span>Print Sheet</span>
+              <span>{t('common.printSheet')}</span>
             </button>
           </div>
         </div>
@@ -602,44 +649,47 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
         <div className="flex items-center gap-2 border-b border-paper-200 dark:border-charcoal-800 pb-3">
           <Info className="w-5 h-5 text-accent" />
           <h2 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-            Transparent Masonry Calculation Breakdown
+            {t('brick.breakdownTitle')}
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-caption">
           <div className="p-4 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 space-y-2">
             <span className="font-mono text-micro uppercase text-accent font-semibold block">
-              Step 1: Wall Face Area
+              {t('brick.step1Title')}
             </span>
             <p className="font-mono text-slate-800 dark:text-slate-200">
               {formatNumber(wallLength)} {isMetric ? 'm' : 'ft'} × {formatNumber(wallHeight)} {isMetric ? 'm' : 'ft'}
             </p>
             <p className="text-slate-500">
-              = <span className="text-slate-900 dark:text-white font-bold">{formatNumber(result.wallArea)} {isMetric ? 'm²' : 'sq ft'}</span> gross surface
+              = <span className="text-slate-900 dark:text-white font-bold">{formatNumber(result.wallArea)} {isMetric ? 'm²' : 'sq ft'}</span> {t('brick.grossSurface')}
             </p>
           </div>
 
           <div className="p-4 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 space-y-2">
             <span className="font-mono text-micro uppercase text-accent font-semibold block">
-              Step 2: Effective Brick Area
+              {t('brick.step2Title')}
             </span>
             <p className="font-mono text-slate-800 dark:text-slate-200">
-              {result.bricksPerUnitArea} bricks per {isMetric ? 'm²' : 'sq ft'}
+              {t('brick.bricksPerUnit', {
+                count: result.bricksPerUnitArea,
+                unit: isMetric ? 'm²' : 'sq ft',
+              })}
             </p>
             <p className="text-slate-500">
-              Accounting for {isMetric ? '10mm' : '⅜"'} horizontal bed and vertical head joints.
+              {t('brick.step2Note', { joint: isMetric ? '10mm' : '⅜"' })}
             </p>
           </div>
 
           <div className="p-4 rounded-tech bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 space-y-2">
             <span className="font-mono text-micro uppercase text-accent font-semibold block">
-              Step 3: Waste & Mortar Takeoff
+              {t('brick.step3Title')}
             </span>
             <p className="font-mono text-slate-800 dark:text-slate-200">
               {formatNumber(result.baseBricks, 0)} base × 1.{waste < 10 ? `0${waste}` : waste}
             </p>
             <p className="text-slate-500">
-              = <span className="text-accent font-bold">{formatNumber(result.totalBricks, 0)} bricks</span> + {result.mortarBags} Type N bags.
+              = <span className="text-accent font-bold">{formatNumber(result.totalBricks, 0)} {t('brick.bricksWord')}</span> + {result.mortarBags} {t('brick.typeNBags')}
             </p>
           </div>
         </div>
@@ -892,15 +942,15 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
         {/* FAQ */}
         <div className="space-y-5">
           <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white tracking-tight">
-            Frequently Asked Questions
+            {t('common.faqTitle')}
           </h2>
           <div className="space-y-5">
-            {BRICK_FAQ.map((item) => (
+            {BRICK_FAQ.map((item, index) => (
               <div key={item.question} className="space-y-1.5">
                 <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-                  {item.question}
+                  {t(FAQ_QUESTION_KEYS[index])}
                 </h3>
-                <p>{item.answer}</p>
+                <p>{t(FAQ_ANSWER_KEYS[index])}</p>
               </div>
             ))}
           </div>
@@ -909,7 +959,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
         {/* Related Calculators Cross-links */}
         <div className="p-6 rounded-tech-lg bg-paper-100 dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-4">
           <h2 className="text-heading-sm font-bold text-slate-900 dark:text-white">
-            Related Construction Calculators
+            {t('common.relatedConstructionCalculators')}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Link
@@ -918,10 +968,10 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             >
               <div>
                 <span className="text-caption font-semibold text-slate-900 dark:text-white block">
-                  Concrete Slab Calculator
+                  {t('tool.concrete-slab-calculator.name')}
                 </span>
                 <span className="text-micro font-mono text-slate-500">
-                  Volumetric 3D slab takeoff
+                  {t('brick.relatedConcreteSub')}
                 </span>
               </div>
               <ArrowRight className="w-4 h-4 text-accent" />
@@ -932,10 +982,10 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             >
               <div>
                 <span className="text-caption font-semibold text-slate-900 dark:text-white block">
-                  Architectural Paint Calculator
+                  {t('tool.paint-calculator.name')}
                 </span>
                 <span className="text-micro font-mono text-slate-500">
-                  Room surface coatings & openings
+                  {t('brick.relatedPaintSub')}
                 </span>
               </div>
               <ArrowRight className="w-4 h-4 text-accent" />

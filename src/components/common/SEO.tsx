@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
-import { siteConfig } from '../../lib/config/site';
+import { DEFAULT_LOCALE, type LocaleCode } from '../../lib/i18n/config';
+import { buildSeoHeadSpec, type HreflangAlternate, type RouteSEO } from '../../lib/seo';
 
 interface SEOProps {
   title: string;
   description: string;
   canonicalPath?: string;
   noindex?: boolean;
+  /** Rendered locale — drives the runtime <html lang> attribute. */
+  locale?: LocaleCode;
+  /** Reciprocal hreflang alternates for the current page (none for 404s). */
+  alternates?: HreflangAlternate[];
 }
 
 export const SEO: React.FC<SEOProps> = ({
@@ -13,10 +18,17 @@ export const SEO: React.FC<SEOProps> = ({
   description,
   canonicalPath,
   noindex = false,
+  locale = DEFAULT_LOCALE,
+  alternates = [],
 }) => {
   useEffect(() => {
+    // All head values come from the shared pure builder so this effect and
+    // build-time prerendering always write exactly the same metadata.
+    const routeSeo: RouteSEO = { title, description, canonicalPath, noindex, locale, alternates };
+    const spec = buildSeoHeadSpec(routeSeo);
+
     // 1. Title
-    document.title = title;
+    document.title = spec.title;
 
     // 2. Meta description
     let metaDesc = document.querySelector('meta[name="description"]');
@@ -25,7 +37,7 @@ export const SEO: React.FC<SEOProps> = ({
       metaDesc.setAttribute('name', 'description');
       document.head.appendChild(metaDesc);
     }
-    metaDesc.setAttribute('content', description);
+    metaDesc.setAttribute('content', spec.description);
 
     // 3. Robots
     let metaRobots = document.querySelector('meta[name="robots"]');
@@ -34,21 +46,17 @@ export const SEO: React.FC<SEOProps> = ({
       metaRobots.setAttribute('name', 'robots');
       document.head.appendChild(metaRobots);
     }
-    metaRobots.setAttribute(
-      'content',
-      noindex ? 'noindex, nofollow' : 'index, follow'
-    );
+    metaRobots.setAttribute('content', spec.robots);
 
-    // 4. Canonical
+    // 4. Canonical (localized, self-referencing, never carries a query string)
     let linkCanonical = document.querySelector('link[rel="canonical"]');
-    if (canonicalPath !== undefined) {
-      const canonicalUrl = `${siteConfig.domain}${canonicalPath === '/' ? '/' : canonicalPath}`;
+    if (spec.canonicalUrl !== undefined) {
       if (!linkCanonical) {
         linkCanonical = document.createElement('link');
         linkCanonical.setAttribute('rel', 'canonical');
         document.head.appendChild(linkCanonical);
       }
-      linkCanonical.setAttribute('href', canonicalUrl);
+      linkCanonical.setAttribute('href', spec.canonicalUrl);
     } else {
       if (linkCanonical) {
         linkCanonical.remove();
@@ -66,13 +74,12 @@ export const SEO: React.FC<SEOProps> = ({
       tag.setAttribute('content', content);
     };
 
-    updateOgTag('og:title', title);
-    updateOgTag('og:description', description);
-    updateOgTag('og:type', 'website');
-    updateOgTag('og:site_name', siteConfig.name);
-    if (canonicalPath !== undefined) {
-      const ogUrl = `${siteConfig.domain}${canonicalPath === '/' ? '/' : canonicalPath}`;
-      updateOgTag('og:url', ogUrl);
+    updateOgTag('og:title', spec.og.title);
+    updateOgTag('og:description', spec.og.description);
+    updateOgTag('og:type', spec.og.type);
+    updateOgTag('og:site_name', spec.og.siteName);
+    if (spec.og.url !== undefined) {
+      updateOgTag('og:url', spec.og.url);
     } else {
       const ogUrlTag = document.querySelector('meta[property="og:url"]');
       if (ogUrlTag) ogUrlTag.remove();
@@ -89,10 +96,25 @@ export const SEO: React.FC<SEOProps> = ({
       tag.setAttribute('content', content);
     };
 
-    updateTwitterTag('twitter:card', 'summary_large_image');
-    updateTwitterTag('twitter:title', title);
-    updateTwitterTag('twitter:description', description);
-  }, [title, description, canonicalPath, noindex]);
+    updateTwitterTag('twitter:card', spec.twitter.card);
+    updateTwitterTag('twitter:title', spec.twitter.title);
+    updateTwitterTag('twitter:description', spec.twitter.description);
+
+    // 7. <html lang> follows the locale actually being rendered
+    document.documentElement.lang = spec.htmlLang;
+
+    // 8. hreflang alternates — replaced wholesale so stale sets never linger
+    document
+      .querySelectorAll('link[rel="alternate"][hreflang]')
+      .forEach((link) => link.remove());
+    spec.hreflangs.forEach((alternate) => {
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', alternate.hreflang);
+      link.setAttribute('href', alternate.href);
+      document.head.appendChild(link);
+    });
+  }, [title, description, canonicalPath, noindex, locale, alternates]);
 
   return null;
 };

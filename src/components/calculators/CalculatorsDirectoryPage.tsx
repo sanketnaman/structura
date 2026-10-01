@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TOOL_REGISTRY, CATEGORIES } from '../../lib/tools/registry';
-import { viewToPath } from '../../lib/routes';
+import { useViewToPath } from '../../lib/routes';
 import {
   Box,
   Layers,
@@ -12,8 +12,13 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { AdSlot } from '../common/AdSlot';
+import { useLocale } from '../../lib/i18n/context';
+import { useToolText, categoryKey } from '../../lib/i18n/toolText';
 
 export const CalculatorsDirectoryPage: React.FC = () => {
+  const { t } = useLocale();
+  const viewToPath = useViewToPath();
+  const toolText = useToolText();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -28,8 +33,10 @@ export const CalculatorsDirectoryPage: React.FC = () => {
       selectedCategory === 'all' || tool.category === selectedCategory;
     const matchesSearch =
       searchQuery === '' ||
-      tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      toolText(tool.slug, 'name', tool.name).toLowerCase().includes(searchQuery.toLowerCase()) ||
+      toolText(tool.slug, 'description', tool.description)
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
       tool.keywords.some((k) => k.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
@@ -40,13 +47,13 @@ export const CalculatorsDirectoryPage: React.FC = () => {
       <div className="border-b border-paper-300 dark:border-charcoal-750 pb-6 space-y-3">
         <div className="flex items-center gap-2 text-micro font-mono text-accent uppercase tracking-wider">
           <Calculator className="w-4 h-4" />
-          <span>Production Calculator Directory</span>
+          <span>{t('directory.eyebrow')}</span>
         </div>
         <h1 className="text-display sm:text-display-md font-bold text-slate-900 dark:text-white">
-          Construction Calculation Workspaces
+          {t('directory.title')}
         </h1>
         <p className="text-body text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Explore interactive 3D material estimators and planning takeoff tools organized by trade discipline.
+          {t('directory.body')}
         </p>
       </div>
 
@@ -63,7 +70,7 @@ export const CalculatorsDirectoryPage: React.FC = () => {
                 : 'bg-paper-200 dark:bg-charcoal-800 text-slate-700 dark:text-slate-300 hover:bg-paper-300 dark:hover:bg-charcoal-700'
             }`}
           >
-            All Calculators ({implementedTools.length})
+            {t('directory.allCalculators', { count: implementedTools.length })}
           </button>
           {activeCategories.map((cat) => {
             const count = implementedTools.filter((t) => t.category === cat.id).length;
@@ -78,7 +85,7 @@ export const CalculatorsDirectoryPage: React.FC = () => {
                     : 'bg-paper-200 dark:bg-charcoal-800 text-slate-700 dark:text-slate-300 hover:bg-paper-300 dark:hover:bg-charcoal-700'
                 }`}
               >
-                {cat.label} ({count})
+                {t(categoryKey(cat.id, 'label'))} ({count})
               </button>
             );
           })}
@@ -88,7 +95,7 @@ export const CalculatorsDirectoryPage: React.FC = () => {
         <div className="relative sm:w-72">
           <input
             type="text"
-            placeholder="Search by material or trade..."
+            placeholder={t('directory.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-3 py-2 rounded-tech bg-white dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-700 text-slate-900 dark:text-white text-body-sm tech-focus"
@@ -137,27 +144,27 @@ export const CalculatorsDirectoryPage: React.FC = () => {
 
                   <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
                     <CheckCircle2 className="w-3 h-3" />
-                    <span>Production Ready</span>
+                    <span>{t('directory.productionReady')}</span>
                   </span>
                 </div>
 
                 <div className="text-micro font-mono text-accent uppercase tracking-wider mb-1">
-                  {tool.categoryLabel}
+                  {toolText(tool.slug, 'categoryLabel', tool.categoryLabel)}
                 </div>
                 <h2 className="text-heading-md font-bold text-slate-900 dark:text-white mb-2">
-                  {tool.name}
+                  {toolText(tool.slug, 'name', tool.name)}
                 </h2>
                 <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-                  {tool.description}
+                  {toolText(tool.slug, 'description', tool.description)}
                 </p>
                 </div>
 
                 <div className="pt-4 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-medium">
                   <span className="text-micro font-mono text-slate-500 uppercase">
-                    {tool.visualizationType.replace('-', ' ')}
+                    {t(`viz.${tool.visualizationType}` as Parameters<typeof t>[0])}
                   </span>
                   <span className="text-accent flex items-center gap-1 font-semibold">
-                    Launch Workspace <ArrowRight className="w-4 h-4" />
+                    {t('directory.launchWorkspace')} <ArrowRight className="w-4 h-4" />
                   </span>
                 </div>
               </div>

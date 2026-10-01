@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Cookie, X } from 'lucide-react';
-import { viewToPath } from '../../lib/routes';
+import { useViewToPath } from '../../lib/routes';
+import { useLocale } from '../../lib/i18n/context';
 
 export const ConsentBanner: React.FC = () => {
+  const { t } = useLocale();
+  const viewToPath = useViewToPath();
   const [isVisible, setIsVisible] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
 
@@ -72,44 +75,44 @@ export const ConsentBanner: React.FC = () => {
     <div
       role="dialog"
       aria-live="polite"
-      aria-label="Cookie and Privacy Consent Preferences"
+      aria-label={t('consent.dialogLabel')}
       className="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-lg z-50 p-5 rounded-tech-lg bg-white dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 shadow-2xl text-slate-900 dark:text-slate-100 transition-all duration-300 animate-in fade-in slide-in-from-bottom-4"
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex items-center gap-2">
           <Cookie className="w-5 h-5 text-accent shrink-0" />
           <h3 className="text-body-sm font-bold tracking-tight">
-            Privacy & Storage Preferences
+            {t('consent.title')}
           </h3>
         </div>
         <button
           type="button"
           onClick={handleAcceptEssential}
           className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1"
-          aria-label="Dismiss banner with essential cookies only"
+          aria-label={t('consent.dismissLabel')}
         >
           <X className="w-4 h-4" />
         </button>
       </div>
 
       <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-        MixTally uses essential local browser storage to retain calculator dimensions, unit toggles (Imperial/Metric), and dark mode. We may also use privacy-focused analytics and advertising partners to maintain our free engineering tools.
+        {t('consent.body')}
       </p>
 
       {preferencesOpen ? (
         <div className="space-y-3 p-3 mb-4 rounded-tech bg-paper-100 dark:bg-charcoal-850 border border-paper-200 dark:border-charcoal-800 text-caption">
           <div className="flex items-center justify-between">
             <div>
-              <span className="font-semibold block text-slate-900 dark:text-white">Essential Storage</span>
-              <span className="text-micro text-slate-500">Unit preferences, theme, and calculator memory (Always active).</span>
+              <span className="font-semibold block text-slate-900 dark:text-white">{t('consent.essentialTitle')}</span>
+              <span className="text-micro text-slate-500">{t('consent.essentialBody')}</span>
             </div>
             <input type="checkbox" checked disabled className="accent-accent cursor-not-allowed" />
           </div>
 
           <div className="flex items-center justify-between pt-2 border-t border-paper-200 dark:border-charcoal-800">
             <div>
-              <span className="font-semibold block text-slate-900 dark:text-white">Anonymous Analytics</span>
-              <span className="text-micro text-slate-500">Aggregated site usage metrics to improve calculator accuracy.</span>
+              <span className="font-semibold block text-slate-900 dark:text-white">{t('consent.analyticsTitle')}</span>
+              <span className="text-micro text-slate-500">{t('consent.analyticsBody')}</span>
             </div>
             <input
               type="checkbox"
@@ -121,8 +124,8 @@ export const ConsentBanner: React.FC = () => {
 
           <div className="flex items-center justify-between pt-2 border-t border-paper-200 dark:border-charcoal-800">
             <div>
-              <span className="font-semibold block text-slate-900 dark:text-white">Advertising Personalization</span>
-              <span className="text-micro text-slate-500">Permits contextual and personalized partner advertising.</span>
+              <span className="font-semibold block text-slate-900 dark:text-white">{t('consent.adsTitle')}</span>
+              <span className="text-micro text-slate-500">{t('consent.adsBody')}</span>
             </div>
             <input
               type="checkbox"
@@ -138,7 +141,7 @@ export const ConsentBanner: React.FC = () => {
               onClick={handleSavePreferences}
               className="px-3 py-1.5 rounded-tech bg-accent text-white font-medium text-caption hover:opacity-90 transition-opacity"
             >
-              Save Choices
+              {t('consent.saveChoices')}
             </button>
           </div>
         </div>
@@ -150,14 +153,14 @@ export const ConsentBanner: React.FC = () => {
             to={viewToPath('privacy')}
             className="inline-block hover:underline"
           >
-            Privacy Policy
+            {t('consent.privacyPolicy')}
           </Link>
           <span>·</span>
           <Link
             to={viewToPath('cookie-policy')}
             className="inline-block hover:underline"
           >
-            Cookie Policy
+            {t('consent.cookiePolicy')}
           </Link>
         </div>
 
@@ -168,7 +171,7 @@ export const ConsentBanner: React.FC = () => {
               onClick={() => setPreferencesOpen(true)}
               className="px-3 py-1.5 rounded-tech text-slate-700 dark:text-slate-300 hover:bg-paper-200 dark:hover:bg-charcoal-800 text-caption font-medium transition-colors"
             >
-              Preferences
+              {t('consent.preferences')}
             </button>
           )}
           <button
@@ -176,14 +179,14 @@ export const ConsentBanner: React.FC = () => {
             onClick={handleAcceptEssential}
             className="px-3 py-1.5 rounded-tech border border-paper-300 dark:border-charcoal-700 text-slate-800 dark:text-slate-200 hover:bg-paper-100 dark:hover:bg-charcoal-800 text-caption font-medium transition-colors"
           >
-            Essential Only
+            {t('consent.essentialOnly')}
           </button>
           <button
             type="button"
             onClick={handleAcceptAll}
             className="px-4 py-1.5 rounded-tech bg-accent text-white font-medium text-caption hover:opacity-90 transition-opacity shadow-sm"
           >
-            Accept All
+            {t('consent.acceptAll')}
           </button>
         </div>
       </div>

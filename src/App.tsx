@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { GlobalLayout } from './components/layout/GlobalLayout';
 import type { UnitSystem } from './types/layout';
@@ -20,10 +20,14 @@ import { Error404Page } from './components/common/Error404Page';
 import { SEO } from './components/common/SEO';
 import { StructuredData } from './components/common/StructuredData';
 import { getRouteSEO } from './lib/seo';
+import { localizedRoutePaths, type PageRoutePath } from './lib/routes';
+import { parseLocalePath, localizePath } from './lib/i18n/routing';
+import { LocaleProvider, useLocale } from './lib/i18n/context';
 
 function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { locale } = useLocale();
 
   const [unitSystem, setUnitSystem] = useState<UnitSystem>(() => {
     if (typeof window !== 'undefined') {
@@ -36,9 +40,15 @@ function AppContent() {
     return 'imperial';
   });
 
-  // Handle legacy ?tool= query parameter redirection at root
+  // Locale explicitly requested by the URL (never the stored preference) and
+  // the path without that prefix — the basis for routing, nav and SEO lookups.
+  const { locale: urlLocale, basePath } = parseLocalePath(location.pathname);
+
+  // Handle legacy ?tool= query parameter redirection at the localized root.
+  // The target keeps the URL's locale, so English URLs never redirect based
+  // on a stored language preference.
   useEffect(() => {
-    if (location.pathname === '/' || location.pathname === '') {
+    if (basePath === '/' || basePath === '') {
       const params = new URLSearchParams(location.search);
       const tool = params.get('tool');
       const unit = params.get('unit');
@@ -57,30 +67,30 @@ function AppContent() {
         }
         params.delete('tool');
         const search = params.toString() ? `?${params.toString()}` : '';
-        navigate(`${targetPath}${search}`, { replace: true });
+        navigate(`${localizePath(urlLocale, targetPath)}${search}`, { replace: true });
       }
     }
-  }, [location, navigate]);
+  }, [location, navigate, basePath, urlLocale]);
 
-  const getActiveViewFromPath = (pathname: string) => {
-    if (pathname === '/' || pathname === '') return 'overview';
-    if (pathname === '/calculators') return 'calculators';
-    if (pathname === '/calculators/concrete-slab-calculator') return 'concrete-slab-calculator';
-    if (pathname === '/calculators/brick-mortar-calculator') return 'brick-mortar-calculator';
-    if (pathname === '/calculators/paint-calculator') return 'paint-calculator';
-    if (pathname === '/guides') return 'guides';
-    if (pathname === '/about') return 'about';
-    if (pathname === '/contact') return 'contact';
-    if (pathname === '/privacy') return 'privacy';
-    if (pathname === '/terms') return 'terms';
-    if (pathname === '/disclaimer') return 'disclaimer';
-    if (pathname === '/cookie-policy') return 'cookie-policy';
-    if (pathname === '/advertising') return 'advertising';
+  const getActiveViewFromPath = (path: string) => {
+    if (path === '/' || path === '') return 'overview';
+    if (path === '/calculators') return 'calculators';
+    if (path === '/calculators/concrete-slab-calculator') return 'concrete-slab-calculator';
+    if (path === '/calculators/brick-mortar-calculator') return 'brick-mortar-calculator';
+    if (path === '/calculators/paint-calculator') return 'paint-calculator';
+    if (path === '/guides') return 'guides';
+    if (path === '/about') return 'about';
+    if (path === '/contact') return 'contact';
+    if (path === '/privacy') return 'privacy';
+    if (path === '/terms') return 'terms';
+    if (path === '/disclaimer') return 'disclaimer';
+    if (path === '/cookie-policy') return 'cookie-policy';
+    if (path === '/advertising') return 'advertising';
     return '404';
   };
 
-  const activeView = getActiveViewFromPath(location.pathname);
-  const seo = getRouteSEO(location.pathname);
+  const activeView = getActiveViewFromPath(basePath);
+  const seo = useMemo(() => getRouteSEO(location.pathname), [location.pathname]);
 
   // Scroll to top whenever the route path changes (internal Link/NavLink navigation)
   useEffect(() => {
@@ -96,6 +106,39 @@ function AppContent() {
     }
   };
 
+  // One element per canonical page path; localized variants are registered
+  // from the same list below, so no route can drift out of sync.
+  const pageElements: Record<PageRoutePath, React.ReactElement> = {
+    '/': <HomePage unitSystem={unitSystem} />,
+    '/calculators/concrete-slab-calculator': (
+      <ConcreteCalculatorWorkspace
+        unitSystem={unitSystem}
+        onUnitSystemChange={handleUnitSystemChange}
+      />
+    ),
+    '/calculators/brick-mortar-calculator': (
+      <BrickCalculatorWorkspace
+        unitSystem={unitSystem}
+        onUnitSystemChange={handleUnitSystemChange}
+      />
+    ),
+    '/calculators/paint-calculator': (
+      <PaintCalculatorWorkspace
+        unitSystem={unitSystem}
+        onUnitSystemChange={handleUnitSystemChange}
+      />
+    ),
+    '/calculators': <CalculatorsDirectoryPage />,
+    '/guides': <GuidesPage />,
+    '/about': <AboutPage />,
+    '/contact': <ContactPage />,
+    '/privacy': <PrivacyPage />,
+    '/terms': <TermsPage />,
+    '/disclaimer': <DisclaimerPage />,
+    '/cookie-policy': <CookiePolicyPage />,
+    '/advertising': <AdvertisingDisclosurePage />,
+  };
+
   return (
     <>
       <SEO
@@ -103,6 +146,8 @@ function AppContent() {
         description={seo.description}
         canonicalPath={seo.canonicalPath}
         noindex={seo.noindex}
+        locale={locale}
+        alternates={seo.alternates}
       />
       <StructuredData pathname={location.pathname} />
       <ErrorBoundary>
@@ -112,46 +157,13 @@ function AppContent() {
           onUnitSystemChange={handleUnitSystemChange}
         >
           <Routes>
-            <Route
-              path="/"
-              element={<HomePage unitSystem={unitSystem} />}
-            />
-            <Route
-              path="/calculators/concrete-slab-calculator"
-              element={
-                <ConcreteCalculatorWorkspace
-                  unitSystem={unitSystem}
-                  onUnitSystemChange={handleUnitSystemChange}
-                />
-              }
-            />
-            <Route
-              path="/calculators/brick-mortar-calculator"
-              element={
-                <BrickCalculatorWorkspace
-                  unitSystem={unitSystem}
-                  onUnitSystemChange={handleUnitSystemChange}
-                />
-              }
-            />
-            <Route
-              path="/calculators/paint-calculator"
-              element={
-                <PaintCalculatorWorkspace
-                  unitSystem={unitSystem}
-                  onUnitSystemChange={handleUnitSystemChange}
-                />
-              }
-            />
-            <Route path="/calculators" element={<CalculatorsDirectoryPage />} />
-            <Route path="/guides" element={<GuidesPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/privacy" element={<PrivacyPage />} />
-            <Route path="/terms" element={<TermsPage />} />
-            <Route path="/disclaimer" element={<DisclaimerPage />} />
-            <Route path="/cookie-policy" element={<CookiePolicyPage />} />
-            <Route path="/advertising" element={<AdvertisingDisclosurePage />} />
+            {localizedRoutePaths().map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={pageElements[route.basePath]}
+              />
+            ))}
             <Route path="*" element={<Error404Page />} />
           </Routes>
         </GlobalLayout>
@@ -160,10 +172,25 @@ function AppContent() {
   );
 }
 
+/**
+ * Router-agnostic application composition: locale context, route table,
+ * SEO/structured-data effects and the global layout. The client mounts it
+ * inside <BrowserRouter> below; the server entry (entry-server.tsx) mounts
+ * the identical tree inside <MemoryRouter>, so both render the same routes
+ * and page components without duplicating route configuration.
+ */
+export function AppRoot(): React.ReactElement {
+  return (
+    <LocaleProvider>
+      <AppContent />
+    </LocaleProvider>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
-      <AppContent />
+      <AppRoot />
     </BrowserRouter>
   );
 }

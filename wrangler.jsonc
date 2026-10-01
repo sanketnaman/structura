@@ -6,7 +6,8 @@
   "compatibility_date": "2026-09-28",
   "assets": {
     "directory": "./dist",
-    // Serves index.html for any unmatched path so React Router owns the routes.
-    "not_found_handling": "single-page-application"
+    // Unknown paths get a genuine HTTP 404 with the prerendered noindex
+    // 404.html (client-side routing only ever requests real asset files).
+    "not_found_handling": "404-page"
   }
 }

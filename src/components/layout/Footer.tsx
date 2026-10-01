@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, AlertTriangle, ArrowRight } from 'lucide-react';
-import { viewToPath } from '../../lib/routes';
+import { useViewToPath } from '../../lib/routes';
+import { useLocale } from '../../lib/i18n/context';
 
 export const Footer: React.FC = () => {
+  const { t } = useLocale();
+  const viewToPath = useViewToPath();
+
   return (
     <footer className="w-full border-t border-paper-300 dark:border-charcoal-750 bg-paper-100 dark:bg-charcoal-900 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -18,18 +22,18 @@ export const Footer: React.FC = () => {
               MixTally
             </Link>
             <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm">
-              Construction material estimators and interactive 3D spatial calculators. Transparent mathematical breakdowns for field planning and material purchasing.
+              {t('footer.tagline')}
             </p>
             <div className="flex items-center gap-2 text-micro text-slate-500 dark:text-slate-400 pt-1">
               <ShieldCheck className="w-3.5 h-3.5 text-accent" />
-              <span>Planning & Purchasing Estimation Platform</span>
+              <span>{t('footer.badge')}</span>
             </div>
           </div>
 
           {/* Construction Calculators */}
           <div>
             <h4 className="text-micro uppercase font-semibold tracking-wider text-slate-900 dark:text-slate-200 mb-3">
-              Calculators
+              {t('footer.headingCalculators')}
             </h4>
             <ul className="space-y-2 text-caption text-slate-600 dark:text-slate-400">
               <li>
@@ -37,7 +41,7 @@ export const Footer: React.FC = () => {
                   to={viewToPath('concrete-slab-calculator')}
                   className="inline-block hover:text-accent transition-colors text-left"
                 >
-                  Concrete Slab
+                  {t('nav.concreteSlab')}
                 </Link>
               </li>
               <li>
@@ -45,7 +49,7 @@ export const Footer: React.FC = () => {
                   to={viewToPath('brick-mortar-calculator')}
                   className="inline-block hover:text-accent transition-colors text-left"
                 >
-                  Brick & Mortar
+                  {t('nav.brickMortar')}
                 </Link>
               </li>
               <li>
@@ -53,7 +57,7 @@ export const Footer: React.FC = () => {
                   to={viewToPath('paint-calculator')}
                   className="inline-block hover:text-accent transition-colors text-left"
                 >
-                  Architectural Paint
+                  {t('nav.architecturalPaint')}
                 </Link>
               </li>
               <li>
@@ -61,7 +65,7 @@ export const Footer: React.FC = () => {
                   to={viewToPath('calculators')}
                   className="flex items-center gap-1 pt-1 text-accent font-medium hover:underline text-left"
                 >
-                  <span>All Calculators</span> <ArrowRight className="w-3 h-3" />
+                  <span>{t('footer.allCalculators')}</span> <ArrowRight className="w-3 h-3" />
                 </Link>
               </li>
             </ul>
@@ -70,7 +74,7 @@ export const Footer: React.FC = () => {
           {/* Resources & Guides */}
           <div>
             <h4 className="text-micro uppercase font-semibold tracking-wider text-slate-900 dark:text-slate-200 mb-3">
-              Resources
+              {t('footer.headingResources')}
             </h4>
             <ul className="space-y-2 text-caption text-slate-600 dark:text-slate-400">
               <li>
@@ -78,7 +82,7 @@ export const Footer: React.FC = () => {
                   to={viewToPath('guides')}
                   className="inline-block hover:text-accent transition-colors text-left"
                 >
-                  Field Guides
+                  {t('nav.fieldGuides')}
                 </Link>
               </li>
               <li>
@@ -86,7 +90,7 @@ export const Footer: React.FC = () => {
                   to={viewToPath('about')}
                   className="inline-block hover:text-accent transition-colors text-left"
                 >
-                  About MixTally
+                  {t('nav.aboutMixTally')}
                 </Link>
               </li>
               <li>
@@ -94,7 +98,7 @@ export const Footer: React.FC = () => {
                   to={viewToPath('contact')}
                   className="inline-block hover:text-accent transition-colors text-left"
                 >
-                  Contact Support
+                  {t('nav.contactSupport')}
                 </Link>
               </li>
             </ul>
@@ -103,7 +107,7 @@ export const Footer: React.FC = () => {
           {/* Legal & Compliance */}
           <div>
             <h4 className="text-micro uppercase font-semibold tracking-wider text-slate-900 dark:text-slate-200 mb-3">
-              Legal & Policies
+              {t('footer.headingLegal')}
             </h4>
             <ul className="space-y-2 text-caption text-slate-600 dark:text-slate-400">
               <li>
@@ -111,7 +115,7 @@ export const Footer: React.FC = () => {
                   to={viewToPath('disclaimer')}
                   className="inline-block hover:text-accent transition-colors text-left font-medium text-slate-700 dark:text-slate-300"
                 >
-                  Disclaimer
+                  {t('footer.disclaimer')}
                 </Link>
               </li>
               <li>
@@ -119,7 +123,7 @@ export const Footer: React.FC = () => {
                   to={viewToPath('privacy')}
                   className="inline-block hover:text-accent transition-colors text-left"
                 >
-                  Privacy Policy
+                  {t('footer.privacyPolicy')}
                 </Link>
               </li>
               <li>
@@ -127,7 +131,7 @@ export const Footer: React.FC = () => {
                   to={viewToPath('terms')}
                   className="inline-block hover:text-accent transition-colors text-left"
                 >
-                  Terms of Use
+                  {t('footer.termsOfUse')}
                 </Link>
               </li>
               <li>
@@ -135,7 +139,7 @@ export const Footer: React.FC = () => {
                   to={viewToPath('cookie-policy')}
                   className="inline-block hover:text-accent transition-colors text-left"
                 >
-                  Cookie Policy
+                  {t('footer.cookiePolicy')}
                 </Link>
               </li>
               <li>
@@ -143,7 +147,7 @@ export const Footer: React.FC = () => {
                   to={viewToPath('advertising')}
                   className="inline-block hover:text-accent transition-colors text-left"
                 >
-                  Advertising Disclosure
+                  {t('footer.advertisingDisclosure')}
                 </Link>
               </li>
             </ul>
@@ -155,14 +159,14 @@ export const Footer: React.FC = () => {
           <AlertTriangle className="w-4 h-4 text-accent shrink-0 mt-0.5" />
           <div className="text-micro text-slate-600 dark:text-slate-400 leading-relaxed">
             <strong className="font-semibold text-slate-800 dark:text-slate-200">
-              Construction Planning Notice:
+              {t('footer.noticeLead')}
             </strong>{' '}
-            Calculations provided by MixTally are mathematical quantity and material estimates intended for volumetric planning, purchasing projections, and takeoff coordination. They do not constitute licensed structural engineering, load calculations, geotechnical foundation analysis, or certified architectural specifications. Verify field measurements with on-site inspections and consult a licensed civil or structural engineer for safety-critical and load-bearing decisions.{' '}
+            {t('footer.noticeBody')}{' '}
             <Link
               to={viewToPath('disclaimer')}
               className="text-accent underline font-medium inline"
             >
-              Read Full Disclaimer
+              {t('footer.readFullDisclaimer')}
             </Link>
             .
           </div>
@@ -170,13 +174,13 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between pt-6 border-t border-paper-300 dark:border-charcoal-800 text-caption text-slate-500 dark:text-slate-400">
-          <p>© {new Date().getFullYear()} MixTally. All rights reserved.</p>
+          <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
           <div className="flex items-center gap-3 mt-4 sm:mt-0 text-micro">
-            <span>Formula-Based Material Takeoffs</span>
+            <span>{t('footer.bottomFormula')}</span>
             <span aria-hidden="true">·</span>
-            <span>Client-Side Geometry</span>
+            <span>{t('footer.bottomGeometry')}</span>
             <span aria-hidden="true">·</span>
-            <span>No Telemetry</span>
+            <span>{t('footer.bottomTelemetry')}</span>
           </div>
         </div>
       </div>

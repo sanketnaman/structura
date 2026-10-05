@@ -91,6 +91,30 @@ describe('representative route rendering', () => {
     expect(countAnchors(html)).toBeGreaterThanOrEqual(20);
     expect(html).not.toContain('href="/en/');
   });
+
+  it('renders /blog as a crawlable listing with category anchors', () => {
+    const html = render('/blog');
+
+    expect(html.length).toBeGreaterThan(5_000);
+    expect(html).toContain(translate('en', 'blog.title'));
+    expect(html).toContain('href="/blog?category=concrete"');
+    expect(html).toContain('href="/blog/how-to-calculate-concrete-volume-for-a-slab"');
+    expect(html).toContain('<h1');
+    expect(countAnchors(html)).toBeGreaterThanOrEqual(10);
+    expect(html).not.toContain('href="/en/');
+  });
+
+  it('renders an article with English body markup and localized chrome', () => {
+    const html = render('/de/blog/how-to-calculate-concrete-volume-for-a-slab');
+
+    expect(html.length).toBeGreaterThan(10_000);
+    expect(html).toContain('<article lang="en"');
+    expect(html).toContain('How to Calculate Concrete Volume for a Slab');
+    expect(html).toContain('id="volume-formula"');
+    expect(html).toContain(translate('de', 'blog.backToListing'));
+    expect(html).toContain('href="/de/blog"');
+    expect(html).not.toContain('href="/en/');
+  });
 });
 
 describe('buildSeoHeadSpec', () => {
@@ -256,5 +280,46 @@ describe('buildStructuredDataSchemas', () => {
     expect(buildStructuredDataSchemas('/pt/privacy')).toEqual([]);
     expect(buildStructuredDataSchemas('/terms')).toEqual([]);
     expect(buildStructuredDataSchemas('/guides')).toEqual([]);
+  });
+
+  it('emits a localized breadcrumb for the blog listing', () => {
+    const schemas = buildStructuredDataSchemas('/pt/blog');
+
+    expect(schemas).toHaveLength(1);
+    expect(schemas[0]).toMatchObject({
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://mixtally.com/pt/' },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Blog',
+          item: 'https://mixtally.com/pt/blog',
+        },
+      ],
+    });
+  });
+
+  it('emits Article + BreadcrumbList with the English canonical for a mirror', () => {
+    const schemas = buildStructuredDataSchemas('/fr/blog/how-to-calculate-concrete-volume-for-a-slab');
+
+    expect(schemas).toHaveLength(2);
+    expect(schemas.map((s) => s['@type'])).toEqual(['Article', 'BreadcrumbList']);
+    expect(schemas[0]).toMatchObject({
+      headline: 'How to Calculate Concrete Volume for a Slab',
+      datePublished: '2026-10-04',
+      dateModified: '2026-10-04',
+      author: { '@type': 'Organization', name: 'MixTally' },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': 'https://mixtally.com/blog/how-to-calculate-concrete-volume-for-a-slab',
+      },
+    });
+    const breadcrumb = schemas[1] as { itemListElement: { name: string; item: string }[] };
+    expect(breadcrumb.itemListElement).toHaveLength(3);
+    expect(breadcrumb.itemListElement[0].name).toBe(translate('fr', 'common.home'));
+    expect(breadcrumb.itemListElement[2].item).toBe(
+      'https://mixtally.com/blog/how-to-calculate-concrete-volume-for-a-slab',
+    );
   });
 });

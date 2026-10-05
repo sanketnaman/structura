@@ -20,15 +20,21 @@ import { getLocaleDefinition } from '../src/lib/i18n/config';
 import { parseLocalePath } from '../src/lib/i18n/routing';
 import { translate } from '../src/lib/i18n/translate';
 import { BRICK_FAQ } from '../src/lib/calculators/brick/faq';
+import { ARTICLE_REGISTRY } from '../src/lib/blog/registry';
 
 /**
- * Phase 4H-2 — static prerendering of all 65 routes.
+ * Phase 4H-2 — static prerendering of every route.
  *
  * Generates the full output twice into OS temp directories (never the
  * repo), then validates every generated document: exact file set and
- * paths, localized head metadata, hreflang/robots/canonical, JSON-LD,
- * real body content, no SPA shells, no /en/, no dev URLs, no duplicate
- * tags, and byte-identical determinism across repeated generation.
+ * paths, localized head metadata, hreflang/robots/canonical, og/twitter
+ * image tags, JSON-LD, real body content, no SPA shells, no /en/, no dev
+ * URLs, no duplicate tags, and byte-identical determinism across repeated
+ * generation.
+ *
+ * The path list is the 72 sitemap URLs plus the 8 localized article
+ * mirrors (canonicalized to English, therefore never sitemapped but still
+ * required to exist as real documents): 80 documents in total.
  */
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -118,10 +124,22 @@ interface Expectation {
   canonicalUrl?: string;
   hreflangs: { hreflang: string; href: string }[];
   taggedSchemas: number;
+  /** og:title/description/type/site_name[/url] plus 4 image tags when present. */
+  ogCount: number;
+  /** twitter:card/title/description plus 2 image tags when present. */
+  twitterCount: number;
+  /** True for `/blog/<slug>` documents (mirrors included). */
+  isArticle: boolean;
+  /** True for `/blog` listing documents. */
+  isListing: boolean;
 }
 
+const ARTICLE_PATH_PATTERN = /\/blog\/[^/]+$/;
+
 const expectations: Expectation[] = urlPaths.map((urlPath) => {
-  const spec = buildSeoHeadSpec(getRouteSEO(urlPath));
+  const seo = getRouteSEO(urlPath);
+  const spec = buildSeoHeadSpec(seo);
+  const hasImage = spec.og.image !== undefined;
   return {
     urlPath,
     outputPath: outputPathFor(urlPath),
@@ -132,6 +150,10 @@ const expectations: Expectation[] = urlPaths.map((urlPath) => {
     canonicalUrl: spec.canonicalUrl,
     hreflangs: spec.hreflangs,
     taggedSchemas: buildStructuredDataSchemas(urlPath).length,
+    ogCount: (spec.og.url !== undefined ? 5 : 4) + (hasImage ? 4 : 0),
+    twitterCount: 3 + (hasImage ? 2 : 0),
+    isArticle: ARTICLE_PATH_PATTERN.test(urlPath),
+    isListing: /\/blog\/?$/.test(urlPath),
   };
 });
 
@@ -167,12 +189,14 @@ afterAll(() => {
 });
 
 describe('route enumeration and output paths', () => {
-  it('enumerates exactly the 65 sitemap routes with unique output paths', () => {
-    expect(sitemapEntries()).toHaveLength(65);
-    expect(urlPaths).toHaveLength(65);
-    expect(new Set(urlPaths).size).toBe(65);
-    expect(new Set(expectations.map((e) => e.outputPath)).size).toBe(65);
-    expect(resultA.count).toBe(65);
+  it('enumerates the 72 sitemap routes plus 8 article mirrors with unique output paths', () => {
+    expect(sitemapEntries()).toHaveLength(72);
+    expect(urlPaths).toHaveLength(80);
+    expect(new Set(urlPaths).size).toBe(80);
+    expect(new Set(expectations.map((e) => e.outputPath)).size).toBe(80);
+    expect(resultA.count).toBe(80);
+    expect(expectations.filter((e) => e.isArticle)).toHaveLength(10);
+    expect(expectations.filter((e) => e.isListing)).toHaveLength(5);
   });
 
   it('maps every spec example to its exact output path', () => {
@@ -222,7 +246,7 @@ describe('route enumeration and output paths', () => {
   });
 });
 
-describe('head validation for all 65 documents', () => {
+describe('head validation for all 80 documents', () => {
   it('matches the pure builders: lang, title, description, robots, canonical, hreflang', () => {
     const failures: string[] = [];
     for (const expectation of expectations) {
@@ -262,10 +286,18 @@ describe('head validation for all 65 documents', () => {
         ['meta description', countMatches(html, /<meta\s+name="description"\s+content=/g), 1],
         ['meta robots', countMatches(html, /<meta\s+name="robots"\s+content=/g), 1],
         ['canonical', countMatches(html, /<link\s+rel="canonical"\s+href=/g), 1],
-        ['og:* total', countMatches(html, /<meta\s+property="og:/g), 5],
+        ['og:* total', countMatches(html, /<meta\s+property="og:/g), expectation.ogCount],
         ['og:url', countMatches(html, /<meta\s+property="og:url"\s+content=/g), 1],
-        ['twitter:* total', countMatches(html, /<meta\s+name="twitter:/g), 3],
-        ['hreflang', countMatches(html, /<link\s+rel="alternate"\s+hreflang=/g), 6],
+        [
+          'twitter:* total',
+          countMatches(html, /<meta\s+name="twitter:/g),
+          expectation.twitterCount,
+        ],
+        [
+          'hreflang',
+          countMatches(html, /<link\s+rel="alternate"\s+hreflang=/g),
+          expectation.hreflangs.length,
+        ],
         ['site-level JSON-LD', countMatches(html, /<script type="application\/ld\+json">/g), 1],
         [
           'route JSON-LD',
@@ -284,8 +316,73 @@ describe('head validation for all 65 documents', () => {
     expect(failures).toEqual([]);
   });
 
+  it('advertises hreflang only for localized pages, never for article bodies', () => {
+    const failures: string[] = [];
+    for (const expectation of expectations) {
+      const html = docFor(expectation.urlPath);
+      const hreflangs = extractHreflangs(html);
+
+      if (expectation.isArticle) {
+        if (hreflangs.length !== 0) {
+          failures.push(`${expectation.urlPath}: article advertises ${hreflangs.length} hreflang`);
+        }
+        const slug = expectation.urlPath.slice(
+          expectation.urlPath.lastIndexOf('/blog/') + '/blog/'.length,
+        );
+        if (!expectation.canonicalUrl?.endsWith(`/blog/${slug}`)) {
+          failures.push(`${expectation.urlPath}: article canonical ${expectation.canonicalUrl}`);
+        }
+        if (!html.includes('<article lang="en"')) {
+          failures.push(`${expectation.urlPath}: article body is not marked lang="en"`);
+        }
+      } else if (hreflangs.length !== 6) {
+        failures.push(`${expectation.urlPath}: ${hreflangs.length} hreflang entries (expected 6)`);
+      }
+    }
+    expect(failures).toEqual([]);
+  });
+
+  it('emits og/twitter image tags on every article and on no other route', () => {
+    const failures: string[] = [];
+    for (const expectation of expectations) {
+      const html = docFor(expectation.urlPath);
+      const ogImage = extractMeta(html, 'property', 'og:image');
+      const twitterImage = extractMeta(html, 'name', 'twitter:image');
+
+      if (expectation.isArticle) {
+        const article = ARTICLE_REGISTRY.find((entry) =>
+          expectation.urlPath.endsWith(`/blog/${entry.slug}`),
+        );
+        if (!article) {
+          failures.push(`${expectation.urlPath}: no registry entry for the article`);
+          continue;
+        }
+        if (ogImage !== `https://mixtally.com${article.ogImage.src}`) {
+          failures.push(`${expectation.urlPath}: og:image ${ogImage}`);
+        }
+        if (extractMeta(html, 'property', 'og:image:width') !== String(article.ogImage.width)) {
+          failures.push(`${expectation.urlPath}: og:image:width wrong`);
+        }
+        if (extractMeta(html, 'property', 'og:image:height') !== String(article.ogImage.height)) {
+          failures.push(`${expectation.urlPath}: og:image:height wrong`);
+        }
+        if (extractMeta(html, 'property', 'og:type') !== 'article') {
+          failures.push(`${expectation.urlPath}: og:type is not article`);
+        }
+        if (twitterImage !== ogImage) {
+          failures.push(`${expectation.urlPath}: twitter:image ${twitterImage}`);
+        }
+      } else if (ogImage !== null || twitterImage !== null) {
+        failures.push(`${expectation.urlPath}: unexpected social image`);
+      }
+    }
+    expect(failures).toEqual([]);
+  });
+
   it('contains no localhost, Worker dev, port or Vite dev URLs', () => {
-    const forbidden = /localhost|127\.0\.0\.1|:\d{4}\b|workers\.dev|\/src\//;
+    // The port pattern only matches a port that follows a URL scheme, so a
+    // four-digit number inside JSON-LD (e.g. an og:image width) never trips it.
+    const forbidden = /localhost|127\.0\.0\.1|:\/\/[^"'\s]*:\d{4}\b|workers\.dev|\/src\//;
     const failures: string[] = [];
     for (const expectation of expectations) {
       const html = docFor(expectation.urlPath);
@@ -315,7 +412,7 @@ describe('head validation for all 65 documents', () => {
   });
 });
 
-describe('JSON-LD content for all 65 documents', () => {
+describe('JSON-LD content for all 80 documents', () => {
   it('emits exactly the builder schemas, parseable and with correct localized URLs', () => {
     const failures: string[] = [];
     for (const expectation of expectations) {
@@ -447,6 +544,74 @@ describe('representative routes (all five locales)', () => {
   });
 });
 
+describe('blog documents (listing, localized listing, article, mirror)', () => {
+  const article = ARTICLE_REGISTRY[0];
+  const articlePath = `/blog/${article.slug}`;
+
+  it('/blog — English listing with crawlable category anchors', () => {
+    const html = docFor('/blog');
+    expect(extractTitle(html)).toBe('Construction Blog — MixTally');
+    expect(extract(html, /<html lang="([^"]*)">/)).toBe('en');
+    expect(extractMeta(html, 'name', 'robots')).toBe('index, follow');
+    expect(extractHreflangs(html)).toHaveLength(6);
+
+    const root = extractRootContent(html);
+    expect(root).toContain(translate('en', 'blog.title'));
+    expect(root).toContain(`href="/blog?category=concrete"`);
+    expect(root).toContain(`href="${articlePath}"`);
+
+    expect(extractTaggedJsonLd(html).map((schema) => schema['@type'])).toEqual([
+      'BreadcrumbList',
+    ]);
+  });
+
+  it('/es/blog — localized listing chrome, English-path canonical, full hreflang', () => {
+    const html = docFor('/es/blog');
+    expect(extractTitle(html)).toBe('Blog de construcción — MixTally');
+    expect(extract(html, /<html lang="([^"]*)">/)).toBe('es');
+    expect(unescapeHtml(extract(html, /<link\s+rel="canonical"\s+href="([^"]*)"/) ?? '')).toBe(
+      'https://mixtally.com/es/blog',
+    );
+    expect(extractHreflangs(html)).toHaveLength(6);
+    expect(extractRootContent(html)).toContain(translate('es', 'blog.title'));
+  });
+
+  it(`${articlePath} — English article with Article JSON-LD and no hreflang`, () => {
+    const html = docFor(articlePath);
+    expect(extractTitle(html)).toBe(`${article.title} — MixTally`);
+    expect(extractMeta(html, 'name', 'robots')).toBe('index, follow');
+    expect(extractMeta(html, 'property', 'og:type')).toBe('article');
+    expect(unescapeHtml(extract(html, /<link\s+rel="canonical"\s+href="([^"]*)"/) ?? '')).toBe(
+      `https://mixtally.com${articlePath}`,
+    );
+    expect(extractHreflangs(html)).toEqual([]);
+
+    const root = extractRootContent(html);
+    expect(root).toContain('<article lang="en"');
+    expect(root).toContain(article.title);
+    expect(root).toContain('id="volume-formula"');
+
+    expect(extractTaggedJsonLd(html).map((schema) => schema['@type'])).toEqual([
+      'Article',
+      'BreadcrumbList',
+    ]);
+  });
+
+  it(`/de${articlePath} — localized mirror keeps the English canonical and no hreflang`, () => {
+    const html = docFor(`/de${articlePath}`);
+    expect(extract(html, /<html lang="([^"]*)">/)).toBe('de');
+    expect(unescapeHtml(extract(html, /<link\s+rel="canonical"\s+href="([^"]*)"/) ?? '')).toBe(
+      `https://mixtally.com${articlePath}`,
+    );
+    expect(extractHreflangs(html)).toEqual([]);
+
+    const root = extractRootContent(html);
+    expect(root).toContain('<article lang="en"');
+    expect(root).toContain(translate('de', 'blog.backToListing'));
+    expect(root).toContain('href="/de/blog"');
+  });
+});
+
 describe('locale-home documents use the trailing-slash URL everywhere', () => {
   const HOMES = ['es', 'pt', 'fr', 'de'] as const;
 
@@ -532,7 +697,7 @@ describe('genuine 404 document (404.html)', () => {
 describe('deterministic generation', () => {
   it('produces byte-identical files across repeated generation', () => {
     const second = prerender({ templateHtml: fixtureTemplate, outDir: outDirB, render });
-    expect(second.count).toBe(65);
+    expect(second.count).toBe(80);
     expect(second.notFoundFile).toBe('404.html');
 
     const failures: string[] = [];

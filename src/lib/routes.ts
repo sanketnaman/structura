@@ -16,6 +16,7 @@ export const PAGE_ROUTE_PATHS = [
   '/calculators/paint-calculator',
   '/calculators',
   '/guides',
+  '/blog',
   '/about',
   '/contact',
   '/privacy',

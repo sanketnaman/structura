@@ -32,6 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
   const isCalculators = activeView === 'calculators' || isConcrete || isBrick || isPaint;
   const isHome = activeView === 'overview' || activeView === 'home';
   const isGuides = activeView === 'guides';
+  const isBlog = activeView === 'blog' || activeView === 'blog-article';
   const isAbout = activeView === 'about';
 
   const closeMenus = () => {
@@ -143,6 +144,18 @@ export const Header: React.FC<HeaderProps> = ({
               }
             >
               {t('nav.guides')}
+            </NavLink>
+
+            <NavLink
+              to={viewToPath('blog')}
+              onClick={closeMenus}
+              className={() =>
+                `transition-colors py-1 hover:text-slate-950 dark:hover:text-white ${
+                  isBlog ? 'text-accent dark:text-amber-400 font-semibold' : ''
+                }`
+              }
+            >
+              {t('nav.blog')}
             </NavLink>
 
             <NavLink
@@ -301,6 +314,17 @@ export const Header: React.FC<HeaderProps> = ({
               }
             >
               {t('nav.fieldGuides')}
+            </NavLink>
+            <NavLink
+              to={viewToPath('blog')}
+              onClick={closeMenus}
+              className={() =>
+                `block w-full text-left px-3 py-2 rounded-tech ${
+                  isBlog ? 'bg-accent/10 text-accent font-semibold' : 'text-slate-700 dark:text-slate-300'
+                }`
+              }
+            >
+              {t('nav.blog')}
             </NavLink>
             <NavLink
               to={viewToPath('about')}

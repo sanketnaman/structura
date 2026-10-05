@@ -89,7 +89,7 @@ describe('Dictionary coverage', () => {
 
   it('covers every English key except the two decorative separators', () => {
     const enKeys = Object.keys(en);
-    expect(enKeys).toHaveLength(644);
+    expect(enKeys).toHaveLength(664);
 
     for (const code of ['es', 'pt', 'fr', 'de'] as const) {
       const dict = dictionaries[code];
@@ -99,7 +99,7 @@ describe('Dictionary coverage', () => {
 
       expect(extra).toEqual([]);
       expect(missing.filter((key) => !ALLOWED_MISSING.has(key))).toEqual([]);
-      expect(keys).toHaveLength(code === 'pt' ? 644 : 642);
+      expect(keys).toHaveLength(code === 'pt' ? 664 : 662);
     }
   });
 
@@ -110,6 +110,15 @@ describe('Dictionary coverage', () => {
         expect(typeof value, `${code}.${key}`).toBe('string');
         expect((value as string).length, `${code}.${key}`).toBeGreaterThan(0);
       }
+    }
+  });
+
+  it('translates the blog chrome instead of falling back to English', () => {
+    for (const code of ['es', 'pt', 'fr', 'de'] as const) {
+      for (const key of ['blog.title', 'blog.readArticle', 'blog.filterAll'] as const) {
+        expect(translate(code, key), `${code}.${key}`).not.toBe(translate('en', key));
+      }
+      expect(translate(code, 'blog.readingTime'), code).toContain('{minutes}');
     }
   });
 });

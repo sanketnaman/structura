@@ -5,6 +5,7 @@ import { createRoot, type Root } from 'react-dom/client';
 import { SEO } from '../src/components/common/SEO';
 import { StructuredData } from '../src/components/common/StructuredData';
 import { getRouteSEO } from '../src/lib/seo';
+import { ARTICLE_REGISTRY } from '../src/lib/blog/registry';
 
 /**
  * Phase 4H-1 regression guard: the SEO and StructuredData effects now
@@ -28,6 +29,8 @@ function renderSEO(pathname: string): void {
         noindex={seo.noindex}
         locale={seo.locale}
         alternates={seo.alternates}
+        image={seo.image}
+        ogType={seo.ogType}
       />,
     );
   });
@@ -115,6 +118,48 @@ describe('SEO effect (client document.head behavior unchanged)', () => {
     expect(document.querySelector('meta[property="og:url"]')).toBeNull();
     expect(document.querySelectorAll('link[rel="alternate"][hreflang]')).toHaveLength(0);
   });
+
+  it('writes the article og/twitter image set and removes it on the next route', () => {
+    const article = ARTICLE_REGISTRY[0];
+    const imageUrl = `https://mixtally.com${article.ogImage.src}`;
+
+    renderSEO(`/blog/${article.slug}`);
+    expect(document.querySelector('meta[property="og:image"]')?.getAttribute('content')).toBe(
+      imageUrl,
+    );
+    expect(document.querySelector('meta[property="og:image:width"]')?.getAttribute('content')).toBe(
+      String(article.ogImage.width),
+    );
+    expect(
+      document.querySelector('meta[property="og:image:height"]')?.getAttribute('content'),
+    ).toBe(String(article.ogImage.height));
+    expect(document.querySelector('meta[property="og:image:alt"]')?.getAttribute('content')).toBe(
+      article.ogImage.alt,
+    );
+    expect(document.querySelector('meta[property="og:type"]')?.getAttribute('content')).toBe(
+      'article',
+    );
+    expect(document.querySelector('meta[name="twitter:image"]')?.getAttribute('content')).toBe(
+      imageUrl,
+    );
+    expect(
+      document.querySelector('meta[name="twitter:image:alt"]')?.getAttribute('content'),
+    ).toBe(article.ogImage.alt);
+    expect(document.querySelectorAll('link[rel="alternate"][hreflang]')).toHaveLength(0);
+
+    renderSEO('/privacy');
+    expect(document.querySelector('meta[property="og:image"]')).toBeNull();
+    expect(document.querySelector('meta[property="og:image:width"]')).toBeNull();
+    expect(document.querySelector('meta[property="og:image:height"]')).toBeNull();
+    expect(document.querySelector('meta[property="og:image:alt"]')).toBeNull();
+    expect(document.querySelector('meta[name="twitter:image"]')).toBeNull();
+    expect(document.querySelector('meta[name="twitter:image:alt"]')).toBeNull();
+    expect(document.querySelector('meta[property="og:type"]')?.getAttribute('content')).toBe(
+      'website',
+    );
+    expect(document.querySelectorAll('meta[property^="og:image"]')).toHaveLength(0);
+    expect(document.querySelectorAll('meta[name^="twitter:image"]')).toHaveLength(0);
+  });
 });
 
 describe('StructuredData effect (client JSON-LD behavior unchanged)', () => {
@@ -144,6 +189,31 @@ describe('StructuredData effect (client JSON-LD behavior unchanged)', () => {
     });
 
     // /privacy emits no dynamic schema — the brick scripts must be gone.
+    expect(document.querySelectorAll('script[data-mixtally-ld="true"]')).toHaveLength(0);
+  });
+
+  it('emits Article + BreadcrumbList for a blog article and cleans them up', async () => {
+    const article = ARTICLE_REGISTRY[0];
+
+    await act(async () => {
+      root.render(<StructuredData pathname={`/blog/${article.slug}`} />);
+    });
+
+    const scripts = document.querySelectorAll('script[data-mixtally-ld="true"]');
+    expect(scripts).toHaveLength(2);
+
+    const articleSchema = JSON.parse(scripts[0].textContent ?? '{}') as Record<string, unknown>;
+    expect(articleSchema['@type']).toBe('Article');
+    expect(articleSchema.headline).toBe(article.title);
+    expect(articleSchema.datePublished).toBe(article.publishedAt);
+    const mainEntity = articleSchema.mainEntityOfPage as { '@id': string };
+    expect(mainEntity['@id']).toBe(`https://mixtally.com/blog/${article.slug}`);
+
+    const breadcrumb = JSON.parse(scripts[1].textContent ?? '{}') as Record<string, unknown>;
+    expect(breadcrumb['@type']).toBe('BreadcrumbList');
+
+    await act(async () => root.unmount());
+    rootUnmounted = true;
     expect(document.querySelectorAll('script[data-mixtally-ld="true"]')).toHaveLength(0);
   });
 });

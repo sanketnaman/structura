@@ -1,6 +1,8 @@
 import { siteConfig } from './config/site';
 import { getLocaleDefinition, LOCALES, LOCALIZED_PREFIX_CODES, type LocaleCode } from './i18n/config';
 import { localizePath, parseLocalePath } from './i18n/routing';
+import { isArticleBasePath } from './blog/registry';
+import { resolveArticleRouteSEO } from './blog/seo';
 
 /**
  * Per-locale title/description overrides for a route.
@@ -32,6 +34,15 @@ export interface HreflangAlternate {
   href: string;
 }
 
+/** Social share image attached to a route (currently blog articles). */
+export interface RouteSEOImage {
+  /** Root-relative path under `public/`, resolved to an absolute URL. */
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
 /** Resolved SEO for the page currently being rendered. */
 export interface RouteSEO {
   title: string;
@@ -43,6 +54,10 @@ export interface RouteSEO {
   locale: LocaleCode;
   /** Reciprocal hreflang alternates; empty for unknown/noindex routes. */
   alternates: HreflangAlternate[];
+  /** Optional og:image / twitter:image source. */
+  image?: RouteSEOImage;
+  /** `og:type` — defaults to `website`; blog articles emit `article`. */
+  ogType?: string;
 }
 
 export const seoRegistry: Record<string, RouteSEOEntry> = {
@@ -211,6 +226,34 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
         title: `Bauanleitungen & Praxisreferenzen — ${siteConfig.name}`,
         description:
           `Praxisnahe Bauanleitungen, Materialreferenzen, Schätzkonzepte und Anleitungen zu den Rechnern von ${siteConfig.name}.`,
+      },
+    },
+  },
+  '/blog': {
+    title: `Construction Blog — ${siteConfig.name}`,
+    description:
+      'Practical construction calculation guides from MixTally: concrete slab volume, masonry takeoffs, paint coverage and estimating walkthroughs with worked examples.',
+    canonicalPath: '/blog',
+    localized: {
+      es: {
+        title: `Blog de construcción — ${siteConfig.name}`,
+        description:
+          'Guías prácticas de cálculos de construcción de MixTally: volumen de losas de concreto, estimaciones de alberería, cobertura de pintura y ejemplos de trabajo.',
+      },
+      pt: {
+        title: `Blog de construção — ${siteConfig.name}`,
+        description:
+          'Guias práticos de cálculos de construção do MixTally: volume de lajes de concreto, estimativas de alvenaria, cobertura de tinta e exemplos resolvidos.',
+      },
+      fr: {
+        title: `Blog de construction — ${siteConfig.name}`,
+        description:
+          `Guides pratiques de calculs de construction MixTally : volume de dalle en béton, estimations de maçonnerie, couverture de peinture et exemples résolus.`,
+      },
+      de: {
+        title: `Bau-Blog — ${siteConfig.name}`,
+        description:
+          'Praxisnahe Bau-Rechenleitfäden von MixTally: Betonplattenvolumen, Mauerwerksberechnung, Farbdeckung und durchgerechnete Beispiele.',
       },
     },
   },
@@ -460,6 +503,9 @@ function cleanPathname(pathname: string): string {
  *
  * - Locale comes from the URL prefix; the canonical is always the
  *   self-referencing localized path (never carries `?unit=` etc.).
+ * - `/blog/<slug>` resolves through the article registry. Article bodies are
+ *   English-only, so the canonical is always the unprefixed English path and
+ *   no hreflang alternates are advertised — see `blog/seo.ts`.
  * - Unknown or localized-but-nonexistent paths return the noindex 404 entry
  *   with no canonical and no hreflang alternates.
  * - Localized pages use their `localized[locale]` title/description, with the
@@ -467,16 +513,17 @@ function cleanPathname(pathname: string): string {
  */
 export function getRouteSEO(pathname: string): RouteSEO {
   const { locale, basePath } = parseLocalePath(cleanPathname(pathname));
+
+  if (isArticleBasePath(basePath)) {
+    const articleSeo = resolveArticleRouteSEO(basePath, locale);
+    if (articleSeo) return articleSeo;
+    return notFoundSeo(locale);
+  }
+
   const entry = seoRegistry[basePath];
 
   if (!entry) {
-    return {
-      title: seoRegistry['404'].title,
-      description: seoRegistry['404'].description,
-      noindex: true,
-      locale,
-      alternates: [],
-    };
+    return notFoundSeo(locale);
   }
 
   const localized = entry.localized?.[locale];
@@ -492,6 +539,16 @@ export function getRouteSEO(pathname: string): RouteSEO {
   };
 }
 
+function notFoundSeo(locale: LocaleCode): RouteSEO {
+  return {
+    title: seoRegistry['404'].title,
+    description: seoRegistry['404'].description,
+    noindex: true,
+    locale,
+    alternates: [],
+  };
+}
+
 /**
  * Pure description of every head value the runtime <SEO> effect writes.
  *
@@ -500,7 +557,9 @@ export function getRouteSEO(pathname: string): RouteSEO {
  * never drift apart. Every value mirrors the historic SEO effect exactly:
  * the same robots directive, the same canonical/og:url construction (absent
  * entirely for noindex 404s), the same Open Graph and Twitter fields, the
- * same `<html lang>` mapping and the same reciprocal hreflang set.
+ * same `<html lang>` mapping and the same reciprocal hreflang set. Routes
+ * that carry a social image additionally emit `og:image`, `og:image:width`,
+ * `og:image:height`, `og:image:alt`, `twitter:image` and `twitter:image:alt`.
  */
 export interface SeoHeadSpec {
   title: string;
@@ -518,11 +577,23 @@ export interface SeoHeadSpec {
     siteName: string;
     /** Absolute canonical — undefined means the og:url tag must be absent. */
     url?: string;
+    /** Absolute social image URL, present only when the route defines one. */
+    image?: {
+      url: string;
+      width: number;
+      height: number;
+      alt: string;
+    };
   };
   twitter: {
     card: string;
     title: string;
     description: string;
+    /** Absolute social image URL, present only when the route defines one. */
+    image?: {
+      url: string;
+      alt: string;
+    };
   };
   /** Reciprocal hreflang alternates; already includes `x-default` when applicable. */
   hreflangs: HreflangAlternate[];
@@ -535,6 +606,15 @@ export interface SeoHeadSpec {
 export function buildSeoHeadSpec(seo: RouteSEO): SeoHeadSpec {
   const canonicalUrl =
     seo.canonicalPath !== undefined ? absoluteSiteUrl(seo.canonicalPath) : undefined;
+  const image =
+    seo.image !== undefined
+      ? {
+          url: absoluteSiteUrl(seo.image.src),
+          width: seo.image.width,
+          height: seo.image.height,
+          alt: seo.image.alt,
+        }
+      : undefined;
 
   return {
     title: seo.title,
@@ -545,14 +625,16 @@ export function buildSeoHeadSpec(seo: RouteSEO): SeoHeadSpec {
     og: {
       title: seo.title,
       description: seo.description,
-      type: 'website',
+      type: seo.ogType ?? 'website',
       siteName: siteConfig.name,
       url: canonicalUrl,
+      image,
     },
     twitter: {
       card: 'summary_large_image',
       title: seo.title,
       description: seo.description,
+      image: image !== undefined ? { url: image.url, alt: image.alt } : undefined,
     },
     hreflangs: seo.alternates,
   };

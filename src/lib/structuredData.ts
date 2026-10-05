@@ -2,6 +2,8 @@ import { siteConfig } from './config/site';
 import { BRICK_FAQ } from './calculators/brick/faq';
 import { parseLocalePath, localizePath } from './i18n/routing';
 import { absoluteSiteUrl } from './seo';
+import { buildArticleSchemas, buildBlogListingSchemas } from './blog/structuredData';
+import { isArticleBasePath } from './blog/registry';
 
 /**
  * Pure builder for the dynamic JSON-LD schemas the runtime
@@ -14,6 +16,8 @@ import { absoluteSiteUrl } from './seo';
  * URLs for the locale the URL addresses, so `/es/...` pages carry localized
  * JSON-LD links.
  *
+ * Blog routes delegate to `blog/structuredData.ts`: the listing emits a
+ * `BreadcrumbList`, and each article emits `Article` + `BreadcrumbList`.
  * Routes outside the special cases (home, calculators directory, the three
  * calculators) intentionally emit no dynamic schema — matching the existing
  * behavior where legal/guides pages only carry the site-level
@@ -32,6 +36,10 @@ export function buildStructuredDataSchemas(pathname: string): Record<string, unk
       name: siteConfig.name,
       url: siteUrl('/'),
     });
+  } else if (basePath === '/blog') {
+    schemas.push(...buildBlogListingSchemas(locale));
+  } else if (isArticleBasePath(basePath)) {
+    schemas.push(...buildArticleSchemas(basePath, locale));
   } else if (basePath === '/calculators') {
     schemas.push({
       '@context': 'https://schema.org',

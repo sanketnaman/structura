@@ -8,6 +8,8 @@ import { BrickCalculatorWorkspace } from './components/calculators/brick/BrickCa
 import { PaintCalculatorWorkspace } from './components/calculators/paint/PaintCalculatorWorkspace';
 import { CalculatorsDirectoryPage } from './components/calculators/CalculatorsDirectoryPage';
 import { GuidesPage } from './components/guides/GuidesPage';
+import { BlogListingPage } from './components/blog/BlogListingPage';
+import { ArticlePage } from './components/blog/ArticlePage';
 import { AboutPage } from './components/legal/AboutPage';
 import { ContactPage } from './components/legal/ContactPage';
 import { PrivacyPage } from './components/legal/PrivacyPage';
@@ -21,6 +23,7 @@ import { SEO } from './components/common/SEO';
 import { StructuredData } from './components/common/StructuredData';
 import { getRouteSEO } from './lib/seo';
 import { localizedRoutePaths, type PageRoutePath } from './lib/routes';
+import { localizedArticleRoutePatterns } from './lib/blog/registry';
 import { parseLocalePath, localizePath } from './lib/i18n/routing';
 import { LocaleProvider, useLocale } from './lib/i18n/context';
 
@@ -62,7 +65,7 @@ function AppContent() {
         else if (tool === 'concrete' || tool === 'concrete-slab-calculator') targetPath = '/calculators/concrete-slab-calculator';
         else if (tool === 'brick' || tool === 'brick-mortar-calculator') targetPath = '/calculators/brick-mortar-calculator';
         else if (tool === 'paint' || tool === 'paint-calculator') targetPath = '/calculators/paint-calculator';
-        else if (['guides', 'about', 'contact', 'privacy', 'terms', 'disclaimer', 'cookie-policy', 'advertising'].includes(tool)) {
+        else if (['guides', 'blog', 'about', 'contact', 'privacy', 'terms', 'disclaimer', 'cookie-policy', 'advertising'].includes(tool)) {
           targetPath = `/${tool}`;
         }
         params.delete('tool');
@@ -79,6 +82,8 @@ function AppContent() {
     if (path === '/calculators/brick-mortar-calculator') return 'brick-mortar-calculator';
     if (path === '/calculators/paint-calculator') return 'paint-calculator';
     if (path === '/guides') return 'guides';
+    if (path === '/blog') return 'blog';
+    if (path.startsWith('/blog/')) return 'blog-article';
     if (path === '/about') return 'about';
     if (path === '/contact') return 'contact';
     if (path === '/privacy') return 'privacy';
@@ -130,6 +135,7 @@ function AppContent() {
     ),
     '/calculators': <CalculatorsDirectoryPage />,
     '/guides': <GuidesPage />,
+    '/blog': <BlogListingPage />,
     '/about': <AboutPage />,
     '/contact': <ContactPage />,
     '/privacy': <PrivacyPage />,
@@ -148,6 +154,8 @@ function AppContent() {
         noindex={seo.noindex}
         locale={locale}
         alternates={seo.alternates}
+        image={seo.image}
+        ogType={seo.ogType}
       />
       <StructuredData pathname={location.pathname} />
       <ErrorBoundary>
@@ -162,6 +170,19 @@ function AppContent() {
                 key={route.path}
                 path={route.path}
                 element={pageElements[route.basePath]}
+              />
+            ))}
+            {/*
+              Article bodies are English-only and slug-driven, so they are not
+              enumerated in PAGE_ROUTE_PATHS. Each localized mirror still gets
+              an explicit route so a language switch renders the article instead
+              of falling through to the 404.
+            */}
+            {localizedArticleRoutePatterns().map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={<ArticlePage />}
               />
             ))}
             <Route path="*" element={<Error404Page />} />

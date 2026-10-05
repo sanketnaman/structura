@@ -1,6 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { sitemapEntries } from '../src/lib/sitemap';
+import { localizedArticleMirrorPaths } from '../src/lib/blog/registry';
 import { buildSeoHeadSpec, getRouteSEO } from '../src/lib/seo';
 import { buildStructuredDataSchemas } from '../src/lib/structuredData';
 import { localizePath, parseLocalePath } from '../src/lib/i18n/routing';
@@ -38,7 +39,7 @@ export interface PrerenderOptions {
   outDir: string;
   /** Server renderer, normally the built SSR bundle's `render(url)`. */
   render: (urlPath: string) => string;
-  /** Route paths to render; defaults to the sitemap's 65 URLs. */
+  /** Route paths to render; defaults to the sitemap URLs plus article mirrors. */
   urlPaths?: string[];
 }
 
@@ -180,9 +181,19 @@ export function buildDocument(templateHtml: string, urlPath: string, bodyHtml: s
   if (spec.og.url !== undefined) {
     headTags.push(`<meta property="og:url" content="${escapeAttr(spec.og.url)}">`);
   }
+  if (spec.og.image !== undefined) {
+    headTags.push(`<meta property="og:image" content="${escapeAttr(spec.og.image.url)}">`);
+    headTags.push(`<meta property="og:image:width" content="${escapeAttr(String(spec.og.image.width))}">`);
+    headTags.push(`<meta property="og:image:height" content="${escapeAttr(String(spec.og.image.height))}">`);
+    headTags.push(`<meta property="og:image:alt" content="${escapeAttr(spec.og.image.alt)}">`);
+  }
   headTags.push(`<meta name="twitter:card" content="${escapeAttr(spec.twitter.card)}">`);
   headTags.push(`<meta name="twitter:title" content="${escapeAttr(spec.twitter.title)}">`);
   headTags.push(`<meta name="twitter:description" content="${escapeAttr(spec.twitter.description)}">`);
+  if (spec.twitter.image !== undefined) {
+    headTags.push(`<meta name="twitter:image" content="${escapeAttr(spec.twitter.image.url)}">`);
+    headTags.push(`<meta name="twitter:image:alt" content="${escapeAttr(spec.twitter.image.alt)}">`);
+  }
   for (const alternate of spec.hreflangs) {
     headTags.push(
       `<link rel="alternate" hreflang="${escapeAttr(alternate.hreflang)}" href="${escapeAttr(alternate.href)}">`,
@@ -207,9 +218,20 @@ export function buildDocument(templateHtml: string, urlPath: string, bodyHtml: s
   return html.replace(/<div id="root"><\/div>/, () => `<div id="root">${bodyHtml}</div>`);
 }
 
-/** Default route list: the same 65 URLs the sitemap publishes (no /en/). */
+/** Default route list: every sitemap URL plus the localized article mirrors. */
 export function defaultPrerenderPaths(): string[] {
-  return sitemapEntries().map((entry) => new URL(entry.url).pathname);
+  const sitemapPaths = sitemapEntries().map((entry) => new URL(entry.url).pathname);
+  // Localized article mirrors are canonicalized to the English article and
+  // therefore stay out of the sitemap, but they must still exist as real
+  // documents so a language switch never lands on a 404.
+  const seen = new Set(sitemapPaths);
+  for (const mirror of localizedArticleMirrorPaths()) {
+    if (!seen.has(mirror)) {
+      seen.add(mirror);
+      sitemapPaths.push(mirror);
+    }
+  }
+  return sitemapPaths;
 }
 
 /**

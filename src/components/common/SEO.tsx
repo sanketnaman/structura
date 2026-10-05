@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 import { DEFAULT_LOCALE, type LocaleCode } from '../../lib/i18n/config';
-import { buildSeoHeadSpec, type HreflangAlternate, type RouteSEO } from '../../lib/seo';
+import {
+  buildSeoHeadSpec,
+  type HreflangAlternate,
+  type RouteSEO,
+  type RouteSEOImage,
+} from '../../lib/seo';
 
 interface SEOProps {
   title: string;
@@ -11,6 +16,10 @@ interface SEOProps {
   locale?: LocaleCode;
   /** Reciprocal hreflang alternates for the current page (none for 404s). */
   alternates?: HreflangAlternate[];
+  /** Social share image, when the route defines one. */
+  image?: RouteSEOImage;
+  /** `og:type` override — blog articles pass `article`. */
+  ogType?: string;
 }
 
 export const SEO: React.FC<SEOProps> = ({
@@ -20,11 +29,22 @@ export const SEO: React.FC<SEOProps> = ({
   noindex = false,
   locale = DEFAULT_LOCALE,
   alternates = [],
+  image,
+  ogType,
 }) => {
   useEffect(() => {
     // All head values come from the shared pure builder so this effect and
     // build-time prerendering always write exactly the same metadata.
-    const routeSeo: RouteSEO = { title, description, canonicalPath, noindex, locale, alternates };
+    const routeSeo: RouteSEO = {
+      title,
+      description,
+      canonicalPath,
+      noindex,
+      locale,
+      alternates,
+      image,
+      ogType,
+    };
     const spec = buildSeoHeadSpec(routeSeo);
 
     // 1. Title
@@ -85,6 +105,18 @@ export const SEO: React.FC<SEOProps> = ({
       if (ogUrlTag) ogUrlTag.remove();
     }
 
+    // 5b. Open Graph image — replaced wholesale so a route without an image
+    // can never leave a stale image from the previous route behind.
+    document
+      .querySelectorAll('meta[property="og:image"], meta[property^="og:image:"]')
+      .forEach((tag) => tag.remove());
+    if (spec.og.image !== undefined) {
+      updateOgTag('og:image', spec.og.image.url);
+      updateOgTag('og:image:width', String(spec.og.image.width));
+      updateOgTag('og:image:height', String(spec.og.image.height));
+      updateOgTag('og:image:alt', spec.og.image.alt);
+    }
+
     // 6. Twitter Card tags
     const updateTwitterTag = (name: string, content: string) => {
       let tag = document.querySelector(`meta[name="${name}"]`);
@@ -100,6 +132,15 @@ export const SEO: React.FC<SEOProps> = ({
     updateTwitterTag('twitter:title', spec.twitter.title);
     updateTwitterTag('twitter:description', spec.twitter.description);
 
+    // 6b. Twitter image — same wholesale replacement as the og:image set.
+    document
+      .querySelectorAll('meta[name="twitter:image"], meta[name="twitter:image:alt"]')
+      .forEach((tag) => tag.remove());
+    if (spec.twitter.image !== undefined) {
+      updateTwitterTag('twitter:image', spec.twitter.image.url);
+      updateTwitterTag('twitter:image:alt', spec.twitter.image.alt);
+    }
+
     // 7. <html lang> follows the locale actually being rendered
     document.documentElement.lang = spec.htmlLang;
 
@@ -114,7 +155,7 @@ export const SEO: React.FC<SEOProps> = ({
       link.setAttribute('href', alternate.href);
       document.head.appendChild(link);
     });
-  }, [title, description, canonicalPath, noindex, locale, alternates]);
+  }, [title, description, canonicalPath, noindex, locale, alternates, image, ogType]);
 
   return null;
 };

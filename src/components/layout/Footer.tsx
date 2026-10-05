@@ -87,6 +87,14 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link
+                  to={viewToPath('blog')}
+                  className="inline-block hover:text-accent transition-colors text-left"
+                >
+                  {t('nav.blog')}
+                </Link>
+              </li>
+              <li>
+                <Link
                   to={viewToPath('about')}
                   className="inline-block hover:text-accent transition-colors text-left"
                 >

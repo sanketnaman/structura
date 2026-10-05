@@ -9,6 +9,7 @@ import {
 import { buildStructuredDataSchemas } from '../src/lib/structuredData';
 import { sitemapEntries } from '../src/lib/sitemap';
 import { siteConfig } from '../src/lib/config/site';
+import { ARTICLE_REGISTRY, articleBasePath } from '../src/lib/blog/registry';
 
 const LOCALIZED_LOCALES = ['es', 'pt', 'fr', 'de'] as const;
 const SAMPLE_BASE_PATHS = [
@@ -18,6 +19,7 @@ const SAMPLE_BASE_PATHS = [
   '/calculators/brick-mortar-calculator',
   '/calculators/paint-calculator',
   '/guides',
+  '/blog',
   '/about',
   '/contact',
   '/privacy',
@@ -359,5 +361,77 @@ describe('Localized SEO metadata', () => {
 
   it('leaves the 404 registry entry without localized overrides', () => {
     expect(seoRegistry['404'].localized).toBeUndefined();
+  });
+});
+
+describe('Article SEO (English-only bodies)', () => {
+  const article = ARTICLE_REGISTRY[0];
+  const basePath = articleBasePath(article.slug);
+
+  it('canonicalizes every locale to the English article URL and advertises no hreflang', () => {
+    for (const locale of ['en', ...LOCALIZED_LOCALES]) {
+      const path = locale === 'en' ? basePath : `/${locale}${basePath}`;
+      const seo = getRouteSEO(path);
+      expect(seo.canonicalPath, path).toBe(basePath);
+      expect(seo.alternates, path).toEqual([]);
+      expect(seo.noindex, path).toBeFalsy();
+      expect(seo.locale, path).toBe(locale);
+      expect(seo.title, path).toBe(`${article.title} — MixTally`);
+      expect(seo.description, path).toBe(article.description);
+    }
+  });
+
+  it('carries the social image and og:type=article through the head spec', () => {
+    const spec = buildSeoHeadSpec(getRouteSEO(basePath));
+    const imageUrl = `${siteConfig.domain}${article.ogImage.src}`;
+
+    expect(spec.og.type).toBe('article');
+    expect(spec.og.url).toBe(`${siteConfig.domain}${basePath}`);
+    expect(spec.og.image).toEqual({
+      url: imageUrl,
+      width: article.ogImage.width,
+      height: article.ogImage.height,
+      alt: article.ogImage.alt,
+    });
+    expect(spec.twitter.image).toEqual({ url: imageUrl, alt: article.ogImage.alt });
+  });
+
+  it('leaves every other route free of social image tags', () => {
+    for (const path of ['/', '/blog', '/guides', '/es/blog', '/definitely-not-a-page']) {
+      const spec = buildSeoHeadSpec(getRouteSEO(path));
+      expect(spec.og.image, path).toBeUndefined();
+      expect(spec.twitter.image, path).toBeUndefined();
+      expect(spec.og.type, path).toBe('website');
+    }
+  });
+
+  it('treats unknown and malformed article paths as the noindex 404', () => {
+    const failures = ['/blog/does-not-exist', '/blog/does/not/exist', '/es/blog/does-not-exist'];
+    for (const path of failures) {
+      const seo = getRouteSEO(path);
+      expect(seo.noindex, path).toBe(true);
+      expect(seo.canonicalPath, path).toBeUndefined();
+      expect(seo.alternates, path).toEqual([]);
+      expect(seo.title, path).toBe('Page Not Found — MixTally');
+    }
+  });
+
+  it('keeps category filter query strings out of the canonical URL', () => {
+    expect(getRouteSEO('/blog?category=concrete').canonicalPath).toBe('/blog');
+    expect(getRouteSEO('/blog?category=not-a-category').canonicalPath).toBe('/blog');
+    expect(getRouteSEO('/es/blog?category=paint').canonicalPath).toBe('/es/blog');
+  });
+
+  it('emits blog structured data only on blog routes', () => {
+    expect(buildStructuredDataSchemas('/blog').map((schema) => schema['@type'])).toEqual([
+      'BreadcrumbList',
+    ]);
+    expect(buildStructuredDataSchemas(basePath).map((schema) => schema['@type'])).toEqual([
+      'Article',
+      'BreadcrumbList',
+    ]);
+    expect(buildStructuredDataSchemas('/es' + basePath)).toHaveLength(2);
+    expect(buildStructuredDataSchemas('/guides')).toEqual([]);
+    expect(buildStructuredDataSchemas('/about')).toEqual([]);
   });
 });

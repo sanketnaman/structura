@@ -53,14 +53,14 @@ describe('Locale parsing from a pathname', () => {
 describe('Localized route generation', () => {
   const routes = localizedRoutePaths();
 
-  it('registers the 13 English routes exactly once, unprefixed', () => {
+  it('registers the 14 English routes exactly once, unprefixed', () => {
     const englishPaths = routes.filter((route) => route.locale === 'en').map((route) => route.path);
     expect(englishPaths).toEqual([...PAGE_ROUTE_PATHS]);
     expect(englishPaths.some((path) => path.startsWith('/en'))).toBe(false);
   });
 
   it('adds one prefixed variant per localized locale for every English route', () => {
-    expect(PAGE_ROUTE_PATHS).toHaveLength(13);
+    expect(PAGE_ROUTE_PATHS).toHaveLength(14);
     expect(routes).toHaveLength(PAGE_ROUTE_PATHS.length * LOCALES.length);
 
     for (const locale of LOCALIZED_PREFIX_CODES) {
@@ -89,6 +89,8 @@ describe('Localized route generation', () => {
     expect(paths).toContain('/pt/calculators/brick-mortar-calculator');
     expect(paths).toContain('/fr/guides');
     expect(paths).toContain('/de/cookie-policy');
+    expect(paths).toContain('/blog');
+    expect(paths).toContain('/es/blog');
   });
 
   it('never generates a route for a path without an English equivalent', () => {

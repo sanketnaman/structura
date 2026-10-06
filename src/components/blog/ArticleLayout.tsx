@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, BookOpen, Clock } from 'lucide-react';
 import { useLocale } from '../../lib/i18n/context';
 import { useViewToPath } from '../../lib/routes';
 import type { TranslationKey } from '../../lib/i18n/dictionaries';
+import { getLocaleDefinition } from '../../lib/i18n/config';
 import { getRelatedArticles } from '../../lib/blog/registry';
 import type { ArticleDefinition, ArticleHeadingBlock } from '../../lib/blog/types';
 import { ArticleProse } from './ArticleProse';
@@ -23,23 +24,26 @@ interface ArticleLayoutProps {
 }
 
 /**
- * Full article page composition: breadcrumbs, English article body inside a
- * `lang="en"` element, a localized table-of-contents rail and the related
- * content section beneath.
+ * Full article page composition: breadcrumbs, the translated article body
+ * inside a `lang`-declared element, a localized table-of-contents rail and
+ * the related content section beneath.
  *
- * The `lang` boundary is deliberate. `<html lang>` follows the URL locale
- * (the page chrome — breadcrumbs, TOC title, related headings — really is
- * translated), while the article itself is English-only, which is exactly the
- * pattern HTML prescribes for localized pages carrying English content.
+ * The `lang` boundary is deliberate. `<html lang>` follows the URL locale and
+ * so does the article: the copy resolved by `resolveArticleForLocale` is the
+ * one the canonical, hreflang cluster and `<html lang>` already advertise for
+ * this URL, so the declared language always matches the text inside the
+ * element. The surrounding chrome (breadcrumbs, TOC title, related headings)
+ * is translated through the dictionary on the same locale.
  */
 export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ article }) => {
-  const { t, locale } = useLocale();
+  const { t, locale, urlLocale } = useLocale();
   const viewToPath = useViewToPath();
+  const contentLang = getLocaleDefinition(urlLocale).htmlLang;
 
   const tocItems = article.blocks.filter(
     (block): block is ArticleHeadingBlock => block.type === 'heading' && block.level === 2,
   );
-  const relatedArticles = getRelatedArticles(article);
+  const relatedArticles = getRelatedArticles(article, urlLocale);
   const published = formatArticleDate(article.publishedAt, locale);
   const updated = article.updatedAt ? formatArticleDate(article.updatedAt, locale) : null;
 
@@ -54,7 +58,7 @@ export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ article }) => {
       />
 
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-12 lg:items-start">
-        <article lang="en" className="min-w-0 space-y-8">
+        <article lang={contentLang} className="min-w-0 space-y-8">
           <header className="space-y-4 border-b border-paper-300 dark:border-charcoal-750 pb-6">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-micro font-mono uppercase tracking-wider">
               <span className="text-accent">{t(CATEGORY_LABEL_KEYS[article.category])}</span>

@@ -104,16 +104,23 @@ describe('representative route rendering', () => {
     expect(html).not.toContain('href="/en/');
   });
 
-  it('renders an article with English body markup and localized chrome', () => {
+  it('renders an article in the URL locale with translated body and localized chrome', () => {
     const html = render('/de/blog/how-to-calculate-concrete-volume-for-a-slab');
 
     expect(html.length).toBeGreaterThan(10_000);
-    expect(html).toContain('<article lang="en"');
-    expect(html).toContain('How to Calculate Concrete Volume for a Slab');
+    expect(html).toContain('<article lang="de"');
+    expect(html).toContain('Betonvolumen für eine Platte berechnen');
     expect(html).toContain('id="volume-formula"');
     expect(html).toContain(translate('de', 'blog.backToListing'));
     expect(html).toContain('href="/de/blog"');
     expect(html).not.toContain('href="/en/');
+  });
+
+  it('keeps the English article on the unprefixed URL', () => {
+    const html = render('/blog/how-to-calculate-concrete-volume-for-a-slab');
+
+    expect(html).toContain('<article lang="en"');
+    expect(html).toContain('How to Calculate Concrete Volume for a Slab');
   });
 });
 
@@ -300,26 +307,31 @@ describe('buildStructuredDataSchemas', () => {
     });
   });
 
-  it('emits Article + BreadcrumbList with the English canonical for a mirror', () => {
+  it('emits Article + BreadcrumbList with the localized canonical for a localized article', () => {
     const schemas = buildStructuredDataSchemas('/fr/blog/how-to-calculate-concrete-volume-for-a-slab');
 
     expect(schemas).toHaveLength(2);
     expect(schemas.map((s) => s['@type'])).toEqual(['Article', 'BreadcrumbList']);
     expect(schemas[0]).toMatchObject({
-      headline: 'How to Calculate Concrete Volume for a Slab',
+      headline: 'Comment calculer le volume de béton d’une dalle',
+      description:
+        'Apprenez la formule de volume d’une dalle, travaillez des exemples impériaux et métriques, convertissez les pieds cubes en yards cubes et choisissez une marge.',
       datePublished: '2026-10-04',
       dateModified: '2026-10-04',
       author: { '@type': 'Organization', name: 'MixTally' },
       mainEntityOfPage: {
         '@type': 'WebPage',
-        '@id': 'https://mixtally.com/blog/how-to-calculate-concrete-volume-for-a-slab',
+        '@id': 'https://mixtally.com/fr/blog/how-to-calculate-concrete-volume-for-a-slab',
       },
     });
     const breadcrumb = schemas[1] as { itemListElement: { name: string; item: string }[] };
     expect(breadcrumb.itemListElement).toHaveLength(3);
     expect(breadcrumb.itemListElement[0].name).toBe(translate('fr', 'common.home'));
+    expect(breadcrumb.itemListElement[2].name).toBe(
+      'Comment calculer le volume de béton d’une dalle',
+    );
     expect(breadcrumb.itemListElement[2].item).toBe(
-      'https://mixtally.com/blog/how-to-calculate-concrete-volume-for-a-slab',
+      'https://mixtally.com/fr/blog/how-to-calculate-concrete-volume-for-a-slab',
     );
   });
 });

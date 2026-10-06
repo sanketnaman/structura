@@ -19,13 +19,13 @@ import { CategoryFilter } from './CategoryFilter';
  * every article.
  */
 export const BlogListingPage: React.FC = () => {
-  const { t } = useLocale();
+  const { t, urlLocale } = useLocale();
   const viewToPath = useViewToPath();
   const [searchParams] = useSearchParams();
 
   const requested = searchParams.get('category');
   const category = isArticleCategory(requested) ? requested : null;
-  const articles = getArticlesByCategory(category);
+  const articles = getArticlesByCategory(category, urlLocale);
   const [lead, ...rest] = articles;
 
   return (

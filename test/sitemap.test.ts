@@ -12,7 +12,10 @@ import { buildSitemapXml, sitemapEntries } from '../src/lib/sitemap';
 const DOMAIN = siteConfig.domain;
 const sitemapUrl = `${DOMAIN}/sitemap.xml`;
 const filePath = fileURLToPath(new URL('../public/sitemap.xml', import.meta.url));
-const xml = readFileSync(filePath, 'utf8');
+// Git may check this file out with CRLF on Windows (`core.autocrlf`) while
+// `buildSitemapXml` always emits LF, so normalize line endings on read —
+// the staleness check compares content, not checkout line endings.
+const xml = readFileSync(filePath, 'utf8').replace(/\r\n/g, '\n');
 const robotsTxt = readFileSync(
   fileURLToPath(new URL('../public/robots.txt', import.meta.url)),
   'utf8',
@@ -33,7 +36,8 @@ function registeredPath(url: string): string | null {
   const path = raw.length > 1 && raw.endsWith('/') ? raw.slice(0, -1) : raw;
   const known =
     localizedRoutePaths().some((route) => route.path === path) ||
-    ARTICLE_BASE_PATHS.includes(path);
+    ARTICLE_BASE_PATHS.includes(path) ||
+    localizedArticleMirrorPaths().includes(path);
   return known ? path : null;
 }
 
@@ -65,7 +69,7 @@ describe('sitemap.xml structure', () => {
     }
   });
 
-  it('is byte-identical to the generated output (never stale)', () => {
+  it('matches the generated output exactly (never stale)', () => {
     expect(xml, 'public/sitemap.xml is stale — run `npm run sitemap`').toBe(buildSitemapXml());
   });
 
@@ -75,26 +79,30 @@ describe('sitemap.xml structure', () => {
 });
 
 describe('sitemap URL set', () => {
-  it('contains exactly 72 URLs', () => {
-    expect(locs).toHaveLength(72);
+  it('contains exactly 80 URLs', () => {
+    expect(locs).toHaveLength(80);
   });
 
-  it('contains 16 URLs for English and 14 for each prefixed locale', () => {
+  it('contains 16 URLs for every locale (14 pages + 2 articles)', () => {
     for (const locale of LOCALE_ORDER) {
       const forLocale = locs.filter((loc) => parseLocalePath(urlPath(loc)).locale === locale);
-      expect(forLocale, locale).toHaveLength(locale === DEFAULT_LOCALE ? 16 : 14);
+      expect(forLocale, locale).toHaveLength(PAGE_ROUTE_PATHS.length + ARTICLE_BASE_PATHS.length);
     }
   });
 
-  it('lists English routes and articles first, then es, pt, fr, de in PAGE_ROUTE_PATHS order', () => {
+  it('lists routes first then that locale’s articles, in PAGE_ROUTE_PATHS order', () => {
     const expected = LOCALE_ORDER.flatMap((locale) => {
       const paths = PAGE_ROUTE_PATHS.map((basePath) =>
         absoluteSiteUrl(localizePath(locale, basePath)),
       );
-      // Articles are English-only content: they follow the English static
-      // routes and are never repeated under a localized prefix.
-      if (locale !== DEFAULT_LOCALE) return paths;
-      return [...paths, ...ARTICLE_BASE_PATHS.map((basePath) => absoluteSiteUrl(basePath))];
+      // Articles are fully translated, so every locale publishes its own
+      // self-canonicalizing copy directly after its static routes.
+      return [
+        ...paths,
+        ...ARTICLE_BASE_PATHS.map((basePath) =>
+          absoluteSiteUrl(localizePath(locale, basePath)),
+        ),
+      ];
     });
     expect(locs).toEqual(expected);
   });
@@ -171,9 +179,7 @@ describe('sitemap routes are valid and canonical', () => {
     for (const locale of LOCALE_ORDER) {
       const forLocale = locs.filter((loc) => parseLocalePath(urlPath(loc)).locale === locale);
       const basePathSet = new Set(forLocale.map((loc) => parseLocalePath(urlPath(loc)).basePath));
-      const expectedBasePaths = locale === DEFAULT_LOCALE
-        ? [...PAGE_ROUTE_PATHS, ...ARTICLE_BASE_PATHS]
-        : [...PAGE_ROUTE_PATHS];
+      const expectedBasePaths = [...PAGE_ROUTE_PATHS, ...ARTICLE_BASE_PATHS];
       expect([...basePathSet].sort(), locale).toEqual([...expectedBasePaths].sort());
     }
     expect(registeredPath(`${DOMAIN}/`)).toBe('/');
@@ -181,18 +187,20 @@ describe('sitemap routes are valid and canonical', () => {
 });
 
 describe('article URLs in the sitemap', () => {
-  it('lists every article once, at its canonical English path', () => {
-    for (const basePath of ARTICLE_BASE_PATHS) {
-      expect(locs).toContain(absoluteSiteUrl(basePath));
+  it('lists every article once per locale at its self-canonicalizing path', () => {
+    for (const locale of LOCALE_ORDER) {
+      for (const basePath of ARTICLE_BASE_PATHS) {
+        expect(locs).toContain(absoluteSiteUrl(localizePath(locale, basePath)));
+      }
     }
     expect(locs.filter((loc) => urlPath(loc).startsWith('/blog/')).length).toBe(
       ARTICLE_BASE_PATHS.length,
     );
   });
 
-  it('never lists a localized article mirror or a category query string', () => {
+  it('lists every localized article mirror exactly once, with no category query string', () => {
     for (const mirror of localizedArticleMirrorPaths()) {
-      expect(locs).not.toContain(`${DOMAIN}${mirror}`);
+      expect(locs).toContain(`${DOMAIN}${mirror}`);
     }
     expect(locs.some((loc) => loc.includes('?'))).toBe(false);
   });
@@ -200,15 +208,17 @@ describe('article URLs in the sitemap', () => {
   it('publishes <lastmod> only on article URLs, taken from the registry date', () => {
     const urlBlocks = xml.match(/<url>[\s\S]*?<\/url>/g) ?? [];
     const blocksWithLastmod = urlBlocks.filter((block) => block.includes('<lastmod>'));
-    expect(blocksWithLastmod).toHaveLength(ARTICLE_BASE_PATHS.length);
+    expect(blocksWithLastmod).toHaveLength(ARTICLE_BASE_PATHS.length * LOCALE_ORDER.length);
 
-    for (const article of ARTICLE_REGISTRY) {
-      const loc = absoluteSiteUrl(`/blog/${article.slug}`);
-      const block = urlBlocks.find((candidate) => candidate.includes(`<loc>${loc}</loc>`));
-      expect(block, loc).toBeDefined();
-      expect(block, loc).toContain(
-        `<lastmod>${article.updatedAt ?? article.publishedAt}</lastmod>`,
-      );
+    for (const locale of LOCALE_ORDER) {
+      for (const article of ARTICLE_REGISTRY) {
+        const loc = absoluteSiteUrl(localizePath(locale, `/blog/${article.slug}`));
+        const block = urlBlocks.find((candidate) => candidate.includes(`<loc>${loc}</loc>`));
+        expect(block, loc).toBeDefined();
+        expect(block, loc).toContain(
+          `<lastmod>${article.updatedAt ?? article.publishedAt}</lastmod>`,
+        );
+      }
     }
 
     for (const block of urlBlocks.filter((candidate) => !candidate.includes('/blog/'))) {
@@ -218,16 +228,18 @@ describe('article URLs in the sitemap', () => {
 });
 
 describe('sitemap entries (generator)', () => {
-  it('derives 72 entries from PAGE_ROUTE_PATHS plus the articles across the 5 locales', () => {
+  it('derives 80 entries from PAGE_ROUTE_PATHS plus the articles across the 5 locales', () => {
     const entries = sitemapEntries();
-    expect(entries).toHaveLength(72);
+    expect(entries).toHaveLength(
+      (PAGE_ROUTE_PATHS.length + ARTICLE_BASE_PATHS.length) * LOCALE_ORDER.length,
+    );
     expect(entries.every((entry) => entry.url.startsWith(DOMAIN))).toBe(true);
-    expect(new Set(entries.map((entry) => entry.url)).size).toBe(72);
+    expect(new Set(entries.map((entry) => entry.url)).size).toBe(entries.length);
   });
 
   it('carries lastmod only on article entries', () => {
     const withLastmod = sitemapEntries().filter((entry) => entry.lastmod !== undefined);
-    expect(withLastmod).toHaveLength(ARTICLE_BASE_PATHS.length);
+    expect(withLastmod).toHaveLength(ARTICLE_BASE_PATHS.length * LOCALE_ORDER.length);
     for (const entry of withLastmod) {
       expect(ARTICLE_BASE_PATHS).toContain(entry.basePath);
       expect(entry.lastmod).toMatch(/^\d{4}-\d{2}-\d{2}$/);

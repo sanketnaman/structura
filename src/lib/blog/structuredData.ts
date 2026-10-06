@@ -3,7 +3,7 @@ import { translate } from '../i18n/translate';
 import { localizePath } from '../i18n/routing';
 import { absoluteSiteUrl } from '../seo';
 import { siteConfig } from '../config/site';
-import { articleBasePath, articleSlugFromBasePath, getArticleBySlug } from './registry';
+import { articleBasePath, articleSlugFromBasePath, getArticleBySlug, resolveArticleForLocale } from './registry';
 
 /**
  * JSON-LD builders for blog routes.
@@ -13,8 +13,11 @@ import { articleBasePath, articleSlugFromBasePath, getArticleBySlug } from './re
  * identical schemas.
  *
  * Article pages emit exactly two schemas: `Article` and `BreadcrumbList`.
- * `mainEntityOfPage` always points at the canonical English article URL,
- * including on localized mirrors, which keeps one entity per article.
+ * `mainEntityOfPage` and the breadcrumb item always point at the canonical
+ * URL of the language version being rendered — `/blog/<slug>` in English,
+ * `/es/blog/<slug>` in Spanish — while the headline and description come from
+ * the same localized copy the page renders, so the structured data describes
+ * what a crawler actually reads.
  */
 
 function siteUrl(locale: LocaleCode, target: string): string {
@@ -36,8 +39,8 @@ export function buildBlogListingSchemas(locale: LocaleCode): Record<string, unkn
 }
 
 /**
- * `Article` + `BreadcrumbList` for a single article, or `[]` when the base
- * path does not resolve to a published article.
+ * `Article` + `BreadcrumbList` for a single article in `locale`, or `[]` when
+ * the base path does not resolve to a published article.
  */
 export function buildArticleSchemas(
   basePath: string,
@@ -46,10 +49,12 @@ export function buildArticleSchemas(
   const slug = articleSlugFromBasePath(basePath);
   if (!slug) return [];
 
-  const article = getArticleBySlug(slug);
-  if (!article) return [];
+  const english = getArticleBySlug(slug);
+  if (!english) return [];
 
-  const canonicalUrl = absoluteSiteUrl(articleBasePath(article.slug));
+  const article = resolveArticleForLocale(english, locale);
+
+  const canonicalUrl = absoluteSiteUrl(localizePath(locale, articleBasePath(article.slug)));
   const dateModified = article.updatedAt ?? article.publishedAt;
 
   const articleSchema: Record<string, unknown> = {

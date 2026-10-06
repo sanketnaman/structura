@@ -173,10 +173,10 @@ function AppContent() {
               />
             ))}
             {/*
-              Article bodies are English-only and slug-driven, so they are not
-              enumerated in PAGE_ROUTE_PATHS. Each localized mirror still gets
-              an explicit route so a language switch renders the article instead
-              of falling through to the 404.
+              Article bodies are slug-driven and therefore not enumerated in
+              PAGE_ROUTE_PATHS. Each localized pattern still gets an explicit
+              route so a language switch renders that locale's translation
+              instead of falling through to the 404.
             */}
             {localizedArticleRoutePatterns().map((route) => (
               <Route

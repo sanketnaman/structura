@@ -39,7 +39,7 @@ export interface PrerenderOptions {
   outDir: string;
   /** Server renderer, normally the built SSR bundle's `render(url)`. */
   render: (urlPath: string) => string;
-  /** Route paths to render; defaults to the sitemap URLs plus article mirrors. */
+  /** Route paths to render; defaults to the sitemap URLs (plus any article mirror not yet in it). */
   urlPaths?: string[];
 }
 
@@ -218,12 +218,13 @@ export function buildDocument(templateHtml: string, urlPath: string, bodyHtml: s
   return html.replace(/<div id="root"><\/div>/, () => `<div id="root">${bodyHtml}</div>`);
 }
 
-/** Default route list: every sitemap URL plus the localized article mirrors. */
+/** Default route list: every sitemap URL plus any localized article mirror. */
 export function defaultPrerenderPaths(): string[] {
   const sitemapPaths = sitemapEntries().map((entry) => new URL(entry.url).pathname);
-  // Localized article mirrors are canonicalized to the English article and
-  // therefore stay out of the sitemap, but they must still exist as real
-  // documents so a language switch never lands on a 404.
+  // Fully translated articles are already in the sitemap, so this loop is a
+  // no-op for them. It still guarantees that every localized article mirror
+  // exists as a real document — a language switch must never land on a 404,
+  // even if a translation set were ever incomplete.
   const seen = new Set(sitemapPaths);
   for (const mirror of localizedArticleMirrorPaths()) {
     if (!seen.has(mirror)) {

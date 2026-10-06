@@ -7,10 +7,17 @@
  * and the prerender pipeline all read from this single shape, so content and
  * presentation can never drift apart.
  *
- * Article *body* copy is authored in English. Interface chrome around it
- * (navigation, breadcrumbs, category labels, reading time, related-section
- * headings) is localized through the existing i18n dictionary.
+ * Article content is authored in English on the top level of the definition
+ * and mirrored in full under `localized` for es/pt/fr/de. Interface chrome
+ * around it (navigation, breadcrumbs, category labels, reading time,
+ * related-section headings) is localized through the existing i18n
+ * dictionary — article copy itself never lives there.
+ *
+ * The URL locale selects the matching `localized` entry through
+ * `resolveArticleForLocale()`; English is always the fallback source.
  */
+
+import type { LocaleCode } from '../i18n/config';
 
 /** Categories available on the blog listing filter. */
 export const ARTICLE_CATEGORIES = ['concrete', 'masonry', 'paint', 'estimation'] as const;
@@ -22,6 +29,15 @@ export function isArticleCategory(value: unknown): value is ArticleCategory {
     typeof value === 'string' && (ARTICLE_CATEGORIES as readonly string[]).includes(value)
   );
 }
+
+/**
+ * Locales an article body can be authored in besides English. English never
+ * appears here — it always lives on the top level of `ArticleDefinition`.
+ */
+export type ArticleLocale = Exclude<LocaleCode, 'en'>;
+
+/** Every non-English article locale, in registry order. */
+export const ARTICLE_LOCALES: readonly ArticleLocale[] = ['es', 'pt', 'fr', 'de'];
 
 /** Local image reference with intrinsic dimensions (no lazy CLS). */
 export interface ArticleImage {
@@ -135,4 +151,40 @@ export interface ArticleDefinition {
   relatedArticleSlugs: string[];
   /** Rendered first on the listing page. */
   featured?: boolean;
+  /**
+   * Complete translated content per non-English locale. Metadata that does
+   * not vary by language (slug, category, dates, images, related references)
+   * stays on the English definition and is inherited by every translation;
+   * only the image alt text is localized, through `imageAlt`/`ogImageAlt`.
+   *
+   * All four locales are required by registry validation so the hreflang
+   * cluster can never be published partially.
+   */
+  localized?: Partial<Record<ArticleLocale, ArticleTranslation>>;
+}
+
+/**
+ * One complete translation of an article body.
+ *
+ * `blocks` must mirror the English block list one-to-one: same block types
+ * in the same order, same heading `id`s (so table-of-contents anchors and
+ * the shared section structure stay identical across locales), same
+ * formulas, figures, tables and numerical values — only the human-readable
+ * copy differs.
+ */
+export interface ArticleTranslation {
+  title: string;
+  description: string;
+  excerpt: string;
+  blocks: ArticleBlock[];
+  /** Overrides the English reading time when a locale needs its own figure. */
+  readingTimeMinutes?: number;
+  /**
+   * Localized alt text for the featured image. Image assets, dimensions and
+   * paths stay shared with English — only the descriptive text is translated
+   * so localized pages never ship English accessibility copy.
+   */
+  imageAlt?: string;
+  /** Localized alt text for the social share image (`og:image:alt`). */
+  ogImageAlt?: string;
 }

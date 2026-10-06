@@ -13,18 +13,24 @@ import {
   getArticlesByCategory,
   getFeaturedArticle,
   getRelatedArticles,
+  hasFullArticleTranslationSet,
   isArticleBasePath,
   localizedArticleMirrorPaths,
   localizedArticleRoutePatterns,
+  resolveArticleForLocale,
 } from '../src/lib/blog/registry';
 import {
   ARTICLE_CATEGORIES,
+  ARTICLE_LOCALES,
   isArticleCategory,
   type ArticleBlock,
   type ArticleDefinition,
   type ArticleHeadingBlock,
 } from '../src/lib/blog/types';
 import { articleSeoTitle, resolveArticleRouteSEO } from '../src/lib/blog/seo';
+import { getRouteSEO } from '../src/lib/seo';
+import { localizePath } from '../src/lib/i18n/routing';
+import { siteConfig } from '../src/lib/config/site';
 
 const article = ARTICLE_REGISTRY[0];
 const requiredSectionIds = [
@@ -230,22 +236,171 @@ describe('Blog route derivation', () => {
   });
 });
 
+describe('Article translations', () => {
+  it('ships a complete translation set for every article', () => {
+    for (const entry of ARTICLE_REGISTRY) {
+      expect(hasFullArticleTranslationSet(entry), entry.slug).toBe(true);
+      for (const locale of ARTICLE_LOCALES) {
+        expect(entry.localized?.[locale], `${entry.slug}/${locale}`).toBeDefined();
+      }
+    }
+  });
+
+  it('returns the registry object untouched for English', () => {
+    for (const entry of ARTICLE_REGISTRY) {
+      expect(resolveArticleForLocale(entry, 'en')).toBe(entry);
+      expect(getArticles('en')).toContain(entry);
+    }
+  });
+
+  it('renders translated copy for every non-English locale', () => {
+    for (const entry of ARTICLE_REGISTRY) {
+      for (const locale of ARTICLE_LOCALES) {
+        const resolved = resolveArticleForLocale(entry, locale);
+        const translation = entry.localized![locale]!;
+        expect(resolved.title, `${entry.slug}/${locale}`).toBe(translation.title);
+        expect(resolved.description).toBe(translation.description);
+        expect(resolved.excerpt).toBe(translation.excerpt);
+        expect(resolved.blocks).toBe(translation.blocks);
+        // Language-invariant fields always stay on the English definition.
+        expect(resolved.slug).toBe(entry.slug);
+        expect(resolved.category).toBe(entry.category);
+        expect(resolved.publishedAt).toBe(entry.publishedAt);
+        expect(resolved.image.src).toBe(entry.image.src);
+        expect(resolved.image.width).toBe(entry.image.width);
+        expect(resolved.image.height).toBe(entry.image.height);
+        expect(resolved.ogImage.src).toBe(entry.ogImage.src);
+        // Only the descriptive alt text is localized, never the asset itself.
+        expect(resolved.image.alt).toBe(translation.imageAlt ?? '');
+        expect(resolved.ogImage.alt).toBe(translation.ogImageAlt ?? '');
+        expect(resolved.image.alt.length).toBeGreaterThan(0);
+        expect(resolved.image.alt).not.toBe(entry.image.alt);
+        // The copy is genuinely translated, never an English duplicate.
+        expect(resolved.title).not.toBe(entry.title);
+      }
+    }
+  });
+
+  it('localizes figure alt text while keeping the shared image assets', () => {
+    type FigureBlock = Extract<ArticleBlock, { type: 'figure' }>;
+    const figuresOf = (blocks: ArticleBlock[]) =>
+      blocks.filter((block): block is FigureBlock => block.type === 'figure');
+
+    for (const entry of ARTICLE_REGISTRY) {
+      const english = figuresOf(entry.blocks);
+      for (const locale of ARTICLE_LOCALES) {
+        const scope = `${entry.slug}/${locale}`;
+        const figures = figuresOf(entry.localized![locale]!.blocks);
+
+        expect(figures.map((block) => block.src), scope).toEqual(
+          english.map((block) => block.src),
+        );
+        expect(figures.map((block) => block.width), scope).toEqual(
+          english.map((block) => block.width),
+        );
+        expect(figures.map((block) => block.height), scope).toEqual(
+          english.map((block) => block.height),
+        );
+        english.forEach((figure, index) => {
+          expect(figures[index].alt.length, scope).toBeGreaterThan(0);
+          expect(figures[index].alt, scope).not.toBe(figure.alt);
+        });
+      }
+    }
+  });
+
+  it('keeps translated descriptions at or under 160 characters', () => {
+    for (const entry of ARTICLE_REGISTRY) {
+      for (const locale of ARTICLE_LOCALES) {
+        const { description } = entry.localized![locale]!;
+        expect(description.trim().length, `${entry.slug}/${locale}`).toBeGreaterThan(0);
+        expect(description.length, `${entry.slug}/${locale}`).toBeLessThanOrEqual(160);
+      }
+    }
+  });
+
+  it('keeps every translation block-for-block identical in shape to English', () => {
+    const shape = (blocks: ArticleBlock[]) =>
+      blocks.map((block) => (block.type === 'heading' ? `heading:${block.id}` : block.type));
+
+    for (const entry of ARTICLE_REGISTRY) {
+      for (const locale of ARTICLE_LOCALES) {
+        expect(shape(entry.localized![locale]!.blocks), `${entry.slug}/${locale}`).toEqual(
+          shape(entry.blocks),
+        );
+      }
+    }
+  });
+
+  it('resolves localized articles through the locale-aware listing helpers', () => {
+    for (const locale of ['en', ...ARTICLE_LOCALES] as const) {
+      expect(getArticles(locale)).toHaveLength(ARTICLE_REGISTRY.length);
+      expect(getFeaturedArticle(locale)).toBeDefined();
+      expect(getArticlesByCategory(null, locale)).toHaveLength(ARTICLE_REGISTRY.length);
+      const related = getRelatedArticles(ARTICLE_REGISTRY[0], locale);
+      expect(related.length).toBeGreaterThan(0);
+      for (const entry of related) {
+        const source = getArticleBySlug(entry.slug)!;
+        expect(entry.title, `${entry.slug}/${locale}`).toBe(
+          resolveArticleForLocale(source, locale).title,
+        );
+      }
+    }
+  });
+});
+
 describe('Article SEO resolution', () => {
-  it('returns an English-canonical, hreflang-free entry for every locale', () => {
+  it('self-canonicalizes per locale with the localized copy and full hreflang', () => {
+    for (const locale of ['en', 'es', 'pt', 'fr', 'de'] as const) {
+      const seo = getRouteSEO(localizePath(locale, articleBasePath(article.slug)));
+      const resolved = resolveArticleForLocale(article, locale);
+
+      expect(seo.title, locale).toBe(`${resolved.title} — MixTally`);
+      expect(seo.description, locale).toBe(resolved.description);
+      expect(seo.canonicalPath, locale).toBe(localizePath(locale, articleBasePath(article.slug)));
+      expect(seo.locale, locale).toBe(locale);
+      expect(seo.noindex, locale).toBe(false);
+      expect(seo.ogType, locale).toBe('article');
+      expect(seo.image, locale).toEqual({
+        src: resolved.ogImage.src,
+        width: resolved.ogImage.width,
+        height: resolved.ogImage.height,
+        alt: resolved.ogImage.alt,
+      });
+
+      expect(seo.alternates.map((entry) => entry.hreflang), locale).toEqual([
+        'en',
+        'es',
+        'pt',
+        'fr',
+        'de',
+        'x-default',
+      ]);
+      expect(
+        seo.alternates.find((entry) => entry.hreflang === locale)?.href,
+        locale,
+      ).toBe(`${siteConfig.domain}${localizePath(locale, articleBasePath(article.slug))}`);
+      expect(seo.alternates.find((entry) => entry.hreflang === 'x-default')?.href, locale).toBe(
+        `${siteConfig.domain}${articleBasePath(article.slug)}`,
+      );
+      for (const alternate of seo.alternates) {
+        expect(alternate.href.startsWith(`${siteConfig.domain}/`), alternate.href).toBe(true);
+        expect(alternate.href).not.toContain('/en/');
+      }
+    }
+  });
+
+  it('resolves the SEO entry through resolveArticleRouteSEO as well', () => {
     for (const locale of ['en', 'es', 'pt', 'fr', 'de'] as const) {
       const seo = resolveArticleRouteSEO(articleBasePath(article.slug), locale);
       expect(seo, locale).not.toBeNull();
-      expect(seo!.canonicalPath).toBe(articleBasePath(article.slug));
-      expect(seo!.alternates).toEqual([]);
       expect(seo!.locale).toBe(locale);
-      expect(seo!.noindex).toBe(false);
-      expect(seo!.ogType).toBe('article');
-      expect(seo!.image).toEqual({
-        src: article.ogImage.src,
-        width: article.ogImage.width,
-        height: article.ogImage.height,
-        alt: article.ogImage.alt,
-      });
+      expect(seo!.canonicalPath, locale).toBe(
+        localizePath(locale, articleBasePath(article.slug)),
+      );
+      // The hreflang cluster is assembled by lib/seo.ts and passed in, so a
+      // standalone call stays free of a runtime import cycle.
+      expect(seo!.alternates).toEqual([]);
     }
   });
 

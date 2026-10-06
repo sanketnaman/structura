@@ -1,6 +1,6 @@
 import { DEFAULT_LOCALE, LOCALIZED_PREFIX_CODES, type LocaleCode } from './i18n/config';
 import { localizePath } from './i18n/routing';
-import { ARTICLE_BASE_PATHS, getArticleBySlug } from './blog/registry';
+import { ARTICLE_BASE_PATHS, getArticleBySlug, hasArticleTranslation } from './blog/registry';
 import { PAGE_ROUTE_PATHS } from './routes';
 import { absoluteSiteUrl } from './seo';
 
@@ -21,12 +21,14 @@ export interface SitemapEntry {
 /**
  * Every indexable URL in deterministic order: English first, then each
  * localized prefix in registry order (es, pt, fr, de), and within a locale
- * the `PAGE_ROUTE_PATHS` order.
+ * the `PAGE_ROUTE_PATHS` order followed by that locale's blog articles.
  *
- * Blog articles are English-only content: they are published once, after the
- * English static routes, and never as localized variants — localized article
- * mirrors canonicalize back to the English URL and are therefore not
- * canonical pages. Category filter query strings are never produced.
+ * Blog articles are fully translated, so each language version is a real
+ * self-canonicalizing page and is published in the sitemap: `/blog/<slug>`
+ * for English, `/es/blog/<slug>` for Spanish, and so on. An article is
+ * published for a locale only when that locale's translation exists — a
+ * partial translation set never advertises a URL it cannot render in that
+ * language. Category filter query strings are never produced.
  *
  * URLs are built with the same `localizePath` + `absoluteSiteUrl` helpers the
  * SEO system uses for canonicals, so the sitemap can never drift from the
@@ -43,15 +45,15 @@ export function sitemapEntries(): SitemapEntry[] {
       url: absoluteSiteUrl(localizePath(locale, basePath)),
     }));
 
-    if (locale !== DEFAULT_LOCALE) return entries;
-
     for (const basePath of ARTICLE_BASE_PATHS) {
       const article = getArticleBySlug(basePath.slice('/blog/'.length));
+      if (!article || !hasArticleTranslation(article, locale)) continue;
+
       entries.push({
         locale,
         basePath,
-        url: absoluteSiteUrl(basePath),
-        lastmod: article ? article.updatedAt ?? article.publishedAt : undefined,
+        url: absoluteSiteUrl(localizePath(locale, basePath)),
+        lastmod: article.updatedAt ?? article.publishedAt,
       });
     }
 

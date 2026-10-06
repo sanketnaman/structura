@@ -9,7 +9,7 @@ import {
 import { buildStructuredDataSchemas } from '../src/lib/structuredData';
 import { sitemapEntries } from '../src/lib/sitemap';
 import { siteConfig } from '../src/lib/config/site';
-import { ARTICLE_REGISTRY, articleBasePath } from '../src/lib/blog/registry';
+import { ARTICLE_REGISTRY, articleBasePath, resolveArticleForLocale } from '../src/lib/blog/registry';
 
 const LOCALIZED_LOCALES = ['es', 'pt', 'fr', 'de'] as const;
 const SAMPLE_BASE_PATHS = [
@@ -364,20 +364,40 @@ describe('Localized SEO metadata', () => {
   });
 });
 
-describe('Article SEO (English-only bodies)', () => {
+describe('Article SEO (fully translated bodies)', () => {
   const article = ARTICLE_REGISTRY[0];
   const basePath = articleBasePath(article.slug);
 
-  it('canonicalizes every locale to the English article URL and advertises no hreflang', () => {
-    for (const locale of ['en', ...LOCALIZED_LOCALES]) {
+  it('self-canonicalizes each locale with its own copy and the full hreflang cluster', () => {
+    const locales = ['en', ...LOCALIZED_LOCALES] as const;
+    for (const locale of locales) {
       const path = locale === 'en' ? basePath : `/${locale}${basePath}`;
       const seo = getRouteSEO(path);
-      expect(seo.canonicalPath, path).toBe(basePath);
-      expect(seo.alternates, path).toEqual([]);
+      const resolved = resolveArticleForLocale(article, locale);
+
+      expect(seo.canonicalPath, path).toBe(path);
       expect(seo.noindex, path).toBeFalsy();
       expect(seo.locale, path).toBe(locale);
-      expect(seo.title, path).toBe(`${article.title} — MixTally`);
-      expect(seo.description, path).toBe(article.description);
+      expect(seo.title, path).toBe(`${resolved.title} — MixTally`);
+      expect(seo.description, path).toBe(resolved.description);
+
+      expect(seo.alternates.map((entry) => entry.hreflang), path).toEqual([
+        'en',
+        'es',
+        'pt',
+        'fr',
+        'de',
+        'x-default',
+      ]);
+      expect(seo.alternates.find((entry) => entry.hreflang === locale)?.href, path).toBe(
+        `${siteConfig.domain}${path}`,
+      );
+      expect(seo.alternates.find((entry) => entry.hreflang === 'x-default')?.href, path).toBe(
+        `${siteConfig.domain}${basePath}`,
+      );
+      for (const alternate of seo.alternates) {
+        expect(alternate.href, alternate.href).not.toContain('/en/');
+      }
     }
   });
 

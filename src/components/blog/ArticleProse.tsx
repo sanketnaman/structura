@@ -10,12 +10,14 @@ interface ArticleProseProps {
 }
 
 /**
- * Renders an article body from its typed block list. All block copy is
- * authored in English; the surrounding page marks the article region with
- * `lang="en"` while interface chrome stays localized.
+ * Renders an article body from its typed block list. The list is already the
+ * copy for the active URL locale (resolved before layout), and the surrounding
+ * page declares that language on the `<article lang>` element while interface
+ * chrome stays localized through the dictionary.
  *
  * Headings render `level`-accurate semantic elements with stable ids so the
- * table of contents can link to them by anchor.
+ * table of contents can link to them by anchor — ids are identical across
+ * locales so shared anchors keep working.
  */
 export const ArticleProse: React.FC<ArticleProseProps> = ({ blocks }) => {
   const { t } = useLocale();

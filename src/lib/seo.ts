@@ -1,7 +1,7 @@
 import { siteConfig } from './config/site';
 import { getLocaleDefinition, LOCALES, LOCALIZED_PREFIX_CODES, type LocaleCode } from './i18n/config';
 import { localizePath, parseLocalePath } from './i18n/routing';
-import { isArticleBasePath } from './blog/registry';
+import { isArticleBasePath, articleSlugFromBasePath, getArticleBySlug, hasFullArticleTranslationSet } from './blog/registry';
 import { resolveArticleRouteSEO } from './blog/seo';
 
 /**
@@ -493,6 +493,29 @@ export function buildHreflangAlternates(basePath: string): HreflangAlternate[] {
   return alternates;
 }
 
+/**
+ * Reciprocal hreflang alternates for a blog article.
+ *
+ * Articles ship the same five-language translation set the rest of the site
+ * uses, so they advertise the identical cluster: `en`, `es`, `pt`, `fr`, `de`
+ * with `x-default` pointing at the unprefixed English URL. An article whose
+ * translation set is incomplete publishes no hreflang at all, because claiming
+ * an alternation that does not exist would be worse than claiming none.
+ */
+export function buildArticleHreflangAlternates(basePath: string): HreflangAlternate[] {
+  const slug = articleSlugFromBasePath(basePath);
+  if (!slug) return [];
+  const article = getArticleBySlug(slug);
+  if (!article || !hasFullArticleTranslationSet(article)) return [];
+
+  const alternates: HreflangAlternate[] = LOCALES.map((locale) => ({
+    hreflang: locale.hreflang,
+    href: absoluteSiteUrl(localizePath(locale.code, basePath)),
+  }));
+  alternates.push({ hreflang: 'x-default', href: absoluteSiteUrl(basePath) });
+  return alternates;
+}
+
 function cleanPathname(pathname: string): string {
   const withoutHash = pathname.split('#')[0];
   return withoutHash.split('?')[0];
@@ -503,9 +526,10 @@ function cleanPathname(pathname: string): string {
  *
  * - Locale comes from the URL prefix; the canonical is always the
  *   self-referencing localized path (never carries `?unit=` etc.).
- * - `/blog/<slug>` resolves through the article registry. Article bodies are
- *   English-only, so the canonical is always the unprefixed English path and
- *   no hreflang alternates are advertised — see `blog/seo.ts`.
+ * - `/blog/<slug>` resolves through the article registry: the localized copy
+ *   supplies the title and description, the canonical is the self-referencing
+ *   localized article path, and the full hreflang cluster is attached here
+ *   (`blog/seo.ts` stays free of a runtime import back into this module).
  * - Unknown or localized-but-nonexistent paths return the noindex 404 entry
  *   with no canonical and no hreflang alternates.
  * - Localized pages use their `localized[locale]` title/description, with the
@@ -515,7 +539,11 @@ export function getRouteSEO(pathname: string): RouteSEO {
   const { locale, basePath } = parseLocalePath(cleanPathname(pathname));
 
   if (isArticleBasePath(basePath)) {
-    const articleSeo = resolveArticleRouteSEO(basePath, locale);
+    const articleSeo = resolveArticleRouteSEO(
+      basePath,
+      locale,
+      buildArticleHreflangAlternates(basePath),
+    );
     if (articleSeo) return articleSeo;
     return notFoundSeo(locale);
   }

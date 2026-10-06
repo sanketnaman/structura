@@ -1,25 +1,30 @@
 import type { LocaleCode } from '../i18n/config';
-import type { RouteSEO } from '../seo';
-import { articleBasePath, articleSlugFromBasePath, getArticleBySlug } from './registry';
+import { localizePath } from '../i18n/routing';
+import type { HreflangAlternate, RouteSEO } from '../seo';
+import {
+  articleBasePath,
+  articleSlugFromBasePath,
+  getArticleBySlug,
+  resolveArticleForLocale,
+} from './registry';
 import type { ArticleDefinition } from './types';
 
 /**
  * Article SEO resolution.
  *
- * Article bodies are authored in English only. Declaring `/es/blog/<slug>`
- * as the Spanish alternation of `/blog/<slug>` would assert language parity
- * that does not exist, so article pages deliberately emit **no hreflang
- * alternates at all**:
+ * Every article is published in English, Spanish, Portuguese, French and
+ * German, so each language version is a genuine alternation of the others and
+ * the head tags say exactly what the body delivers:
  *
- *  - `/blog/<slug>` self-canonicalizes in every locale.
- *  - `/xx/blog/<slug>` renders the English article with localized interface
- *    chrome, canonicalizes to the English URL, and emits no hreflang.
- *  - `<html lang>` still follows the URL locale while the article element
- *    carries `lang="en"`, which is the correct HTML pattern for localized
- *    chrome wrapping English content.
- *
- * Only `import type` is used from `../seo` here, so this module introduces no
- * runtime import cycle with the SEO registry.
+ *  - the canonical is self-referencing in the URL locale — `/blog/<slug>` for
+ *    English, `/es/blog/<slug>` for Spanish, and so on;
+ *  - the title, description and social text come from the localized copy, so
+ *    `<title>` and `og:description` match the rendered language;
+ *  - `alternates` carries the full reciprocal hreflang cluster (`en`, `es`,
+ *    `pt`, `fr`, `de` plus `x-default` → English). It is assembled by
+ *    `buildArticleHreflangAlternates` in `lib/seo.ts` and passed in here, so
+ *    this module keeps a type-only dependency on `../seo` and introduces no
+ *    runtime import cycle with the SEO registry.
  */
 
 /** `<title>` for an article — brand suffix matches the existing site style. */
@@ -28,7 +33,7 @@ export function articleSeoTitle(article: ArticleDefinition): string {
 }
 
 /**
- * Resolves SEO metadata for an article base path.
+ * Resolves SEO metadata for an article base path in `locale`.
  *
  * Returns `null` for unknown or malformed slugs so the caller can fall back
  * to the existing noindex 404 entry.
@@ -36,22 +41,25 @@ export function articleSeoTitle(article: ArticleDefinition): string {
 export function resolveArticleRouteSEO(
   basePath: string,
   locale: LocaleCode,
+  alternates: HreflangAlternate[] = [],
 ): RouteSEO | null {
   const slug = articleSlugFromBasePath(basePath);
   if (!slug) return null;
 
-  const article = getArticleBySlug(slug);
-  if (!article) return null;
+  const english = getArticleBySlug(slug);
+  if (!english) return null;
+
+  const article = resolveArticleForLocale(english, locale);
 
   return {
     title: articleSeoTitle(article),
     description: article.description,
-    // Always the unprefixed English path: the localized mirrors are not
-    // independent language versions and must not claim to be.
-    canonicalPath: articleBasePath(article.slug),
+    // Self-referencing localized path: each language version is its own
+    // canonical, which is what makes the hreflang cluster reciprocal.
+    canonicalPath: localizePath(locale, articleBasePath(article.slug)),
     noindex: false,
     locale,
-    alternates: [],
+    alternates,
     image: {
       src: article.ogImage.src,
       width: article.ogImage.width,

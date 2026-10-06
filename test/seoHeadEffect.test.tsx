@@ -145,7 +145,10 @@ describe('SEO effect (client document.head behavior unchanged)', () => {
     expect(
       document.querySelector('meta[name="twitter:image:alt"]')?.getAttribute('content'),
     ).toBe(article.ogImage.alt);
-    expect(document.querySelectorAll('link[rel="alternate"][hreflang]')).toHaveLength(0);
+    expect(document.querySelectorAll('link[rel="alternate"][hreflang]')).toHaveLength(6);
+    expect(
+      document.querySelector('link[rel="canonical"]')?.getAttribute('href'),
+    ).toBe(`https://mixtally.com/blog/${article.slug}`);
 
     renderSEO('/privacy');
     expect(document.querySelector('meta[property="og:image"]')).toBeNull();

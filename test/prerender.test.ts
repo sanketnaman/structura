@@ -20,7 +20,7 @@ import { getLocaleDefinition } from '../src/lib/i18n/config';
 import { parseLocalePath } from '../src/lib/i18n/routing';
 import { translate } from '../src/lib/i18n/translate';
 import { BRICK_FAQ } from '../src/lib/calculators/brick/faq';
-import { ARTICLE_REGISTRY } from '../src/lib/blog/registry';
+import { ARTICLE_REGISTRY, resolveArticleForLocale } from '../src/lib/blog/registry';
 
 /**
  * Phase 4H-2 — static prerendering of every route.
@@ -32,9 +32,10 @@ import { ARTICLE_REGISTRY } from '../src/lib/blog/registry';
  * URLs, no duplicate tags, and byte-identical determinism across repeated
  * generation.
  *
- * The path list is the 72 sitemap URLs plus the 8 localized article
- * mirrors (canonicalized to English, therefore never sitemapped but still
- * required to exist as real documents): 80 documents in total.
+ * The path list is the 80 sitemap URLs: 14 page routes plus the 2
+ * articles, each across the 5 locales. Every article is translated, so
+ * there are no separate English-only mirrors any more — 80 documents in
+ * total.
  */
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -128,7 +129,7 @@ interface Expectation {
   ogCount: number;
   /** twitter:card/title/description plus 2 image tags when present. */
   twitterCount: number;
-  /** True for `/blog/<slug>` documents (mirrors included). */
+  /** True for `/blog/<slug>` documents in any locale. */
   isArticle: boolean;
   /** True for `/blog` listing documents. */
   isListing: boolean;
@@ -189,8 +190,8 @@ afterAll(() => {
 });
 
 describe('route enumeration and output paths', () => {
-  it('enumerates the 72 sitemap routes plus 8 article mirrors with unique output paths', () => {
-    expect(sitemapEntries()).toHaveLength(72);
+  it('enumerates the 80 sitemap routes with unique output paths', () => {
+    expect(sitemapEntries()).toHaveLength(80);
     expect(urlPaths).toHaveLength(80);
     expect(new Set(urlPaths).size).toBe(80);
     expect(new Set(expectations.map((e) => e.outputPath)).size).toBe(80);
@@ -316,27 +317,37 @@ describe('head validation for all 80 documents', () => {
     expect(failures).toEqual([]);
   });
 
-  it('advertises hreflang only for localized pages, never for article bodies', () => {
+  it('advertises the full 6-entry hreflang cluster on every document', () => {
     const failures: string[] = [];
     for (const expectation of expectations) {
       const html = docFor(expectation.urlPath);
       const hreflangs = extractHreflangs(html);
+      const { locale } = parseLocalePath(expectation.urlPath);
 
-      if (expectation.isArticle) {
-        if (hreflangs.length !== 0) {
-          failures.push(`${expectation.urlPath}: article advertises ${hreflangs.length} hreflang`);
-        }
-        const slug = expectation.urlPath.slice(
-          expectation.urlPath.lastIndexOf('/blog/') + '/blog/'.length,
-        );
-        if (!expectation.canonicalUrl?.endsWith(`/blog/${slug}`)) {
-          failures.push(`${expectation.urlPath}: article canonical ${expectation.canonicalUrl}`);
-        }
-        if (!html.includes('<article lang="en"')) {
-          failures.push(`${expectation.urlPath}: article body is not marked lang="en"`);
-        }
-      } else if (hreflangs.length !== 6) {
+      if (hreflangs.length !== 6) {
         failures.push(`${expectation.urlPath}: ${hreflangs.length} hreflang entries (expected 6)`);
+      }
+      const self = hreflangs.find(
+        (entry) => entry.hreflang === getLocaleDefinition(locale).hreflang,
+      );
+      if (self?.href !== expectation.canonicalUrl) {
+        failures.push(`${expectation.urlPath}: self alternate ${self?.href} !== canonical`);
+      }
+      for (const entry of hreflangs) {
+        if (entry.href.includes('/en/')) {
+          failures.push(`${expectation.urlPath}: /en/ leaked into ${entry.hreflang}`);
+        }
+      }
+      if (expectation.isArticle) {
+        const slug = expectation.urlPath.slice(expectation.urlPath.lastIndexOf('/blog/') + 6);
+        const xDefault = hreflangs.find((entry) => entry.hreflang === 'x-default')?.href;
+        if (xDefault !== `https://mixtally.com/blog/${slug}`) {
+          failures.push(`${expectation.urlPath}: x-default ${xDefault}`);
+        }
+        const bodyLang = getLocaleDefinition(locale).htmlLang;
+        if (!html.includes(`<article lang="${bodyLang}"`)) {
+          failures.push(`${expectation.urlPath}: article body is not marked lang="${bodyLang}"`);
+        }
       }
     }
     expect(failures).toEqual([]);
@@ -544,7 +555,7 @@ describe('representative routes (all five locales)', () => {
   });
 });
 
-describe('blog documents (listing, localized listing, article, mirror)', () => {
+describe('blog documents (listing, localized listing, English article, localized article)', () => {
   const article = ARTICLE_REGISTRY[0];
   const articlePath = `/blog/${article.slug}`;
 
@@ -576,7 +587,7 @@ describe('blog documents (listing, localized listing, article, mirror)', () => {
     expect(extractRootContent(html)).toContain(translate('es', 'blog.title'));
   });
 
-  it(`${articlePath} — English article with Article JSON-LD and no hreflang`, () => {
+  it(`${articlePath} — English article with Article JSON-LD and full hreflang`, () => {
     const html = docFor(articlePath);
     expect(extractTitle(html)).toBe(`${article.title} — MixTally`);
     expect(extractMeta(html, 'name', 'robots')).toBe('index, follow');
@@ -584,7 +595,7 @@ describe('blog documents (listing, localized listing, article, mirror)', () => {
     expect(unescapeHtml(extract(html, /<link\s+rel="canonical"\s+href="([^"]*)"/) ?? '')).toBe(
       `https://mixtally.com${articlePath}`,
     );
-    expect(extractHreflangs(html)).toEqual([]);
+    expect(extractHreflangs(html)).toHaveLength(6);
 
     const root = extractRootContent(html);
     expect(root).toContain('<article lang="en"');
@@ -597,18 +608,28 @@ describe('blog documents (listing, localized listing, article, mirror)', () => {
     ]);
   });
 
-  it(`/de${articlePath} — localized mirror keeps the English canonical and no hreflang`, () => {
+  it(`/de${articlePath} — localized article with its own canonical, body and hreflang`, () => {
     const html = docFor(`/de${articlePath}`);
+    const localized = resolveArticleForLocale(article, 'de');
+
+    expect(extractTitle(html)).toBe(`${localized.title} — MixTally`);
+    expect(extractMeta(html, 'name', 'description')).toBe(localized.description);
     expect(extract(html, /<html lang="([^"]*)">/)).toBe('de');
     expect(unescapeHtml(extract(html, /<link\s+rel="canonical"\s+href="([^"]*)"/) ?? '')).toBe(
-      `https://mixtally.com${articlePath}`,
+      `https://mixtally.com/de${articlePath}`,
     );
-    expect(extractHreflangs(html)).toEqual([]);
+    expect(extractHreflangs(html)).toHaveLength(6);
 
     const root = extractRootContent(html);
-    expect(root).toContain('<article lang="en"');
+    expect(root).toContain('<article lang="de"');
+    expect(root).toContain(localized.title);
+    expect(root).toContain('id="volume-formula"');
     expect(root).toContain(translate('de', 'blog.backToListing'));
     expect(root).toContain('href="/de/blog"');
+
+    const schemas = extractTaggedJsonLd(html);
+    expect(schemas.map((schema) => schema['@type'])).toEqual(['Article', 'BreadcrumbList']);
+    expect(schemas[0]['headline']).toBe(localized.title);
   });
 });
 

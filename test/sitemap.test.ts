@@ -79,11 +79,11 @@ describe('sitemap.xml structure', () => {
 });
 
 describe('sitemap URL set', () => {
-  it('contains exactly 80 URLs', () => {
-    expect(locs).toHaveLength(80);
+  it('contains exactly 85 URLs', () => {
+    expect(locs).toHaveLength(85);
   });
 
-  it('contains 16 URLs for every locale (14 pages + 2 articles)', () => {
+  it('contains 17 URLs for every locale (14 pages + 3 articles)', () => {
     for (const locale of LOCALE_ORDER) {
       const forLocale = locs.filter((loc) => parseLocalePath(urlPath(loc)).locale === locale);
       expect(forLocale, locale).toHaveLength(PAGE_ROUTE_PATHS.length + ARTICLE_BASE_PATHS.length);
@@ -228,7 +228,7 @@ describe('article URLs in the sitemap', () => {
 });
 
 describe('sitemap entries (generator)', () => {
-  it('derives 80 entries from PAGE_ROUTE_PATHS plus the articles across the 5 locales', () => {
+  it('derives 85 entries from PAGE_ROUTE_PATHS plus the articles across the 5 locales', () => {
     const entries = sitemapEntries();
     expect(entries).toHaveLength(
       (PAGE_ROUTE_PATHS.length + ARTICLE_BASE_PATHS.length) * LOCALE_ORDER.length,

@@ -84,6 +84,26 @@ const DELIVERY_COMPARISON_FIGURE = {
   height: 900,
 } as const;
 
+/**
+ * Existing local photographs reused for the paint quantity article. Both are
+ * already licensed and documented in the README of their own directory
+ * (`public/images/construction/README.md` and
+ * `public/images/guides/README.md`), which the blog image tests assert.
+ */
+const PAINTED_ROOM_IMAGE = {
+  src: '/images/construction/interior-wall-painting.webp',
+  alt: 'A freshly painted room with an even green wall colour running from baseboard to ceiling',
+  width: 900,
+  height: 600,
+} as const;
+
+const PAINT_ROLLER_FIGURE = {
+  src: '/images/guides/paint-coverage-guide.webp',
+  alt: 'A roller spreading a fresh coat of paint across a wall in long even passes',
+  width: 900,
+  height: 600,
+} as const;
+
 const concreteVolumeEs: ArticleTranslation = {
   imageAlt: 'Losa de concreto recién vaciada que se nivela en una obra de construcción preparada',
   ogImageAlt: 'Losa de concreto recién vaciada que se nivela en una obra de construcción preparada',
@@ -2932,10 +2952,1852 @@ const tenByTenSlabArticle: ArticleDefinition = {
   },
 };
 
+const paintRoomEs: ArticleTranslation = {
+  imageAlt: 'Una habitación recién pintada con un color verde uniforme de la zócalo al techo',
+  ogImageAlt: 'Una habitación recién pintada con un color verde uniforme de la zócalo al techo',
+  title: '¿Cuánta pintura necesito para una habitación? Fórmula y ejemplos',
+  description:
+    'Aprenda a calcular la pintura de una habitación con el área de las paredes, puertas y ventanas, la cobertura por capa y el número de capas, con un ejemplo.',
+  excerpt:
+    'La fórmula de cantidad de pintura desarrollada en una habitación de 12 ft × 12 ft: área de paredes, descuentos de puertas y ventanas, cobertura por capa, techo y márgenes.',
+  blocks: [
+    {
+      type: 'heading',
+      level: 2,
+      id: 'why-it-matters',
+      text: 'Por qué importa estimar bien la pintura',
+    },
+    {
+      type: 'paragraph',
+      text: 'La pintura se vende por volumen: galones en Estados Unidos y litros casi en todas partes, y cada habitación que se pinta es un pequeño ejercicio de presupuesto. Comprar de menos detiene la obra para hacer un segundo viaje; comprar de demasiado deja presupuesto sin abrir en el estante. Una estimación medida convierte una suposición en la tierra en una cifra que se puede defender.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Este artículo recorre el método estándar: medir la habitación, calcular el área bruta de las paredes, restar lo que no se va a pintar, dividir entre la cobertura que indica el fabricante, multiplicar por el número de capas y decidir después cuánto margen añadir. El recorrido usa unidades imperiales y una habitación de 12 ft × 12 ft como ejemplo continuo; quienes trabajen en unidades métricas pueden seguir los mismos pasos con metros y m² por litro. El resultado es una cantidad, no una especificación de producto, brillo ni garantía.',
+    },
+    { type: 'heading', level: 2, id: 'paint-formula', text: 'La fórmula básica de cantidad de pintura' },
+    {
+      type: 'paragraph',
+      text: 'Cuatro datos impulsan todo el cálculo: el largo y el ancho de la habitación, la altura de las paredes, el área total de puertas y ventanas que no se van a pintar y la cobertura impresa en la lata. Multiplíquelos y divídalos en este orden:',
+    },
+    { type: 'formula', expression: 'Perímetro = 2 × (largo + ancho)' },
+    { type: 'formula', expression: 'Área bruta de paredes = perímetro × altura de la pared' },
+    { type: 'formula', expression: 'Área neta de paredes = área bruta − puertas y ventanas' },
+    {
+      type: 'formula',
+      expression: 'Pintura necesaria (galones) = (área neta × capas) ÷ cobertura',
+    },
+    {
+      type: 'paragraph',
+      text: 'La cobertura es la cifra del fabricante: cuántos pies cuadrados cubre un galón en una sola capa. Es una propiedad de ese producto sobre una superficie definida, no una constante universal; la sección 6 vuelve sobre lo que la mueve. Todo lo que precede a la división es geometría; todo lo que la sigue es comportamiento del producto.',
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Respuesta rápida para una habitación estándar',
+      body: 'Una habitación de 12 ft × 12 ft con paredes de 8 ft tiene 384 ft² de área bruta. Al descontar una puerta y dos ventanas (51 ft² en este ejemplo) quedan 333 ft². Con una cobertura ilustrativa de 350 ft² por galón por capa, dos capas necesitan 666 ft² recubiertos, es decir 1.90 galones. Con un margen opcional del 10% la cifra ronda los 2.1 galones. Todos estos números son ejemplos calculados a partir de datos declarados, no un estándar para todas las pinturas.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'measuring-the-room',
+      text: 'Cómo medir largo, ancho y altura de la pared',
+    },
+    {
+      type: 'paragraph',
+      text: 'Bastan tres medidas con cinta métrica. Mida el largo y el ancho de la habitación sobre el piso, de cara a cara de las paredes, y la altura desde el piso terminado hasta la línea del techo. Si la habitación es un rectángulo limpio, una medida de cada dimensión basta; en casas antiguas, mida dos veces y use la cifra mayor cuando las paredes no sean paralelas.',
+    },
+    {
+      type: 'list',
+      items: [
+        'Mida sobre el piso junto a las caras de la pared, no sobre el zócalo, que puede sobresalir del yeso.',
+        'Tome la altura de la pared en varios puntos. Los techos abombados y los pisos levantados rara vez dejan la misma altura en cada montante.',
+        'Anote por separado niches, chaseways y estanterías empotradas; cada tramo plano es su propio rectángulo.',
+        'Registre todo en una unidad —pies para el trabajo imperial, metros para el métrico— antes de empezar cualquier multiplicación.',
+      ],
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Habitaciones no rectangulares',
+      body: 'Una habitación en forma de L son dos rectángulos, no un misterio. Mida cada tramo por separado, calcule sus paredes y sume los resultados. Lo único que cambia es el perímetro que se recorre; la aritmética sigue siendo la misma.',
+    },
+    { type: 'heading', level: 2, id: 'wall-area', text: 'Cómo calcular el área bruta de las paredes' },
+    {
+      type: 'paragraph',
+      text: 'Las paredes de una habitación rectangular forman una banda a su alrededor. La longitud de esa banda es el perímetro, y multiplicarlo por la altura da el área bruta, es decir el área antes de cualquier descuento:',
+    },
+    { type: 'formula', expression: 'perímetro = 2 × (12 + 12) = 48 ft' },
+    { type: 'formula', expression: 'área bruta = 48 × 8 = 384 ft²' },
+    {
+      type: 'paragraph',
+      text: 'El mismo atajo sirve para cualquier rectángulo. Una habitación de 10 ft × 10 ft tiene 40 ft de perímetro y 320 ft² de pared a 8 ft de altura; una de 12 ft × 16 ft tiene 56 ft y 448 ft².',
+    },
+    {
+      type: 'table',
+      headers: ['Habitación (L × A)', 'Perímetro', 'Área bruta a 8 ft'],
+      rows: [
+        ['10 ft × 10 ft', '40 ft', '320 ft²'],
+        ['12 ft × 12 ft', '48 ft', '384 ft²'],
+        ['12 ft × 16 ft', '56 ft', '448 ft²'],
+        ['14 ft × 16 ft', '60 ft', '480 ft²'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Las esquinas no consumen pintura, así que no llevan ajuste. Los techos no forman parte de esta cifra: se miden por separado, en la sección 9, porque suelen ser una cantidad de producto distinta y a menudo con otro brillo.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'doors-and-windows',
+      text: 'Descontar puertas y ventanas',
+    },
+    {
+      type: 'paragraph',
+      text: 'Las aberturas que no se van a pintar se restan del área bruta. Mida el marco de cada puerta y ventana —no solo el vidrio— y sume las áreas. Para planificar, una puerta interior estándar ronda los 21 ft² (aproximadamente 3 ft × 7 ft) y una ventana doble típica unos 15 ft²; son tamaños de ejemplo habituales, y la Calculadora de Pintura de MixTally los usa como valores predeterminados que usted puede cambiar. Mida sus propias aberturas cuando difieran.',
+    },
+    {
+      type: 'paragraph',
+      text: 'El ejemplo continuo tiene una puerta y dos ventanas:',
+    },
+    { type: 'formula', expression: 'descuentos = 21 + 2 × 15 = 51 ft²' },
+    { type: 'formula', expression: 'área neta = 384 − 51 = 333 ft²' },
+    {
+      type: 'list',
+      items: [
+        'Descuente el marco completo de las puertas y ventanas que va a dejar intactas.',
+        'No descuente molduras, zócalos o marcos que piense pintar: añaden un poco de área, y dejarlos en el cálculo es la elección conservadora.',
+        'Pintar las caras de las puertas es un presupuesto pequeño y aparte: una cara de puerta estándar ronda los 13 a 15 ft², de modo que dos caras añaden unos 30 ft² de área recubierta, equivalentes a unos 0.17 galones por las dos capas con la cobertura de ejemplo.',
+        'Persianas, cortinas y muebles adheridos a la pared también cubren área. Descuente solo lo que permanezca en su sitio durante el trabajo.',
+      ],
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'coverage-per-gallon',
+      text: 'Entender la cobertura de la pintura por pie cuadrado',
+    },
+    {
+      type: 'paragraph',
+      text: 'Cada lata indica una cobertura —pies cuadrados por galón en unidades imperiales, metros cuadrados por litro en métricas— y esa cifra es el divisor del paso final de la fórmula. Describe hasta dónde se extiende un envase sobre una capa, sobre una superficie correctamente preparada. Es una especificación de ese producto, no una regla general sobre la pintura: un acrílico denso sobre yeso liso y un recubrimiento texturizado sobre yeso crudo pueden diferir ampliamente.',
+    },
+    {
+      type: 'figure',
+      src: PAINT_ROLLER_FIGURE.src,
+      alt: 'Un rodillo extiende una capa fresca de pintura a lo largo de una pared en pasos largos y uniformes',
+      caption: 'Pintar la pared con pasos largos y uniformes, donde se usa de verdad la cobertura medida',
+      width: PAINT_ROLLER_FIGURE.width,
+      height: PAINT_ROLLER_FIGURE.height,
+    },
+    {
+      type: 'table',
+      headers: ['Superficie (ejemplo)', 'Cobertura ilustrativa por galón y capa'],
+      rows: [
+        ['Yeso liso ya pintado', '300–350 ft²'],
+        ['Yeso nuevo o sin pintar', '225–300 ft²'],
+        ['Paredes con textura ligera', '250–300 ft²'],
+        ['Mampostería rugosa o textura fuerte', '150–250 ft²'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Los rangos anteriores son ejemplos de planificación, no datos de fabricante: úselos para contrastar la cifra de su propia lata. La cobertura baja cuando la superficie absorbe pintura (yeso crudo, yeso sin sellar, hormigón poroso), cuando la textura deja huecos sombreados que el rodillo no alcanza y cuando los colores profundos o vivos requieren pasadas extra para cubrir. Sube sobre superficies selladas y de color claro, con un rodillo de calidad.',
+    },
+    {
+      type: 'callout',
+      tone: 'warning',
+      title: 'La cobertura siempre es por capa',
+      body: 'Una lata que indica 350 ft² no promete 350 ft² de color terminado en una sola pasada sobre cualquier pared: es la tasa del fabricante para una capa sobre una superficie definida. Dos capas duplican la pintura, no el área cubierta.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'multiple-coats',
+      text: 'Cuánta pintura para dos capas (o tres)',
+    },
+    {
+      type: 'paragraph',
+      text: 'La mayoría de los acabados se especifica a dos capas, y la cobertura se aplica a cada una de ellas. Multiplique el área neta por el número de capas antes de dividir:',
+    },
+    { type: 'formula', expression: 'área recubierta = área neta × número de capas' },
+    { type: 'formula', expression: 'pintura necesaria = área recubierta ÷ cobertura' },
+    {
+      type: 'paragraph',
+      text: 'En el ejemplo continuo (333 ft² netos), el área recubierta es de 666 ft² para dos capas y de 999 ft² para tres. Con la cobertura ilustrativa de 350 ft² por galón:',
+    },
+    {
+      type: 'table',
+      headers: ['Capas', 'Área recubierta', 'Galones a 350 ft²/gal'],
+      rows: [
+        ['1', '333 ft²', '0.95'],
+        ['2', '666 ft²', '1.90'],
+        ['3', '999 ft²', '2.85'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Los pimeras de primera mano no forman parte de esta multiplicación. La imprimación es un producto aparte, con su propia cobertura y su propia cantidad; las preguntas frecuentes explican cómo se relaciona con el estimado de acabado.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'worked-example',
+      text: 'Ejemplo resuelto: una habitación de 12 ft × 12 ft con paredes de 8 ft',
+    },
+    {
+      type: 'paragraph',
+      text: 'El método completo, de principio a fin, con cada cifra a la vista. Los datos: una habitación cuadrada de 12 ft por lado, 8 ft de altura de pared, una puerta estándar, dos ventanas estándar, dos capas de pintura y una cobertura ilustrativa de 350 ft² por galón por capa.',
+    },
+    { type: 'heading', level: 3, id: 'example-walls', text: 'Paso 1: área bruta de paredes' },
+    {
+      type: 'paragraph',
+      text: 'perímetro = 2 × (12 + 12) = 48 ft, y área bruta = 48 × 8 = 384 ft².',
+    },
+    { type: 'heading', level: 3, id: 'example-openings', text: 'Paso 2: descontar las aberturas' },
+    {
+      type: 'paragraph',
+      text: 'Una puerta de 21 ft² y dos ventanas de 15 ft² cada una dan 21 + 30 = 51 ft² de descuentos, y dejan un área neta de 384 − 51 = 333 ft².',
+    },
+    { type: 'heading', level: 3, id: 'example-gallons', text: 'Paso 3: capas y cobertura' },
+    {
+      type: 'paragraph',
+      text: 'Dos capas cubren 333 × 2 = 666 ft². Dividiendo entre la cobertura de ejemplo: 666 ÷ 350 = 1.90 galones.',
+    },
+    { type: 'heading', level: 3, id: 'example-allowance', text: 'Paso 4: margen opcional' },
+    {
+      type: 'paragraph',
+      text: 'La textura, la absorción, las pérdidas del corte de bordes y una reserva para retoques no están en la cifra geométrica. Un margen opcional del 10% sobre 1.90 galones es 1.90 × 1.10 = 2.09 galones, que redondea a unos 2.1 galones.',
+    },
+    {
+      type: 'table',
+      headers: ['Cantidad', 'Valor'],
+      rows: [
+        ['Perímetro de la habitación', '48 ft'],
+        ['Área bruta de paredes', '384 ft²'],
+        ['Descuentos de puertas y ventanas', '51 ft²'],
+        ['Área neta de paredes', '333 ft²'],
+        ['Área recubierta a dos capas', '666 ft²'],
+        ['Pintura sin margen (350 ft²/gal)', '1.90 galones'],
+        ['Pintura con margen opcional del 10%', '≈ 2.1 galones'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'La pintura se vende en envases enteros, de modo que 1.90 galones son una compra de dos galones y 2.1 galones una de tres si solo hay galones sueltos en el estante. Las habitaciones grandes suelen cruzar a los bidones de cinco galones, donde la aritmética simplemente continúa: divida y redondee al siguiente envase completo.',
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Son cifras calculadas, no estándares',
+      body: '350 ft² por galón, una puerta de 21 ft² y una ventana de 15 ft² fueron los datos declarados de este ejemplo. La lata de su producto, sus aberturas y su superficie producirán otras cifras: lo constante es el método, no los números.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'ceiling-paint',
+      text: 'Estimar la pintura del techo por separado',
+    },
+    {
+      type: 'paragraph',
+      text: 'Los techos son planos y se miden con el área del piso, no con el perímetro. El techo de la misma habitación de 12 ft × 12 ft mide 12 × 12 = 144 ft², y dos capas necesitan 288 ft² recubiertos —unos 0.82 galones con la cobertura de ejemplo, es decir en la práctica una compra de un galón.',
+    },
+    { type: 'formula', expression: 'área del techo = largo × ancho' },
+    {
+      type: 'paragraph',
+      text: 'Mantener el techo en su propia línea hace honesto el estimado: los techos suelen pintarse en mate mientras las paredes llevan el brillo de acabado, los dos se compran en cantidades distintas, y un techo texturizado puede absorber notablemente más pintura que uno liso. Añada la cifra del techo a la de las paredes solo al totalizar la lista de compras, nunca dentro de la fórmula de área de paredes.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'allowances',
+      text: 'Márgenes por textura, absorpción y retoques',
+    },
+    {
+      type: 'paragraph',
+      text: 'El cálculo geométrico describe una habitación ideal con paredes lisas y selladas y un rodillo que no desperdicia nada. El trabajo real se aleja de ese ideal en varias direcciones a la vez, y un margen es la forma en que el estimado reconoce esa distancia.',
+    },
+    {
+      type: 'list',
+      items: [
+        'Textura de la superficie: los acabados knockdown, naranja picada y las felpas gruesas dejan huecos que exigen pasadas extra.',
+        'Absorción: el yeso crudo, el yeso lijado y el hormigón sin sellar beben una primera capa que nunca termina de cubrir.',
+        'Pérdidas de aplicación: la pintura se queda en la bandeja, en el rodillo y en el cubo del corte; los bordes y las esquinas avanzan más lento que las paredes abiertas.',
+        'Retoques: los golpes del mobiliario, las placas de interruptores retiradas y la pared detrás de la puerta piden una pequeña reserva meses después, cuando el lote original puede ya no estar en el estante.',
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Un margen del 5 a 10% es una elección de planificación habitual en interiores corrientes; la textura más marcada o una primera mano sobre superficies crudas pueden justificar más. En el ejemplo continuo, el 10% lleva las paredes de 1.90 a 2.09 galones: un seguro barato contra un segundo viaje, y aún muy lejos del desperdicio de comprar el doble de lo necesario. Elija la cifra deliberadamente y mantenla separada del resultado geométrico, para que ambas cifras sigan visibles.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'common-mistakes',
+      text: 'Errores frecuentes de estimación',
+    },
+    {
+      type: 'list',
+      ordered: true,
+      items: [
+        'Usar el área del piso como área de paredes. Una losa de 12 × 12 mide 144 ft²; las paredes de la misma habitación son 384 ft² antes de descuentos, casi tres veces más.',
+        'Olvidar que las capas multiplican todo. La cobertura es por capa; dos capas duplican la pintura, no el área pintada.',
+        'Tratar la cifra de cobertura de la lata como universal. Describe un producto sobre una superficie definida; otro brillo, otro color u otra pared pueden moverla en cien pies cuadrados o más.',
+        'No descontar puertas y ventanas —o descontarlas dos veces también retirando las caras de puertas que se piensan pintar.',
+        'Saltarse el margen y comprar exactamente la cifra geométrica, para quedarse cortos en la segunda capa con media pared por hacer.',
+        'Mezclar sistemas de unidades: litros en una fórmula de galones, o metros cuadrados en una cobertura de pies cuadrados.',
+        'Fusionar el techo con el área de paredes. Al final el total se parece, pero se oculta la cantidad por separado y el producto distinto que en realidad hay que comprar.',
+      ],
+    },
+    { type: 'heading', level: 2, id: 'faq', text: 'Preguntas frecuentes' },
+    {
+      type: 'faq',
+      items: [
+        {
+          question: '¿Cuánta pintura necesito para una habitación de 12 ft × 12 ft?',
+          answer:
+            'Para las paredes, unos 1.9 galones para dos capas con una cobertura ilustrativa de 350 ft² por galón, tras descontar una puerta y dos ventanas; unos 2.1 galones con un margen del 10%. El techo añade aproximadamente un galón más. La lata de su producto y sus propias aberturas desplazarán estas cifras.',
+        },
+        {
+          question: '¿Cuál es una cobertura típica por pie cuadrado?',
+          answer:
+            'El yeso liso ya pintado suele quedarse en torno a 300–350 ft² por galón y capa; las superficies crudas o texturizadas, menos. Son ejemplos de planificación: el dato autorizado es la cobertura impresa en la lata que va a comprar.',
+        },
+        {
+          question: '¿Debo descontar puertas y ventanas del área de paredes?',
+          answer:
+            'Sí, en cada abertura que no se va a pintar. Mida los marcos (unos 21 ft² para una puerta estándar y 15 ft² para una ventana típica en el ejemplo usado aquí) y restélos una sola vez. Si también pinta las caras de las puertas, cuente ese área por separado en lugar de dejarla descontada.',
+        },
+        {
+          question: '¿Cuánta pintura necesito para dos capas?',
+          answer:
+            'Duplique el área recubierta y divida entre la cobertura. La habitación de ejemplo necesita 333 × 2 = 666 ft² recubiertos, y 666 ÷ 350 = 1.90 galones antes del margen.',
+        },
+        {
+          question: '¿Debe incluirse el techo en el área de paredes?',
+          answer:
+            'No. Mídalo por separado como largo × ancho (144 ft² para la habitación de 12 × 12), multiplica por su propio número de capas y añádelo al total de compras. Los techos suelen llevar otro brillo y otra cantidad.',
+        },
+        {
+          question: '¿La imprimación cuenta como una capa de pintura?',
+          answer:
+            'No. La imprimación es un producto aparte, con su propia cobertura y su propio tamaño de envase. Estímela desde la misma área de paredes, en su propia línea, y no la reste del requisito de acabado: las capas de acabado siguen necesitando su número completo de capas sobre la superficie imprimada.',
+        },
+        {
+          question: '¿Cómo convierto galones y pies cuadrados a litros y metros cuadrados?',
+          answer:
+            'Un galón estadounidense equivale a unos 3.785 litros y un pie cuadrado a unos 0.0929 m². O use directamente la cobertura métrica: 333 ft² son unos 30.9 m², y con una cobertura de ejemplo de 8.5 m² por litro y capa, dos capas necesitan 61.8 ÷ 8.5 ≈ 7.3 litros —cercano a los 1.90 galones del cálculo imperial, convertidos (1.90 × 3.785 ≈ 7.2 litros). La pequeña diferencia viene de que las tasas de ejemplo no son conversiones exactas la una de la otra.',
+        },
+      ],
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'calculator-cta',
+      text: 'Calcule la pintura de su propia habitación',
+    },
+    {
+      type: 'paragraph',
+      text: 'El recorrido anterior fija un tamaño de habitación. Para cualquier otra dimensión, [la Calculadora de Pintura de MixTally](/calculators/paint-calculator) toma largo, ancho, altura de pared, cantidades de puertas y ventanas, número de capas y su propia cobertura, y en un solo paso informa el área bruta, los descuentos, el área neta, el área recubierta y la compra en envases enteros, en galones o litros. El catálogo completo de estimadores vive en el [directorio de calculadoras](/calculators).',
+    },
+    {
+      type: 'calculator-cta',
+      view: 'paint-calculator',
+      title: 'Calculadora de Pintura de MixTally',
+      body: 'Introduzca dimensiones de la habitación, puertas, ventanas, capas y cobertura para ver el área de paredes, los descuentos y la cantidad de pintura en galones o litros, con un precio unitario opcional para estimar el costo.',
+    },
+  ],
+};
+
+const paintRoomPt: ArticleTranslation = {
+  imageAlt: 'Um cômodo recém-pintado com uma cor verde uniforme do rodapé ao teto',
+  ogImageAlt: 'Um cômodo recém-pintado com uma cor verde uniforme do rodapé ao teto',
+  title: 'Quanta tinta preciso para um cômodo? Fórmula e exemplos',
+  description:
+    'Aprenda a calcular a tinta de um cômodo com a área das paredes, portas e janelas, a cobertura por demão e o número de demãos, com um exemplo resolvido.',
+  excerpt:
+    'A fórmula de quantidade de tinta desenvolvida em um cômodo de 12 ft × 12 ft: área das paredes, deduções de portas e janelas, cobertura por demão, teto e margens.',
+  blocks: [
+    {
+      type: 'heading',
+      level: 2,
+      id: 'why-it-matters',
+      text: 'Por que estimar a tinta com precisão importa',
+    },
+    {
+      type: 'paragraph',
+      text: 'Tinta é vendida por volume: galões nos Estados Unidos e litros quase em todo o resto, e cada cômodo pintado é um pequeno exercício de orçamento. Comprar de menos interrompe o serviço para uma segunda viagem; comprar de demasiado deixa dinheiro parado na prateleira. Uma estimativa medida transforma um palpite da loja em um número que se pode defender.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Este artigo percorre o método padrão: medir o cômodo, calcular a área bruta das paredes, subtrair o que não será pintado, dividir pela cobertura indicada pelo fabricante, multiplicar pelo número de demãos e então decidir quanta margem acrescentar. O percorrido usa unidades imperiais e um cômodo de 12 ft × 12 ft como exemplo contínuo; quem trabalha em unidades métricas pode seguir os mesmos passos com metros e m² por litro. O resultado é uma quantidade, não uma especificação de produto, acabamento ou garantia.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'paint-formula',
+      text: 'A fórmula básica de quantidade de tinta',
+    },
+    {
+      type: 'paragraph',
+      text: 'Quatro medidas movem todo o cálculo: comprimento e largura do cômodo, altura da parede, área total de portas e janelas que não serão pintadas e a cobertura impressa na lata. Multiplique e divida nesta ordem:',
+    },
+    { type: 'formula', expression: 'Perímetro = 2 × (comprimento + largura)' },
+    { type: 'formula', expression: 'Área bruta das paredes = perímetro × altura da parede' },
+    { type: 'formula', expression: 'Área líquida das paredes = área bruta − portas e janelas' },
+    {
+      type: 'formula',
+      expression: 'Tinta necessária (galões) = (área líquida × demãos) ÷ cobertura',
+    },
+    {
+      type: 'paragraph',
+      text: 'A cobertura é o número do fabricante: quantos pés quadrados um galão cobre em uma única demão. É uma propriedade daquele produto sobre uma superfície definida, não uma constante universal; a seção 6 retoma o que a altera. Tudo o que precede a divisão é geometria; tudo o que a segue é comportamento do produto.',
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Resposta rápida para um cômodo padrão',
+      body: 'Um cômodo de 12 ft × 12 ft com paredes de 8 ft tem 384 ft² de área bruta. Ao deduzir uma porta e duas janelas (51 ft² neste exemplo), restam 333 ft². Com uma cobertura ilustrativa de 350 ft² por galão por demão, duas demãos precisam de 666 ft² revestidos, ou seja 1.90 galões. Com uma margem opcional de 10%, o número fica em torno de 2.1 galões. Todos estes valores são exemplos calculados a partir de dados declarados, não um padrão para todas as tintas.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'measuring-the-room',
+      text: 'Como medir comprimento, largura e altura da parede',
+    },
+    {
+      type: 'paragraph',
+      text: 'Três medidas com fita métrica bastam. Meça o comprimento e a largura do cômodo sobre o piso, de face a face das paredes, e a altura desde o piso acabado até a linha do teto. Se o cômodo for um retângulo limpo, uma medida de cada dimensão é suficiente; em casas antigas, meça duas vezes e use o maior valor quando as paredes não forem paralelas.',
+    },
+    {
+      type: 'list',
+      items: [
+        'Meça sobre o piso junto às faces da parede, e não sobre o rodapé, que pode saltar em relação ao reboco.',
+        'Tome a altura da parede em alguns pontos. Tetos caixados e pisos elevados raramente deixam a mesma altura em cada montante.',
+        'Anote separadamente nichos, conduites e estantes embutidas; cada trecho plano é seu próprio retângulo.',
+        'Registre tudo em uma unidade — pés no trabalho imperial, metros no métrico — antes de qualquer multiplicação.',
+      ],
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Cômodos não retangulares',
+      body: 'Um cômodo em forma de L são dois retângulos, não um mistério. Meça cada trecho por separado, calcule suas paredes e some os resultados. O único número que muda é o perímetro percorrido; a aritmética continua a mesma.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'wall-area',
+      text: 'Como calcular a área bruta das paredes',
+    },
+    {
+      type: 'paragraph',
+      text: 'As paredes de um cômodo retangular formam uma faixa ao seu redor. O comprimento dessa faixa é o perímetro, e multiplicá-lo pela altura da parede dá a área bruta, isto é, a área antes de qualquer dedução:',
+    },
+    { type: 'formula', expression: 'perímetro = 2 × (12 + 12) = 48 ft' },
+    { type: 'formula', expression: 'área bruta = 48 × 8 = 384 ft²' },
+    {
+      type: 'paragraph',
+      text: 'O mesmo atalho serve para qualquer retângulo. Um cômodo de 10 ft × 10 ft tem 40 ft de perímetro e 320 ft² de parede a 8 ft de altura; um de 12 ft × 16 ft tem 56 ft e 448 ft².',
+    },
+    {
+      type: 'table',
+      headers: ['Cômodo (C × L)', 'Perímetro', 'Área bruta a 8 ft'],
+      rows: [
+        ['10 ft × 10 ft', '40 ft', '320 ft²'],
+        ['12 ft × 12 ft', '48 ft', '384 ft²'],
+        ['12 ft × 16 ft', '56 ft', '448 ft²'],
+        ['14 ft × 16 ft', '60 ft', '480 ft²'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Cantos não consomem tinta, portanto não pedem ajuste. Tetos não fazem parte deste número: são medidos separadamente, na seção 9, porque costumam ser uma quantidade de produto diferente e frequentemente com outro acabamento.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'doors-and-windows',
+      text: 'Deduzindo portas e janelas',
+    },
+    {
+      type: 'paragraph',
+      text: 'Vãos que não serão pintados são subtraídos da área bruta. Meça a caixilharia de cada porta e janela — não só o vidro — e some as áreas. Para planejamento, uma porta interna padrão tem cerca de 21 ft² (aproximadamente 3 ft × 7 ft) e uma janela comum cerca de 15 ft²; são tamanhos de exemplo habituais, e a Calculadora de Tinta do MixTally os usa como padrões que você pode alterar. Meça seus próprios vãos sempre que diferirem.',
+    },
+    {
+      type: 'paragraph',
+      text: 'O exemplo contínuo tem uma porta e duas janelas:',
+    },
+    { type: 'formula', expression: 'deduções = 21 + 2 × 15 = 51 ft²' },
+    { type: 'formula', expression: 'área líquida = 384 − 51 = 333 ft²' },
+    {
+      type: 'list',
+      items: [
+        'Deduza a caixilharia completa das portas e janelas que ficarão intactas.',
+        'Não deduça molduras, rodapés ou batentes que você pretenda pintar: eles acrescentam um pouco de área, e deixá-los no cálculo é a escolha conservadora.',
+        'Pintar as faces das portas é um pequeno orçamento à parte: uma face de porta padrão tem cerca de 13 a 15 ft², de modo que duas faces acrescentam aproximadamente 30 ft² de área revestida, equivalentes a cerca de 0.17 galões nas duas demãos com a cobertura de exemplo.',
+        'Persianas, cortinas e armários fixos na parede também cobrem área. Deduz apenas o que permanecer no lugar durante o serviço.',
+      ],
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'coverage-per-gallon',
+      text: 'Entendendo a cobertura da tinta por pé quadrado',
+    },
+    {
+      type: 'paragraph',
+      text: 'Cada lata indica uma cobertura — pés quadrados por galão em unidades imperiais, metros quadrados por litro nas métricas — e esse número é o divisor do passo final da fórmula. Ele descreve até onde um recipiente se espalha em uma demão, sobre uma superfície devidamente preparada. É uma especificação daquele produto, não uma regra geral sobre tinta: um acrílico denso sobre reboco liso e um revestimento texturizado sobre reboco cru podem diferir amplamente.',
+    },
+    {
+      type: 'figure',
+      src: PAINT_ROLLER_FIGURE.src,
+      alt: 'Um rolo espalha uma demão fresca de tinta ao longo de uma parede em passes longos e uniformes',
+      caption: 'Pintar a parede em passes longos e uniformes, onde a cobertura medida é realmente usada',
+      width: PAINT_ROLLER_FIGURE.width,
+      height: PAINT_ROLLER_FIGURE.height,
+    },
+    {
+      type: 'table',
+      headers: ['Superfície (exemplo)', 'Cobertura ilustrativa por galão e demão'],
+      rows: [
+        ['Reboco liso já pintado', '300–350 ft²'],
+        ['Reboco novo ou sem tinta', '225–300 ft²'],
+        ['Paredes de textura leve', '250–300 ft²'],
+        ['Alvenaria rugosa ou textura forte', '150–250 ft²'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'As faixas acima são exemplos de planejamento, não dados de fabricante: use-as para confrontar o número da sua própria lata. A cobertura cai quando a superfície bebe tinta (reboco cru, reboco lixado, concreto poroso), quando a textura deixa vazios sombreados que o rolo não alcança e quando cores profundas ou vivas exigem passadas extras para cobrir. Ela sobe sobre superfícies seladas e de tom claro, com um rolo de qualidade.',
+    },
+    {
+      type: 'callout',
+      tone: 'warning',
+      title: 'A cobertura é sempre por demão',
+      body: 'Uma lata que indica 350 ft² não promete 350 ft² de cor pronta em uma única passagem sobre qualquer parede: é a taxa do fabricante para uma demão sobre uma superfície definida. Duas demãos duplicam a tinta, não a área coberta.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'multiple-coats',
+      text: 'Quanta tinta para duas demãos (ou três)',
+    },
+    {
+      type: 'paragraph',
+      text: 'A maioria dos acabamentos é especificada com duas demãos, e a cobertura se aplica a cada uma delas. Multiplique a área líquida pelo número de demãos antes de dividir:',
+    },
+    { type: 'formula', expression: 'área revestida = área líquida × número de demãos' },
+    { type: 'formula', expression: 'tinta necessária = área revestida ÷ cobertura' },
+    {
+      type: 'paragraph',
+      text: 'No exemplo contínuo (333 ft² líquidos), a área revestida é de 666 ft² para duas demãos e de 999 ft² para três. Com a cobertura ilustrativa de 350 ft² por galão:',
+    },
+    {
+      type: 'table',
+      headers: ['Demãos', 'Área revestida', 'Galões a 350 ft²/gal'],
+      rows: [
+        ['1', '333 ft²', '0.95'],
+        ['2', '666 ft²', '1.90'],
+        ['3', '999 ft²', '2.85'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Primers de primeira demão não entram nesta multiplicação. Primer é um produto separado, com sua própria cobertura e sua própria quantidade; as perguntas frequentes explicam como ele se relaciona com a estimativa de acabamento.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'worked-example',
+      text: 'Exemplo resolvido: um cômodo de 12 ft × 12 ft com paredes de 8 ft',
+    },
+    {
+      type: 'paragraph',
+      text: 'O método completo, do início ao fim, com cada número à vista. Os dados: um cômodo quadrado de 12 ft de lado, 8 ft de altura de parede, uma porta padrão, duas janelas padrão, duas demãos de tinta e uma cobertura ilustrativa de 350 ft² por galão por demão.',
+    },
+    { type: 'heading', level: 3, id: 'example-walls', text: 'Passo 1: área bruta das paredes' },
+    {
+      type: 'paragraph',
+      text: 'perímetro = 2 × (12 + 12) = 48 ft, e área bruta = 48 × 8 = 384 ft².',
+    },
+    { type: 'heading', level: 3, id: 'example-openings', text: 'Passo 2: deduzir os vãos' },
+    {
+      type: 'paragraph',
+      text: 'Uma porta de 21 ft² e duas janelas de 15 ft² cada dão 21 + 30 = 51 ft² de deduções, deixando uma área líquida de 384 − 51 = 333 ft².',
+    },
+    { type: 'heading', level: 3, id: 'example-gallons', text: 'Passo 3: demãos e cobertura' },
+    {
+      type: 'paragraph',
+      text: 'Duas demãos cobrem 333 × 2 = 666 ft². Dividindo pela cobertura de exemplo: 666 ÷ 350 = 1.90 galões.',
+    },
+    { type: 'heading', level: 3, id: 'example-allowance', text: 'Passo 4: margem opcional' },
+    {
+      type: 'paragraph',
+      text: 'Textura, absorção, perdas no recorte de bordas e uma reserva para retoques não estão no número geométrico. Uma margem opcional de 10% sobre 1.90 galões dá 1.90 × 1.10 = 2.09 galões, que arredonda para cerca de 2.1 galões.',
+    },
+    {
+      type: 'table',
+      headers: ['Quantidade', 'Valor'],
+      rows: [
+        ['Perímetro do cômodo', '48 ft'],
+        ['Área bruta das paredes', '384 ft²'],
+        ['Deduções de portas e janelas', '51 ft²'],
+        ['Área líquida das paredes', '333 ft²'],
+        ['Área revestida em duas demãos', '666 ft²'],
+        ['Tinta sem margem (350 ft²/gal)', '1.90 galões'],
+        ['Tinta com margem opcional de 10%', '≈ 2.1 galões'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Tinta é vendida em recipientes inteiros, de modo que 1.90 galões são uma compra de dois galões e 2.1 galões uma de três se houver apenas galões avulsos na prateleira. Cômodos grandes costumam cruzar para latas de cinco galões, onde a aritmética simplesmente continua: divida e arredonde para o próximo recipiente cheio.',
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'São números calculados, não padrões',
+      body: '350 ft² por galão, uma porta de 21 ft² e uma janela de 15 ft² foram os dados declarados deste exemplo. A lata do seu produto, seus vãos e sua superfície produzirão outros números: o que é constante é o método, não os valores.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'ceiling-paint',
+      text: 'Estimando a tinta do teto separadamente',
+    },
+    {
+      type: 'paragraph',
+      text: 'Tetos são planos e são medidos pela área do piso, não pelo perímetro. O teto do mesmo cômodo de 12 ft × 12 ft mede 12 × 12 = 144 ft², e duas demãos precisam de 288 ft² revestidos — cerca de 0.82 galões com a cobertura de exemplo, ou seja na prática uma compra de um galão.',
+    },
+    { type: 'formula', expression: 'área do teto = comprimento × largura' },
+    {
+      type: 'paragraph',
+      text: 'Manter o teto em sua própria linha torna a estimativa honesta: tetos costumam ser pintados foscos enquanto as paredes levam o acabamento brilhante, os dois são comprados em quantidades diferentes, e um teto texturizado pode absorver visivelmente mais tinta que um liso. Some a cifra do teto à das paredes apenas ao totalizar a lista de compras, nunca dentro da fórmula de área de paredes.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'allowances',
+      text: 'Margens para textura, absorção e retoques',
+    },
+    {
+      type: 'paragraph',
+      text: 'O cálculo geométrico descreve um cômodo ideal, com paredes lisas e seladas e um rolo que não desperdiça nada. O trabalho real se afasta desse ideal em várias direções ao mesmo tempo, e uma margem é como a estimativa reconhece essa distância.',
+    },
+    {
+      type: 'list',
+      items: [
+        'Textura da superfície: acabamentos knockdown, casca de laranja e rolos de pelo grosso deixam vazios que exigem passadas extras.',
+        'Absorção: reboco cru, reboco lixado e concreto cru bebem uma primeira demão que nunca cobre de todo.',
+        'Perdas de aplicação: tinta fica na bandeja, no rolo e no balde do recorte; bordas e cantos avançam mais devagar que as paredes abertas.',
+        'Retoques: batidas do mobiliário, placas de interruptor removidas e a parede atrás da porta pedem uma pequena reserva meses depois, quando o lote original pode já não estar na prateleira.',
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Uma margem de 5 a 10% é uma escolha de planejamento comum em interiores correntes; textura mais marcante ou uma primeira demão sobre superfícies cruas podem justificar mais. No exemplo contínuo, 10% leva as paredes de 1.90 a 2.09 galões: um seguro barato contra uma segunda viagem, e ainda muito longe do desperdício de comprar o dobro do necessário. Escolha o número deliberadamente e mantenha-o separado do resultado geométrico, para que ambos permaneçam visíveis.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'common-mistakes',
+      text: 'Erros comuns de estimativa',
+    },
+    {
+      type: 'list',
+      ordered: true,
+      items: [
+        'Usar a área do piso como área das paredes. Um piso de 12 × 12 tem 144 ft²; as paredes do mesmo cômodo têm 384 ft² antes das deduções, quase três vezes mais.',
+        'Esquecer que as demãos multiplicam tudo. A cobertura é por demão; duas demãos duplicam a tinta, não a área pintada.',
+        'Tratar o número de cobertura da lata como universal. Ele descreve um produto sobre uma superfície definida; outro acabamento, outra cor ou outra parede podem deslocá-lo em cem pés quadrados ou mais.',
+        'Não deduzir portas e janelas — ou deduzi-las duas vezes, removendo também as faces das portas que serão pintadas.',
+        'Pular a margem e comprar exatamente o número geométrico, para ficar sem tinta na segunda demão com meia parede por fazer.',
+        'Misturar sistemas de unidades: litros numa fórmula de galões, ou metros quadrados numa cobertura de pés quadrados.',
+        'Fundir o teto com a área das paredes. No fim o total se aproxima, mas esconde a quantidade separada e o produto diferente que realmente precisa ser comprado.',
+      ],
+    },
+    { type: 'heading', level: 2, id: 'faq', text: 'Perguntas frequentes' },
+    {
+      type: 'faq',
+      items: [
+        {
+          question: 'Quanta tinta preciso para um cômodo de 12 ft × 12 ft?',
+          answer:
+            'Para as paredes, cerca de 1.9 galões para duas demãos com uma cobertura ilustrativa de 350 ft² por galão, depois de deduzir uma porta e duas janelas; cerca de 2.1 galões com uma margem de 10%. O teto acrescenta aproximadamente mais um galão. A lata do seu produto e seus próprios vãos deslocarão estes números.',
+        },
+        {
+          question: 'Qual é uma cobertura típica por pé quadrado?',
+          answer:
+            'Reboco liso já pintado costuma ficar em torno de 300–350 ft² por galão por demão; superfícies cruas ou texturizadas, menos. São exemplos de planejamento: o número autorizado é a cobertura impressa na lata que você vai comprar.',
+        },
+        {
+          question: 'Devo deduzir portas e janelas da área das paredes?',
+          answer:
+            'Sim, em cada vão que não será pintado. Meça as caixilharias (cerca de 21 ft² para uma porta padrão e 15 ft² para uma janela comum no exemplo usado aqui) e subtraia-as uma única vez. Se também pintar as faces das portas, conte essa área separadamente em vez de deixá-la deduzida.',
+        },
+        {
+          question: 'Quanta tinta preciso para duas demãos?',
+          answer:
+            'Dobre a área revestida e divida pela cobertura. O cômodo de exemplo precisa de 333 × 2 = 666 ft² revestidos, e 666 ÷ 350 = 1.90 galões antes da margem.',
+        },
+        {
+          question: 'O teto deve ser incluído na área das paredes?',
+          answer:
+            'Não. Meça-o separadamente como comprimento × largura (144 ft² para o cômodo de 12 × 12), multiplique pelo seu próprio número de demãos e some ao total de compras. Tetos costumam ter outro acabamento e outra quantidade.',
+        },
+        {
+          question: 'Primer conta como uma demão de tinta?',
+          answer:
+            'Não. Primer é um produto separado, com sua própria cobertura e seu próprio tamanho de recipiente. Estime-o a partir da mesma área de paredes, em sua própria linha, e não o subtraia do requisito de acabamento: as demãos de acabamento continuam precisando do seu número completo de demãos sobre a superfície aplicada com primer.',
+        },
+        {
+          question: 'Como converto galões e pés quadrados em litros e metros quadrados?',
+          answer:
+            'Um galão americano equivale a cerca de 3.785 litros e um pé quadrado a cerca de 0.0929 m². Ou use diretamente a cobertura métrica: 333 ft² são cerca de 30.9 m², e com uma cobertura de exemplo de 8.5 m² por litro por demão, duas demãos precisam de 61.8 ÷ 8.5 ≈ 7.3 litros — próximo dos 1.90 galões do cálculo imperial, convertidos (1.90 × 3.785 ≈ 7.2 litros). A pequena diferença vem de as taxas de exemplo não serem conversões exatas uma da outra.',
+        },
+      ],
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'calculator-cta',
+      text: 'Calcule a tinta do seu próprio cômodo',
+    },
+    {
+      type: 'paragraph',
+      text: 'O percorrido acima fixa um tamanho de cômodo. Para qualquer outra dimensão, [a Calculadora de Tinta do MixTally](/calculators/paint-calculator) recebe comprimento, largura, altura de parede, quantidades de portas e janelas, número de demãos e sua própria cobertura, e em um único passo informa área bruta, deduções, área líquida, área revestida e a compra em recipientes inteiros, em galões ou litros. O catálogo completo de estimadores está no [diretório de calculadoras](/calculators).',
+    },
+    {
+      type: 'calculator-cta',
+      view: 'paint-calculator',
+      title: 'Calculadora de Tinta do MixTally',
+      body: 'Informe dimensões do cômodo, portas, janelas, demãos e cobertura para ver a área das paredes, as deduções e a quantidade de tinta em galões ou litros, com um preço unitário opcional para estimar o custo.',
+    },
+  ],
+};
+
+const paintRoomFr: ArticleTranslation = {
+  imageAlt: 'Une pièce fraîchement peinte d\'un vert uniforme du bas de mur au plafond',
+  ogImageAlt: 'Une pièce fraîchement peinte d\'un vert uniforme du bas de mur au plafond',
+  title: 'Combien de peinture faut-il pour une pièce ? Formule et exemples',
+  description:
+    'Apprenez à calculer la peinture d\'une pièce : surface des murs, portes et fenêtres, couverture par couche et nombre de couches, avec un exemple.',
+  excerpt:
+    'La formule de quantité de peinture développée sur une pièce de 12 ft × 12 ft : surface des murs, déductions des portes et fenêtres, couverture par couche, plafond et marges.',
+  blocks: [
+    {
+      type: 'heading',
+      level: 2,
+      id: 'why-it-matters',
+      text: 'Pourquoi une estimation juste de la peinture compte',
+    },
+    {
+      type: 'paragraph',
+      text: 'La peinture se vend au volume : les gallons aux États-Unis, les litres presque partout ailleurs, et chaque pièce peinte est un petit exercice de métrage. En acheter trop peu arrête le chantier pour un second trajet ; en acheter trop laisse du budget inutilisé en rayon. Une estimation mesurée transforme une supposition en magasin en un chiffre défendable.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Cet article parcourt la méthode standard : mesurer la pièce, calculer la surface brute des murs, soustraire ce qui ne sera pas peint, diviser par la couverture indiquée par le fabricant, multiplier par le nombre de couches, puis décider de la marge à ajouter. Le parcours utilise les unités impériales et une pièce de 12 ft × 12 ft comme exemple continu ; les praticiens métriques peuvent suivre les mêmes étapes avec des mètres et des m² par litre. Le résultat est une quantité, non une spécification de produit, de finition ou de garantie.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'paint-formula',
+      text: 'La formule de base de la quantité de peinture',
+    },
+    {
+      type: 'paragraph',
+      text: 'Quatre mesures commandent tout le calcul : la longueur et la largeur de la pièce, la hauteur des murs, la surface totale des portes et fenêtres qui ne seront pas peintes, et la couverture imprimée sur la boîte. Multipliez et divisez dans cet ordre :',
+    },
+    { type: 'formula', expression: 'Périmètre = 2 × (longueur + largeur)' },
+    { type: 'formula', expression: 'Surface brute des murs = périmètre × hauteur des murs' },
+    {
+      type: 'formula',
+      expression: 'Surface nette des murs = surface brute − portes et fenêtres',
+    },
+    {
+      type: 'formula',
+      expression: 'Peinture nécessaire (gallons) = (surface nette × couches) ÷ couverture',
+    },
+    {
+      type: 'paragraph',
+      text: 'La couverture est le chiffre du fabricante : le nombre de pieds carrés qu\'un gallon couvre sur une seule couche. C\'est une propriété de ce produit sur une surface définie, pas une constante universelle ; la section 6 revient sur ce qui la fait varier. Tout ce qui précède la division est de la géométrie ; tout ce qui la suit relève du comportement du produit.',
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Réponse rapide pour une pièce standard',
+      body: 'Une pièce de 12 ft × 12 ft aux murs de 8 ft présente 384 ft² de surface brute. Après déduction d\'une porte et de deux fenêtres (51 ft² dans cet exemple), il reste 333 ft². Avec une couverture illustrative de 350 ft² par gallon par couche, deux couches demandent 666 ft² recouverts, soit 1.90 gallons. Avec une marge optionnelle de 10 %, le chiffre approche 2.1 gallons. Tous ces nombres sont des exemples calculés à partir de données déclarées, pas une norme pour toutes les peintures.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'measuring-the-room',
+      text: 'Mesurer la longueur, la largeur et la hauteur des murs',
+    },
+    {
+      type: 'paragraph',
+      text: 'Trois mesures au mètre ruban suffisent. Mesurez la longueur et la largeur de la pièce sur le sol, de face à face des murs, et la hauteur depuis le sol fini jusqu\'à la ligne du plafond. Si la pièce est un rectangle net, une mesure de chaque dimension suffit ; dans les maisons anciennes, mesurez deux fois et retenez la plus grande valeur lorsque les murs ne sont pas parallèles.',
+    },
+    {
+      type: 'list',
+      items: [
+        'Mesurez sur le sol le long des faces de mur, et non le long de la plinthe, qui peut dépasser du plâtre.',
+        'Prenez la hauteur des murs en plusieurs points. Les plafonds déformés et les sols surélevés laissent rarement la même hauteur à chaque montant.',
+        'Notez séparément les alcôves, gaines technique et étagères murales : chaque tronçon plat est son propre rectangle.',
+        'Notez tout dans une seule unité — pieds pour l\'impérial, mètres pour le métrique — avant toute multiplication.',
+      ],
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Pièces non rectangulaires',
+      body: 'Une pièce en L est deux rectangles, pas un mystère. Mesurez chaque aile séparément, calculez ses murs et additionnez les résultats. Seul le périmètre parcouru change ; l\'arithmétique reste la même.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'wall-area',
+      text: 'Calculer la surface brute des murs',
+    },
+    {
+      type: 'paragraph',
+      text: 'Les murs d\'une pièce rectangulaire forment un bandeau autour d\'elle. La longueur de ce bandeau est le périmètre, et la multiplier par la hauteur des murs donne la surface brute, c\'est-à-dire la surface avant toute déduction :',
+    },
+    { type: 'formula', expression: 'périmètre = 2 × (12 + 12) = 48 ft' },
+    { type: 'formula', expression: 'surface brute = 48 × 8 = 384 ft²' },
+    {
+      type: 'paragraph',
+      text: 'Le même raccourci vaut pour tout rectangle. Une pièce de 10 ft × 10 ft a 40 ft de périmètre et 320 ft² de mur à 8 ft de haut ; une de 12 ft × 16 ft en a 56 ft et 448 ft².',
+    },
+    {
+      type: 'table',
+      headers: ['Pièce (L × l)', 'Périmètre', 'Surface brute à 8 ft'],
+      rows: [
+        ['10 ft × 10 ft', '40 ft', '320 ft²'],
+        ['12 ft × 12 ft', '48 ft', '384 ft²'],
+        ['12 ft × 16 ft', '56 ft', '448 ft²'],
+        ['14 ft × 16 ft', '60 ft', '480 ft²'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Les angles ne consomment pas de peinture : aucun ajustement n\'est nécessaire. Les plafonds ne font pas partie de ce chiffre ; ils se mesurent séparément, à la section 9, car ils constituent généralement une quantité de produit distincte et souvent une finition différente.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'doors-and-windows',
+      text: 'Déduire les portes et les fenêtres',
+    },
+    {
+      type: 'paragraph',
+      text: 'Les ouvertures que l\'on ne peindra pas se soustraient de la surface brute. Mesurez le cadre de chaque porte et fenêtre — pas seulement la vitre — et additionnez les surfaces. À titre indicatif, une porte intérieure standard avoisine 21 ft² (environ 3 ft × 7 ft) et une fenêtre courante environ 15 ft² ; ce sont des tailles d\'exemple usuelles, et la Calculatrice de peinture MixTally les utilise par défaut, modifiables. Mesurez vos propres ouvertures lorsqu\'elles diffèrent.',
+    },
+    {
+      type: 'paragraph',
+      text: 'L\'exemple continu comporte une porte et deux fenêtres :',
+    },
+    { type: 'formula', expression: 'déductions = 21 + 2 × 15 = 51 ft²' },
+    { type: 'formula', expression: 'surface nette = 384 − 51 = 333 ft²' },
+    {
+      type: 'list',
+      items: [
+        'Déduisez le cadre complet des portes et fenêtres que vous laisserez intacts.',
+        'Ne déduisez pas les moulures, plinthes ou encadrements que vous comptez peindre : ils ajoutent un peu de surface, et les laisser dans le calcul est le choix prudent.',
+        'Peindre les faces de portes est un petit métrage à part : une face de porte standard mesure environ 13 à 15 ft², soit environ 30 ft² de surface ajoutée pour deux faces, l\'équivalent d\'environ 0.17 gallons sur deux couches avec la couverture d\'exemple.',
+        'Stores, rideaux et placards fixés au mur couvrent eux aussi une surface. Ne déduisez que ce qui restera en place pendant les travaux.',
+      ],
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'coverage-per-gallon',
+      text: 'Comprendre la couverture de la peinture au pied carré',
+    },
+    {
+      type: 'paragraph',
+      text: 'Chaque boîte indique une couverture — pieds carrés par gallon en unités impériales, mètres carrés par litre en unités métriques — et ce chiffre est le diviseur de l\'étape finale de la formule. Il décrit la distance qu\'un contenant parcourt sur une couche, sur une surface correctement préparée. C\'est une spécification de ce produit, pas une règle générale sur la peinture : un acrylique dense sur plâtre lisse et un revêtement texturé sur plâtre brut peuvent différer largement.',
+    },
+    {
+      type: 'figure',
+      src: PAINT_ROLLER_FIGURE.src,
+      alt: 'Un rouleau étale une couche fraîche de peinture le long d\'un mur en longues passes régulières',
+      caption: 'Peindre le mur en longues passes régulières, là où la couverture mesurée est réellement consommée',
+      width: PAINT_ROLLER_FIGURE.width,
+      height: PAINT_ROLLER_FIGURE.height,
+    },
+    {
+      type: 'table',
+      headers: ['Surface (exemple)', 'Couverture illustrative par gallon et par couche'],
+      rows: [
+        ['Plâtre lisse déjà peint', '300–350 ft²'],
+        ['Plâtre neuf ou non peint', '225–300 ft²'],
+        ['Murs à texture légère', '250–300 ft²'],
+        ['Maçonnerie rugueuse ou texture marquée', '150–250 ft²'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Les fourchettes ci-dessus sont des exemples de planification, pas des données de fabricant : servez-vous-en pour confronter le chiffre de votre propre boîte. La couverture chute lorsque la surface boit la peinture (plâtre brut, plâtre poncé, béton poreux), lorsque la texture laisse des creux à l\'ombre que le rouleau n\'atteint pas, et lorsque les couleurs profondes ou vives exigent des passes supplémentaires pour masquer. Elle augmente sur des surfaces scellées et claires, avec un rouleau de qualité.',
+    },
+    {
+      type: 'callout',
+      tone: 'warning',
+      title: 'La couverture est toujours par couche',
+      body: 'Une boîte indiquant 350 ft² ne promet pas 350 ft² de couleur finie en une seule passe sur n\'importe quel mur : c\'est le taux du fabricant pour une couche sur une surface définie. Deux couches doublent la peinture, pas la surface couverte.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'multiple-coats',
+      text: 'Combien de peinture pour deux couches (ou trois)',
+    },
+    {
+      type: 'paragraph',
+      text: 'La plupart des finitions se spécifient en deux couches, et la couverture s\'applique à chacune d\'elles. Multipliez la surface nette par le nombre de couches avant de diviser :',
+    },
+    { type: 'formula', expression: 'surface recouverte = surface nette × nombre de couches' },
+    { type: 'formula', expression: 'peinture nécessaire = surface recouverte ÷ couverture' },
+    {
+      type: 'paragraph',
+      text: 'Sur l\'exemple continu (333 ft² nets), la surface recouverte est de 666 ft² pour deux couches et de 999 ft² pour trois. Avec la couverture illustrative de 350 ft² par gallon :',
+    },
+    {
+      type: 'table',
+      headers: ['Couches', 'Surface recouverte', 'Gallons à 350 ft²/gal'],
+      rows: [
+        ['1', '333 ft²', '0.95'],
+        ['2', '666 ft²', '1.90'],
+        ['3', '999 ft²', '2.85'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Les apprêts de première couche n\'entrent pas dans cette multiplication. L\'apprêt est un produit distinct, avec sa propre couverture et sa propre quantité ; la FAQ explique comment il s\'articule avec l\'estimation de finition.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'worked-example',
+      text: 'Exemple résolu : une pièce de 12 ft × 12 ft aux murs de 8 ft',
+    },
+    {
+      type: 'paragraph',
+      text: 'La méthode complète, de bout en bout, avec chaque chiffre affiché. Les données : une pièce carrée de 12 ft de côté, 8 ft de hauteur de mur, une porte standard, deux fenêtres standard, deux couches de peinture et une couverture illustrative de 350 ft² par gallon par couche.',
+    },
+    { type: 'heading', level: 3, id: 'example-walls', text: 'Étape 1 : surface brute des murs' },
+    {
+      type: 'paragraph',
+      text: 'périmètre = 2 × (12 + 12) = 48 ft, et surface brute = 48 × 8 = 384 ft².',
+    },
+    { type: 'heading', level: 3, id: 'example-openings', text: 'Étape 2 : déduire les ouvertures' },
+    {
+      type: 'paragraph',
+      text: 'Une porte de 21 ft² et deux fenêtres de 15 ft² chacune donnent 21 + 30 = 51 ft² de déductions, laissant une surface nette de 384 − 51 = 333 ft².',
+    },
+    { type: 'heading', level: 3, id: 'example-gallons', text: 'Étape 3 : couches et couverture' },
+    {
+      type: 'paragraph',
+      text: 'Deux couches recouvrent 333 × 2 = 666 ft². Divisé par la couverture d\'exemple : 666 ÷ 350 = 1.90 gallons.',
+    },
+    { type: 'heading', level: 3, id: 'example-allowance', text: 'Étape 4 : marge optionnelle' },
+    {
+      type: 'paragraph',
+      text: 'La texture, l\'absorption, les pertes de coupe aux arêtes et une réserve pour retouches ne figurent pas dans le chiffre géométrique. Une marge optionnelle de 10 % sur 1.90 gallons vaut 1.90 × 1.10 = 2.09 gallons, soit environ 2.1 gallons arrondis.',
+    },
+    {
+      type: 'table',
+      headers: ['Quantité', 'Valeur'],
+      rows: [
+        ['Périmètre de la pièce', '48 ft'],
+        ['Surface brute des murs', '384 ft²'],
+        ['Déductions portes et fenêtres', '51 ft²'],
+        ['Surface nette des murs', '333 ft²'],
+        ['Surface recouverte en deux couches', '666 ft²'],
+        ['Peinture sans marge (350 ft²/gal)', '1.90 gallons'],
+        ['Peinture avec marge optionnelle de 10 %', '≈ 2.1 gallons'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'La peinture se vend en contenants entiers : 1.90 gallons sont donc un achat de deux gallons et 2.1 gallons un achat de trois si seuls des gallons unitaires sont en rayon. Les grandes pièces franchissent souvent le seuil des bidons de cinq gallons, où l\'arithmétique se poursuit simplement : divisez, puis arrondissez au contenant supérieur.',
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Ce sont des chiffres calculés, pas des normes',
+      body: '350 ft² par gallon, une porte de 21 ft² et une fenêtre de 15 ft² étaient les données déclarées de cet exemple. La boîte de votre produit, vos ouvertures et votre surface produiront d\'autres chiffres : la méthode est la constante, pas les nombres.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'ceiling-paint',
+      text: 'Estimer la peinture du plafond séparément',
+    },
+    {
+      type: 'paragraph',
+      text: 'Les plafonds sont des plans qui se mesurent en surface au sol, pas en périmètre. Le plafond de la même pièce de 12 ft × 12 ft mesure 12 × 12 = 144 ft², et deux couches demandent 288 ft² recouverts — environ 0.82 gallons avec la couverture d\'exemple, soit en pratique l\'achat d\'un gallon.',
+    },
+    { type: 'formula', expression: 'surface du plafond = longueur × largeur' },
+    {
+      type: 'paragraph',
+      text: 'Maintenir le plafond sur sa propre ligne rend l\'estimation honnête : les plafonds se peignent généralement en mat tandis que les murs portent la finition brillante, les deux s\'achètent en quantités différentes, et un plafond texturé peut absorber sensiblement plus de peinture qu\'un lisse. N\'ajoutez la valeur du plafond à celle des murs qu\'au moment de totaliser la liste de courses, jamais dans la formule de surface des murs.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'allowances',
+      text: 'Marges pour la texture, l\'absorption et les retouches',
+    },
+    {
+      type: 'paragraph',
+      text: 'Le calcul géométrique décrit une pièce idéale, aux murs lisses et scellés, et un rouleau qui ne gaspille rien. Le travail réel s\'écarte de cet idéal dans plusieurs directions à la fois, et une marge est la façon dont l\'estimation reconnaît cet écart.',
+    },
+    {
+      type: 'list',
+      items: [
+        'Texture de surface : les finitions knockdown, effet orange peel et les rouleaux à poil épais laissent des creux qui demandent des passes supplémentaires.',
+        'Absorption : le plâtre brut, le plâtre poncé et le béton non scellé boivent une première couche qui ne masque jamais tout.',
+        'Pertes d\'application : la peinture reste dans la cuve, sur le rouleau et dans le seau de coupe ; les bords et les angles progressent moins vite que les murs dégagés.',
+        'Retouches : les chocs de mobilier, les plaques d\'interrupteur retirées et le mur derrière la porte demandent une petite réserve des mois plus tard, quand le lot d\'origine n\'est peut-être plus en rayon.',
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Une marge de 5 à 10 % est un choix de planification courant pour les intérieurs ordinaires ; une texture plus marquée ou une première couche sur surface brute peuvent en justifier davantage. Sur l\'exemple continu, 10 % portent les murs de 1.90 à 2.09 gallons : une assurance bon marché contre un second trajet, et encore très loin du gaspillage d\'acheter le double. Choisissez le chiffre délibérément et gardez-le séparé du résultat géométrique, afin que les deux valeurs restent visibles.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'common-mistakes',
+      text: 'Erreurs d\'estimation courantes',
+    },
+    {
+      type: 'list',
+      ordered: true,
+      items: [
+        'Utiliser la surface du sol comme surface des murs. Un sol de 12 × 12 fait 144 ft² ; les murs de la même pièce totalisent 384 ft² avant déductions, près de trois fois plus.',
+        'Oublier que les couches multiplient tout. La couverture est par couche ; deux couches doublent la peinture, pas la surface peinte.',
+        'Traiter le chiffre de couverture de la boîte comme universel. Il décrit un produit sur une surface définie ; une autre finition, une autre couleur ou un autre mur peuvent le déplacer de cent pieds carrés ou plus.',
+        'Ne pas déduire les portes et fenêtres — ou les déduire deux fois en retirant aussi les faces de portes que l\'on compte peindre.',
+        'Sauter la marge et acheter exactement le chiffre géométrique, puis manquer de peinture sur la deuxième couche avec un demi-mur à finir.',
+        'Mélanger les systèmes d\'unités : des litres dans une formule en gallons, ou des mètres carrés dans une couverture en pieds carrés.',
+        'Fondre le plafond dans la surface des murs. Le total s\'en rapproche, mais la quantité distincte et le produit différent réellement à acheter se retrouvent masqués.',
+      ],
+    },
+    { type: 'heading', level: 2, id: 'faq', text: 'Questions fréquentes' },
+    {
+      type: 'faq',
+      items: [
+        {
+          question: 'Combien de peinture pour une pièce de 12 ft × 12 ft ?',
+          answer:
+            'Pour les murs, environ 1.9 gallons pour deux couches avec une couverture illustrative de 350 ft² par gallon, après déduction d\'une porte et de deux fenêtres ; environ 2.1 gallons avec une marge de 10 %. Le plafond ajoute à peu près un gallon de plus. La boîte de votre produit et vos propres ouvertures déplaceront ces chiffres.',
+        },
+        {
+          question: 'Quelle est une couverture typique au pied carré ?',
+          answer:
+            'Un plâtre lisse déjà peint se situe souvent autour de 300–350 ft² par gallon et par couche ; les surfaces brutes ou texturées, moins. Ce sont des exemples de planification : la donnée faisant autorité est la couverture imprimée sur la boîte que vous allez acheter.',
+        },
+        {
+          question: 'Faut-il déduire les portes et fenêtres de la surface des murs ?',
+          answer:
+            'Oui, pour chaque ouverture que vous ne peindrez pas. Mesurez les cadres (environ 21 ft² pour une porte standard et 15 ft² pour une fenêtre courante dans l\'exemple utilisé ici) et soustrayez-les une seule fois. Si vous peignez aussi les faces de portes, comptez cette surface séparément plutôt que de la laisser déduite.',
+        },
+        {
+          question: 'Combien de peinture pour deux couches ?',
+          answer:
+            'Doublez la surface recouverte, puis divisez par la couverture. La pièce d\'exemple demande 333 × 2 = 666 ft² recouverts, et 666 ÷ 350 = 1.90 gallons avant marge.',
+        },
+        {
+          question: 'Le plafond doit-il être inclus dans la surface des murs ?',
+          answer:
+            'Non. Mesurez-le séparément en longueur × largeur (144 ft² pour la pièce de 12 × 12), multipliez par son propre nombre de couches et ajoutez-le au total des courses. Les plafonds ont généralement une finition et une quantité différentes.',
+        },
+        {
+          question: 'L\'apprêt compte-t-il comme une couche de peinture ?',
+          answer:
+            'Non. L\'apprêt est un produit distinct, avec sa propre couverture et sa propre taille de contenant. Estimez-le à partir de la même surface des murs, sur sa propre ligne, et ne le soustrayez pas à l\'exigence de finition : les couches de finition continuent d\'exiger leur nombre complet de couches sur la surface apprêtée.',
+        },
+        {
+          question: 'Comment convertir gallons et pieds carrés en litres et mètres carrés ?',
+          answer:
+            'Un gallon américain vaut environ 3.785 litres et un pied carré environ 0.0929 m². Ou utilisez directement la couverture métrique : 333 ft² représentent environ 30.9 m², et avec une couverture d\'exemple de 8.5 m² par litre par couche, deux couches demandent 61.8 ÷ 8.5 ≈ 7.3 litres — proche des 1.90 gallons du calcul impérial, convertis (1.90 × 3.785 ≈ 7.2 litres). La légère différence vient de ce que les taux d\'exemple ne sont pas des conversions exactes l\'un de l\'autre.',
+        },
+      ],
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'calculator-cta',
+      text: 'Calculez la peinture de votre propre pièce',
+    },
+    {
+      type: 'paragraph',
+      text: 'Le parcours ci-dessus fixe une taille de pièce. Pour toute autre dimension, [la Calculatrice de peinture MixTally](/calculators/paint-calculator) accepte longueur, largeur, hauteur de mur, nombre de portes et de fenêtres, nombre de couches et votre propre couverture, puis indique en une seule passe la surface brute, les déductions, la surface nette, la surface recouverte et l\'achat en contenants entiers, en gallons ou en litres. Le catalogue complet des estimateurs vit dans l\'[annuaire des calculatrices](/calculators).',
+    },
+    {
+      type: 'calculator-cta',
+      view: 'paint-calculator',
+      title: 'Calculatrice de peinture MixTally',
+      body: 'Saisissez les dimensions de la pièce, les portes, les fenêtres, les couches et la couverture pour voir la surface des murs, les déductions et la quantité de peinture en gallons ou en litres, avec un prix unitaire optionnel pour estimer le coût.',
+    },
+  ],
+};
+
+const paintRoomDe: ArticleTranslation = {
+  imageAlt: 'Ein frisch gestrichener Raum mit gleichmäßigem Grünton von der Bodenleiste bis zur Decke',
+  ogImageAlt: 'Ein frisch gestrichener Raum mit gleichmäßigem Grünton von der Bodenleiste bis zur Decke',
+  title: 'Wie viel Farbe brauche ich für einen Raum? Formel und Beispiele',
+  description:
+    'Erfahren Sie, wie Sie Farbe für einen Raum berechnen: Wandfläche, Türen und Fenster, Deckung pro Schicht und Schichtanzahl — mit Beispiel.',
+  excerpt:
+    'Die Formel für die Farbmenge, durchgerechnet an einem Raum von 12 ft × 12 ft: Wandfläche, Abzüge für Türen und Fenster, Deckung pro Schicht, Decke und Zuschläge.',
+  blocks: [
+    {
+      type: 'heading',
+      level: 2,
+      id: 'why-it-matters',
+      text: 'Warum eine genaue Farbschätzung zählt',
+    },
+    {
+      type: 'paragraph',
+      text: 'Farbe wird nach Volumen verkauft: Gallonen in den Vereinigten Staaten, Liter fast überall sonst, und jeder gestrichene Raum ist eine kleine Kalkulationsübung. Zu wenig kaufen stoppt den Arbeitsablauf für eine zweite Fahrt; zu viel kaufen bindet Budget unöffnet im Regal. Eine gemessene Schätzung verwandelt eine Vermutung im Baumarkt in eine Zahl, die sich verteidigen lässt.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Dieser Artikel führt durch die Standardmethode: den Raum vermessen, die Bruttowandfläche berechnen, abzuziehen, was nicht gestrichen wird, durch die auf der Dose angegebene Deckung zu teilen, mit der Anzahl der Schichten zu multiplizieren und anschließend zu entscheiden, wie viel Zuschlag hinzukommt. Der Durchlauf verwendet imperiale Einheiten und einen Raum von 12 ft × 12 ft als durchgehendes Beispiel; metrisch arbeitende Leser können die gleichen Schritte mit Metern und m² pro Liter gehen. Das Ergebnis ist eine Menge, keine Spezifikation von Produkt, Glanzgrad oder Garantie.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'paint-formula',
+      text: 'Die Grundformel für die Farbmenge',
+    },
+    {
+      type: 'paragraph',
+      text: 'Vier Maße steuern die gesamte Rechnung: Länge und Breite des Raums, die Wandhöhe, die Gesamtfläche der Türen und Fenster, die nicht gestrichen werden, und die auf der Dose gedruckte Deckung. Multiplizieren und teilen Sie in dieser Reihenfolge:',
+    },
+    { type: 'formula', expression: 'Umfang = 2 × (Länge + Breite)' },
+    { type: 'formula', expression: 'Bruttowandfläche = Umfang × Wandhöhe' },
+    { type: 'formula', expression: 'Nettowandfläche = Bruttowandfläche − Türen und Fenster' },
+    {
+      type: 'formula',
+      expression: 'Farbmenge (Gallonen) = (Nettowandfläche × Schichten) ÷ Deckung',
+    },
+    {
+      type: 'paragraph',
+      text: 'Die Deckung ist die Zahl des Herstellers: wie viele Quadratfuß eine Gallone auf einer einzigen Schicht deckt. Sie ist eine Eigenschaft dieses Produkts auf einer definierten Oberfläche, keine universelle Konstante; Abschnitt 6 kehrt zurück zu dem, was sie verschiebt. Alles vor der Division ist Geometrie; alles danach ist Produktverhalten.',
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Kurze Antwort für einen Standardraum',
+      body: 'Ein Raum von 12 ft × 12 ft mit 8 ft Wandhöhe hat 384 ft² Bruttowandfläche. Nach Abzug einer Tür und zweier Fenster (51 ft² in diesem Beispiel) bleiben 333 ft². Bei einer illustrativen Deckung von 350 ft² pro Gallone pro Schicht brauchen zwei Schichten 666 ft² Deckfläche, also 1.90 Gallonen. Mit einem optionalen Zuschlag von 10 % liegt die Zahl bei etwa 2.1 Gallonen. Alle diese Werte sind Beispiele aus deklarierten Eingaben, kein Standard für alle Farben.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'measuring-the-room',
+      text: 'Länge, Breite und Wandhöhe messen',
+    },
+    {
+      type: 'paragraph',
+      text: 'Drei Maße mit dem Rollband genügen. Messen Sie Länge und Breite des Raums über den Boden, von Flanke zu Flanke, und die Wandhöhe vom fertigen Boden bis zur Deckenkante. Ist der Raum ein sauberes Rechteck, reicht eine Messung pro Dimension; in älteren Häusern messen Sie zweimal und verwenden den größeren Wert, wenn die Wände nicht parallel stehen.',
+    },
+    {
+      type: 'list',
+      items: [
+        'Messen Sie über den Boden an den Wandflächen und nicht entlang der Bodenleiste, die über dem Putz hervorstehen kann.',
+        'Nehmen Sie die Wandhöhe an mehreren Punkten auf. Durchhängende Decken und erhöhte Bodenaufbauen lassen selten dieselbe Höhe an jedem Ständer.',
+        'Notieren Sie Nischen, Schächte und eingebaute Regale getrennt; jede ebene Wandstrecke ist ihr eigenes Rechteck.',
+        'Erfassen Sie alles in einer Einheit — Fuß für imperiale Arbeit, Meter für metrische — bevor irgendeine Multiplikation beginnt.',
+      ],
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Nicht rechteckige Räume',
+      body: 'Ein L-förmiger Raum ist zwei Rechtecke, kein Rätsel. Messen Sie jedes Stück für sich, berechnen seine Wände und addieren Sie die Ergebnisse. Einzige Änderung ist der zurückgelegte Umfang; die Arithmetik bleibt dieselbe.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'wall-area',
+      text: 'Die Bruttowandfläche berechnen',
+    },
+    {
+      type: 'paragraph',
+      text: 'Die Wände eines rechteckigen Raums bilden ein Band um ihn. Die Länge dieses Bandes ist der Umfang, und multipliziert mit der Wandhöhe ergibt sie die Bruttowandfläche — die Fläche vor jedem Abzug:',
+    },
+    { type: 'formula', expression: 'Umfang = 2 × (12 + 12) = 48 ft' },
+    { type: 'formula', expression: 'Bruttowandfläche = 48 × 8 = 384 ft²' },
+    {
+      type: 'paragraph',
+      text: 'Derselbe Abkürzungsweg gilt für jedes Rechteck. Ein Raum von 10 ft × 10 ft hat 40 ft Umfang und 320 ft² Wand bei 8 ft Höhe; einer von 12 ft × 16 ft hat 56 ft und 448 ft².',
+    },
+    {
+      type: 'table',
+      headers: ['Raum (L × B)', 'Umfang', 'Bruttowandfläche bei 8 ft'],
+      rows: [
+        ['10 ft × 10 ft', '40 ft', '320 ft²'],
+        ['12 ft × 12 ft', '48 ft', '384 ft²'],
+        ['12 ft × 16 ft', '56 ft', '448 ft²'],
+        ['14 ft × 16 ft', '60 ft', '480 ft²'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Ecken verbrauchen keine Farbe und brauchen deshalb keine Korrektur. Decken gehören nicht zu dieser Zahl; sie werden getrennt gemessen, in Abschnitt 9, weil sie meist eine andere Produktmenge und oft einen anderen Glanzgrad darstellen.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'doors-and-windows',
+      text: 'Türen und Fenster abziehen',
+    },
+    {
+      type: 'paragraph',
+      text: 'Öffnungen, die nicht gestrichen werden, ziehen Sie von der Bruttofläche ab. Messen Sie den Rahmen jeder Tür und jedes Fensters — nicht nur das Glas — und addieren Sie die Flächen. Für die Planung hat eine Standard-Innentür etwa 21 ft² (rund 3 ft × 7 ft) und ein gebräuchliches Fenster etwa 15 ft²; das sind übliche Beispielmaße, und der MixTally Farbrechner verwendet sie als änderbare Standardwerte. Messen Sie Ihre eigenen Öffnungen, sobald sie abweichen.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Das durchgehende Beispiel hat eine Tür und zwei Fenster:',
+    },
+    { type: 'formula', expression: 'Abzüge = 21 + 2 × 15 = 51 ft²' },
+    { type: 'formula', expression: 'Nettowandfläche = 384 − 51 = 333 ft²' },
+    {
+      type: 'list',
+      items: [
+        'Ziehen Sie den vollständigen Rahmen aller Türen und Fenster ab, die unberührt bleiben.',
+        'Ziehen Sie keine Profile, Sockel oder Laibungen ab, die Sie streichen wollen; sie fügen etwas Fläche hinzu, und sie im Rennen zu lassen ist die vorsichtige Wahl.',
+        'Türflächen zu streichen ist ein eigenes kleines Aufmaß: Eine Standardtürfläche misst etwa 13 bis 15 ft², zwei Flächen also rund 30 ft² zugesätzliche Deckfläche — bei der Beispieldeckung etwa 0.17 Gallonen über zwei Schichten.',
+        'Jalousien, Vorhänge und schrankartige Einbauten bedecken ebenfalls Fläche. Ziehen Sie nur ab, was während der Arbeit an Ort und Stelle bleibt.',
+      ],
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'coverage-per-gallon',
+      text: 'Die Farbdeckung pro Quadratfuß verstehen',
+    },
+    {
+      type: 'paragraph',
+      text: 'Jede Dose gibt eine Deckung an — Quadratfuß pro Gallone in imperialen Einheiten, Quadratmeter pro Liter in metrischen — und diese Zahl ist der Divisor des letzten Schritts der Formel. Sie beschreibt, wie weit sich ein Gebinde auf einer Schicht über einer richtig vorbereiteten Oberfläche verteilt. Sie ist eine Spezifikation dieses Produkts, keine allgemeine Regel über Farbe: ein dichter Acrylputz auf glattem Trockenbau und eine Strukturbeschichtung auf rohem Putz können weit auseinanderliegen.',
+    },
+    {
+      type: 'figure',
+      src: PAINT_ROLLER_FIGURE.src,
+      alt: 'Eine Rolle zieht eine frische Farbschicht über eine Wand in langen gleichmäßigen Bahnen',
+      caption: 'Die Wand in langen gleichmäßigen Bahnen streichen — dort wird die gemessene Deckung tatsächlich verbraucht',
+      width: PAINT_ROLLER_FIGURE.width,
+      height: PAINT_ROLLER_FIGURE.height,
+    },
+    {
+      type: 'table',
+      headers: ['Oberfläche (Beispiel)', 'Illustrative Deckung pro Gallone und Schicht'],
+      rows: [
+        ['Glatte, bereits gestrichene Trockenbauwand', '300–350 ft²'],
+        ['Neue oder ungestrichene Trockenbauwand', '225–300 ft²'],
+        ['Wände mit leichter Struktur', '250–300 ft²'],
+        ['Rauer Mauerwerk oder starke Struktur', '150–250 ft²'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Die obigen Spannen sind Planungsbeispiele, keine Herstellerdaten; verwenden Sie sie, um die Zahl auf Ihrer eigenen Dose zu prüfen. Die Deckung sinkt, wenn die Oberfläche Farbe trinkt (roher Putz, geschliffener Putz, poröser Beton), wenn Struktur schattierte Hohlräume lässt, die die Rolle nicht erreicht, und wenn tiefe oder kräftige Farben zusätzliche Durchgänge zum Verdecken brauchen. Sie steigt auf versiegelten, hellen Oberflächen mit einer hochwertigen Rolle.',
+    },
+    {
+      type: 'callout',
+      tone: 'warning',
+      title: 'Die Deckung gilt immer pro Schicht',
+      body: 'Eine Dose mit der Angabe 350 ft² verspricht keine 350 ft² fertige Farbe in einem einzigen Durchgang über eine beliebige Wand. Es ist die Rate des Herstellers für eine Schicht auf einer definierten Oberfläche. Zwei Schichten verdoppeln die Farbe, nicht die gedeckte Fläche.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'multiple-coats',
+      text: 'Wie viel Farbe für zwei Schichten (oder drei)',
+    },
+    {
+      type: 'paragraph',
+      text: 'Die meisten Oberflächen werden mit zwei Schichten spezifiziert, und die Deckung gilt für jede davon. Multiplizieren Sie die Nettowandfläche mit der Anzahl der Schichten, bevor Sie teilen:',
+    },
+    { type: 'formula', expression: 'Deckfläche = Nettowandfläche × Anzahl der Schichten' },
+    { type: 'formula', expression: 'Farbmenge = Deckfläche ÷ Deckung' },
+    {
+      type: 'paragraph',
+      text: 'Im durchgehenden Beispiel (333 ft² netto) beträgt die Deckfläche 666 ft² für zwei Schichten und 999 ft² für drei. Bei der illustrativen Deckung von 350 ft² pro Gallone:',
+    },
+    {
+      type: 'table',
+      headers: ['Schichten', 'Deckfläche', 'Gallonen bei 350 ft²/gal'],
+      rows: [
+        ['1', '333 ft²', '0.95'],
+        ['2', '666 ft²', '1.90'],
+        ['3', '999 ft²', '2.85'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Grundierungen der ersten Schicht gehören nicht in diese Multiplikation. Grundierung ist ein eigenes Produkt mit eigener Deckung und eigener Menge; die häufig gestellten Fragen erklären, wie sie sich zur Lackierschätzung verhält.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'worked-example',
+      text: 'Durchgerechnetes Beispiel: ein Raum von 12 ft × 12 ft mit 8 ft Wandhöhe',
+    },
+    {
+      type: 'paragraph',
+      text: 'Die gesamte Methode, von Anfang bis Ende, mit jeder Zahl sichtbar. Die Eingaben: ein quadratischer Raum mit 12 ft Seitenlänge, 8 ft Wandhöhe, eine Standardtür, zwei Standardfenster, zwei Farbschichten und eine illustrative Deckung von 350 ft² pro Gallone pro Schicht.',
+    },
+    { type: 'heading', level: 3, id: 'example-walls', text: 'Schritt 1: Bruttowandfläche' },
+    {
+      type: 'paragraph',
+      text: 'Umfang = 2 × (12 + 12) = 48 ft, und Bruttowandfläche = 48 × 8 = 384 ft².',
+    },
+    { type: 'heading', level: 3, id: 'example-openings', text: 'Schritt 2: die Öffnungen abziehen' },
+    {
+      type: 'paragraph',
+      text: 'Eine Tür von 21 ft² und zwei Fenster von je 15 ft² ergeben 21 + 30 = 51 ft² Abzüge und lassen eine Nettowandfläche von 384 − 51 = 333 ft².',
+    },
+    { type: 'heading', level: 3, id: 'example-gallons', text: 'Schritt 3: Schichten und Deckung' },
+    {
+      type: 'paragraph',
+      text: 'Zwei Schichten decken 333 × 2 = 666 ft². Geteilt durch die Beispieldeckung: 666 ÷ 350 = 1.90 Gallonen.',
+    },
+    { type: 'heading', level: 3, id: 'example-allowance', text: 'Schritt 4: optionaler Zuschlag' },
+    {
+      type: 'paragraph',
+      text: 'Struktur, Absorption, Verluste an den Kanten und ein Reservebetrag für Nachbesserungen stehen nicht in der geometrischen Zahl. Ein optionaler Zuschlag von 10 % auf 1.90 Gallonen ergibt 1.90 × 1.10 = 2.09 Gallonen, gerundet etwa 2.1 Gallonen.',
+    },
+    {
+      type: 'table',
+      headers: ['Größe', 'Wert'],
+      rows: [
+        ['Umfang des Raums', '48 ft'],
+        ['Bruttowandfläche', '384 ft²'],
+        ['Abzüge für Türen und Fenster', '51 ft²'],
+        ['Nettowandfläche', '333 ft²'],
+        ['Deckfläche bei zwei Schichten', '666 ft²'],
+        ['Farbe ohne Zuschlag (350 ft²/gal)', '1.90 Gallonen'],
+        ['Farbe mit optionalem Zuschlag von 10 %', '≈ 2.1 Gallonen'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Farbe wird in ganzen Gebinden verkauft: 1.90 Gallonen sind damit ein Kauf von zwei Gallonen und 2.1 Gallonen ein Kauf von drei, wenn im Regal nur Einzelgallonen stehen. Größere Räume wechseln oft zu Fünf-Gallonen-Eimern, wo die Arithmetik einfach weiterläuft: teilen und auf das nächste volle Gebinde aufrunden.',
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Das sind gerechnete Werte, keine Normen',
+      body: '350 ft² pro Gallone, eine Tür von 21 ft² und ein Fenster von 15 ft² waren die deklarierten Eingaben dieses Beispiels. Die Dose Ihres Produkts, Ihre Öffnungen und Ihre Oberfläche ergeben andere Zahlen: Die Methode ist die Konstante, nicht die Werte.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'ceiling-paint',
+      text: 'Deckenfarbe getrennt schätzen',
+    },
+    {
+      type: 'paragraph',
+      text: 'Decken sind Flächen und werden in Bodenfläche gemessen, nicht im Umfang. Die Decke desselben Raums von 12 ft × 12 ft misst 12 × 12 = 144 ft², und zwei Schichten brauchen 288 ft² Deckfläche — bei der Beispieldeckung etwa 0.82 Gallonen, in der Praxis also ein Kauf über eine Gallone.',
+    },
+    { type: 'formula', expression: 'Deckenfläche = Länge × Breite' },
+    {
+      type: 'paragraph',
+      text: 'Die Decke in einer eigenen Zeile zu führen, macht die Schätzung ehrlich: Decken werden meist matt gestrichen, während die Wände den Lackierglanz tragen, beide werden in anderen Mengen gekauft, und eine strukturierte Decke kann spürbar mehr Farbe saugen als eine glatte. Addieren Sie den Deckenwert zu den Wänden erst beim Summieren der Einkaufsliste, niemals in die Formel der Wandfläche.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'allowances',
+      text: 'Zuschläge für Struktur, Absorption und Nachbesserungen',
+    },
+    {
+      type: 'paragraph',
+      text: 'Die geometrische Rechnung beschreibt einen idealen Raum mit glatten, versiegelten Wänden und einer Rolle, die nichts verschwendet. Die tatsächliche Arbeit weicht von diesem Ideal in mehrere Richtungen zugleich ab, und ein Zuschlag ist die Art, wie die Schätzung diese Lücke anerkennt.',
+    },
+    {
+      type: 'list',
+      items: [
+        'Oberflächenstruktur: Knockdown- und Orange-Peel-Strukturen sowie dickflächige Rollen nappe lassen Hohlräume, die zusätzliche Durchgänge verlangen.',
+        'Absorption: roher Putz, geschliffener Putz und unversiegelter Beton saugen eine erste Schicht, die nie ganz deckt.',
+        'Applikationsverluste: Farbe bleibt in der Wanne, an der Rolle und im Eimer des Schneidens; Kanten und Ecken kommen langsamer voran als freie Wände.',
+        'Nachbesserungen: Stöße vom Mobiliar, entfernte Schalterblenden und die Wand hinter der Tür verlangen monate später eine kleine Reserve, wenn die ursprüngliche Charge vielleicht nicht mehr im Regal steht.',
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Ein Zuschlag von 5 bis 10 % ist eine übliche Planungswahl für gewöhnliche Innenräume; stärkere Struktur oder eine erste Schicht auf rohen Oberflächen können mehr rechtfertigen. Im durchgehenden Beispiel bringt 10 % die Wände von 1.90 auf 2.09 Gallonen — günstige Absicherung gegen eine zweite Fahrt und immer noch weit entfernt vom Verschwendens, das Doppeltes zu kaufen. Wählen Sie die Zahl bewusst und halten Sie sie vom geometrischen Ergebnis getrennt, damit beide Werte sichtbar bleiben.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'common-mistakes',
+      text: 'Häufige Schätzfehler',
+    },
+    {
+      type: 'list',
+      ordered: true,
+      items: [
+        'Die Bodenfläche als Wandfläche verwenden. Ein 12 × 12-Boden misst 144 ft²; die Wände desselben Raums sind 384 ft² vor Abzügen, fast dreimal so viel.',
+        'Zu vergessen, dass Schichten alles multiplizieren. Die Deckung gilt pro Schicht; zwei Schichten verdoppeln die Farbe, nicht die gestrichene Fläche.',
+        'Die Deckungszahl der Dose als universell behandeln. Sie beschreibt ein Produkt auf einer definierten Oberfläche; ein anderer Glanz, eine andere Farbe oder eine andere Wand können sie um hundert Quadratfuß oder mehr verschieben.',
+        'Türen und Fenster nicht abziehen — oder sie doppelt abziehen, indem auch die Türflächen entfernt werden, die man doch streichen will.',
+        'Den Zuschlag überspringen und genau die geometrische Zahl kaufen, dann auf der zweiten Schicht mit einer halben Wand zu kurz kommen.',
+        'Einheitensysteme mischen: Liter in eine Gallonenformel oder Quadratmeter in eine Deckung in Quadratfuß.',
+        'Die Decke in die Wandfläche einrechnen. Das Ende nähert sich einem ähnlichen Total an, aber die getrennte Menge und das tatsächlich andere Produkt bleiben verborgen.',
+      ],
+    },
+    { type: 'heading', level: 2, id: 'faq', text: 'Häufig gestellte Fragen' },
+    {
+      type: 'faq',
+      items: [
+        {
+          question: 'Wie viel Farbe brauche ich für einen Raum von 12 ft × 12 ft?',
+          answer:
+            'Für die Wände etwa 1.9 Gallonen für zwei Schichten bei einer illustrativen Deckung von 350 ft² pro Gallone, nach Abzug einer Tür und zweier Fenster; mit 10 % Zuschlag etwa 2.1 Gallonen. Die Decke fügt etwa eine Gallone hinzu. Ihre Produkt-Dose und Ihre eigenen Öffnungen verschieben diese Werte.',
+        },
+        {
+          question: 'Was ist eine typische Farbdeckung pro Quadratfuß?',
+          answer:
+            'Glatte, bereits gestrichene Trockenbauwand liegt häufig um 300–350 ft² pro Gallone und Schicht; rohe oder strukturierte Oberflächen darunter. Das sind Planungsbeispiele: Die maßgebliche Zahl ist die auf der Dose gedruckte Deckung des Produkts, das Sie kaufen wollen.',
+        },
+        {
+          question: 'Soll ich Türen und Fenster von der Wandfläche abziehen?',
+          answer:
+            'Ja, bei jeder Öffnung, die nicht gestrichen wird. Messen Sie die Rahmen (hier im Beispiel etwa 21 ft² für eine Standardtür und 15 ft² für ein gebräuchliches Fenster) und ziehen Sie sie genau einmal ab. Wenn Sie auch die Türflächen streichen, rechnen Sie diese Fläche getrennt anstatt sie abgezogen zu lassen.',
+        },
+        {
+          question: 'Wie viel Farbe brauche ich für zwei Schichten?',
+          answer:
+            'Verdoppeln Sie die Deckfläche und teilen Sie durch die Deckung. Der Beispielsraum braucht 333 × 2 = 666 ft² Deckfläche, und 666 ÷ 350 = 1.90 Gallonen vor dem Zuschlag.',
+        },
+        {
+          question: 'Soll die Decke in die Wandfläche einbezogen werden?',
+          answer:
+            'Nein. Messen Sie sie getrennt als Länge × Breite (144 ft² für den Raum von 12 × 12), multiplizieren mit ihrer eigenen Schichtanzahl und addieren zum Einkaufstotal. Decken haben meist einen anderen Glanz und eine andere Menge.',
+        },
+        {
+          question: 'Zählt die Grundierung als eine Farbschicht?',
+          answer:
+            'Nein. Grundierung ist ein eigenes Produkt mit eigener Deckung und eigener Gebindegröße. Schätzen Sie sie aus derselben Wandfläche, in ihrer eigenen Zeile, und ziehen sie nicht vom Lackierbedarf ab: Die Lackschichten brauchen weiterhin ihre volle Schichtanzahl über der grundierten Oberfläche.',
+        },
+        {
+          question: 'Wie rechne ich Gallonen und Quadratfuß in Liter und Quadratmeter um?',
+          answer:
+            'Eine US-Gallone sind etwa 3.785 Liter und ein Quadratfuß etwa 0.0929 m². Oder verwenden Sie die metrische Deckung direkt: 333 ft² sind etwa 30.9 m², und bei einer Beispieldeckung von 8.5 m² pro Liter pro Schicht brauchen zwei Schichten 61.8 ÷ 8.5 ≈ 7.3 Liter — nah an den 1.90 Gallonen der imperialen Rechnung, umgerechnet (1.90 × 3.785 ≈ 7.2 Liter). Der kleine Unterschied kommt daher, dass die Beispielsraten keine exakten Umrechnungen voneinander sind.',
+        },
+      ],
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'calculator-cta',
+      text: 'Farbe für Ihren eigenen Raum berechnen',
+    },
+    {
+      type: 'paragraph',
+      text: 'Der obige Durchlauf legt eine Raumgröße fest. Für jede andere Dimension nimmt [der MixTally Farbrechner](/calculators/paint-calculator) Länge, Breite, Wandhöhe, Anzahl der Türen und Fenster, Schichtanzahl und Ihre eigene Deckung auf und meldet in einem einzigen Durchgang Bruttofläche, Abzüge, Nettowandfläche, Deckfläche und den Einkauf in ganzen Gebinden, in Gallonen oder Litern. Das vollständige Verzeichnis der Schätzer liegt im [Rechner-Verzeichnis](/calculators).',
+    },
+    {
+      type: 'calculator-cta',
+      view: 'paint-calculator',
+      title: 'MixTally Farbrechner',
+      body: 'Geben Sie Raummaße, Türen, Fenster, Schichten und Deckung ein, um Wandfläche, Abzüge und Farbmenge in Gallonen oder Litern zu sehen, mit optionalem Einzelpreis für eine Kostenschätzung.',
+    },
+  ],
+};
+
+const paintRoomArticle: ArticleDefinition = {
+  slug: 'how-much-paint-do-i-need-for-a-room',
+  category: 'paint',
+  title: 'How Much Paint Do I Need for a Room? Formula & Examples',
+  description:
+    'Learn how to calculate paint for a room using wall area, doors and windows, coverage per coat, and number of coats. Includes a worked example.',
+  excerpt:
+    'The paint quantity formula worked through on a 12 × 12 ft room: wall area, door and window deductions, coverage per coat, ceiling paint and allowances.',
+  publishedAt: '2026-10-09',
+  readingTimeMinutes: 10,
+  image: PAINTED_ROOM_IMAGE,
+  ogImage: PAINTED_ROOM_IMAGE,
+  featured: false,
+  relatedCalculatorViews: ['paint-calculator'],
+  relatedArticleSlugs: [],
+  blocks: [
+    {
+      type: 'heading',
+      level: 2,
+      id: 'why-it-matters',
+      text: 'Why accurate paint estimation matters',
+    },
+    {
+      type: 'paragraph',
+      text: 'Paint is sold by volume — gallons in the United States, litres almost everywhere else — and every room you paint is a small estimating exercise. Buy too little and the job stops for a second trip; buy far too much and budget sits unopened. A measured estimate turns a store guess into a number you can defend.',
+    },
+    {
+      type: 'paragraph',
+      text: 'This article walks through the standard method: measure the room, compute the gross wall area, subtract what will not be painted, divide by the manufacturer\'s coverage, multiply by the number of coats, then add a contingency. The walkthrough uses imperial units and a 12 ft × 12 ft room as the running example; metric builders can follow the same steps with metres and m² per litre. The result is a quantity, not a product specification.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'paint-formula',
+      text: 'The basic paint quantity formula',
+    },
+    {
+      type: 'paragraph',
+      text: 'Four measurements drive the whole calculation: the room\'s length and width, the wall height, the area of doors and windows you will not paint, and the coverage rate printed on the can. Multiply and divide them in this order:',
+    },
+    { type: 'formula', expression: 'Perimeter = 2 × (length + width)' },
+    { type: 'formula', expression: 'Gross wall area = perimeter × wall height' },
+    { type: 'formula', expression: 'Net wall area = gross wall area − doors and windows' },
+    {
+      type: 'formula',
+      expression: 'Paint needed (gallons) = (net wall area × coats) ÷ coverage rate',
+    },
+    {
+      type: 'paragraph',
+      text: 'The coverage rate is the manufacturer\'s figure for how many square feet one gallon covers on one coat — a property of that product on a defined surface, not a universal constant. Everything before the division is geometry; everything after it is product behaviour.',
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Quick answer for a standard room',
+      body: 'A 12 ft × 12 ft room with 8 ft walls has 384 sq ft of gross wall area. Deduct one door and two windows (51 sq ft here) and 333 sq ft remains. At an illustrative 350 sq ft per gallon per coat, two coats need 666 coated square feet — 1.90 gallons, or about 2.1 with an optional 10% allowance. Every figure is an example from stated inputs, not a standard for all paints.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'measuring-the-room',
+      text: 'Measuring length, width and wall height',
+    },
+    {
+      type: 'paragraph',
+      text: 'Three tape measurements are enough: length and width along the floor from wall face to wall face, and wall height from the finished floor to the ceiling line. In older houses, measure twice and use the larger figure where walls are out of parallel.',
+    },
+    {
+      type: 'list',
+      items: [
+        'Measure at the wall faces rather than along the baseboard, which can stand proud of the drywall.',
+        'Take the wall height at a few points; sagging ceilings are rarely uniform.',
+        'Note alcoves, chases and built-in shelving separately; each flat wall section is its own rectangle.',
+        'Record everything in one unit before any multiplication begins.',
+      ],
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'Non-rectangular rooms',
+      body: 'An L-shaped room is two rectangles, not a mystery. Measure each leg separately, compute its walls, and add the results. Only the perimeter you walk changes; the arithmetic stays the same.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'wall-area',
+      text: 'Calculating the gross wall area',
+    },
+    {
+      type: 'paragraph',
+      text: 'The walls of a rectangular room form a band around it. The length of that band is the perimeter, and multiplying it by the wall height gives the gross wall area — before any deductions:',
+    },
+    { type: 'formula', expression: 'perimeter = 2 × (12 + 12) = 48 ft' },
+    { type: 'formula', expression: 'gross wall area = 48 × 8 = 384 sq ft' },
+    {
+      type: 'paragraph',
+      text: 'The same shortcut works for any rectangle. A 10 ft × 10 ft room has a 40 ft perimeter and 320 sq ft of wall at 8 ft height; a 12 ft × 16 ft room has 56 ft and 448 sq ft.',
+    },
+    {
+      type: 'table',
+      headers: ['Room (L × W)', 'Perimeter', 'Gross wall area at 8 ft'],
+      rows: [
+        ['10 ft × 10 ft', '40 ft', '320 sq ft'],
+        ['12 ft × 12 ft', '48 ft', '384 sq ft'],
+        ['12 ft × 16 ft', '56 ft', '448 sq ft'],
+        ['14 ft × 16 ft', '60 ft', '480 sq ft'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Corners consume no paint, so there is no adjustment for them. Ceilings are not part of this figure — they are measured separately, in section 9, because they are usually a different quantity and often a different sheen.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'doors-and-windows',
+      text: 'Deducting doors and windows',
+    },
+    {
+      type: 'paragraph',
+      text: 'Openings you will not paint subtract from the gross area. Measure the frame of each door and window, not the glass alone. For planning a standard interior door is about 21 sq ft (3 ft × 7 ft) and a common window about 15 sq ft — typical example sizes that the MixTally Paint Calculator uses as overridable defaults. Measure your own openings whenever they differ.',
+    },
+    {
+      type: 'paragraph',
+      text: 'The running example has one door and two windows:',
+    },
+    { type: 'formula', expression: 'deductions = 21 + 2 × 15 = 51 sq ft' },
+    { type: 'formula', expression: 'net wall area = 384 − 51 = 333 sq ft' },
+    {
+      type: 'list',
+      items: [
+        'Deduct the full frame of doors and windows you will leave untouched.',
+        'Do not deduct trim, baseboard or casings you intend to paint — leaving them in the calculation is the conservative choice.',
+        'Painting the faces of doors is a separate small takeoff: a standard door face is about 13–15 sq ft each, so two faces add roughly 30 sq ft — about 0.17 gallons over two coats at the example coverage.',
+        'Blinds, curtains and wall cabinets cover area too; deduct them only if they stay in place.',
+      ],
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'coverage-per-gallon',
+      text: 'Understanding paint coverage per square foot',
+    },
+    {
+      type: 'paragraph',
+      text: 'Every can states a coverage figure — square feet per gallon or square metres per litre — and that figure is the divisor in the final step of the formula. It describes how far one container spreads over one coat on a correctly prepared surface. It is a specification of that product, not a rule about paint in general: a dense acrylic on smooth drywall and a textured coating on bare plaster can differ widely.',
+    },
+    {
+      type: 'figure',
+      src: PAINT_ROLLER_FIGURE.src,
+      alt: PAINT_ROLLER_FIGURE.alt,
+      caption: 'Rolling a wall in long even passes — where the measured coverage is actually used',
+      width: PAINT_ROLLER_FIGURE.width,
+      height: PAINT_ROLLER_FIGURE.height,
+    },
+    {
+      type: 'table',
+      headers: ['Surface (example)', 'Illustrative coverage per gallon per coat'],
+      rows: [
+        ['Smooth, previously painted drywall', '300–350 sq ft'],
+        ['New or bare drywall', '225–300 sq ft'],
+        ['Lightly textured walls', '250–300 sq ft'],
+        ['Rough masonry or heavy texture', '150–250 sq ft'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'The ranges above are planning examples, not manufacturer data — use them to sense-check your own can. Coverage falls when the surface drinks paint, when texture leaves hollows the roller cannot reach, and when deep colours require extra passes. It rises on sealed, lightly coloured surfaces with a quality roller.',
+    },
+    {
+      type: 'callout',
+      tone: 'warning',
+      title: 'Coverage is always per coat',
+      body: 'A can that says 350 sq ft is not promising 350 sq ft of finished colour in one pass over an arbitrary wall. It is the rate for one coat on a defined surface. Two coats double the paint, not the covered area.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'multiple-coats',
+      text: 'How much paint for two coats (or three)',
+    },
+    {
+      type: 'paragraph',
+      text: 'Most finish work is specified at two coats, and the coverage rate applies to each of them. Multiply the net wall area by the number of coats before dividing:',
+    },
+    { type: 'formula', expression: 'coated area = net wall area × number of coats' },
+    { type: 'formula', expression: 'paint needed = coated area ÷ coverage rate' },
+    {
+      type: 'paragraph',
+      text: 'On the running example (333 sq ft net), the coated area is 666 sq ft for two coats and 999 sq ft for three. At the illustrative 350 sq ft per gallon:',
+    },
+    {
+      type: 'table',
+      headers: ['Coats', 'Coated area', 'Gallons at 350 sq ft/gal'],
+      rows: [
+        ['1', '333 sq ft', '0.95'],
+        ['2', '666 sq ft', '1.90'],
+        ['3', '999 sq ft', '2.85'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'First-coat primers do not belong in this multiplication. Primer is a separate product with its own coverage and quantity — the FAQ covers how it interacts with the finish estimate.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'worked-example',
+      text: 'Worked example: a 12 × 12 ft room with 8 ft walls',
+    },
+    {
+      type: 'paragraph',
+      text: 'The whole method, end to end. The inputs: a square room 12 ft on each side, 8 ft wall height, one standard door, two standard windows, two coats, and an illustrative coverage of 350 sq ft per gallon per coat.',
+    },
+    { type: 'heading', level: 3, id: 'example-walls', text: 'Step 1: gross wall area' },
+    {
+      type: 'paragraph',
+      text: 'Perimeter = 2 × (12 + 12) = 48 ft, and gross wall area = 48 × 8 = 384 sq ft.',
+    },
+    { type: 'heading', level: 3, id: 'example-openings', text: 'Step 2: deduct the openings' },
+    {
+      type: 'paragraph',
+      text: 'One door at 21 sq ft and two windows at 15 sq ft each give 21 + 30 = 51 sq ft of deductions, leaving a net wall area of 384 − 51 = 333 sq ft.',
+    },
+    { type: 'heading', level: 3, id: 'example-gallons', text: 'Step 3: coats and coverage' },
+    {
+      type: 'paragraph',
+      text: 'Two coats cover 333 × 2 = 666 sq ft. Dividing by the example coverage: 666 ÷ 350 = 1.90 gallons.',
+    },
+    { type: 'heading', level: 3, id: 'example-allowance', text: 'Step 4: optional allowance' },
+    {
+      type: 'paragraph',
+      text: 'Texture, absorption, cutting-in losses and a touch-up reserve are not in the geometric figure. An optional 10% allowance on 1.90 gallons is 1.90 × 1.10 = 2.09 gallons, which rounds to about 2.1 gallons.',
+    },
+    {
+      type: 'table',
+      headers: ['Quantity', 'Value'],
+      rows: [
+        ['Room perimeter', '48 ft'],
+        ['Gross wall area', '384 sq ft'],
+        ['Door and window deductions', '51 sq ft'],
+        ['Net wall area', '333 sq ft'],
+        ['Coated area at two coats', '666 sq ft'],
+        ['Paint before allowance (350 sq ft/gal)', '1.90 gallons'],
+        ['Paint with optional 10% allowance', '≈ 2.1 gallons'],
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'Paint is sold in whole containers, so 1.90 gallons is a two-gallon purchase and 2.1 gallons a three-gallon one if single gallons are all the shelf holds. Larger rooms often cross into five-gallon pails, where the arithmetic simply continues: divide, then round up.',
+    },
+    {
+      type: 'callout',
+      tone: 'note',
+      title: 'These are worked figures, not standards',
+      body: '350 sq ft per gallon, a 21 sq ft door and a 15 sq ft window were the stated inputs here. Your can, your openings and your wall surface will produce different numbers — the method is the constant, not the figures.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'ceiling-paint',
+      text: 'Estimating ceiling paint separately',
+    },
+    {
+      type: 'paragraph',
+      text: 'Ceilings are flat planes measured in floor area, not perimeter. The ceiling of the same 12 ft × 12 ft room is 12 × 12 = 144 sq ft, and two coats need 288 coated square feet — about 0.82 gallons, realistically a one-gallon purchase.',
+    },
+    { type: 'formula', expression: 'ceiling area = length × width' },
+    {
+      type: 'paragraph',
+      text: 'Keeping the ceiling on its own line makes the estimate honest: ceilings are usually painted flat while walls carry the finish sheen, and a textured ceiling drinks more paint than a smooth one. Add the ceiling to the walls only when you total the shopping list, never into the wall-area formula.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'allowances',
+      text: 'Allowances for texture, absorption and touch-ups',
+    },
+    {
+      type: 'paragraph',
+      text: 'The geometric calculation describes an ideal room with smooth, sealed walls and a roller that wastes nothing. Real work departs from that ideal at once in several directions, and an allowance acknowledges the gap.',
+    },
+    {
+      type: 'list',
+      items: [
+        'Surface texture: knockdown, orange peel and heavy roller naps leave hollows that take extra passes.',
+        'Absorption: bare drywall, sanded plaster and raw concrete soak up a first coat that never quite hides.',
+        'Application loss: paint stays in the tray, on the roller and in the cut bucket.',
+        'Touch-ups: nicks from furniture, removed switch plates and the wall behind a door all call for a small reserve months later, when the original batch may be off the shelf.',
+      ],
+    },
+    {
+      type: 'paragraph',
+      text: 'A 5–10% allowance is a common planning choice for ordinary interiors; heavier texture or a first coat over bare surfaces can justify more. On the running example, 10% moves the walls from 1.90 to 2.09 gallons — cheap insurance against a second trip. Keep the allowance separate from the geometric result, so both numbers remain visible.',
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'common-mistakes',
+      text: 'Common estimation mistakes',
+    },
+    {
+      type: 'list',
+      ordered: true,
+      items: [
+        'Using the floor area as the wall area. A 12 × 12 floor is 144 sq ft; the walls of the same room are 384 sq ft before deductions.',
+        'Forgetting that coats multiply everything. The coverage rate is per coat; two coats double the paint, not the painted area.',
+        'Treating the coverage figure on the can as universal. A different sheen, colour or wall can shift it by a hundred square feet or more.',
+        'Not deducting doors and windows — or deducting them twice by also removing door faces you plan to paint.',
+        'Skipping the allowance, buying the exact geometric figure, then running short on the second coat.',
+        'Mixing unit systems: litres into a gallon formula, or square metres into a square-feet coverage rate.',
+        'Folding the ceiling into the wall area. The total looks similar, but it hides the separate quantity you must buy.',
+      ],
+    },
+    { type: 'heading', level: 2, id: 'faq', text: 'Frequently asked questions' },
+    {
+      type: 'faq',
+      items: [
+        {
+          question: 'How much paint do I need for a 12 × 12 ft room?',
+          answer:
+            'For the walls, about 1.9 gallons for two coats at an illustrative 350 sq ft per gallon after deducting one door and two windows; roughly 2.1 with a 10% allowance. The ceiling adds about one more gallon. Your can and your own openings will shift these figures.',
+        },
+        {
+          question: 'What is a typical paint coverage per square foot?',
+          answer:
+            'Smooth, previously painted drywall often falls around 300–350 sq ft per gallon per coat; bare or textured surfaces less. Those are planning examples — the authoritative number is the coverage printed on the can.',
+        },
+        {
+          question: 'Do I deduct doors and windows from the wall area?',
+          answer:
+            'Yes, for every opening you will not paint. Measure the frames (about 21 sq ft for a standard door, 15 sq ft for a common window here) and subtract them once. If you paint the door faces too, count that area separately.',
+        },
+        {
+          question: 'How much paint do I need for two coats?',
+          answer:
+            'Double the coated area, then divide by coverage: 333 × 2 = 666 coated sq ft, and 666 ÷ 350 = 1.90 gallons before allowance.',
+        },
+        {
+          question: 'Should the ceiling be included in the wall area?',
+          answer:
+            'No. Measure it separately as length × width (144 sq ft for the 12 × 12 room), multiply by its own coats, and add it to the shopping total. Ceilings are usually a different sheen and quantity.',
+        },
+        {
+          question: 'Does primer count as a coat of paint?',
+          answer:
+            'No. Primer is a separate product with its own coverage and container size. Estimate it from the same wall area on its own line; the finish coats still need their full number of coats over it.',
+        },
+        {
+          question: 'How do I convert gallons and square feet to litres and square metres?',
+          answer:
+            'One US gallon is about 3.785 litres, one square foot about 0.0929 square metres. Or use metric coverage directly: 333 sq ft is about 30.9 m², and at an example 8.5 m² per litre per coat, two coats need 61.8 ÷ 8.5 ≈ 7.3 litres — close to the imperial 1.90 gallons converted (≈ 7.2 litres); the gap is the example rates not being exact conversions.',
+        },
+      ],
+    },
+    {
+      type: 'heading',
+      level: 2,
+      id: 'calculator-cta',
+      text: 'Calculate the paint for your own room',
+    },
+    {
+      type: 'paragraph',
+      text: 'The walkthrough above fixes one room size. For any other dimensions, [the MixTally Paint Calculator](/calculators/paint-calculator) takes length, width, wall height, door and window counts, coat number and your own coverage rate, then reports gross area, deductions, net area and the whole-container purchase in one pass. The full catalogue lives on the [calculators directory page](/calculators).',
+    },
+    {
+      type: 'calculator-cta',
+      view: 'paint-calculator',
+      title: 'MixTally Paint Calculator',
+      body: 'Enter room dimensions, doors, windows, coats and coverage to see wall area, deductions and paint quantity in gallons or litres, with an optional unit price for a cost estimate.',
+    },
+  ],
+  localized: {
+    es: paintRoomEs,
+    pt: paintRoomPt,
+    fr: paintRoomFr,
+    de: paintRoomDe,
+  },
+};
+
 /** Every published article, in listing order (featured first, then newest). */
 export const ARTICLE_REGISTRY: readonly ArticleDefinition[] = Object.freeze([
   concreteVolumeArticle,
   tenByTenSlabArticle,
+  paintRoomArticle,
 ]);
 
 /** Base paths of every article, e.g. `/blog/how-to-calculate-...`. */

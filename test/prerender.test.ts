@@ -32,9 +32,9 @@ import { ARTICLE_REGISTRY, resolveArticleForLocale } from '../src/lib/blog/regis
  * URLs, no duplicate tags, and byte-identical determinism across repeated
  * generation.
  *
- * The path list is the 80 sitemap URLs: 14 page routes plus the 2
+ * The path list is the 85 sitemap URLs: 14 page routes plus the 3
  * articles, each across the 5 locales. Every article is translated, so
- * there are no separate English-only mirrors any more — 80 documents in
+ * there are no separate English-only mirrors any more — 85 documents in
  * total.
  */
 
@@ -190,13 +190,13 @@ afterAll(() => {
 });
 
 describe('route enumeration and output paths', () => {
-  it('enumerates the 80 sitemap routes with unique output paths', () => {
-    expect(sitemapEntries()).toHaveLength(80);
-    expect(urlPaths).toHaveLength(80);
-    expect(new Set(urlPaths).size).toBe(80);
-    expect(new Set(expectations.map((e) => e.outputPath)).size).toBe(80);
-    expect(resultA.count).toBe(80);
-    expect(expectations.filter((e) => e.isArticle)).toHaveLength(10);
+  it('enumerates the 85 sitemap routes with unique output paths', () => {
+    expect(sitemapEntries()).toHaveLength(85);
+    expect(urlPaths).toHaveLength(85);
+    expect(new Set(urlPaths).size).toBe(85);
+    expect(new Set(expectations.map((e) => e.outputPath)).size).toBe(85);
+    expect(resultA.count).toBe(85);
+    expect(expectations.filter((e) => e.isArticle)).toHaveLength(15);
     expect(expectations.filter((e) => e.isListing)).toHaveLength(5);
   });
 
@@ -247,7 +247,7 @@ describe('route enumeration and output paths', () => {
   });
 });
 
-describe('head validation for all 80 documents', () => {
+describe('head validation for all 85 documents', () => {
   it('matches the pure builders: lang, title, description, robots, canonical, hreflang', () => {
     const failures: string[] = [];
     for (const expectation of expectations) {
@@ -423,7 +423,7 @@ describe('head validation for all 80 documents', () => {
   });
 });
 
-describe('JSON-LD content for all 80 documents', () => {
+describe('JSON-LD content for all 85 documents', () => {
   it('emits exactly the builder schemas, parseable and with correct localized URLs', () => {
     const failures: string[] = [];
     for (const expectation of expectations) {
@@ -718,7 +718,7 @@ describe('genuine 404 document (404.html)', () => {
 describe('deterministic generation', () => {
   it('produces byte-identical files across repeated generation', () => {
     const second = prerender({ templateHtml: fixtureTemplate, outDir: outDirB, render });
-    expect(second.count).toBe(80);
+    expect(second.count).toBe(85);
     expect(second.notFoundFile).toBe('404.html');
 
     const failures: string[] = [];

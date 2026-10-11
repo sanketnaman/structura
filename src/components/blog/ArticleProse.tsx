@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calculator, Info, TriangleAlert } from 'lucide-react';
 import { useLocale } from '../../lib/i18n/context';
+import { localizePath } from '../../lib/i18n/routing';
 import { useViewToPath } from '../../lib/routes';
 import type { ArticleBlock } from '../../lib/blog/types';
 
@@ -20,13 +21,13 @@ interface ArticleProseProps {
  * locales so shared anchors keep working.
  */
 export const ArticleProse: React.FC<ArticleProseProps> = ({ blocks }) => {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const viewToPath = useViewToPath();
 
   return (
     <div className="space-y-5 text-body text-slate-700 dark:text-slate-300 leading-relaxed">
       {blocks.map((block, index) => (
-        <Fragment key={index}>{renderBlock(block, t, viewToPath)}</Fragment>
+        <Fragment key={index}>{renderBlock(block, t, viewToPath, locale)}</Fragment>
       ))}
     </div>
   );
@@ -34,11 +35,52 @@ export const ArticleProse: React.FC<ArticleProseProps> = ({ blocks }) => {
 
 type Translate = ReturnType<typeof useLocale>['t'];
 type ViewToPath = (view: string) => string;
+type ArticleLocale = ReturnType<typeof useLocale>['locale'];
+
+/**
+ * Inline internal links inside paragraph copy: `[label](/some/internal/path)`.
+ *
+ * Only root-relative paths are recognised, so an accidental bracket pattern or
+ * an external URL can never become a link from article text. Hrefs are stored
+ * in their canonical English base shape and localized at render time, so every
+ * translation of a paragraph can carry the same path with a translated label.
+ */
+const INTERNAL_LINK_PATTERN = /\[([^\]]+)\]\((\/[^)\s]+)\)/g;
+
+function renderParagraphText(text: string, locale: ArticleLocale): React.ReactNode {
+  const parts: React.ReactNode[] = [];
+  let cursor = 0;
+  let key = 0;
+  INTERNAL_LINK_PATTERN.lastIndex = 0;
+
+  for (let match = INTERNAL_LINK_PATTERN.exec(text); match; match = INTERNAL_LINK_PATTERN.exec(text)) {
+    if (match.index > cursor) {
+      parts.push(text.slice(cursor, match.index));
+    }
+    parts.push(
+      <Link
+        key={key++}
+        to={localizePath(locale, match[2])}
+        className="text-accent hover:underline"
+      >
+        {match[1]}
+      </Link>,
+    );
+    cursor = match.index + match[0].length;
+  }
+
+  if (cursor < text.length) {
+    parts.push(text.slice(cursor));
+  }
+
+  return parts.length > 0 ? parts : text;
+}
 
 function renderBlock(
   block: ArticleBlock,
   t: Translate,
   viewToPath: ViewToPath,
+  locale: ArticleLocale,
 ): React.ReactNode {
   switch (block.type) {
     case 'heading':
@@ -59,7 +101,7 @@ function renderBlock(
       );
 
     case 'paragraph':
-      return <p>{block.text}</p>;
+      return <p>{renderParagraphText(block.text, locale)}</p>;
 
     case 'list':
       return block.ordered ? (

@@ -85,18 +85,18 @@ const DELIVERY_COMPARISON_FIGURE = {
 } as const;
 
 /**
- * Existing local photographs reused for the paint quantity article. Both are
- * already licensed and documented in the README of their own directory
- * (`public/images/construction/README.md` and
- * `public/images/guides/README.md`), which the blog image tests assert.
+ * Original article hero for the paint quantity guide: a 1536x1024 local WebP
+ * carrying the article title and the worked-example figures. Documented in
+ * `public/images/blog/README.md`, which the blog image tests assert.
  */
-const PAINTED_ROOM_IMAGE = {
-  src: '/images/construction/interior-wall-painting.webp',
-  alt: 'A freshly painted room with an even green wall colour running from baseboard to ceiling',
-  width: 900,
-  height: 600,
+const PAINT_ROOM_HERO_IMAGE = {
+  src: '/images/blog/how-much-paint-room.webp',
+  alt: 'Room mid-paint with teal walls and 12 ft by 8 ft dimension arrows, paint cans and a roller tray on a drop cloth, and a notebook showing the 384 sq ft wall area and 1.9 gallon result',
+  width: 1536,
+  height: 1024,
 } as const;
 
+/** Licensed local photograph from `public/images/guides/README.md`. */
 const PAINT_ROLLER_FIGURE = {
   src: '/images/guides/paint-coverage-guide.webp',
   alt: 'A roller spreading a fresh coat of paint across a wall in long even passes',
@@ -2953,8 +2953,8 @@ const tenByTenSlabArticle: ArticleDefinition = {
 };
 
 const paintRoomEs: ArticleTranslation = {
-  imageAlt: 'Una habitación recién pintada con un color verde uniforme de la zócalo al techo',
-  ogImageAlt: 'Una habitación recién pintada con un color verde uniforme de la zócalo al techo',
+  imageAlt: 'Ilustración del artículo: una habitación a medio pintar de verde azulado con cotas de 12 ft por 8 ft, botes de pintura y una bandeja de rodillo, y un cuaderno con el resultado de 1,9 galones',
+  ogImageAlt: 'Ilustración del artículo: una habitación a medio pintar de verde azulado con cotas de 12 ft por 8 ft, botes de pintura y una bandeja de rodillo, y un cuaderno con el resultado de 1,9 galones',
   title: '¿Cuánta pintura necesito para una habitación? Fórmula y ejemplos',
   description:
     'Aprenda a calcular la pintura de una habitación con el área de las paredes, puertas y ventanas, la cobertura por capa y el número de capas, con un ejemplo.',
@@ -3310,8 +3310,8 @@ const paintRoomEs: ArticleTranslation = {
 };
 
 const paintRoomPt: ArticleTranslation = {
-  imageAlt: 'Um cômodo recém-pintado com uma cor verde uniforme do rodapé ao teto',
-  ogImageAlt: 'Um cômodo recém-pintado com uma cor verde uniforme do rodapé ao teto',
+  imageAlt: 'Ilustração do artigo: um cômodo sendo pintado de verde azulado com cotas de 12 ft por 8 ft, latas de tinta e uma bandeja de rolo, e um caderno com o resultado de 1,9 galões',
+  ogImageAlt: 'Ilustração do artigo: um cômodo sendo pintado de verde azulado com cotas de 12 ft por 8 ft, latas de tinta e uma bandeja de rolo, e um caderno com o resultado de 1,9 galões',
   title: 'Quanta tinta preciso para um cômodo? Fórmula e exemplos',
   description:
     'Aprenda a calcular a tinta de um cômodo com a área das paredes, portas e janelas, a cobertura por demão e o número de demãos, com um exemplo resolvido.',
@@ -3677,8 +3677,8 @@ const paintRoomPt: ArticleTranslation = {
 };
 
 const paintRoomFr: ArticleTranslation = {
-  imageAlt: 'Une pièce fraîchement peinte d\'un vert uniforme du bas de mur au plafond',
-  ogImageAlt: 'Une pièce fraîchement peinte d\'un vert uniforme du bas de mur au plafond',
+  imageAlt: 'Illustration de l\'article : une pièce en cours de peinture turquoise avec des cotes de 12 ft sur 8 ft, des pots de peinture et une cuve à rouleau, et un carnet indiquant le résultat de 1,9 gallon',
+  ogImageAlt: 'Illustration de l\'article : une pièce en cours de peinture turquoise avec des cotes de 12 ft sur 8 ft, des pots de peinture et une cuve à rouleau, et un carnet indiquant le résultat de 1,9 gallon',
   title: 'Combien de peinture faut-il pour une pièce ? Formule et exemples',
   description:
     'Apprenez à calculer la peinture d\'une pièce : surface des murs, portes et fenêtres, couverture par couche et nombre de couches, avec un exemple.',
@@ -4047,8 +4047,8 @@ const paintRoomFr: ArticleTranslation = {
 };
 
 const paintRoomDe: ArticleTranslation = {
-  imageAlt: 'Ein frisch gestrichener Raum mit gleichmäßigem Grünton von der Bodenleiste bis zur Decke',
-  ogImageAlt: 'Ein frisch gestrichener Raum mit gleichmäßigem Grünton von der Bodenleiste bis zur Decke',
+  imageAlt: 'Artikelillustration: ein halb gestrichener Raum in Türkis mit Maßpfeilen von 12 ft mal 8 ft, Farbeimern und einer Farbwanne, und ein Notizbuch mit dem Ergebnis von 1,9 Gallonen',
+  ogImageAlt: 'Artikelillustration: ein halb gestrichener Raum in Türkis mit Maßpfeilen von 12 ft mal 8 ft, Farbeimern und einer Farbwanne, und ein Notizbuch mit dem Ergebnis von 1,9 Gallonen',
   title: 'Wie viel Farbe brauche ich für einen Raum? Formel und Beispiele',
   description:
     'Erfahren Sie, wie Sie Farbe für einen Raum berechnen: Wandfläche, Türen und Fenster, Deckung pro Schicht und Schichtanzahl — mit Beispiel.',
@@ -4423,8 +4423,8 @@ const paintRoomArticle: ArticleDefinition = {
     'The paint quantity formula worked through on a 12 × 12 ft room: wall area, door and window deductions, coverage per coat, ceiling paint and allowances.',
   publishedAt: '2026-10-09',
   readingTimeMinutes: 10,
-  image: PAINTED_ROOM_IMAGE,
-  ogImage: PAINTED_ROOM_IMAGE,
+  image: PAINT_ROOM_HERO_IMAGE,
+  ogImage: PAINT_ROOM_HERO_IMAGE,
   featured: false,
   relatedCalculatorViews: ['paint-calculator'],
   relatedArticleSlugs: [],

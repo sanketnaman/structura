@@ -118,7 +118,7 @@ export const CalculatorsDirectoryPage: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/45 via-transparent to-transparent z-10" />
                   <img
                     src={tool.image}
-                    alt={tool.imageAlt ?? tool.name}
+                    alt={toolText(tool.slug, 'imageAlt', tool.imageAlt ?? tool.name)}
                     width={900}
                     height={600}
                     loading="lazy"

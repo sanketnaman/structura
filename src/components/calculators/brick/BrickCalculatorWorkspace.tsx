@@ -60,7 +60,9 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
   onUnitSystemChange,
 }) => {
   const isMetric = unitSystem === 'metric';
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
+  // Metric pages outside English state mortar in kg and dry mix in m³.
+  const metricWording = isMetric && locale !== 'en';
   const viewToPath = useViewToPath();
 
   // Form IDs
@@ -166,10 +168,15 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
       t('brick.copy.baseCount', { count: result.baseBricks }),
       t('brick.copy.waste', { pct: waste, count: result.wasteBricks }),
       t('brick.copy.total', { count: result.totalBricks }),
-      t('brick.copy.mortar', {
-        bags: result.mortarBags,
-        cuft: result.mortarVolumeCuFt,
-      }),
+      metricWording
+        ? t('brick.copy.mortarMetric', {
+            bags: result.mortarBags,
+            m3: formatNumber(result.mortarVolumeCuFt * 0.0283168, 2),
+          })
+        : t('brick.copy.mortar', {
+            bags: result.mortarBags,
+            cuft: result.mortarVolumeCuFt,
+          }),
       enableCost && parsedPrice > 0
         ? t('brick.copy.cost', {
             cost: result.estimatedCost.toFixed(2),
@@ -600,11 +607,13 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                   {result.mortarBags}
                 </div>
                 <div className="text-micro font-mono text-slate-400 mt-0.5">
-                  {t('brick.bagsLabel')}
+                  {metricWording ? t('brick.bagsLabelMetric') : t('brick.bagsLabel')}
                 </div>
               </div>
               <div className="text-micro font-mono text-slate-500 pt-2 border-t border-paper-200 dark:border-charcoal-800">
-                {t('brick.dryMix', { v: result.mortarVolumeCuFt })}
+                {metricWording
+                  ? t('brick.dryMixMetric', { v: formatNumber(result.mortarVolumeCuFt * 0.0283168, 2) })
+                  : t('brick.dryMix', { v: result.mortarVolumeCuFt })}
               </div>
             </div>
           </div>
@@ -689,7 +698,8 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
               {formatNumber(result.baseBricks, 0)} base × 1.{waste < 10 ? `0${waste}` : waste}
             </p>
             <p className="text-slate-500">
-              = <span className="text-accent font-bold">{formatNumber(result.totalBricks, 0)} {t('brick.bricksWord')}</span> + {result.mortarBags} {t('brick.typeNBags')}
+              = <span className="text-accent font-bold">{formatNumber(result.totalBricks, 0)} {t('brick.bricksWord')}</span> + {result.mortarBags}{' '}
+                {metricWording ? t('brick.typeNBagsMetric') : t('brick.typeNBags')}
             </p>
           </div>
         </div>

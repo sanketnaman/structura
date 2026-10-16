@@ -26,6 +26,7 @@ import { localizedRoutePaths, type PageRoutePath } from './lib/routes';
 import { localizedArticleRoutePatterns } from './lib/blog/registry';
 import { parseLocalePath, localizePath } from './lib/i18n/routing';
 import { LocaleProvider, useLocale } from './lib/i18n/context';
+import { DEFAULT_LOCALE } from './lib/i18n/config';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -40,7 +41,9 @@ function AppContent() {
         return unit;
       }
     }
-    return 'imperial';
+    // Every localized page opens metric-first; English keeps the US customary
+    // default it has always had.
+    return locale === DEFAULT_LOCALE ? 'imperial' : 'metric';
   });
 
   // Locale explicitly requested by the URL (never the stored preference) and

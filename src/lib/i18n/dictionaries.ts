@@ -830,6 +830,37 @@ export const en = {
   'blog.breadcrumbBlog': 'Blog',
   'blog.relatedArticles': 'Related articles',
   'blog.backToListing': 'All articles',
+
+  // ── Metric-first wording ──────────────────────────────────────────────
+  // Selected only when `isMetric && locale !== 'en'`, so English pages keep
+  // their existing output byte for byte.
+  // TODO(needs native review): every key in this block needs a native speaker.
+  'concrete.headerBodyMetric':
+    'Compute cubic meters, liters, pre-mix bags, and supplier orders with real-time 3D dimensional verification and transparent mathematical formulas.',
+  'concrete.trucksMetric': '~{count} Trucks (~6.9 m³ drum)',
+  'concrete.baseNetMetric': '≈ {v} m³ net',
+  'concrete.bags80Metric': 'Bags (80 lb ≈ 36.3 kg)',
+  'concrete.orBags60Metric': 'or {count} Bags (60 lb ≈ 27.2 kg)',
+  'concrete.copy.bagsMetric':
+    'Bagged Concrete Mix: {b80} × 80 lb bags (≈ 36.3 kg) or {b60} × 60 lb bags (≈ 27.2 kg)',
+  'concrete.copy.trucksMetric':
+    'Ready-Mix Truck Deliveries: ~{count} truck loads (~6.9 m³ drum capacity)',
+  'concrete.yieldFactorsValue': '80lb = 0.60 ft³ · 60lb = 0.45 ft³',
+  'concrete.yieldFactorsValueMetric':
+    '80lb ≈ 36.3 kg = 0.017 m³ · 60lb ≈ 27.2 kg = 0.013 m³',
+  'paint.headerBodyMetric':
+    'Calculate paint in liters, commercial 19-liter pails, and coverage requirements with opening deductions and real-time 3D cutaway room visualization.',
+  'paint.pailsOf5Metric': '{count} × 19 L',
+  'paint.oneGalCansMetric': 'Paint Cans (3.78 L)',
+  'paint.extraCansMetric': '+ {count} L extra',
+  'paint.cansTotalMetric': '{count} L total',
+  'paint.copy.packagingMetric': 'Packaging Breakdown: {p} × 19 L Pails + {e} L',
+  'paint.preventsOverbuyMetric': 'Prevents over-buying paint',
+  'brick.bagsLabelMetric': '80 lb pre-mix bags (≈ 36.3 kg)',
+  'brick.dryMixMetric': '~{v} m³ dry mix',
+  'brick.typeNBagsMetric': '80 lb Type N bags (≈ 36.3 kg).',
+  'brick.copy.mortarMetric':
+    'Type N Mortar (80 lb bags ≈ 36.3 kg): {bags} bags (~{m3} m³)',
 } as const;
 
 export type TranslationKey = keyof typeof en;
@@ -1512,7 +1543,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.step1Note':
       'El espesor debe estar en la misma unidad de medida que el largo y el ancho antes de calcular el volumen.',
     'concrete.step2Title': 'Paso 2: volumen base neto',
-    'concrete.step2NoteMetric': 'Desplazamiento geométrico neto: {v} m³ ({y} yd³).',
+    'concrete.step2NoteMetric': 'Desplazamiento geométrico neto: {v} m³.',
     'concrete.step2NoteImperial': '{v} ft³ ÷ 27 = {y} yardas cúbicas netas.',
     'concrete.step3Title': 'Paso 3: añadir el exceso ({pct}%)',
     'concrete.step3NoteMetric': 'Volumen final con margen de seguridad: {v} m³.',
@@ -1664,6 +1695,33 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'blog.breadcrumbBlog': 'Blog',
     'blog.relatedArticles': 'Artículos relacionados',
     'blog.backToListing': 'Todos los artículos',
+
+    // ── Redacción métrica (solo con `isMetric && locale !== 'en'`) ────────
+    // TODO(needs native review): todas las claves de este bloque.
+    'concrete.headerBodyMetric':
+      'Calcule metros cúbicos, litros, sacos de mezcla prefabricada y pedidos a proveedores con verificación dimensional 3D en tiempo real y fórmulas matemáticas transparentes.',
+    'concrete.trucksMetric': '~{count} camiones (tambor de ~6,9 m³)',
+    'concrete.baseNetMetric': '≈ {v} m³ neto',
+    'concrete.bags80Metric': 'Sacos (80 lb ≈ 36,3 kg)',
+    'concrete.orBags60Metric': 'o {count} sacos (60 lb ≈ 27,2 kg)',
+    'concrete.copy.bagsMetric':
+      'Concreto prefabricado en sacos: {b80} sacos de 80 lb (≈ 36,3 kg) o {b60} de 60 lb (≈ 27,2 kg)',
+    'concrete.copy.trucksMetric': 'Entregas de hormigón fresco: ~{count} viajes (tambor de ~6,9 m³)',
+    'concrete.yieldFactorsValue': '80 lb = 0,60 ft³ · 60 lb = 0,45 ft³',
+    'concrete.yieldFactorsValueMetric':
+      '80 lb ≈ 36,3 kg = 0,017 m³ · 60 lb ≈ 27,2 kg = 0,013 m³',
+    'paint.headerBodyMetric':
+      'Calcule litros de pintura, cubetas comerciales de 19 litros y requisitos de cobertura con deducción de aberturas y visualización 3D en corte del ambiente en tiempo real.',
+    'paint.pailsOf5Metric': '{count} × 19 L',
+    'paint.oneGalCansMetric': 'Latas de 3,78 L',
+    'paint.extraCansMetric': '+ {count} L adicionales',
+    'paint.cansTotalMetric': '{count} L en total',
+    'paint.copy.packagingMetric': 'Desglose de embalaje: {p} × cubetas de 19 L + {e} L',
+    'paint.preventsOverbuyMetric': 'Evita comprar pintura de más',
+    'brick.bagsLabelMetric': 'sacos prefabricados de 80 lb (≈ 36,3 kg)',
+    'brick.dryMixMetric': '~{v} m³ de mezcla seca',
+    'brick.typeNBagsMetric': 'sacos tipo N de 80 lb (≈ 36,3 kg).',
+    'brick.copy.mortarMetric': 'Mortero tipo N (sacos de 80 lb ≈ 36,3 kg): {bags} sacos (~{m3} m³)',
   },
   pt: {
     'common.language': 'Idioma',
@@ -2322,7 +2380,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.step1Note':
       'A espessura deve estar na mesma unidade de medida do comprimento e da largura antes de calcular o volume.',
     'concrete.step2Title': 'Etapa 2: volume base líquido',
-    'concrete.step2NoteMetric': 'Deslocamento geométrico líquido: {v} m³ ({y} yd³).',
+    'concrete.step2NoteMetric': 'Deslocamento geométrico líquido: {v} m³.',
     'concrete.step2NoteImperial': '{v} ft³ ÷ 27 = {y} jardas cúbicas líquidas.',
     'concrete.step3Title': 'Etapa 3: acrescentar o excesso ({pct}%)',
     'concrete.step3NoteMetric': 'Volume final com margem de segurança: {v} m³.',
@@ -2475,6 +2533,33 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'blog.breadcrumbBlog': 'Blog',
     'blog.relatedArticles': 'Artigos relacionados',
     'blog.backToListing': 'Todos os artigos',
+
+    // ── Redação métrica (somente com `isMetric && locale !== 'en'`) ───────
+    // TODO(needs native review): todas as chaves deste bloco.
+    'concrete.headerBodyMetric':
+      'Calcule metros cúbicos, litros, sacos de pré-mistura e pedidos ao fornecedor com verificação dimensional 3D em tempo real e fórmulas matemáticas transparentes.',
+    'concrete.trucksMetric': '~{count} caminhões (tambor de ~6,9 m³)',
+    'concrete.baseNetMetric': '≈ {v} m³ líq.',
+    'concrete.bags80Metric': 'Sacos (80 lb ≈ 36,3 kg)',
+    'concrete.orBags60Metric': 'ou {count} sacos (60 lb ≈ 27,2 kg)',
+    'concrete.copy.bagsMetric':
+      'Concreto pré-misturado em sacos: {b80} sacos de 80 lb (≈ 36,3 kg) ou {b60} de 60 lb (≈ 27,2 kg)',
+    'concrete.copy.trucksMetric': 'Entregas de concreto pronto: ~{count} viagens (tambor de ~6,9 m³)',
+    'concrete.yieldFactorsValue': '80 lb = 0,60 ft³ · 60 lb = 0,45 ft³',
+    'concrete.yieldFactorsValueMetric':
+      '80 lb ≈ 36,3 kg = 0,017 m³ · 60 lb ≈ 27,2 kg = 0,013 m³',
+    'paint.headerBodyMetric':
+      'Calcule litros de tinta, latas comerciais de 19 litros e a cobertura necessária, com dedução de aberturas e visualização 3D em corte do ambiente em tempo real.',
+    'paint.pailsOf5Metric': '{count} × 19 L',
+    'paint.oneGalCansMetric': 'Latas de 3,78 L',
+    'paint.extraCansMetric': '+ {count} L adicionais',
+    'paint.cansTotalMetric': '{count} L no total',
+    'paint.copy.packagingMetric': 'Distribuição em embalagens: {p} × latas de 19 L + {e} L',
+    'paint.preventsOverbuyMetric': 'Evita comprar tinta a mais',
+    'brick.bagsLabelMetric': 'sacos pré-misturados de 80 lb (≈ 36,3 kg)',
+    'brick.dryMixMetric': '~{v} m³ de mistura seca',
+    'brick.typeNBagsMetric': 'sacos de argamassa tipo N de 80 lb (≈ 36,3 kg).',
+    'brick.copy.mortarMetric': 'Argamassa tipo N (sacos de 80 lb ≈ 36,3 kg): {bags} sacos (~{m3} m³)',
   },
   fr: {
     'common.language': 'Langue',
@@ -3151,7 +3236,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.step1Note':
       'L’épaisseur doit être exprimée dans les mêmes unités que la longueur et la largeur avant de calculer le volume.',
     'concrete.step2Title': 'Étape 2 : volume net de base',
-    'concrete.step2NoteMetric': 'Déplacement géométrique net : {v} m³ ({y} yd³).',
+    'concrete.step2NoteMetric': 'Déplacement géométrique net : {v} m³.',
     'concrete.step2NoteImperial': '{v} ft³ ÷ 27 = {y} yards cubes nets.',
     'concrete.step3Title': 'Étape 3 : ajouter la surcommande ({pct}%)',
     'concrete.step3NoteMetric': 'Volume final avec marge de sécurité : {v} m³.',
@@ -3304,6 +3389,34 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'blog.breadcrumbBlog': 'Blog',
     'blog.relatedArticles': 'Articles associés',
     'blog.backToListing': 'Tous les articles',
+
+    // ── Formulation métrique (uniquement avec `isMetric && locale !== 'en'`)
+    // TODO(needs native review) : toutes les clés de ce bloc.
+    'concrete.headerBodyMetric':
+      'Calculez les mètres cubes, les litres, les sacs de prémélange et les commandes fournisseur avec vérification dimensionnelle 3D en temps réel et formules mathématiques transparentes.',
+    'concrete.trucksMetric': '~{count} camions (tambour de ~6,9 m³)',
+    'concrete.baseNetMetric': '≈ {v} m³ net',
+    'concrete.bags80Metric': 'Sacs (80 lb ≈ 36,3 kg)',
+    'concrete.orBags60Metric': 'ou {count} sacs (60 lb ≈ 27,2 kg)',
+    'concrete.copy.bagsMetric':
+      'Béton en sacs : {b80} sacs de 80 lb (≈ 36,3 kg) ou {b60} de 60 lb (≈ 27,2 kg)',
+    'concrete.copy.trucksMetric':
+      'Livraisons de béton prêt à l’emploi : ~{count} tournées (tambour ~6,9 m³)',
+    'concrete.yieldFactorsValue': '80 lb = 0,60 ft³ · 60 lb = 0,45 ft³',
+    'concrete.yieldFactorsValueMetric':
+      '80 lb ≈ 36,3 kg = 0,017 m³ · 60 lb ≈ 27,2 kg = 0,013 m³',
+    'paint.headerBodyMetric':
+      'Calculez les litres de peinture, les seaux commerciaux de 19 litres et les besoins de couverture avec déduction des ouvertures et visualisation 3D en coupe de la pièce en temps réel.',
+    'paint.pailsOf5Metric': '{count} × 19 L',
+    'paint.oneGalCansMetric': 'Pots de 3,78 L',
+    'paint.extraCansMetric': '+ {count} L supplémentaires',
+    'paint.cansTotalMetric': '{count} L au total',
+    'paint.copy.packagingMetric': 'Répartition des emballages : {p} × seaux de 19 L + {e} L',
+    'paint.preventsOverbuyMetric': 'Évite d’acheter trop de peinture',
+    'brick.bagsLabelMetric': 'sacs de prémélange de 80 lb (≈ 36,3 kg)',
+    'brick.dryMixMetric': '~{v} m³ de mélange sec',
+    'brick.typeNBagsMetric': 'sacs de mortier de type N de 80 lb (≈ 36,3 kg).',
+    'brick.copy.mortarMetric': 'Mortier de type N (sacs de 80 lb ≈ 36,3 kg) : {bags} sacs (~{m3} m³)',
   },
   de: {
     'common.language': 'Sprache',
@@ -3968,7 +4081,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.step1Note':
       'Die Dicke muss vor der Volumenberechnung in denselben Einheiten wie Länge und Breite angegeben sein.',
     'concrete.step2Title': 'Schritt 2: Netto-Basisvolumen',
-    'concrete.step2NoteMetric': 'Nettogeometrische Verdrängung: {v} m³ ({y} yd³).',
+    'concrete.step2NoteMetric': 'Nettogeometrische Verdrängung: {v} m³.',
     'concrete.step2NoteImperial': '{v} ft³ ÷ 27 = {y} Kubikyards netto.',
     'concrete.step3Title': 'Schritt 3: Überbestellung hinzufügen ({pct}%)',
     'concrete.step3NoteMetric': 'Endvolumen mit Sicherheitsmarge: {v} m³.',
@@ -4119,5 +4232,33 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'blog.breadcrumbBlog': 'Blog',
     'blog.relatedArticles': 'Verwandte Beiträge',
     'blog.backToListing': 'Alle Beiträge',
+
+    // ── Metrische Formulierung (nur bei `isMetric && locale !== 'en'`) ────
+    // TODO(needs native review): alle Schlüssel in diesem Block.
+    'concrete.headerBodyMetric':
+      'Berechnen Sie Kubikmeter, Liter, Trockenmischsäcke und Lieferantenbestellungen mit Live-3D-Bemaßungsprüfung und transparenten mathematischen Formeln.',
+    'concrete.trucksMetric': '~{count} LKWs (Trommel ~6,9 m³)',
+    'concrete.baseNetMetric': '≈ {v} m³ netto',
+    'concrete.bags80Metric': 'Säcke (80 lb ≈ 36,3 kg)',
+    'concrete.orBags60Metric': 'oder {count} Säcke (60 lb ≈ 27,2 kg)',
+    'concrete.copy.bagsMetric':
+      'Sackbetonmischung: {b80} × 80-lb-Säcke (≈ 36,3 kg) oder {b60} × 60-lb-Säcke (≈ 27,2 kg)',
+    'concrete.copy.trucksMetric':
+      'Mischer-LKW-Lieferungen: ~{count} Fahrten (Trommelkapazität ~6,9 m³)',
+    'concrete.yieldFactorsValue': '80 lb = 0,60 ft³ · 60 lb = 0,45 ft³',
+    'concrete.yieldFactorsValueMetric':
+      '80 lb ≈ 36,3 kg = 0,017 m³ · 60 lb ≈ 27,2 kg = 0,013 m³',
+    'paint.headerBodyMetric':
+      'Berechnen Sie Farbliter, kommerzielle 19-Liter-Eimer und Deckungsanforderungen mit Öffnungsabzügen und Live-3D-Raumschnittvisualisierung.',
+    'paint.pailsOf5Metric': '{count} × 19 L',
+    'paint.oneGalCansMetric': 'Dosen mit 3,78 L',
+    'paint.extraCansMetric': '+ {count} L zusätzlich',
+    'paint.cansTotalMetric': '{count} L insgesamt',
+    'paint.copy.packagingMetric': 'Verpackungsaufteilung: {p} × 19-Liter-Eimer + {e} L',
+    'paint.preventsOverbuyMetric': 'Verhindert den Kauf von zu viel Farbe',
+    'brick.bagsLabelMetric': '80-lb-Trockenmischsäcke (≈ 36,3 kg)',
+    'brick.dryMixMetric': '~{v} m³ Trockenmischung',
+    'brick.typeNBagsMetric': '80-lb-Säcke Mörtel Typ N (≈ 36,3 kg).',
+    'brick.copy.mortarMetric': 'Mörtel Typ N (80-lb-Säcke ≈ 36,3 kg): {bags} Säcke (~{m3} m³)',
   },
 };

@@ -89,7 +89,7 @@ describe('Dictionary coverage', () => {
 
   it('covers every English key except the two decorative separators', () => {
     const enKeys = Object.keys(en);
-    expect(enKeys).toHaveLength(664);
+    expect(enKeys).toHaveLength(684);
 
     for (const code of ['es', 'pt', 'fr', 'de'] as const) {
       const dict = dictionaries[code];
@@ -99,7 +99,7 @@ describe('Dictionary coverage', () => {
 
       expect(extra).toEqual([]);
       expect(missing.filter((key) => !ALLOWED_MISSING.has(key))).toEqual([]);
-      expect(keys).toHaveLength(code === 'pt' ? 664 : 662);
+      expect(keys).toHaveLength(code === 'pt' ? 684 : 682);
     }
   });
 

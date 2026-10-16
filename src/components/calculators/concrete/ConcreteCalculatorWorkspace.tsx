@@ -43,7 +43,10 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
   onUnitSystemChange,
 }) => {
   const isMetric = unitSystem === 'metric';
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
+  // Metric pages outside English drop US customary wording (yd³ drums, bag
+  // yields, inch-based notes) in favour of the localized metric variants.
+  const metricWording = isMetric && locale !== 'en';
   const viewToPath = useViewToPath();
 
   // Form IDs for accessibility
@@ -168,8 +171,12 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
         v: primaryVolume,
         alt: isMetric ? result.totalVolumeM3 + ' m³' : result.totalCuFt + ' ft³',
       }),
-      t('concrete.copy.bags', { b80: result.bags80lb, b60: result.bags60lb }),
-      t('concrete.copy.trucks', { count: result.truckLoads }),
+      metricWording
+        ? t('concrete.copy.bagsMetric', { b80: result.bags80lb, b60: result.bags60lb })
+        : t('concrete.copy.bags', { b80: result.bags80lb, b60: result.bags60lb }),
+      metricWording
+        ? t('concrete.copy.trucksMetric', { count: result.truckLoads })
+        : t('concrete.copy.trucks', { count: result.truckLoads }),
       enableCost && parsedPrice > 0
         ? t('concrete.copy.cost', {
             cost: estimatedCost.toFixed(2),
@@ -258,7 +265,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             {t('nav.concreteSlabCalculator')}
           </h1>
           <p className="text-body-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
-            {t('concrete.headerBody')}
+            {metricWording ? t('concrete.headerBodyMetric') : t('concrete.headerBody')}
           </p>
         </div>
 
@@ -663,7 +670,9 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             <div className="pt-4 mt-4 border-t border-charcoal-800 flex items-center justify-between text-caption font-mono">
               <span className="text-slate-400">{t('concrete.readyMixDeliveries')}</span>
               <span className="font-semibold text-accent">
-                {t('concrete.trucks', { count: result.truckLoads })}
+                {metricWording
+                  ? t('concrete.trucksMetric', { count: result.truckLoads })
+                  : t('concrete.trucks', { count: result.truckLoads })}
               </span>
             </div>
           </div>
@@ -681,7 +690,9 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
               </div>
               <div className="text-heading-sm text-slate-500 font-mono tabular-nums mt-1">
                 {isMetric
-                  ? `${result.baseVolumeYards} yd³`
+                  ? metricWording
+                    ? t('concrete.baseNetMetric', { v: result.baseVolumeM3 })
+                    : `${result.baseVolumeYards} yd³`
                   : t('concrete.yardsNet', { v: result.baseVolumeYards })}
               </div>
               <p className="text-caption text-slate-600 dark:text-slate-400 mt-2">
@@ -703,10 +714,15 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                 {t('concrete.preMixTitle')}
               </span>
               <div className="text-display font-bold text-slate-800 dark:text-slate-200 font-mono tabular-nums tracking-tight mt-2">
-                {result.bags80lb} <span className="text-heading-sm font-normal text-slate-500">{t('concrete.bags80')}</span>
+                {result.bags80lb}{' '}
+                <span className="text-heading-sm font-normal text-slate-500">
+                  {metricWording ? t('concrete.bags80Metric') : t('concrete.bags80')}
+                </span>
               </div>
               <div className="text-heading-sm text-slate-500 font-mono tabular-nums mt-1">
-                {t('concrete.orBags60', { count: result.bags60lb })}
+                {metricWording
+                  ? t('concrete.orBags60Metric', { count: result.bags60lb })
+                  : t('concrete.orBags60', { count: result.bags60lb })}
               </div>
               <p className="text-caption text-slate-600 dark:text-slate-400 mt-2">
                 {t('concrete.preMixBody')}
@@ -715,7 +731,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             <div className="pt-4 mt-4 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-mono">
               <span className="text-slate-500">{t('concrete.yieldFactors')}</span>
               <span className="text-slate-600 dark:text-slate-400 text-micro">
-                80lb = 0.60 ft³ · 60lb = 0.45 ft³
+                {metricWording ? t('concrete.yieldFactorsValueMetric') : t('concrete.yieldFactorsValue')}
               </span>
             </div>
           </div>

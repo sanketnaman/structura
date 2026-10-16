@@ -35,7 +35,9 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
   onUnitSystemChange,
 }) => {
   const isMetric = unitSystem === 'metric';
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
+  // Metric pages outside English switch packaging copy to litres and 19 L pails.
+  const metricWording = isMetric && locale !== 'en';
   const viewToPath = useViewToPath();
 
   // Form IDs
@@ -47,9 +49,9 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
   const priceId = useId();
 
   // Dynamic Room Dimension States (arbitrary floats allowed)
-  const [roomLength, setRoomLength] = useState<number>(isMetric ? 4.5 : 14);
-  const [roomWidth, setRoomWidth] = useState<number>(isMetric ? 3.8 : 12);
-  const [wallHeight, setWallHeight] = useState<number>(isMetric ? 2.8 : 9);
+  const [roomLength, setRoomLength] = useState<number>(isMetric ? 4.2 : 14);
+  const [roomWidth, setRoomWidth] = useState<number>(isMetric ? 3.6 : 12);
+  const [wallHeight, setWallHeight] = useState<number>(isMetric ? 2.7 : 9);
   const [doorsCount, setDoorsCount] = useState<number>(1);
   const [windowsCount, setWindowsCount] = useState<number>(2);
   const [coats, setCoats] = useState<number>(2);
@@ -125,9 +127,11 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
       t('paint.copy.coated', { c: coats, v: result.totalCoatedArea, u: areaUnit }),
       t('paint.copy.volume', {
         v: result.primaryQuantity,
-        u: isMetric ? 'Liters' : 'Gallons',
+        u: isMetric ? t('paint.liters') : t('paint.gallons'),
       }),
-      t('paint.copy.packaging', { p: result.pails5Gal, e: result.extraUnits }),
+      metricWording
+        ? t('paint.copy.packagingMetric', { p: result.pails5Gal, e: result.extraUnits })
+        : t('paint.copy.packaging', { p: result.pails5Gal, e: result.extraUnits }),
       enableCost && parsedPrice > 0
         ? t('paint.copy.cost', {
             cost: result.estimatedCost.toFixed(2),
@@ -204,7 +208,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             {t('nav.paintCalculator')}
           </h1>
           <p className="text-body-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
-            {t('paint.headerBody')}
+            {metricWording ? t('paint.headerBodyMetric') : t('paint.headerBody')}
           </p>
         </div>
 
@@ -265,7 +269,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                   type="range"
                   min={isMetric ? 1.5 : 5}
                   max={isMetric ? 15 : 50}
-                  step={isMetric ? 0.25 : 1}
+                  step={isMetric ? 0.1 : 1}
                   value={roomLength}
                   onChange={(e) => setRoomLength(parseFloat(e.target.value) || 1.5)}
                   className="flex-1 accent-accent cursor-pointer tech-focus"
@@ -303,7 +307,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                   type="range"
                   min={isMetric ? 1.5 : 5}
                   max={isMetric ? 15 : 50}
-                  step={isMetric ? 0.25 : 1}
+                  step={isMetric ? 0.1 : 1}
                   value={roomWidth}
                   onChange={(e) => setRoomWidth(parseFloat(e.target.value) || 1.5)}
                   className="flex-1 accent-accent cursor-pointer tech-focus"
@@ -560,17 +564,25 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                 </div>
                 <div className="text-heading-md font-bold font-mono text-slate-900 dark:text-white">
                   {result.pails5Gal > 0
-                    ? t('paint.pailsOf5', { count: result.pails5Gal })
-                    : t('paint.oneGalCans')}
+                    ? metricWording
+                      ? t('paint.pailsOf5Metric', { count: result.pails5Gal })
+                      : t('paint.pailsOf5', { count: result.pails5Gal })
+                    : metricWording
+                      ? t('paint.oneGalCansMetric')
+                      : t('paint.oneGalCans')}
                 </div>
                 <div className="text-micro font-mono text-slate-400 mt-0.5">
                   {result.pails5Gal > 0 && result.extraUnits > 0
-                    ? t('paint.extraCans', { count: result.extraUnits })
-                    : t('paint.cansTotal', { count: result.primaryQuantity })}
+                    ? metricWording
+                      ? t('paint.extraCansMetric', { count: result.extraUnits })
+                      : t('paint.extraCans', { count: result.extraUnits })
+                    : metricWording
+                      ? t('paint.cansTotalMetric', { count: result.primaryQuantity })
+                      : t('paint.cansTotal', { count: result.primaryQuantity })}
                 </div>
               </div>
               <div className="text-micro font-mono text-slate-500 pt-2 border-t border-paper-200 dark:border-charcoal-800">
-                {t('paint.preventsOverbuy')}
+                {metricWording ? t('paint.preventsOverbuyMetric') : t('paint.preventsOverbuy')}
               </div>
             </div>
           </div>

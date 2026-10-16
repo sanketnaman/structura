@@ -103,7 +103,7 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
       pt: {
         title: `Calculadoras de construção — ${siteConfig.name}`,
         description:
-          'Conheça calculadoras de construção interativas para concreto, alvenaria e argamassa, tinta e outros estimativos de materiais com visualização 3D.',
+          'Conheça calculadoras de construção interativas para concreto, alvenaria e argamassa, tinta e outras estimativas de materiais com visualização 3D.',
       },
       fr: {
         title: `Calculatrices de construction — ${siteConfig.name}`,
@@ -137,9 +137,9 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
           'Calcule o volume da laje em m³ e os sacos de concreto necessários, com fórmulas transparentes e visualização 3D interativa.',
       },
       fr: {
-        title: `Calcul de dalle en béton : m³ et sacs | ${siteConfig.name}`,
+        title: `Calcul dalle béton : volume en m³ et sacs | ${siteConfig.name}`,
         description:
-          `Calculez le volume de la dalle en m³ et les sacs de béton nécessaires, avec formules transparentes et visualisation 3D interactive.`,
+          `Ce calcul dalle béton détermine le volume en m³ et les sacs nécessaires, avec des formules transparentes et une visualisation 3D interactive.`,
       },
       de: {
         title: `Betonrechner: m³ & Betonsäcke | ${siteConfig.name}`,
@@ -165,7 +165,7 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
           'Estime os tijolos e a argamassa para uma parede: quantidades em metros ou pés, juntas incluídas e visualização 3D interativa.',
       },
       fr: {
-        title: `Calcul de briques et mortier : m² | ${siteConfig.name}`,
+        title: `Calcul de briques et mortier au m² | ${siteConfig.name}`,
         description:
           'Estimez les briques et le mortier pour un mur : quantités en mètres ou pieds, joints compris et visualisation 3D interactive.',
       },
@@ -241,7 +241,7 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
       es: {
         title: `Blog de construcción — ${siteConfig.name}`,
         description:
-          'Guías de cálculos de construcción de MixTally: volumen de losas, estimaciones de alvenaria, cobertura de pintura y ejemplos resueltos.',
+          'Guías de cálculos de construcción de MixTally: volumen de losas, estimaciones de mampostería, cobertura de pintura y ejemplos resueltos.',
       },
       pt: {
         title: `Blog de construção — ${siteConfig.name}`,

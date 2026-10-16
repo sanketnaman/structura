@@ -1244,7 +1244,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
       'Una yarda cúbica contiene 27 pies cúbicos. Un saco estándar de mezcla de concreto de 80 lb rinde aproximadamente 0,60 pies cúbicos, lo que significa que se requieren 45 sacos de concreto de 80 lb (o 60 sacos de 60 lb) para fabricar una yarda cúbica. Para vertidos superiores a 2 yardas cúbicas, los camiones de hormigón fresco entregado suelen ser más económicos.',
 
     'directory.eyebrow': 'Directorio de calculadoras de producción',
-    'directory.title': 'Áreas de cálculo de construcción',
+    'directory.title': 'Calculadoras de construcción',
     'directory.body':
       'Explore estimadores interactivos de materiales en 3D y herramientas de cálculo organizadas por disciplina.',
     'directory.allCalculators': 'Todas las calculadoras ({count})',
@@ -2244,7 +2244,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
       'Uma jardineira cúbica contém 27 pés cúbicos. Um saco padrão de concreto pronto de 80 lb rende aproximadamente 0,60 pé cúbico, ou seja, são necessários 45 sacos de 80 lb (ou 60 sacos de 60 lb) para fazer uma jardineira cúbica. Para concretagens acima de 2 jardineiras cúbicas, as betoneiras entregues costumam sair mais econômicas.',
 
     'directory.eyebrow': 'Diretório de calculadoras em produção',
-    'directory.title': 'Áreas de cálculo de construção',
+    'directory.title': 'Calculadoras de construção',
     'directory.body':
       'Explore estimadores de materiais interativos em 3D e ferramentas de medição para planejamento, organizadas por disciplina de obra.',
     'directory.allCalculators': 'Todas as calculadoras ({count})',
@@ -2582,7 +2582,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.coatsSummaryPlural': 'demãos (padrão recomendado)',
     'paint.coatSingular': 'demão',
     'paint.coatPlural': 'demãos',
-    'paint.costTitle': 'Estimativa de custo do material de pintura',
+    'paint.costTitle': 'Estimativa de custo do material de tinta',
     'paint.costActive': 'Ativo',
     'paint.costAdd': '+ Adicionar preço unitário',
     'paint.priceLabel': 'Preço da tinta ($ por {unit}):',
@@ -2592,7 +2592,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.estimatedCost': 'Custo estimado da tinta:',
     'paint.sceneTitle': 'Inspetor 3D do ambiente em corte',
     'paint.sceneHint': 'Deduções visuais · Órbita 360°',
-    'paint.sceneAria': 'Inspetor 3D de pintura do ambiente',
+    'paint.sceneAria': 'Inspetor 3D de tinta do ambiente',
     'paint.netAreaLabel': 'Área líquida:',
     'paint.deductionsLabel': 'Deduções:',
     'paint.coverageLabel': 'Cobertura:',
@@ -2620,7 +2620,8 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.step3Line2Tail': 'necessários no total.',
     'paint.relatedConcreteSub': 'Medição volumétrica 3D da laje',
     'paint.relatedBrickSub': 'Assentamento em alvenaria e sacos de argamassa',
-    'paint.copy.header': 'MIXTALLY ARCHITECTURAL PAINT TAKEOFF',
+    // TODO(needs native review)
+    'paint.copy.header': 'MIXTALLY — MEDIÇÃO DE TINTA ARQUITETÔNICA',
     'paint.copy.separator': '----------------------------------------',
     'paint.copy.room': 'Dimensões do ambiente: {l} {u} comp. × {w} {u} larg. × {h} {u} alt. do teto',
     'paint.copy.perimeter': 'Perímetro da parede: {v} {u}',
@@ -2630,7 +2631,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.copy.coated': 'Superfície total a pintar ({c} demãos): {v} {u}',
     'paint.copy.volume': 'Volume de tinta necessário: {v} {u}',
     'paint.copy.packaging': 'Distribuição em embalagens: {p} × latas de 5-Gal + {e} × latas de 1-Gal',
-    'paint.copy.cost': 'Custo estimado do material de pintura: ${cost} (@ ${price}/{unit})',
+    'paint.copy.cost': 'Custo estimado do material de tinta: ${cost} (@ ${price}/{unit})',
 
     // ── Concrete calculator ──────────────────────────────────────────────
     'concrete.eyebrow1': 'Medição volumétrica de materiais',
@@ -3066,7 +3067,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'nav.brickMortar': 'Briques et mortier',
     'nav.architecturalPaint': 'Peinture architecturale',
     'nav.allCalculatorsDirectory': 'Répertoire de tous les calculateurs',
-    'nav.concreteSlabCalculator': 'Calcul de dalle en béton',
+    'nav.concreteSlabCalculator': 'Calcul dalle béton',
     'nav.brickMortarCalculator': 'Calcul briques et mortier',
     'nav.paintCalculator': 'Calcul de peinture par m²',
     'nav.fieldGuides': 'Guides de terrain',
@@ -3232,7 +3233,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
       'Un yard cube contient 27 pieds cubes. Un sac standard de prémélange de 80 lb rend environ 0,60 pied cube, soit environ 45 sacs de béton de 80 lb (ou 60 sacs de 60 lb) pour former un yard cube. Pour les coulées de plus de 2 yards cubes, les camions de béton prêt à l’emploi livrés sont généralement plus économiques.',
 
     'directory.eyebrow': 'Annuaire des calculateurs de production',
-    'directory.title': 'Espaces de calcul de construction',
+    'directory.title': 'Calculatrices de construction',
     'directory.body':
       'Explorez les estimateurs de matériaux 3D interactifs et les outils de métré de planification, organisés par métier.',
     'directory.allCalculators': 'Tous les calculateurs ({count})',
@@ -4237,7 +4238,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
       'Ein Kubikyard enthält 27 Kubikfuß. Ein standardmäßiger 80-lb-Trockenmischungssack liefert etwa 0,60 Kubikfuß, sodass mathematisch 45 Säcke à 80 lb (oder 60 Säcke à 60 lb) für einen Kubikyard erforderlich sind. Bei Güssen über 2 Kubikyards sind gelieferte Mischer-LKW in der Regel wirtschaftlicher.',
 
     'directory.eyebrow': 'Verzeichnis der Produktionsrechner',
-    'directory.title': 'Bau-Kalkulationsarbeitsbereiche',
+    'directory.title': 'Bau-Rechner',
     'directory.body':
       'Entdecken Sie interaktive 3D-Materialschätzer und Planungswerkzeuge zur Mengenermittlung, nach Gewerk geordnet.',
     'directory.allCalculators': 'Alle Rechner ({count})',
@@ -4600,7 +4601,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.coverageLabel': 'Deckung:',
     'paint.requiredWithCoats': 'Benötigte Farbe ({count} {coat})',
     'paint.liters': 'Liter',
-    'paint.gallons': 'Gallons',
+    'paint.gallons': 'Gallon',
     'paint.exactLabel': 'Exakt:',
     'paint.totalCoatedLabel': 'Gesamtfläche:',
     'paint.packagingStrategy': 'Verpackungsstrategie',

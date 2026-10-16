@@ -438,7 +438,7 @@ describe('SEO length limits and uniqueness (Phase 4)', () => {
       '/calculators/concrete-slab-calculator': {
         es: 'Calculadora de concreto para losa',
         pt: 'Calculadora de concreto para laje',
-        fr: 'Calcul de dalle en béton',
+        fr: 'Calcul dalle béton',
         de: 'Betonrechner',
       },
       '/calculators/brick-mortar-calculator': {

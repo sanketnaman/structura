@@ -5,8 +5,12 @@ import { DEFAULT_LOCALE, isLocaleCode, LOCALIZED_PREFIX_CODES, type LocaleCode }
  *
  *   /                                  -> default English (unchanged, always)
  *   /calculators                       -> default English (unchanged, always)
- *   /es/calculators                    -> Spanish
- *   /pt, /fr, /de ...                  -> same pattern
+ *   /es/                               -> locale root, trailing-slash form so
+ *                                         internal links match canonical,
+ *                                         hreflang, sitemap and og:url
+ *   /es/calculators                    -> Spanish (all other paths stay
+ *                                         trailing-slash-free)
+ *   /pt/, /fr/, /de/ ...               -> same pattern
  *
  * English URLs are never prefixed with `/en/`. These helpers are the single
  * place that parses, strips, adds and converts locale prefixes — route
@@ -88,11 +92,16 @@ export function stripLocalePrefix(pathname: string): string {
   return parseLocalePath(pathname).basePath;
 }
 
-/** Builds a locale-scoped path; default locale always yields the plain path. */
+/**
+ * Builds a locale-scoped path; the default locale always yields the plain
+ * path. Locale roots take the trailing-slash form (`/es/`) so internal links
+ * match the canonical/hreflang/sitemap URLs; every other path stays
+ * trailing-slash-free.
+ */
 export function localizePath(locale: LocaleCode, basePath: string): string {
   const normalized = normalizeBasePath(basePath);
   if (locale === DEFAULT_LOCALE) return normalized;
-  return normalized === '/' ? `/${locale}` : `/${locale}${normalized}`;
+  return normalized === '/' ? `/${locale}/` : `/${locale}${normalized}`;
 }
 
 /**

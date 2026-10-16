@@ -30,10 +30,7 @@ function urlPath(url: string): string {
 
 /** Registered localized path for a sitemap URL, or `null` when invalid. */
 function registeredPath(url: string): string | null {
-  const raw = urlPath(url);
-  // Locale homes are published with a trailing slash (`/es/`) while route
-  // registration stays slash-free (`/es`) — both address the same route.
-  const path = raw.length > 1 && raw.endsWith('/') ? raw.slice(0, -1) : raw;
+  const path = urlPath(url);
   const known =
     localizedRoutePaths().some((route) => route.path === path) ||
     ARTICLE_BASE_PATHS.includes(path) ||

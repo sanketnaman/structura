@@ -13,8 +13,9 @@ interface BreadcrumbsProps {
 }
 
 /**
- * Trailing-slash-free breadcrumb trail. The last item renders with
- * `aria-current="page"` and no link so it can never point at itself.
+ * Breadcrumb trail; locale roots appear in their canonical slash form. The
+ * last item renders with `aria-current="page"` and no link so it can never
+ * point at itself.
  */
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
   const { t } = useLocale();

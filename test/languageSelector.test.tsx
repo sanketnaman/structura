@@ -195,13 +195,14 @@ describe('Locale switching preserves the current equivalent route', () => {
     expect(localStorage.getItem(LOCALE_STORAGE_KEY)).toBe('pt');
   });
 
-  it('canonicalizes the locale home link (from /es/ to /es) as before', () => {
+  it('emits the canonical trailing-slash locale home links and stays put on re-select', () => {
     renderSelector('/es/');
-    expect(hrefsOf(openMenu())).toEqual(['/', '/es', '/pt', '/fr', '/de']);
+    expect(hrefsOf(openMenu())).toEqual(['/', '/es/', '/pt/', '/fr/', '/de/']);
 
     const items = menuItems();
-    clickElement(items[1]); // same locale, trailing-slash form differs
-    expect(probe().pathname).toBe('/es');
+    const notCancelled = clickElement(items[1]); // same locale, already canonical
+    expect(notCancelled).toBe(false);
+    expect(probe().pathname).toBe('/es/');
   });
 
   it('returns to the unprefixed English home from a localized home', () => {

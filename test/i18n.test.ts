@@ -165,7 +165,7 @@ describe('Localized path helpers (future routes)', () => {
   it('builds locale-prefixed paths and keeps English paths unchanged', () => {
     expect(localizePath('en', '/')).toBe('/');
     expect(localizePath('en', '/calculators')).toBe('/calculators');
-    expect(localizePath('es', '/')).toBe('/es');
+    expect(localizePath('es', '/')).toBe('/es/');
     expect(localizePath('pt', '/calculators/paint-calculator')).toBe('/pt/calculators/paint-calculator');
   });
 });

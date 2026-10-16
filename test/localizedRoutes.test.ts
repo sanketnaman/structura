@@ -82,7 +82,7 @@ describe('Localized route generation', () => {
 
   it('covers the required localized routes', () => {
     const paths = routes.map((route) => route.path);
-    expect(paths).toContain('/es');
+    expect(paths).toContain('/es/');
     expect(paths).toContain('/es/calculators');
     expect(paths).toContain('/es/calculators/concrete-slab-calculator');
     expect(paths).toContain('/es/advertising');
@@ -103,7 +103,7 @@ describe('Localized route generation', () => {
 describe('Locale switching between equivalent routes', () => {
   it('converts an English path to a localized one', () => {
     expect(convertPathLocale('/calculators', 'es')).toBe('/es/calculators');
-    expect(convertPathLocale('/', 'es')).toBe('/es');
+    expect(convertPathLocale('/', 'es')).toBe('/es/');
     expect(
       convertPathLocale('/calculators/concrete-slab-calculator', 'de'),
     ).toBe('/de/calculators/concrete-slab-calculator');
@@ -169,7 +169,7 @@ describe('Localized internal link mapping (viewToPath)', () => {
   });
 
   it('localizes targets for a localized locale', () => {
-    expect(viewToPath('overview', 'es')).toBe('/es');
+    expect(viewToPath('overview', 'es')).toBe('/es/');
     expect(viewToPath('privacy', 'es')).toBe('/es/privacy');
     expect(viewToPath('brick-mortar-calculator', 'pt')).toBe('/pt/calculators/brick-mortar-calculator');
     expect(viewToPath('guides', 'fr')).toBe('/fr/guides');

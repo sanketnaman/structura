@@ -68,7 +68,7 @@ describe('Localized canonical URLs', () => {
   it('produces a self-referencing canonical for every localized route', () => {
     for (const locale of LOCALIZED_LOCALES) {
       for (const basePath of SAMPLE_BASE_PATHS) {
-        const expected = basePath === '/' ? `/${locale}` : `/${locale}${basePath}`;
+        const expected = basePath === '/' ? `/${locale}/` : `/${locale}${basePath}`;
         const seo = getRouteSEO(expected);
         expect(seo.canonicalPath, `${locale} ${basePath}`).toBe(expected);
         expect(seo.locale).toBe(locale);

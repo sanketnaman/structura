@@ -708,30 +708,24 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
       <section className="space-y-8 pt-4 border-t border-paper-300 dark:border-charcoal-750 text-body-sm leading-relaxed text-slate-600 dark:text-slate-400">
         <div className="space-y-3">
           <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white tracking-tight">
-            How to Calculate Paint for Interior Walls and Ceilings
+            {t('paint.guide.title')}
           </h2>
-          <p>
-            Estimating interior architectural coatings requires determining the net paintable drywall or plaster surface area. One standard U.S. gallon of interior latex or acrylic paint covers approximately 350 to 400 square feet on smooth primed drywall (or 8.5 to 10 square meters per liter). Unprimed fresh drywall, textured ceilings, or stucco absorb more coating, reducing spreading rate to approximately 250 to 300 sq ft/gallon.
-          </p>
+          <p>{t('paint.guide.intro')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-              Why Two Coats Are Standard Practice
+              {t('paint.guide.whyTwoCoatsTitle')}
             </h3>
-            <p>
-              Two coats provide uniform film thickness (mil build), conceal underlying patches or contrasting pigment, and produce true manufacturer sheen (eggshell, satin, semi-gloss). While some commercial paints are advertised as "one-coat coverage," professional painting contractors consistently specify two finish coats over primer for warranty compliance and scrub resistance.
-            </p>
+            <p>{t('paint.guide.whyTwoCoatsBody')}</p>
           </div>
 
           <div className="space-y-2">
             <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-              Standard Opening Deduction Allowances
+              {t('paint.guide.deductionTitle')}
             </h3>
-              <p>
-                Architectural takeoffs deduct 21 sq ft (2.0 m²) for each standard interior door (3'-0" × 7'-0") and 15 sq ft (1.4 m²) for each standard double-hung or casement window (3'-0" × 5'-0"). For expansive picture windows or sliding patio doors, measure actual dimensions and deduct manually.
-              </p>
+            <p>{t('paint.guide.deductionBody')}</p>
           </div>
         </div>
 

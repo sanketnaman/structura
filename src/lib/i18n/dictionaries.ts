@@ -890,6 +890,16 @@ export const en = {
   'concrete.guide.subgradeBody':
     'A 4-inch compacted gravel base (crushed stone #57 or road base) prevents subgrade settlement, frost heaving, and uncontrolled slab cracking.',
 
+  'paint.guide.title': 'How to Calculate Paint for Interior Walls and Ceilings',
+  'paint.guide.intro':
+    'Estimating interior architectural coatings requires determining the net paintable drywall or plaster surface area. One standard U.S. gallon of interior latex or acrylic paint covers approximately 350 to 400 square feet on smooth primed drywall (or 8.5 to 10 square meters per liter). Unprimed fresh drywall, textured ceilings, or stucco absorb more coating, reducing spreading rate to approximately 250 to 300 sq ft/gallon.',
+  'paint.guide.whyTwoCoatsTitle': 'Why Two Coats Are Standard Practice',
+  'paint.guide.whyTwoCoatsBody':
+    'Two coats provide uniform film thickness (mil build), conceal underlying patches or contrasting pigment, and produce true manufacturer sheen (eggshell, satin, semi-gloss). While some commercial paints are advertised as "one-coat coverage," professional painting contractors consistently specify two finish coats over primer for warranty compliance and scrub resistance.',
+  'paint.guide.deductionTitle': 'Standard Opening Deduction Allowances',
+  'paint.guide.deductionBody':
+    'Architectural takeoffs deduct 21 sq ft (2.0 m²) for each standard interior door (3\'-0" × 7\'-0") and 15 sq ft (1.4 m²) for each standard double-hung or casement window (3\'-0" × 5\'-0"). For expansive picture windows or sliding patio doors, measure actual dimensions and deduct manually.',
+
   // ── Metric-first wording ──────────────────────────────────────────────
   // Selected only when `isMetric && locale !== 'en'`, so English pages keep
   // their existing output byte for byte.
@@ -1804,6 +1814,18 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.guide.subgradeBody':
       'Una base de 4 pulgadas (10 cm) de grava compactada (piedra triturada #57 o base de camino) evita el asentamiento del terreno, el levantamiento por heladas y las grietas no controladas de la losa.',
 
+    // ── Guía de la calculadora de pintura ────────────────────────────────
+    // TODO(needs native review): todas las claves de este bloque.
+    'paint.guide.title': 'Cómo calcular la pintura para muros y techos interiores',
+    'paint.guide.intro':
+      'Estimar la pintura arquitectónica interior requiere determinar el área neta pintable de yeso o tablaroca. Un galón estadounidense estándar de pintura látex o acrílica interior cubre aproximadamente 32,5 a 37,2 m² (350 a 400 ft²) sobre tablaroca lisa ya imprimada (es decir, unos 8,5 a 10 m² por litro). La tablaroca nueva sin imprimar, los techos texturizados o el estuco absorben más producto y reducen el rendimiento a unos 6 a 7,5 m²/L.',
+    'paint.guide.whyTwoCoatsTitle': 'Por qué se aplican dos manos como estándar',
+    'paint.guide.whyTwoCoatsBody':
+      'Dos manos logran un espesor de película uniforme (espesor en milésimas), ocultan parches o pigmentos contrastes y logran el brillo real del fabricante (huevo, satinado, semibrillo). Aunque algunas pinturas comerciales se anuncian como "cubierta en una sola mano", los contratistas profesionales de pintura especifican consistentemente dos manos acabadas sobre la imprimación, tanto por garantía como por resistencia al lavado.',
+    'paint.guide.deductionTitle': 'Deducciones estándar por huecos',
+    'paint.guide.deductionBody':
+      'Los presupuestos de arquitectura descuentan 2,0 m² (21 ft²) por cada puerta interior estándar (0,91 × 2,13 m) y 1,4 m² (15 ft²) por cada ventana corriente o de guillotina (0,91 × 1,52 m). Para ventanales amplios o puertas corredizas de patio, mida las dimensiones reales y descuente manualmente.',
+
     'blog.backToListing': 'Todos los artículos',
 
     // ── Redacción métrica (solo con `isMetric && locale !== 'en'`) ────────
@@ -2692,6 +2714,18 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.guide.subgradeTitle': 'Compactação do subsolo',
     'concrete.guide.subgradeBody':
       'Uma base de 4 polegadas (10 cm) de brita compactada (pedra britada nº 57 ou base de estrada) evita o assentamento do subsolo, o levantamento por gelo e as fissuras não controladas da laje.',
+
+    // ── Guia da calculadora de tinta ─────────────────────────────────────
+    // TODO(needs native review): todas as chaves deste bloco.
+    'paint.guide.title': 'Como calcular a tinta para paredes e tetos internos',
+    'paint.guide.intro':
+      'Estimar a tinta de acabamento interna exige determinar a área pintável líquida de gesso ou drywall. Um galão americano padrão de tinta acrílica ou látex interna cobre aproximadamente 32,5 a 37,2 m² (350 a 400 ft²) sobre drywall liso já aplicado com primer (ou seja, cerca de 8,5 a 10 m² por litro). Drywall novo sem primer, tetos texturizados ou estuque absorvem mais tinta, reduzindo o rendimento para cerca de 6 a 7,5 m²/L.',
+    'paint.guide.whyTwoCoatsTitle': 'Por que duas demãos são o padrão',
+    'paint.guide.whyTwoCoatsBody':
+      'Duas demãos garantem espessura uniforme de película, ocultam remendos ou cores contrastantes e produzem o brilho real do fabricante (fosco acetinado, acetinado, semibrilho). Embora algumas tintas comerciais sejam anunciadas como "cobertura em uma demão", pintores profissionais especificam consistentemente duas demãos de acabamento sobre o primer, tanto para garantia quanto para resistência à lavagem.',
+    'paint.guide.deductionTitle': 'Abatimentos padrão por vãos',
+    'paint.guide.deductionBody':
+      'Orçamentos de arquitetura abatem 2,0 m² (21 ft²) para cada porta interna padrão (0,91 × 2,13 m) e 1,4 m² (15 ft²) para cada janela padrão ou de batente (0,91 × 1,52 m). Para janelas panorâmicas amplas ou portas de correr de sacada, meça as dimensões reais e abata manualmente.',
 
     'blog.backToListing': 'Todos os artigos',
 
@@ -3602,6 +3636,18 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.guide.subgradeBody':
       'Une semelle de gravier compactée de 4 pouces (10 cm) (pierre concassée n° 57 ou matériau de route) évite le tassement de la forme, le gel et les fissures incontrôlées de la dalle.',
 
+    // ── Guide de la calculateur de peinture ──────────────────────────────
+    // TODO(needs native review) : toutes les clés de ce bloc.
+    'paint.guide.title': 'Comment calculer la peinture pour murs et plafonds intérieurs',
+    'paint.guide.intro':
+      'Estimer la peinture de finition intérieure revient à déterminer la surface nette peignable du plâtre ou du BA13. Un gallon américain standard de peinture acrylique ou latex intérieure couvre environ 32,5 à 37,2 m² (350 à 400 ft²) sur un BA13 lisse déjà apprêté, soit environ 8,5 à 10 m² par litre. Le BA13 neuf non apprêté, les plafonds texturés ou l’enduit absorbent davantage de produit et réduisent le rendement à environ 6 à 7,5 m²/L.',
+    'paint.guide.whyTwoCoatsTitle': 'Pourquoi deux couches sont la norme',
+    'paint.guide.whyTwoCoatsBody':
+      'Deux couches assurent une épaisseur de film uniforme, masquent les raccords ou les pigments contrastés et restituent le fini réel du fabricant (œuf, satiné, semi-brillant). Bien que certaines peintures commerciales soient annoncées comme « couche unique », les peintres professionnels spécifient systématiquement deux couches de finition sur l’apprêt, pour la garantie comme pour la résistance au lavage.',
+    'paint.guide.deductionTitle': 'Déductions standard des ouvertures',
+    'paint.guide.deductionBody':
+      'Les métrés d’architecture déduisent 2,0 m² (21 ft²) pour chaque porte intérieure standard (0,91 × 2,13 m) et 1,4 m² (15 ft²) pour chaque fenêtre standard à guillotine ou à vantaux (0,91 × 1,52 m). Pour les baies vitrées panoramiques ou les portes coulissantes de terrasse, mesurez les dimensions réelles et déduisez manuellement.',
+
     // ── Formulation métrique (uniquement avec `isMetric && locale !== 'en'`)
     // TODO(needs native review) : toutes les clés de ce bloc.
     'concrete.headerBodyMetric':
@@ -4495,6 +4541,18 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.guide.subgradeTitle': 'Verdichtung des Untergrunds',
     'concrete.guide.subgradeBody':
       'Eine 4 Zoll (10 cm) verdichtete Schotterbettung (Schotter Nr. 57 oder Fahrbahnaufbau) verhindert Setzungen des Untergrunds, Frostschäden und unkontrollierte Plattenerisse.',
+
+    // ── Leitfaden zum Farbrechner ────────────────────────────────────────
+    // TODO(needs native review): alle Schlüssel in diesem Block.
+    'paint.guide.title': 'So berechnen Sie Farbe für Innenwände und Decken',
+    'paint.guide.intro':
+      'Für die Schätzung von Innenfarbe muss die netto streichbare Gips- oder Trockenbaufläche ermittelt werden. Ein US-Gallon Innendispersions- oder Acrylfarbe deckt auf glattem, grundiertem Trockenbau etwa 32,5 bis 37,2 m² (350 bis 400 ft²), also rund 8,5 bis 10 m² pro Liter. Ungrundierter neuer Trockenbau, strukturierte Decken oder Putz saugen mehr Farbe auf; die Deckung fällt auf etwa 6 bis 7,5 m²/L.',
+    'paint.guide.whyTwoCoatsTitle': 'Warum zwei Anstriche branchenüblich sind',
+    'paint.guide.whyTwoCoatsBody':
+      'Zwei Anstriche sorgen für eine gleichmäßige Filmdicke, verdecken Untergrundflickstellen oder kontrastierende Pigmente und erzeugen den tatsächlichen Fabrikglanz (matt, seidenmattsatin, halbglanz). Auch wenn manche Dispersionsfarben mit „Einstrichdeckung“ beworben werden, spezifizieren professionelle Malerbetriebe aus Haftungs- und Abriebgründen durchgängig zwei Deckanstriche über dem Grundieranstrich.',
+    'paint.guide.deductionTitle': 'Standardabzüge für Öffnungen',
+    'paint.guide.deductionBody':
+      'Kalkulationsmaßstäbe ziehen 2,0 m² (21 ft²) für jede Standard-Innentür (0,91 × 2,13 m) und 1,4 m² (15 ft²) für jedes Standard-Flügel- oder Drehfenster (0,91 × 1,52 m) ab. Für große Panoramafenster oder Schiebetüren messen Sie die tatsächlichen Abzüge und ziehen sie manuell ab.',
 
     // ── Metrische Formulierung (nur bei `isMetric && locale !== 'en'`) ────
     // TODO(needs native review): alle Schlüssel in diesem Block.

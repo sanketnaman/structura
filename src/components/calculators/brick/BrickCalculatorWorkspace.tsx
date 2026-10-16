@@ -231,7 +231,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
       {/* Header & Breadcrumb */}
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 border-b border-paper-300 dark:border-charcoal-750 pb-4">
         <div>
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-micro font-mono text-slate-500 mb-1">
+          <nav aria-label={t('common.breadcrumb')} className="flex items-center gap-2 text-micro font-mono text-slate-500 mb-1">
             <Link
               to={viewToPath('overview')}
               className="hover:text-accent transition-colors flex items-center gap-1"

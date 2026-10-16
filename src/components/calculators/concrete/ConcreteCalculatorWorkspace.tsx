@@ -235,7 +235,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
       )}
 
       {/* Breadcrumb Navigation */}
-      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-micro font-mono text-slate-500">
+      <nav aria-label={t('common.breadcrumb')} className="flex items-center gap-2 text-micro font-mono text-slate-500">
         <Link
           to={viewToPath('overview')}
           className="hover:text-accent flex items-center gap-1"

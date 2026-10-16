@@ -64,7 +64,7 @@ describe('representative route rendering', () => {
 
     expect(html.length).toBeGreaterThan(10_000);
     expect(html).toContain(translate('fr', 'nav.paintCalculator'));
-    expect(html).toContain('Reset View');
+    expect(html).toContain(translate('fr', 'scene.resetView'));
     expect(html).toContain('href="/fr/');
     expect(countAnchors(html)).toBeGreaterThanOrEqual(10);
     expect(html).not.toContain('href="/en/');
@@ -75,7 +75,7 @@ describe('representative route rendering', () => {
 
     expect(html.length).toBeGreaterThan(10_000);
     expect(html).toContain(translate('de', 'nav.concreteSlabCalculator'));
-    expect(html).toContain('Reset View');
+    expect(html).toContain(translate('de', 'scene.resetView'));
     expect(html).toContain('href="/de/');
     expect(countAnchors(html)).toBeGreaterThanOrEqual(10);
     expect(html).not.toContain('href="/en/');
@@ -86,7 +86,7 @@ describe('representative route rendering', () => {
 
     expect(html.length).toBeGreaterThan(10_000);
     expect(html).toContain(translate('en', 'brick.h1'));
-    expect(html).toContain('Reset View');
+    expect(html).toContain(translate('en', 'scene.resetView'));
     expect(html).toContain('href="/privacy"');
     expect(countAnchors(html)).toBeGreaterThanOrEqual(20);
     expect(html).not.toContain('href="/en/');

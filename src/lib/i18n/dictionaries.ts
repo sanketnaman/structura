@@ -26,6 +26,11 @@ export const en = {
   'common.copyGenerated': 'Generated at {date} via MixTally Construction Technology',
   'volumeUnit.m3': 'cubic meters',
   'volumeUnit.yd3': 'cubic yards',
+  'scene.interactiveModel': 'Interactive 3D Model',
+  'scene.resetView': 'Reset View',
+  'scene.resetCamera': 'Reset Camera View',
+  'scene.orbitHint': 'Orbit: Left Click / Touch Drag',
+  'scene.zoomHint': 'Zoom: Scroll / Pinch',
 
   // ── Header / navigation ──────────────────────────────────────────────
   'nav.overview': 'Overview',
@@ -1053,8 +1058,14 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'common.shared': 'URL compartible del proyecto copiada al portapapeles',
     'common.copyGenerated': 'Generado el {date} con MixTally Construction Technology',
 
-    'volumeUnit.m3': 'metros cúbicos',
-    'volumeUnit.yd3': 'yardas cúbicas',
+    'volumeUnit.m3': 'm³',
+    'volumeUnit.yd3': 'yd³',
+    // TODO(needs native review)
+    'scene.interactiveModel': 'Modelo 3D interactivo',
+    'scene.resetView': 'Restablecer vista',
+    'scene.resetCamera': 'Restablecer vista de cámara',
+    'scene.orbitHint': 'Órbita: clic izquierdo / arrastre con el dedo',
+    'scene.zoomHint': 'Zoom: desplazar / pellizcar',
 
     'nav.overview': 'Resumen',
     'nav.calculators': 'Calculadoras',
@@ -1134,7 +1145,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'footer.advertisingDisclosure': 'Divulgación publicitaria',
     'footer.noticeLead': 'Aviso de planificación de obra:',
     'footer.noticeBody':
-      'Los cálculos que ofrece MixTally son estimaciones matemáticas de cantidades y materiales destinadas a la planificación volumétrica, la proyección de compras y la coordinación de mediciones. No constituyen ingeniería estructural colegiada, cálculos de cargas, análisis geotécnico de cimentaciones ni especificaciones arquitetónicas certificadas. Verifique las medidas de campo con inspecciones in situ y consulte a un ingeniero civil o estructural colegiado para decisiones críticas de seguridad y elementos resistentes.',
+      'Los cálculos que ofrece MixTally son estimaciones matemáticas de cantidades y materiales destinadas a la planificación volumétrica, la proyección de compras y la coordinación de mediciones. No constituyen ingeniería estructural colegiada, cálculos de cargas, análisis geotécnico de cimentaciones ni especificaciones arquitectónicas certificadas. Verifique las medidas de campo con inspecciones in situ y consulte a un ingeniero civil o estructural colegiado para decisiones críticas de seguridad y elementos resistentes.',
     'footer.readFullDisclaimer': 'Leer el aviso completo',
     'footer.copyright': '© {year} MixTally. Todos los derechos reservados.',
     'footer.bottomFormula': 'Mediciones de materiales basadas en fórmulas',
@@ -1617,7 +1628,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.step1Line2Lead': 'Área bruta = {a} × {b} =',
     'paint.step2Title': 'Paso 2: deducciones arquitectónicas',
     'paint.step2Line1':
-      '{doors} puertas ({doorsDeduction}) + {windows} ventanas ({windowsDeduction})',
+      'Puertas: {doors} ({doorsDeduction}) + Ventanas: {windows} ({windowsDeduction})',
     'paint.step2Line2Lead': 'Superficie neta de pared = {a} - {b} =',
     'paint.step3Title': 'Paso 3: cobertura y volumen a comprar',
     'paint.step3Line1': '{area} × {coats} capas ÷ {rate} {unit}',
@@ -1630,7 +1641,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
       'Dimensiones del ambiente: {l} {u} largo × {w} {u} ancho × {h} {u} alto del techo',
     'paint.copy.perimeter': 'Perímetro de la pared: {v} {u}',
     'paint.copy.gross': 'Área bruta de la pared: {v} {u}',
-    'paint.copy.deductions': 'Deducción de aberturas: -{v} {u} ({d} puertas, {w} ventanas)',
+    'paint.copy.deductions': 'Deducción de aberturas: -{v} {u} (puertas: {d}, ventanas: {w})',
     'paint.copy.net': 'Superficie neta de pared: {v} {u}',
     'paint.copy.coated': 'Superficie total a pintar ({c} capas): {v} {u}',
     'paint.copy.volume': 'Volumen de pintura necesario: {v} {u}',
@@ -2048,8 +2059,14 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'common.copied': 'Estimativa de medição copiada para a área de transferência',
     'common.shared': 'URL do projeto para compartilhar copiada para a área de transferência',
     'common.copyGenerated': 'Gerado em {date} pela MixTally Construction Technology',
-    'volumeUnit.m3': 'metros cúbicos',
-    'volumeUnit.yd3': 'jardas cúbicas',
+    'volumeUnit.m3': 'm³',
+    'volumeUnit.yd3': 'yd³',
+    // TODO(needs native review)
+    'scene.interactiveModel': 'Modelo 3D interativo',
+    'scene.resetView': 'Redefinir visão',
+    'scene.resetCamera': 'Redefinir visão da câmera',
+    'scene.orbitHint': 'Órbita: clique esquerdo / arrastar com o dedo',
+    'scene.zoomHint': 'Zoom: rolar / pinçar',
 
     'nav.overview': 'Visão geral',
     'nav.calculators': 'Calculadoras',
@@ -2129,7 +2146,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'footer.advertisingDisclosure': 'Divulgação de publicidade',
     'footer.noticeLead': 'Aviso de planejamento de obra:',
     'footer.noticeBody':
-      'Os cálculos fornecidos pela MixTally são estimativas matemáticas de quantidades e materiais, destinadas a planejamento volumétrico, projeções de compra e coordenação de medições. Eles não constituem engenharia estrutural licenciada, cálculos de cargas, análises geotécnicas de fundação nem especificações arquitetônicas certificadas. Confirme as medidas de campo com inspeções no local e consulte um engenheiro civil ou estrutural licenciado para decisões críticas de segurança e elementes portantes.',
+      'Os cálculos fornecidos pela MixTally são estimativas matemáticas de quantidades e materiais, destinadas a planejamento volumétrico, projeções de compra e coordenação de medições. Eles não constituem engenharia estrutural licenciada, cálculos de cargas, análises geotécnicas de fundação nem especificações arquitetônicas certificadas. Confirme as medidas de campo com inspeções no local e consulte um engenheiro civil ou estrutural licenciado para decisões críticas de segurança e elementos portantes.',
     'footer.readFullDisclaimer': 'Ler o aviso completo',
     'footer.copyright': '© {year} MixTally. Todos os direitos reservados.',
     'footer.bottomFormula': 'Medições de materiais baseadas em fórmulas',
@@ -2595,7 +2612,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.step1Line1': 'Perímetro = ({a} + {b}) × 2 = {c} {unit}',
     'paint.step1Line2Lead': 'Área bruta = {a} × {b} =',
     'paint.step2Title': 'Etapa 2: deduções arquitetônicas',
-    'paint.step2Line1': '{doors} portas ({doorsDeduction}) + {windows} janelas ({windowsDeduction})',
+    'paint.step2Line1': 'Portas: {doors} ({doorsDeduction}) + Janelas: {windows} ({windowsDeduction})',
     'paint.step2Line2Lead': 'Superfície líquida da parede = {a} - {b} =',
     'paint.step3Title': 'Etapa 3: cobertura e volume a comprar',
     'paint.step3Line1': '{area} × {coats} demãos ÷ {rate} {unit}',
@@ -2608,7 +2625,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.copy.room': 'Dimensões do ambiente: {l} {u} comp. × {w} {u} larg. × {h} {u} alt. do teto',
     'paint.copy.perimeter': 'Perímetro da parede: {v} {u}',
     'paint.copy.gross': 'Área bruta da parede: {v} {u}',
-    'paint.copy.deductions': 'Deduções de aberturas: -{v} {u} ({d} portas, {w} janelas)',
+    'paint.copy.deductions': 'Deduções de aberturas: -{v} {u} (portas: {d}, janelas: {w})',
     'paint.copy.net': 'Superfície líquida da parede: {v} {u}',
     'paint.copy.coated': 'Superfície total a pintar ({c} demãos): {v} {u}',
     'paint.copy.volume': 'Volume de tinta necessário: {v} {u}',
@@ -2696,7 +2713,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.step3NoteImperial': '{v} ft³ ÷ 27 = {y} jardas cúbicas a pedir.',
     'concrete.fieldNoteLead': 'Observação prática de campo:',
     'concrete.fieldNoteBody':
-      'Terrenos de fundo nunca são perfeitamente planos. Pequenos rebaixamentos, deflectação das formas sob a pressão hidrostática do concreto fresco e concreto residual preso na calha do caminhão-falha consomem rotineiramente de 5% a 10% a mais de volume do que os desenhos teóricos indicam. Sempre faça o pedido com margem adequada.',
+      'Terrenos de fundo nunca são perfeitamente planos. Pequenos rebaixamentos, deflectação das formas sob a pressão hidrostática do concreto fresco e concreto residual preso na calha do caminhão betoneira consomem rotineiramente de 5% a 10% a mais de volume do que os desenhos teóricos indicam. Sempre faça o pedido com margem adequada.',
     'concrete.costTitle': 'Estimativa opcional de custo de materiais',
     'concrete.costSubtitle':
       'Informe o orçamento do fornecedor local para calcular o custo estimado dos materiais',
@@ -3030,8 +3047,14 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'common.shared': 'URL du projet copiée dans le presse-papiers',
     'common.copyGenerated': 'Généré le {date} via MixTally Construction Technology',
 
-    'volumeUnit.m3': 'mètres cubes',
-    'volumeUnit.yd3': 'yards cubes',
+    'volumeUnit.m3': 'm³',
+    'volumeUnit.yd3': 'yd³',
+    // TODO(needs native review)
+    'scene.interactiveModel': 'Modèle 3D interactif',
+    'scene.resetView': 'Réinitialiser la vue',
+    'scene.resetCamera': 'Réinitialiser la caméra',
+    'scene.orbitHint': 'Orbite : clic gauche / glisser le doigt',
+    'scene.zoomHint': 'Zoom : défilet / pincement',
 
     'nav.overview': 'Vue d’ensemble',
     'nav.calculators': 'Calculateurs',
@@ -3594,7 +3617,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.step1Line2Lead': 'Surface brute = {a} × {b} =',
     'paint.step2Title': 'Étape 2 : déductions architecturales',
     'paint.step2Line1':
-      '{doors} portes ({doorsDeduction}) + {windows} fenêtres ({windowsDeduction})',
+      'Portes : {doors} ({doorsDeduction}) + Fenêtres : {windows} ({windowsDeduction})',
     'paint.step2Line2Lead': 'Surface nette du mur = {a} - {b} =',
     'paint.step3Title': 'Étape 3 : couverture et volume à acheter',
     'paint.step3Line1': '{area} × {coats} couches ÷ {rate} {unit}',
@@ -3607,7 +3630,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
       'Dimensions de la pièce : {l} {u} de long × {w} {u} de large × {h} {u} de hauteur de plafond',
     'paint.copy.perimeter': 'Périmètre du mur : {v} {u}',
     'paint.copy.gross': 'Surface brute du mur : {v} {u}',
-    'paint.copy.deductions': 'Déduction des ouvertures : -{v} {u} ({d} portes, {w} fenêtres)',
+    'paint.copy.deductions': 'Déduction des ouvertures : -{v} {u} (portes : {d}, fenêtres : {w})',
     'paint.copy.net': 'Surface nette du mur : {v} {u}',
     'paint.copy.coated': 'Surface totale à peindre ({c} couches) : {v} {u}',
     'paint.copy.volume': 'Volume de peinture requis : {v} {u}',
@@ -3720,7 +3743,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.copy.trucks':
       'Livraisons de béton prêt à l’emploi : ~{count} camions (tambour de ~9 yd³)',
     'concrete.copy.cost': 'Coût estimé du matériau : ${cost} (@ ${price}/{unit})',
-    'concrete.relatedBrickSub': 'Appareillage modular standard et métrés de mortier de type N',
+    'concrete.relatedBrickSub': 'Appareillage modulaire standard et métrés de mortier de type N',
     'concrete.relatedPaintSub': 'Couverture murale multicouche et emballage commercial',
 
     'common.faqTitle': 'Questions fréquentes',
@@ -4030,8 +4053,14 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'common.shared': 'Freigegebene Projekt-URL in die Zwischenablage kopiert',
     'common.copyGenerated': 'Erstellt am {date} mit MixTally Construction Technology',
 
-    'volumeUnit.m3': 'Kubikmeter',
-    'volumeUnit.yd3': 'Kubikyards',
+    'volumeUnit.m3': 'm³',
+    'volumeUnit.yd3': 'yd³',
+    // TODO(needs native review)
+    'scene.interactiveModel': 'Interaktives 3D-Modell',
+    'scene.resetView': 'Ansicht zurücksetzen',
+    'scene.resetCamera': 'Kamera zurücksetzen',
+    'scene.orbitHint': 'Umlauf: Linksklick / Ziehen mit dem Finger',
+    'scene.zoomHint': 'Zoom: Scrollen / Pinchen',
 
     'nav.overview': 'Übersicht',
     'nav.calculators': 'Rechner',
@@ -4585,7 +4614,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.step1Line1': 'Umfang = ({a} + {b}) × 2 = {c} {unit}',
     'paint.step1Line2Lead': 'Bruttofläche = {a} × {b} =',
     'paint.step2Title': 'Schritt 2: Architekturabzüge',
-    'paint.step2Line1': '{doors} Türen ({doorsDeduction}) + {windows} Fenster ({windowsDeduction})',
+    'paint.step2Line1': 'Türen: {doors} ({doorsDeduction}) + Fenster: {windows} ({windowsDeduction})',
     'paint.step2Line2Lead': 'Nettowandfläche = {a} - {b} =',
     'paint.step3Title': 'Schritt 3: Deckung & Volumenermittlung',
     'paint.step3Line1': '{area} × {coats} Anstriche ÷ {rate} {unit}',
@@ -4597,7 +4626,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.copy.room': 'Raumabmessungen: {l} {u} L × {w} {u} B × {h} {u} Deckenhöhe',
     'paint.copy.perimeter': 'Wandomfang: {v} {u}',
     'paint.copy.gross': 'Bruttowandfläche: {v} {u}',
-    'paint.copy.deductions': 'Öffnungsabzüge: -{v} {u} ({d} Türen, {w} Fenster)',
+    'paint.copy.deductions': 'Öffnungsabzüge: -{v} {u} (Türen: {d}, Fenster: {w})',
     'paint.copy.net': 'Nettowandfläche: {v} {u}',
     'paint.copy.coated': 'Gesamte gestrichene Fläche ({c} Anstriche): {v} {u}',
     'paint.copy.volume': 'Benötigtes Farbvolumen: {v} {u}',

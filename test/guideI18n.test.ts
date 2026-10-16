@@ -65,7 +65,7 @@ describe('Guide key translation completeness', () => {
 
   it('no non-EN guide value is silently identical to English', () => {
     for (const code of NON_EN_LOCALES) {
-      const dict = dictionaries[code];
+      const dict = dictionaries[code] as Record<string, string | undefined>;
       for (const key of guideKeys) {
         if (!(key in dict)) continue;
         if (IDENTICAL_VALUE_ALLOWLIST.has(`${code}.${key}`)) continue;
@@ -83,7 +83,7 @@ describe('Guide key translation completeness', () => {
         .trim()
         .toLowerCase();
     for (const code of NON_EN_LOCALES) {
-      const dict = dictionaries[code];
+      const dict = dictionaries[code] as Record<string, string | undefined>;
       for (const key of guideKeys) {
         if (!(key in dict)) continue;
         if (IDENTICAL_VALUE_ALLOWLIST.has(`${code}.${key}`)) continue;
@@ -112,7 +112,12 @@ describe('HTML safety of dictionary strings rendered via dangerouslySetInnerHTML
 
   const allLocales: Array<[string, Record<string, string | undefined>]> = [
     ['en', en as Record<string, string | undefined>],
-    ...NON_EN_LOCALES.map((code) => [code, dictionaries[code] as Record<string, string | undefined>]),
+    ...NON_EN_LOCALES.map(
+      (code) => [code, dictionaries[code] as Record<string, string | undefined>] as [
+        string,
+        Record<string, string | undefined>,
+      ],
+    ),
   ];
 
   it('only allows strong/span/em/code tags with class attributes, balanced', () => {

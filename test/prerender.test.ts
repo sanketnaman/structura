@@ -505,7 +505,7 @@ describe('representative routes (all five locales)', () => {
     expect(extract(html, /<html lang="([^"]*)">/)).toBe('fr');
     const root = extractRootContent(html);
     expect(root).toContain(translate('fr', 'nav.paintCalculator'));
-    expect(root).toContain('Reset View');
+    expect(root).toContain(translate('fr', 'scene.resetView'));
     expect(root).toContain('href="/fr/');
     const schemas = extractTaggedJsonLd(html);
     expect(schemas.map((s) => s['@type'])).toEqual(['WebApplication', 'BreadcrumbList']);
@@ -520,7 +520,7 @@ describe('representative routes (all five locales)', () => {
     expect(extract(html, /<html lang="([^"]*)">/)).toBe('de');
     const root = extractRootContent(html);
     expect(root).toContain(translate('de', 'nav.concreteSlabCalculator'));
-    expect(root).toContain('Reset View');
+    expect(root).toContain(translate('de', 'scene.resetView'));
     expect(root).toContain('href="/de/');
     const schemas = extractTaggedJsonLd(html);
     expect(schemas.map((s) => s['@type'])).toEqual([
@@ -542,7 +542,7 @@ describe('representative routes (all five locales)', () => {
     expect(extract(html, /<html lang="([^"]*)">/)).toBe('en');
     const root = extractRootContent(html);
     expect(root).toContain(translate('en', 'brick.h1'));
-    expect(root).toContain('Reset View');
+    expect(root).toContain(translate('en', 'scene.resetView'));
     expect(root).toContain('href="/privacy"');
     const schemas = extractTaggedJsonLd(html);
     expect(schemas.map((s) => s['@type'])).toEqual([

@@ -85,11 +85,22 @@ describe('Translation lookup with English fallback', () => {
 });
 
 describe('Dictionary coverage', () => {
-  const ALLOWED_MISSING = new Set(['paint.copy.separator', 'concrete.copy.separator']);
+  // The imperial worked example is English-only editorial content; localized
+  // guides always render the metric variant instead.
+  const ALLOWED_MISSING = new Set([
+    'paint.copy.separator',
+    'concrete.copy.separator',
+    'concrete.guide.exampleIntro',
+    'concrete.guide.exampleStep1',
+    'concrete.guide.exampleStep2',
+    'concrete.guide.exampleStep3',
+    'concrete.guide.exampleStep4',
+    'concrete.guide.exampleNote',
+  ]);
 
   it('covers every English key except the two decorative separators', () => {
     const enKeys = Object.keys(en);
-    expect(enKeys).toHaveLength(684);
+    expect(enKeys).toHaveLength(722);
 
     for (const code of ['es', 'pt', 'fr', 'de'] as const) {
       const dict = dictionaries[code];
@@ -99,7 +110,7 @@ describe('Dictionary coverage', () => {
 
       expect(extra).toEqual([]);
       expect(missing.filter((key) => !ALLOWED_MISSING.has(key))).toEqual([]);
-      expect(keys).toHaveLength(code === 'pt' ? 684 : 682);
+      expect(keys).toHaveLength(code === 'pt' ? 716 : 714);
     }
   });
 

@@ -47,6 +47,9 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
   // Metric pages outside English drop US customary wording (yd³ drums, bag
   // yields, inch-based notes) in favour of the localized metric variants.
   const metricWording = isMetric && locale !== 'en';
+  // Guide editorial content is always metric-first outside English, regardless
+  // of the in-page unit toggle.
+  const guideLocalized = locale !== 'en';
   const viewToPath = useViewToPath();
 
   // Form IDs for accessibility
@@ -943,69 +946,109 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
       <article className="space-y-10 pt-8 border-t border-paper-300 dark:border-charcoal-750 text-slate-700 dark:text-slate-300">
         <header className="space-y-3">
           <h2 className="text-display font-bold text-slate-900 dark:text-white tracking-tight">
-            Concrete Slab Calculator Guide
+            {t('concrete.guide.title')}
           </h2>
           <p className="text-body text-slate-600 dark:text-slate-400 leading-relaxed max-w-3xl">
-            Whether pouring a residential patio, sidewalk, equipment pad, or detached garage slab, calculating estimated concrete volume is fundamental to avoiding costly cold joints or excess disposal fees. This guide outlines standard geometric formulas, typical trade waste assumptions, and practical batching tips.
+            {t('concrete.guide.intro')}
           </p>
         </header>
 
         {/* Section 1: How to Calculate */}
         <section className="space-y-3">
           <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white">
-            How to Calculate Concrete for a Slab
+            {t('concrete.guide.howTitle')}
           </h2>
-          <p className="text-body-sm leading-relaxed">
-            Concrete is measured and sold in <strong>cubic yards</strong> ($yd^3$) in the United States and <strong>cubic meters</strong> ($m^3$) internationally. To calculate the volume required for a rectangular slab:
-          </p>
+          <p
+            className="text-body-sm leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: t('concrete.guide.unitsPara') }}
+          />
           <ol className="list-decimal list-inside space-y-1.5 text-body-sm pl-2">
-            <li><strong>Measure the Length and Width</strong> in feet (or meters).</li>
-            <li><strong>Determine the Slab Thickness</strong> in inches (or centimeters).</li>
-            <li><strong>Convert Thickness to Feet</strong> by dividing by 12 (or to meters by dividing by 100).</li>
-            <li><strong>Multiply Length × Width × Thickness</strong> to find the cubic feet (or cubic meters).</li>
-            <li><strong>Divide Cubic Feet by 27</strong> to convert into cubic yards.</li>
-            <li><strong>Add a Waste Allowance</strong> of 10% to account for subgrade unevenness and form flexure.</li>
+            <li dangerouslySetInnerHTML={{ __html: t('concrete.guide.step1') }} />
+            <li dangerouslySetInnerHTML={{ __html: t('concrete.guide.step2') }} />
+            <li dangerouslySetInnerHTML={{ __html: t('concrete.guide.step3') }} />
+            <li dangerouslySetInnerHTML={{ __html: t('concrete.guide.step4') }} />
+            <li dangerouslySetInnerHTML={{ __html: t('concrete.guide.step5') }} />
+            <li dangerouslySetInnerHTML={{ __html: t('concrete.guide.step6') }} />
           </ol>
         </section>
 
         {/* Section 2: Concrete Volume Formula */}
         <section className="space-y-4">
           <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white">
-            Concrete Volume Formula
+            {t('concrete.guide.formulaTitle')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {guideLocalized && (
+              <div className="p-4 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-2">
+                <span className="text-micro font-mono uppercase text-accent font-bold">
+                  {t('concrete.guide.formulaMetricLabel')}
+                </span>
+                <div className="p-3 rounded bg-paper-100 dark:bg-charcoal-950 font-mono text-body-sm text-slate-900 dark:text-white">
+                  {t('concrete.guide.formulaMetric')}
+                </div>
+              </div>
+            )}
             <div className="p-4 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-2">
-              <span className="text-micro font-mono uppercase text-accent font-bold">Imperial Formula (Cubic Yards)</span>
+              <span className="text-micro font-mono uppercase text-accent font-bold">
+                {t('concrete.guide.formulaImperialLabel')}
+              </span>
               <div className="p-3 rounded bg-paper-100 dark:bg-charcoal-950 font-mono text-body-sm text-slate-900 dark:text-white">
-                Volume (yd³) = [ Length (ft) × Width (ft) × (Thickness (in) ÷ 12) ] ÷ 27 × (1 + Waste %)
+                {t('concrete.guide.formulaImperial')}
               </div>
             </div>
-            <div className="p-4 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-2">
-              <span className="text-micro font-mono uppercase text-accent font-bold">Metric Formula (Cubic Meters)</span>
-              <div className="p-3 rounded bg-paper-100 dark:bg-charcoal-950 font-mono text-body-sm text-slate-900 dark:text-white">
-                Volume (m³) = Length (m) × Width (m) × (Thickness (cm) ÷ 100) × (1 + Waste %)
+            {!guideLocalized && (
+              <div className="p-4 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-2">
+                <span className="text-micro font-mono uppercase text-accent font-bold">
+                  {t('concrete.guide.formulaMetricLabel')}
+                </span>
+                <div className="p-3 rounded bg-paper-100 dark:bg-charcoal-950 font-mono text-body-sm text-slate-900 dark:text-white">
+                  {t('concrete.guide.formulaMetric')}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </section>
 
         {/* Section 3: Worked Example */}
         <section className="space-y-3">
           <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white">
-            Worked Example
+            {t('concrete.guide.exampleTitle')}
           </h2>
           <div className="p-5 rounded-tech-lg bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 space-y-3">
-            <p className="text-body-sm leading-relaxed">
-              Suppose you are pouring a backyard patio measuring <strong>20 feet long by 10 feet wide with a standard 4-inch depth</strong>:
-            </p>
+            <p
+              className="text-body-sm leading-relaxed"
+              dangerouslySetInnerHTML={{
+                __html: guideLocalized
+                  ? t('concrete.guide.exampleIntroMetric')
+                  : t('concrete.guide.exampleIntro'),
+              }}
+            />
             <div className="font-mono text-body-sm p-4 rounded bg-white dark:bg-charcoal-950 border border-paper-300 dark:border-charcoal-800 space-y-1">
-              <div>1. Convert thickness: 4 in ÷ 12 = 0.333 ft</div>
-              <div>2. Calculate net cubic feet: 20 ft × 10 ft × 0.333 ft = 66.67 ft³</div>
-              <div>3. Convert to cubic yards: 66.67 ft³ ÷ 27 = 2.47 yd³ net</div>
-              <div>4. Add 10% waste: 2.47 yd³ × 1.10 = 2.72 yd³ final order</div>
+              <div>
+                {guideLocalized
+                  ? t('concrete.guide.exampleStep1Metric')
+                  : t('concrete.guide.exampleStep1')}
+              </div>
+              <div>
+                {guideLocalized
+                  ? t('concrete.guide.exampleStep2Metric')
+                  : t('concrete.guide.exampleStep2')}
+              </div>
+              <div>
+                {guideLocalized
+                  ? t('concrete.guide.exampleStep3Metric')
+                  : t('concrete.guide.exampleStep3')}
+              </div>
+              <div>
+                {guideLocalized
+                  ? t('concrete.guide.exampleStep4Metric')
+                  : t('concrete.guide.exampleStep4')}
+              </div>
             </div>
             <p className="text-micro text-slate-500">
-              For bulk delivery, you would round this order up to 2.75 or 3.0 cubic yards. For bagged concrete, 73.33 ft³ ÷ 0.60 ft³ requires 123 eighty-pound bags.
+              {guideLocalized
+                ? t('concrete.guide.exampleNoteMetric')
+                : t('concrete.guide.exampleNote')}
             </p>
           </div>
         </section>
@@ -1013,34 +1056,36 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
         {/* Section 4: How Much Extra Concrete Should I Order? */}
         <section className="space-y-3">
           <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white">
-            How Much Extra Concrete Should I Order?
+            {t('concrete.guide.extraTitle')}
           </h2>
-          <p className="text-body-sm leading-relaxed">
-            Running short of concrete during a pour is a contractor's worst nightmare—it forces an emergency delivery and risks a weak, unsightly "cold joint" where new wet concrete cures against already-stiffened concrete. Standard trade guidelines recommend:
-          </p>
+          <p className="text-body-sm leading-relaxed">{t('concrete.guide.extraIntro')}</p>
           <ul className="list-disc list-inside space-y-1.5 text-body-sm pl-2">
-            <li><strong>Standard Slabs on Flat Ground:</strong> Order <strong>10% extra</strong>.</li>
-            <li><strong>Deep Footings or Irregular Excavations:</strong> Order <strong>12% to 15% extra</strong> due to soil sloughing and trench variations.</li>
-            <li><strong>Smooth Pre-formed Raised Decks:</strong> Order <strong>5% extra</strong>.</li>
+            <li dangerouslySetInnerHTML={{ __html: t('concrete.guide.extraLi1') }} />
+            <li dangerouslySetInnerHTML={{ __html: t('concrete.guide.extraLi2') }} />
+            <li dangerouslySetInnerHTML={{ __html: t('concrete.guide.extraLi3') }} />
           </ul>
         </section>
 
         {/* Section 5: Important Considerations */}
         <section className="space-y-3">
           <h2 className="text-heading-lg font-bold text-slate-900 dark:text-white">
-            Important Considerations
+            {t('concrete.guide.considerationsTitle')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-body-sm">
             <div className="p-4 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-1.5">
-              <h4 className="font-semibold text-slate-900 dark:text-white">Minimum Ready-Mix Surcharges</h4>
+              <h4 className="font-semibold text-slate-900 dark:text-white">
+                {t('concrete.guide.surchargeTitle')}
+              </h4>
               <p className="text-slate-600 dark:text-slate-400 text-caption leading-relaxed">
-                Most ready-mix concrete suppliers require a minimum order (typically 4 to 5 cubic yards). Orders below this threshold incur "short-load" delivery fees.
+                {t('concrete.guide.surchargeBody')}
               </p>
             </div>
             <div className="p-4 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-1.5">
-              <h4 className="font-semibold text-slate-900 dark:text-white">Subgrade Compaction</h4>
+              <h4 className="font-semibold text-slate-900 dark:text-white">
+                {t('concrete.guide.subgradeTitle')}
+              </h4>
               <p className="text-slate-600 dark:text-slate-400 text-caption leading-relaxed">
-                A 4-inch compacted gravel base (crushed stone #57 or road base) prevents subgrade settlement, frost heaving, and uncontrolled slab cracking.
+                {t('concrete.guide.subgradeBody')}
               </p>
             </div>
           </div>

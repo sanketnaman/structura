@@ -831,6 +831,65 @@ export const en = {
   'blog.relatedArticles': 'Related articles',
   'blog.backToListing': 'All articles',
 
+  // ── Calculator guide blocks ───────────────────────────────────────────
+  // Rendered from the calculator workspaces; inline HTML (<strong>) matches
+  // the markup the guides page already uses.
+  // TODO(needs native review): every key in this block.
+  'concrete.guide.title': 'Concrete Slab Calculator Guide',
+  'concrete.guide.intro':
+    'Whether pouring a residential patio, sidewalk, equipment pad, or detached garage slab, calculating estimated concrete volume is fundamental to avoiding costly cold joints or excess disposal fees. This guide outlines standard geometric formulas, typical trade waste assumptions, and practical batching tips.',
+  'concrete.guide.howTitle': 'How to Calculate Concrete for a Slab',
+  'concrete.guide.unitsPara':
+    'Concrete is measured and sold in <strong>cubic yards</strong> (yd³) in the United States and <strong>cubic meters</strong> (m³) internationally. To calculate the volume required for a rectangular slab:',
+  'concrete.guide.step1': '<strong>Measure the Length and Width</strong> in feet (or meters).',
+  'concrete.guide.step2': '<strong>Determine the Slab Thickness</strong> in inches (or centimeters).',
+  'concrete.guide.step3':
+    '<strong>Convert Thickness to Feet</strong> by dividing by 12 (or to meters by dividing by 100).',
+  'concrete.guide.step4':
+    '<strong>Multiply Length × Width × Thickness</strong> to find the cubic feet (or cubic meters).',
+  'concrete.guide.step5': '<strong>Divide Cubic Feet by 27</strong> to convert into cubic yards.',
+  'concrete.guide.step6':
+    '<strong>Add a Waste Allowance</strong> of 10% to account for subgrade unevenness and form flexure.',
+  'concrete.guide.formulaTitle': 'Concrete Volume Formula',
+  'concrete.guide.formulaImperialLabel': 'Imperial Formula (Cubic Yards)',
+  'concrete.guide.formulaImperial':
+    'Volume (yd³) = [ Length (ft) × Width (ft) × (Thickness (in) ÷ 12) ] ÷ 27 × (1 + Waste %)',
+  'concrete.guide.formulaMetricLabel': 'Metric Formula (Cubic Meters)',
+  'concrete.guide.formulaMetric':
+    'Volume (m³) = Length (m) × Width (m) × (Thickness (cm) ÷ 100) × (1 + Waste %)',
+  'concrete.guide.exampleTitle': 'Worked Example',
+  'concrete.guide.exampleIntro':
+    'Suppose you are pouring a backyard patio measuring <strong>20 feet long by 10 feet wide with a standard 4-inch depth</strong>:',
+  'concrete.guide.exampleStep1': '1. Convert thickness: 4 in ÷ 12 = 0.333 ft',
+  'concrete.guide.exampleStep2': '2. Calculate net cubic feet: 20 ft × 10 ft × 0.333 ft = 66.67 ft³',
+  'concrete.guide.exampleStep3': '3. Convert to cubic yards: 66.67 ft³ ÷ 27 = 2.47 yd³ net',
+  'concrete.guide.exampleStep4': '4. Add 10% waste: 2.47 yd³ × 1.10 = 2.72 yd³ final order',
+  'concrete.guide.exampleNote':
+    'For bulk delivery, you would round this order up to 2.75 or 3.0 cubic yards. For bagged concrete, 73.33 ft³ ÷ 0.60 ft³ requires 123 eighty-pound bags.',
+  'concrete.guide.exampleIntroMetric':
+    'Suppose you are pouring a backyard patio measuring <strong>6 metres long by 3 metres wide with a standard 10 cm depth</strong>:',
+  'concrete.guide.exampleStep1Metric': '1. Convert thickness: 10 cm ÷ 100 = 0.1 m',
+  'concrete.guide.exampleStep2Metric': '2. Calculate base volume: 6 m × 3 m × 0.1 m = 1.8 m³',
+  'concrete.guide.exampleStep3Metric': '3. Add 10% waste: 1.8 m³ × 1.1 = 1.98 m³',
+  'concrete.guide.exampleStep4Metric':
+    '4. Bagged equivalent: 1.98 m³ ≈ 69.92 ft³ ÷ 0.60 ft³ = 117 eighty-pound bags',
+  'concrete.guide.exampleNoteMetric':
+    'For bulk delivery the order rounds up to 2.0 m³. For bagged concrete you need 117 eighty-pound bags (≈ 36.3 kg) or 156 sixty-pound bags (≈ 27.2 kg).',
+  'concrete.guide.extraTitle': 'How Much Extra Concrete Should I Order?',
+  'concrete.guide.extraIntro':
+    "Running short of concrete during a pour is a contractor's worst nightmare—it forces an emergency delivery and risks a weak, unsightly \"cold joint\" where new wet concrete cures against already-stiffened concrete. Standard trade guidelines recommend:",
+  'concrete.guide.extraLi1': '<strong>Standard Slabs on Flat Ground:</strong> Order <strong>10% extra</strong>.',
+  'concrete.guide.extraLi2':
+    '<strong>Deep Footings or Irregular Excavations:</strong> Order <strong>12% to 15% extra</strong> due to soil sloughing and trench variations.',
+  'concrete.guide.extraLi3': '<strong>Smooth Pre-formed Raised Decks:</strong> Order <strong>5% extra</strong>.',
+  'concrete.guide.considerationsTitle': 'Important Considerations',
+  'concrete.guide.surchargeTitle': 'Minimum Ready-Mix Surcharges',
+  'concrete.guide.surchargeBody':
+    'Most ready-mix concrete suppliers require a minimum order (typically 4 to 5 cubic yards). Orders below this threshold incur "short-load" delivery fees.',
+  'concrete.guide.subgradeTitle': 'Subgrade Compaction',
+  'concrete.guide.subgradeBody':
+    'A 4-inch compacted gravel base (crushed stone #57 or road base) prevents subgrade settlement, frost heaving, and uncontrolled slab cracking.',
+
   // ── Metric-first wording ──────────────────────────────────────────────
   // Selected only when `isMetric && locale !== 'en'`, so English pages keep
   // their existing output byte for byte.
@@ -1694,6 +1753,57 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'blog.tocTitle': 'En esta página',
     'blog.breadcrumbBlog': 'Blog',
     'blog.relatedArticles': 'Artículos relacionados',
+    // ── Guía de la calculadora de losa de concreto ───────────────────────
+    // TODO(needs native review): todas las claves de este bloque.
+    'concrete.guide.title': 'Guía de la calculadora de losa de concreto',
+    'concrete.guide.intro':
+      'Ya sea que vaya a vaciar una losa de concreto para patio residencial, banqueta, base de equipo o garaje independiente, calcular el volumen estimado es fundamental para evitar juntas frías y sobrantes de material. Esta guía resume las fórmulas geométricas estándar, los márgenes de desperdicio habituales en obra y consejos prácticos de dosificación.',
+    'concrete.guide.howTitle': 'Cómo calcular el concreto para una losa',
+    'concrete.guide.unitsPara':
+      'El concreto se mide y se vende en <strong>yardas cúbicas</strong> (yd³) en Estados Unidos y en <strong>metros cúbicos</strong> (m³) en el resto del mundo. Para calcular el volumen necesario para una losa rectangular:',
+    'concrete.guide.step1': '<strong>Mida el largo y el ancho</strong> en metros (o en pies).',
+    'concrete.guide.step2': '<strong>Determine el espesor de la losa</strong> en centímetros (o en pulgadas).',
+    'concrete.guide.step3':
+      '<strong>Convierta el espesor a metros</strong> dividiendo entre 100 (o a pies dividiendo entre 12).',
+    'concrete.guide.step4':
+      '<strong>Multiplique largo × ancho × espesor</strong> para obtener los metros cúbicos (o los pies cúbicos).',
+    'concrete.guide.step5':
+      '<strong>Convierta a yardas cúbicas dividiendo entre 27</strong> solo si necesita el equivalente del sistema estadounidense.',
+    'concrete.guide.step6':
+      '<strong>Agregue un margen de desperdicio</strong> del 10% para compensar la desigualdad del terreno y la flexión de las cimbras.',
+    'concrete.guide.formulaTitle': 'Fórmula del volumen de concreto',
+    'concrete.guide.formulaImperialLabel': 'Fórmula imperial (yardas cúbicas)',
+    'concrete.guide.formulaImperial':
+      'Volumen (yd³) = [ Largo (ft) × Ancho (ft) × (Espesor (in) ÷ 12) ] ÷ 27 × (1 + % de desperdicio)',
+    'concrete.guide.formulaMetricLabel': 'Fórmula métrica (metros cúbicos)',
+    'concrete.guide.formulaMetric':
+      'Volumen (m³) = Largo (m) × Ancho (m) × (Espesor (cm) ÷ 100) × (1 + % de desperdicio)',
+    'concrete.guide.exampleTitle': 'Ejemplo resuelto',
+    'concrete.guide.exampleIntroMetric':
+      'Suponga que va a vaciar un patio de 6 metros de largo por 3 metros de ancho con un espesor estándar de 10 cm:',
+    'concrete.guide.exampleStep1Metric': '1. Convertir el espesor: 10 cm ÷ 100 = 0,1 m',
+    'concrete.guide.exampleStep2Metric': '2. Calcular el volumen base: 6 m × 3 m × 0,1 m = 1,8 m³',
+    'concrete.guide.exampleStep3Metric': '3. Agregar 10% de margen: 1,8 m³ × 1,1 = 1,98 m³',
+    'concrete.guide.exampleStep4Metric':
+      '4. Equivalente en sacos: 1,98 m³ ≈ 69,92 ft³ ÷ 0,60 ft³ = 117 bolsas de 80 lb (≈ 36,3 kg)',
+    'concrete.guide.exampleNoteMetric':
+      'Para entrega a granel el pedido se redondea a 2,0 m³. Para concreto en sacos hacen falta 117 bolsas de 80 lb (≈ 36,3 kg) o 156 bolsas de 60 lb (≈ 27,2 kg).',
+    'concrete.guide.extraTitle': '¿Cuánto concreto extra debo pedir?',
+    'concrete.guide.extraIntro':
+      'Quedarse corto de concreto durante un vaciado es la peor pesadilla de un contratista: obliga a una entrega de emergencia y arriesga una "junta fría" débil y poco estética, donde el concreto fresco fragua contra concreto que ya endureció. Las recomendaciones estándar del oficio sugieren:',
+    'concrete.guide.extraLi1': '<strong>Losas estándar sobre terreno plano:</strong> pida <strong>10% extra</strong>.',
+    'concrete.guide.extraLi2':
+      '<strong>Zapatas profundas o excavaciones irregulares:</strong> pida <strong>12% a 15% extra</strong> por el desprendimiento de suelo y las variaciones de la zanja.',
+    'concrete.guide.extraLi3':
+      '<strong>Terrazas elevadas prefabricadas lisas:</strong> pida <strong>5% extra</strong>.',
+    'concrete.guide.considerationsTitle': 'Consideraciones importantes',
+    'concrete.guide.surchargeTitle': 'Recargos mínimos por pedido pequeño de concreto usinado',
+    'concrete.guide.surchargeBody':
+      'La mayoría de los proveedores de concreto usinado exigen un pedido mínimo (normalmente de 4 a 5 yardas cúbicas, es decir, 3 a 4 m³). Los pedidos por debajo de ese umbral pagan cargos de entrega por carga pequeña.',
+    'concrete.guide.subgradeTitle': 'Compactación del terreno de asiento',
+    'concrete.guide.subgradeBody':
+      'Una base de 4 pulgadas (10 cm) de grava compactada (piedra triturada #57 o base de camino) evita el asentamiento del terreno, el levantamiento por heladas y las grietas no controladas de la losa.',
+
     'blog.backToListing': 'Todos los artículos',
 
     // ── Redacción métrica (solo con `isMetric && locale !== 'en'`) ────────
@@ -2532,6 +2642,57 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'blog.tocTitle': 'Nesta página',
     'blog.breadcrumbBlog': 'Blog',
     'blog.relatedArticles': 'Artigos relacionados',
+    // ── Guia da calculadora de laje de concreto ──────────────────────────
+    // TODO(needs native review): todas as chaves deste bloco.
+    'concrete.guide.title': 'Guia da calculadora de laje de concreto',
+    'concrete.guide.intro':
+      'Seja para uma laje de pátio residencial, calçada, base de equipamento ou garagem isolada, calcular o volume estimado de concreto é fundamental para evitar juntas frias e desperdício de material. Este guia resume as fórmulas geométricas padrão, as margens habituais de perda na obra e dicas práticas de dosagem.',
+    'concrete.guide.howTitle': 'Como calcular o concreto de uma laje',
+    'concrete.guide.unitsPara':
+      'O concreto é medido e vendido em unidades americanas (<strong>yd³</strong>) ou em <strong>metros cúbicos</strong> (<strong>m³</strong>) na maioria dos países. Para calcular o volume necessário para uma laje retangular:',
+    'concrete.guide.step1': '<strong>Meça o comprimento e a largura</strong> em metros (ou em pés).',
+    'concrete.guide.step2': '<strong>Determine a espessura da laje</strong> em centímetros (ou em polegadas).',
+    'concrete.guide.step3':
+      '<strong>Converte a espessura para metros</strong> dividindo por 100 (ou para pés dividindo por 12).',
+    'concrete.guide.step4':
+      '<strong>Multiplique comprimento × largura × espessura</strong> para obter os metros cúbicos (ou os pés cúbicos).',
+    'concrete.guide.step5':
+      '<strong>Divida os metros cúbicos por 27</strong> apenas se precisar do equivalente em yd³ do sistema americano.',
+    'concrete.guide.step6':
+      '<strong>Acrescente uma margem de perda</strong> de 10% para compensar o desnível do terreno e a flexão das fôrmas.',
+    'concrete.guide.formulaTitle': 'Fórmula do volume de concreto',
+    'concrete.guide.formulaImperialLabel': 'Fórmula imperial (yd³)',
+    'concrete.guide.formulaImperial':
+      'Volume (yd³) = [ Comprimento (ft) × Largura (ft) × (Espessura (in) ÷ 12) ] ÷ 27 × (1 + % de perda)',
+    'concrete.guide.formulaMetricLabel': 'Fórmula métrica (metros cúbicos)',
+    'concrete.guide.formulaMetric':
+      'Volume (m³) = Comprimento (m) × Largura (m) × (Espessura (cm) ÷ 100) × (1 + % de perda)',
+    'concrete.guide.exampleTitle': 'Exemplo resolvido',
+    'concrete.guide.exampleIntroMetric':
+      'Suponha que você esteja concretando um pátio de 6 metros de comprimento por 3 metros de largura, com espessura padrão de 10 cm:',
+    'concrete.guide.exampleStep1Metric': '1. Converter a espessura: 10 cm ÷ 100 = 0,1 m',
+    'concrete.guide.exampleStep2Metric': '2. Calcular o volume base: 6 m × 3 m × 0,1 m = 1,8 m³',
+    'concrete.guide.exampleStep3Metric': '3. Acrescentar 10% de perda: 1,8 m³ × 1,1 = 1,98 m³',
+    'concrete.guide.exampleStep4Metric':
+      '4. Equivalente em sacos: 1,98 m³ ≈ 69,92 ft³ ÷ 0,60 ft³ = 117 sacos de 80 lb (≈ 36,3 kg)',
+    'concrete.guide.exampleNoteMetric':
+      'Para entrega a granel o pedido é arredondado para 2,0 m³. Para concreto em sacos são necessários 117 sacos de 80 lb (≈ 36,3 kg) ou 156 sacos de 60 lb (≈ 27,2 kg).',
+    'concrete.guide.extraTitle': 'Quanto concreto a mais devo pedir?',
+    'concrete.guide.extraIntro':
+      'Ficar sem concreto durante a concretagem é a pior pesadilla de um empreiteiro: obriga a um fornecimento de emergência e arrisca uma "junta fria" fraca e aparente, onde o concreto fresco cura contra concreto que já endureceu. As orientações padrão do setor recomendam:',
+    'concrete.guide.extraLi1': '<strong>Lajes padrão sobre terreno plano:</strong> peça <strong>10% a mais</strong>.',
+    'concrete.guide.extraLi2':
+      '<strong>Bancadas fundas ou escavações irregulares:</strong> peça <strong>12% a 15% a mais</strong> pelo desabamento do solo e pelas variações da vala.',
+    'concrete.guide.extraLi3':
+      '<strong>Deck elevado pré-moldado liso:</strong> peça <strong>5% a mais</strong>.',
+    'concrete.guide.considerationsTitle': 'Considerações importantes',
+    'concrete.guide.surchargeTitle': 'Taxas mínimas de concreto usinado',
+    'concrete.guide.surchargeBody':
+      'A maioria dos fornecedores de concreto usinado exige um pedido mínimo (normalmente de 4 a 5 yd³, ou seja, 3 a 4 m³). Pedidos abaixo desse limite pagam taxas de entrega de carga pequena.',
+    'concrete.guide.subgradeTitle': 'Compactação do subsolo',
+    'concrete.guide.subgradeBody':
+      'Uma base de 4 polegadas (10 cm) de brita compactada (pedra britada nº 57 ou base de estrada) evita o assentamento do subsolo, o levantamento por gelo e as fissuras não controladas da laje.',
+
     'blog.backToListing': 'Todos os artigos',
 
     // ── Redação métrica (somente com `isMetric && locale !== 'en'`) ───────
@@ -3390,6 +3551,57 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'blog.relatedArticles': 'Articles associés',
     'blog.backToListing': 'Tous les articles',
 
+    // ── Guide de la calculateur de dalle béton ───────────────────────────
+    // TODO(needs native review) : toutes les clés de ce bloc.
+    'concrete.guide.title': 'Guide de la calculateur de dalle béton',
+    'concrete.guide.intro':
+      'Que vous couliez une dalle de terrasse résidentielle, un trottoir, une semelle d’équipement ou une dalle de garage indépendant, estimer le volume de béton requis est essentiel pour éviter les joints de reprise et les déchets de géologie. Ce guide résume les formules géométriques standard, les marges de déchets courantes en chantier et des conseils pratiques de gâchage.',
+    'concrete.guide.howTitle': 'Comment calculer le béton d’une dalle',
+    'concrete.guide.unitsPara':
+      'Le béton se mesure et se vend en unités américaines (<strong>yd³</strong>) ou en <strong>mètres cubes</strong> (<strong>m³</strong>) dans la plupart des pays. Pour calculer le volume requis pour une dalle rectangulaire :',
+    'concrete.guide.step1': '<strong>Mesurez la longueur et la largeur</strong> en mètres (ou en pieds).',
+    'concrete.guide.step2': '<strong>Déterminez l’épaisseur de la dalle</strong> en centimètres (ou en pouces).',
+    'concrete.guide.step3':
+      '<strong>Convertissez l’épaisseur en mètres</strong> en divisant par 100 (ou en pieds en divisant par 12).',
+    'concrete.guide.step4':
+      '<strong>Multipliez longueur × largeur × épaisseur</strong> pour obtenir les mètres cubes (ou les pieds cubes).',
+    'concrete.guide.step5':
+      '<strong>Divisez les mètres cubes par 27</strong> uniquement si vous avez besoin de l’équivalent en yd³ du système américain.',
+    'concrete.guide.step6':
+      '<strong>Ajoutez une marge de déchets</strong> de 10 % pour compenser le tassement du terrain et le fléchissement des banches.',
+    'concrete.guide.formulaTitle': 'Formule du volume de béton',
+    'concrete.guide.formulaImperialLabel': 'Formule impériale (yd³)',
+    'concrete.guide.formulaImperial':
+      'Volume (yd³) = [ Longueur (ft) × Largeur (ft) × (Épaisseur (in) ÷ 12) ] ÷ 27 × (1 + % de déchets)',
+    'concrete.guide.formulaMetricLabel': 'Formule métrique (mètres cubes)',
+    'concrete.guide.formulaMetric':
+      'Volume (m³) = Longueur (m) × Largeur (m) × (Épaisseur (cm) ÷ 100) × (1 + % de déchets)',
+    'concrete.guide.exampleTitle': 'Exemple détaillé',
+    'concrete.guide.exampleIntroMetric':
+      'Imaginons une dalle de terrasse de 6 m de long sur 3 m de large, avec une épaisseur standard de 10 cm :',
+    'concrete.guide.exampleStep1Metric': '1. Convertir l’épaisseur : 10 cm ÷ 100 = 0,1 m',
+    'concrete.guide.exampleStep2Metric': '2. Calculer le volume de base : 6 m × 3 m × 0,1 m = 1,8 m³',
+    'concrete.guide.exampleStep3Metric': '3. Ajouter 10 % de déchets : 1,8 m³ × 1,1 = 1,98 m³',
+    'concrete.guide.exampleStep4Metric':
+      '4. Équivalent en sacs : 1,98 m³ ≈ 69,92 ft³ ÷ 0,60 ft³ = 117 sacs de 80 lb (≈ 36,3 kg)',
+    'concrete.guide.exampleNoteMetric':
+      'Pour une livraison en vrac, la commande se arrondit à 2,0 m³. Pour le béton en sacs, il faut 117 sacs de 80 lb (≈ 36,3 kg) ou 156 sacs de 60 lb (≈ 27,2 kg).',
+    'concrete.guide.extraTitle': 'Combien de béton commander en plus ?',
+    'concrete.guide.extraIntro':
+      'Rester en béton pendant une coulée est le cauchemar du maçon : cela oblige à une livraison d’urgence et risque un joint de reprise fragile et visible, où le béton frais durcit contre un béton déjà pris. Les recommandations du métier conseillent :',
+    'concrete.guide.extraLi1': '<strong>Dalles standard sur terrain plat :</strong> commandez <strong>10 % en plus</strong>.',
+    'concrete.guide.extraLi2':
+      '<strong>Fondations profondes ou fouilles irrégulières :</strong> commandez <strong>12 à 15 % en plus</strong> à cause du glissement du sol et des variations de la tranchée.',
+    'concrete.guide.extraLi3':
+      '<strong>Platelage préfabriqué lisse surélevé :</strong> commandez <strong>5 % en plus</strong>.',
+    'concrete.guide.considerationsTitle': 'Points de vigilance importants',
+    'concrete.guide.surchargeTitle': 'Suppléments de livraison pour petites charges',
+    'concrete.guide.surchargeBody':
+      'La plupart des fournisseurs de béton prêt à l’emploi exigent une commande minimale (généralement 4 à 5 yd³, soit environ 3 à 4 m³). En dessous de ce seuil, des frais de « petite charge » s’appliquent.',
+    'concrete.guide.subgradeTitle': 'Compactage de la forme de fondation',
+    'concrete.guide.subgradeBody':
+      'Une semelle de gravier compactée de 4 pouces (10 cm) (pierre concassée n° 57 ou matériau de route) évite le tassement de la forme, le gel et les fissures incontrôlées de la dalle.',
+
     // ── Formulation métrique (uniquement avec `isMetric && locale !== 'en'`)
     // TODO(needs native review) : toutes les clés de ce bloc.
     'concrete.headerBodyMetric':
@@ -4232,6 +4444,57 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'blog.breadcrumbBlog': 'Blog',
     'blog.relatedArticles': 'Verwandte Beiträge',
     'blog.backToListing': 'Alle Beiträge',
+
+    // ── Leitfaden zum Betonplatten-Rechner ───────────────────────────────
+    // TODO(needs native review): alle Schlüssel in diesem Block.
+    'concrete.guide.title': 'Leitfaden zum Betonplatten-Rechner',
+    'concrete.guide.intro':
+      'Ob Sie eine Wohnhausterrasse, einen Gehweg, eine Geräteplatte oder eine freistehende Garagenplatte betonieren: Das geschätzte Betonvolumen zu berechnen, ist entscheidend, um teure Kaltfugen und Entsorgungskosten zu vermeiden. Dieser Leitfaden fasst die gebräuchlichen geometrischen Formeln, branchenübliche Zusatzmargen und praktische Mischtipps zusammen.',
+    'concrete.guide.howTitle': 'So berechnen Sie Beton für eine Platte',
+    'concrete.guide.unitsPara':
+      'Beton wird in den USA in <strong>Kubikyards</strong> (yd³) und international in <strong>Kubikmetern</strong> (m³) gemessen und verkauft. Um das Volumen für eine rechteckige Platte zu berechnen:',
+    'concrete.guide.step1': '<strong>Messen Sie Länge und Breite</strong> in Metern (oder in Fuß).',
+    'concrete.guide.step2': '<strong>Bestimmen Sie die Plattendicke</strong> in Zentimetern (oder in Zoll).',
+    'concrete.guide.step3':
+      '<strong>Rechnen Sie die Dicke in Meter um</strong>, indem Sie durch 100 teilen (oder in Fuß durch 12).',
+    'concrete.guide.step4':
+      '<strong>Multiplizieren Sie Länge × Breite × Dicke</strong>, um die Kubikmeter (oder Kubikfuß) zu erhalten.',
+    'concrete.guide.step5':
+      '<strong>Teilen Sie die Kubikmeter durch 27</strong>, wenn Sie das US-amerikanische Äquivalent in Kubikyards benötigen.',
+    'concrete.guide.step6':
+      '<strong>Fügen Sie eine Zusatzmarge von 10 % hinzu</strong>, um Bodenunebenheiten und Schalungsverformung auszugleichen.',
+    'concrete.guide.formulaTitle': 'Formel für das Betonvolumen',
+    'concrete.guide.formulaImperialLabel': 'Imperiale Formel (Kubikyards)',
+    'concrete.guide.formulaImperial':
+      'Volumen (yd³) = [ Länge (ft) × Breite (ft) × (Dicke (in) ÷ 12) ] ÷ 27 × (1 + % Zusatz)',
+    'concrete.guide.formulaMetricLabel': 'Metrische Formel (Kubikmeter)',
+    'concrete.guide.formulaMetric':
+      'Volumen (m³) = Länge (m) × Breite (m) × (Dicke (cm) ÷ 100) × (1 + % Zusatz)',
+    'concrete.guide.exampleTitle': 'Rechenbeispiel',
+    'concrete.guide.exampleIntroMetric':
+      'Angenommen, Sie betonieren eine Terrasse von 6 m Länge bei 3 m Breite mit einer Standarddicke von 10 cm:',
+    'concrete.guide.exampleStep1Metric': '1. Dicke umrechnen: 10 cm ÷ 100 = 0,1 m',
+    'concrete.guide.exampleStep2Metric': '2. Basisvolumen berechnen: 6 m × 3 m × 0,1 m = 1,8 m³',
+    'concrete.guide.exampleStep3Metric': '3. 10 % Zusatz hinzufügen: 1,8 m³ × 1,1 = 1,98 m³',
+    'concrete.guide.exampleStep4Metric':
+      '4. Sack-Äquivalent: 1,98 m³ ≈ 69,92 ft³ ÷ 0,60 ft³ = 117 Sack à 80 lb (≈ 36,3 kg)',
+    'concrete.guide.exampleNoteMetric':
+      'Für die Schüttware wird die Bestellung auf 2,0 m³ aufgerundet. Für Beton in Säcken sind 117 Sack à 80 lb (≈ 36,3 kg) oder 156 Sack à 60 lb (≈ 27,2 kg) erforderlich.',
+    'concrete.guide.extraTitle': 'Wie viel zusätzlichen Beton sollte ich bestellen?',
+    'concrete.guide.extraIntro':
+      'Während eines Betonierens zu wenig Beton zu haben, ist der Albtraum jedes Bauunternehmers – es erzwingt eine Notlieferung und riskiert eine schwache, unansehnliche Kaltfuge, in der frischer Beton gegen bereits abgebundenen Beton anstößt. Die branchenüblichen Richtlinien empfehlen:',
+    'concrete.guide.extraLi1': '<strong>Standardplatten auf ebenem Boden:</strong> <strong>10 % mehr bestellen</strong>.',
+    'concrete.guide.extraLi2':
+      '<strong>Tiefe Fundamente oder unregelmäßige Aushubungen:</strong> <strong>12 % bis 15 % mehr bestellen</strong>, wegen Bodenrutschungen und Grachtoleranzen.',
+    'concrete.guide.extraLi3':
+      '<strong>Glatte, vorgefertigte erhöhte Terrassen:</strong> <strong>5 % mehr bestellen</strong>.',
+    'concrete.guide.considerationsTitle': 'Wichtige Hinweise',
+    'concrete.guide.surchargeTitle': 'Mindestbestellmengen und Kurstreckenzuschläge',
+    'concrete.guide.surchargeBody':
+      'Die meisten Mischanlagen verlangen eine Mindestbestellung (normalerweise 4 bis 5 Kubikyards, also rund 3 bis 4 m³). Bestellungen darunter fallen Lieferzuschläge für kleine Mengen an.',
+    'concrete.guide.subgradeTitle': 'Verdichtung des Untergrunds',
+    'concrete.guide.subgradeBody':
+      'Eine 4 Zoll (10 cm) verdichtete Schotterbettung (Schotter Nr. 57 oder Fahrbahnaufbau) verhindert Setzungen des Untergrunds, Frostschäden und unkontrollierte Plattenerisse.',
 
     // ── Metrische Formulierung (nur bei `isMetric && locale !== 'en'`) ────
     // TODO(needs native review): alle Schlüssel in diesem Block.

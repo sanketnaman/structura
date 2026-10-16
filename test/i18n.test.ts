@@ -96,11 +96,22 @@ describe('Dictionary coverage', () => {
     'concrete.guide.exampleStep3',
     'concrete.guide.exampleStep4',
     'concrete.guide.exampleNote',
+    'brick.guide.exampleInputsMeta',
+    'brick.guide.exampleInput1',
+    'brick.guide.exampleInput2',
+    'brick.guide.exampleArea',
+    'brick.guide.exampleFace',
+    'brick.guide.exampleRate',
+    'brick.guide.exampleBase',
+    'brick.guide.exampleWaste',
+    'brick.guide.exampleTotal',
+    'brick.guide.exampleMortar',
+    'brick.guide.exampleNote',
   ]);
 
   it('covers every English key except the two decorative separators', () => {
     const enKeys = Object.keys(en);
-    expect(enKeys).toHaveLength(728);
+    expect(enKeys).toHaveLength(790);
 
     for (const code of ['es', 'pt', 'fr', 'de'] as const) {
       const dict = dictionaries[code];
@@ -110,7 +121,7 @@ describe('Dictionary coverage', () => {
 
       expect(extra).toEqual([]);
       expect(missing.filter((key) => !ALLOWED_MISSING.has(key))).toEqual([]);
-      expect(keys).toHaveLength(code === 'pt' ? 722 : 720);
+      expect(keys).toHaveLength(code === 'pt' ? 773 : 771);
     }
   });
 

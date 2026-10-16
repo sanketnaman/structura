@@ -900,6 +900,103 @@ export const en = {
   'paint.guide.deductionBody':
     'Architectural takeoffs deduct 21 sq ft (2.0 m²) for each standard interior door (3\'-0" × 7\'-0") and 15 sq ft (1.4 m²) for each standard double-hung or casement window (3\'-0" × 5\'-0"). For expansive picture windows or sliding patio doors, measure actual dimensions and deduct manually.',
 
+  'brick.guide.intro':
+    'This brick calculator estimates how many bricks you need for a wall from wall length, wall height, brick dimensions, mortar joint thickness, wythe count, and waste allowance. Wall dimensions and allowances are entered directly, while brick dimensions and joint thickness are loaded from the brick preset you choose. From those values it reports wall face area, a mortar allowance for planning, and an optional brick material cost, alongside an interactive 3D masonry wall visualization. Metric and imperial dimensions are supported throughout, and every result updates as you change an input.',
+  'brick.guide.howManyTitle': 'How Many Bricks Do I Need for a Wall?',
+  'brick.guide.howManyIntro':
+    'A brick takeoff for a wall follows the same five steps whether you work them out by hand or use the calculator above:',
+  'brick.guide.howManyStep1':
+    '<strong class="text-slate-900 dark:text-white font-semibold">Calculate the wall face area</strong> by multiplying wall length by wall height.',
+  'brick.guide.howManyStep2':
+    '<strong class="text-slate-900 dark:text-white font-semibold">Determine the effective brick face area</strong> by adding mortar joint thickness to the brick length and brick height, then multiplying the two results.',
+  'brick.guide.howManyStep3':
+    '<strong class="text-slate-900 dark:text-white font-semibold">Divide the wall area by the effective brick face area</strong> to get the base brick quantity.',
+  'brick.guide.howManyStep4':
+    '<strong class="text-slate-900 dark:text-white font-semibold">Multiply for additional wythes</strong> — a double-wythe wall needs twice the bricks of a single-wythe wall with the same face area.',
+  'brick.guide.howManyStep5':
+    '<strong class="text-slate-900 dark:text-white font-semibold">Add a waste allowance</strong> for cuts, breakage, and handling to reach the number of bricks to order.',
+  'brick.guide.methodologyTitle': 'How to Calculate Bricks for a Wall',
+  'brick.guide.methodologyIntro':
+    'The formulas below are the same ones this calculator runs. They produce a planning estimate from the dimensions you enter, using the wall face area, effective brick area, base bricks, waste bricks, and total bricks terminology shown in the calculation breakdown.',
+  'brick.guide.step1Title': 'Step 1: Calculate Wall Area',
+  'brick.guide.step1Formula': 'wall face area = wall length × wall height',
+  'brick.guide.step1Example': 'example: 20 ft × 8 ft = 160 sq ft (metric: m × m = m²)',
+  'brick.guide.step2Title': 'Step 2: Account for Brick Dimensions and Mortar Joints',
+  'brick.guide.step2Formula1': 'effective brick length = brick length + mortar joint thickness',
+  'brick.guide.step2Formula2': 'effective brick height = brick height + mortar joint thickness',
+  'brick.guide.step2Formula3': 'effective brick area = effective brick length × effective brick height',
+  'brick.guide.step2Formula4': 'bricks per unit area = 1 ÷ effective brick area',
+  'brick.guide.step2Note':
+    'A modular brick (7⅝ in × 2¼ in) laid with a ⅜ in joint covers an effective face of 8 in × 2⅝ in, which is about 6.86 bricks per square foot. In metric units the modular preset (194 mm × 57 mm) with a 10 mm joint covers 204 mm × 67 mm, or roughly 70 bricks per square metre.',
+  'brick.guide.step3Title': 'Step 3: Calculate Base Brick Quantity',
+  'brick.guide.step3Formula1': 'single-wythe bricks = wall face area × bricks per square foot (rounded)',
+  'brick.guide.step3Formula2': 'base bricks = single-wythe bricks × number of wythes',
+  'brick.guide.step4Title': 'Step 4: Add Waste Allowance',
+  'brick.guide.step4Formula1': 'waste bricks = base bricks × waste percentage, rounded up',
+  'brick.guide.step4Formula2': 'total bricks = base bricks + waste bricks',
+  'brick.guide.exampleTitle': 'Brick Calculator Worked Example',
+  'brick.guide.exampleIntro':
+    'Illustrative example only — it shows how one set of inputs flows through the calculation above. Your own result depends on your dimensions, joint thickness, wythe count, and waste allowance, so treat it as a planning estimate rather than a fixed answer for every wall.',
+  'brick.guide.exampleInputsLabel': 'Inputs',
+  'brick.guide.exampleInputsMeta': 'Imperial · single wythe · 10% waste',
+  'brick.guide.exampleInput1': 'Wall length: 20 ft · Wall height: 8 ft',
+  'brick.guide.exampleInput2': 'Brick: standard modular · Mortar joint: ⅜ in',
+  'brick.guide.exampleArea':
+    'Wall area: <span class="text-slate-900 dark:text-white font-bold">20 × 8 = 160 sq ft</span>',
+  'brick.guide.exampleFace':
+    'Effective brick face: <span class="text-slate-900 dark:text-white font-bold">8 in × 2⅝ in</span>',
+  'brick.guide.exampleRate':
+    'Bricks per square foot: <span class="text-slate-900 dark:text-white font-bold">approximately 6.86</span>',
+  'brick.guide.exampleBase':
+    'Base brick quantity: <span class="text-slate-900 dark:text-white font-bold">approximately 1,097 bricks</span>',
+  'brick.guide.exampleWaste':
+    '10% waste: <span class="text-accent font-bold">approximately 110 bricks</span>',
+  'brick.guide.exampleTotal':
+    'Total: <span class="text-accent font-bold">approximately 1,207 bricks</span>',
+  'brick.guide.exampleMortar':
+    'Mortar (planning assumption): <span class="text-slate-900 dark:text-white font-bold">10 × 80 lb Type N bags</span>',
+  'brick.guide.exampleNote':
+    'Rounding the rate to 6.86 bricks per square foot first gives roughly 1,098 base bricks — a single brick difference from the unrounded rate this calculator uses.',
+  'brick.guide.exampleInputsMetaMetric': 'Metric · single wythe · 10% waste',
+  'brick.guide.exampleInput1Metric': 'Wall length: 8 m · Wall height: 2.5 m',
+  'brick.guide.exampleInput2Metric': 'Brick: standard modular · Mortar joint: 10 mm',
+  'brick.guide.exampleAreaMetric':
+    'Wall area: <span class="text-slate-900 dark:text-white font-bold">8 × 2.5 = 20 m²</span>',
+  'brick.guide.exampleFaceMetric':
+    'Effective brick face: <span class="text-slate-900 dark:text-white font-bold">204 mm × 67 mm</span>',
+  'brick.guide.exampleRateMetric':
+    'Bricks per square metre: <span class="text-slate-900 dark:text-white font-bold">approximately 73.16</span>',
+  'brick.guide.exampleBaseMetric':
+    'Base brick quantity: <span class="text-slate-900 dark:text-white font-bold">approximately 1,463 bricks</span>',
+  'brick.guide.exampleWasteMetric':
+    '10% waste: <span class="text-accent font-bold">approximately 147 bricks</span>',
+  'brick.guide.exampleTotalMetric':
+    'Total: <span class="text-accent font-bold">approximately 1,610 bricks</span>',
+  'brick.guide.exampleMortarMetric':
+    'Mortar (planning assumption): <span class="text-slate-900 dark:text-white font-bold">13 × 80 lb Type N bags</span>',
+  'brick.guide.exampleNoteMetric':
+    'Rounding the rate to 73.16 bricks per square metre does not change this result: the unrounded effective area gives the same 1,463 base bricks.',
+  'brick.guide.mortarTitle': 'How Much Mortar Do I Need?',
+  'brick.guide.mortarIntro':
+    'The calculator converts your total brick count into 80 lb bags of pre-mixed Type N mortar using a planning assumption of approximately <strong class="text-slate-900 dark:text-white font-semibold">130 modular bricks per bag</strong>, and shows the approximate dry mix volume alongside the bag count. This is a planning assumption used by this tool, not a universal construction standard.',
+  'brick.guide.mortarCaveat':
+    'Actual mortar requirements vary with brick dimensions, joint thickness, wall construction, workmanship, and product yield. The mortar quantity displayed here is an estimate for planning purposes, so confirm coverage on the product you intend to buy and keep a margin on hand for site conditions.',
+  'brick.guide.wytheTitle': 'Single Wythe vs. Double Wythe',
+  'brick.guide.wytheP1':
+    'A <strong class="text-slate-900 dark:text-white font-semibold">single wythe</strong> is one layer (also called a leaf or skin) of brick — the thickness of a single course laid face to face. A <strong class="text-slate-900 dark:text-white font-semibold">double wythe</strong> is two layers of brick placed together, so two leaves are built for every square foot of wall face.',
+  'brick.guide.wytheP2':
+    'The calculator multiplies the base brick quantity by the selected wythe count, so choosing two wythes roughly doubles the bricks and the mortar estimate for the same wall area. Select the option that matches the wall you are planning; the tool reports material quantities only and does not evaluate whether a particular wall is structurally adequate or code-compliant.',
+  'brick.guide.sizesTitle': 'Brick Sizes and Mortar Joints',
+  'brick.guide.sizesP1':
+    'The calculator offers three brick presets — <strong class="text-slate-900 dark:text-white font-semibold">Modular</strong>, <strong class="text-slate-900 dark:text-white font-semibold">Queen</strong>, and <strong class="text-slate-900 dark:text-white font-semibold">King</strong>. Each preset loads a matching brick length and brick height plus a default mortar joint thickness, in metric (mm) or imperial (in) units depending on the unit control, so switching presets changes the effective brick face and the resulting brick count.',
+  'brick.guide.sizesP2':
+    'Mortar joint thickness is part of the effective brick face, so it directly affects the estimated brick quantity. A thicker joint increases the area each brick covers and lowers the count per unit of wall; a thinner joint does the opposite. The joint thickness in use is shown beneath the 3D wall and in the calculation breakdown, together with the bricks per unit area it produces.',
+  'brick.guide.bondTitle': 'Brick Bond Considerations',
+  'brick.guide.bondP1':
+    'The pattern bricks are laid in is called the bond. Common examples include <strong class="text-slate-900 dark:text-white font-semibold">stretcher bond</strong> (every course runs with stretchers and half-bond offsets), <strong class="text-slate-900 dark:text-white font-semibold">English bond</strong> (alternating courses of stretchers and headers), and <strong class="text-slate-900 dark:text-white font-semibold">Flemish bond</strong> (stretchers and headers alternating within each course).',
+  'brick.guide.bondP2':
+    'Bond and layout can affect cuts, detailing, and material usage at corners, openings, and coursing changes. This calculator estimates quantity primarily from wall dimensions, brick dimensions, mortar joint thickness, and wythe count, plus the waste allowance you select — it does not model a specific bond pattern, and no bond selector has been added to the tool.',
+
   // ── Metric-first wording ──────────────────────────────────────────────
   // Selected only when `isMetric && locale !== 'en'`, so English pages keep
   // their existing output byte for byte.
@@ -1826,6 +1923,86 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.guide.deductionBody':
       'Los presupuestos de arquitectura descuentan 2,0 m² (21 ft²) por cada puerta interior estándar (0,91 × 2,13 m) y 1,4 m² (15 ft²) por cada ventana corriente o de guillotina (0,91 × 1,52 m). Para ventanales amplios o puertas corredizas de patio, mida las dimensiones reales y descuente manualmente.',
 
+    // ── Guía de la calculadora de ladrillos ──────────────────────────────
+    // TODO(needs native review): todas las claves de este bloque.
+    'brick.guide.intro':
+      'Esta calculadora de ladrillos estima cuántos ladrillos necesita para un muro a partir del largo y el alto del muro, las dimensiones del ladrillo, el espesor de la junta de mortero, el número de hiladas y el margen de desperdicio. Las dimensiones y los márgenes del muro se ingresan directamente, mientras que las dimensiones del ladrillo y el espesor de la junta se cargan desde el preset elegido. Con esos valores informa el área de cara del muro, un margen de mortero para planeación y, opcionalmente, el costo del material, junto con una visualización 3D interactiva del muro de mampostería. Se admiten dimensiones métricas e imperiales en todo el proceso y cada resultado se actualiza al modificar cualquier entrada.',
+    'brick.guide.howManyTitle': '¿Cuántos ladrillos necesito para un muro?',
+    'brick.guide.howManyIntro':
+      'El desglose de ladrillos de un muro sigue los mismos cinco pasos, ya lo calcule a mano o con la calculadora de arriba:',
+    'brick.guide.howManyStep1':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Calcule el área de cara del muro</strong> multiplicando el largo por el alto del muro.',
+    'brick.guide.howManyStep2':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Determine el área efectiva de cara del ladrillo</strong> sumando el espesor de la junta de mortero a la largo y alto del ladrillo y multiplicando ambos resultados.',
+    'brick.guide.howManyStep3':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Divida el área del muro entre el área efectiva de cara del ladrillo</strong> para obtener la cantidad base de ladrillos.',
+    'brick.guide.howManyStep4':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Multiplique por las hiladas adicionales</strong> — un muro de doble hilada necesita el doble de ladrillos que uno de hilada simple con la misma área de cara.',
+    'brick.guide.howManyStep5':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Agregue un margen de desperdicio</strong> por cortes, roturas y manejo para llegar al número de ladrillos a pedir.',
+    'brick.guide.methodologyTitle': 'Cómo calcular los ladrillos de un muro',
+    'brick.guide.methodologyIntro':
+      'Las fórmulas siguientes son las mismas que ejecuta esta calculadora. Producen una estimación de planeación a partir de las dimensiones que ingresa, usando la terminología de área de cara del muro, área efectiva del ladrillo, ladrillos base, ladrillos de desperdicio y ladrillos totales que se muestra en el desglose del cálculo.',
+    'brick.guide.step1Title': 'Paso 1: calcular el área del muro',
+    'brick.guide.step1Formula': 'área de cara del muro = largo del muro × alto del muro',
+    'brick.guide.step1Example': 'ejemplo: 8 m × 2,5 m = 20 m² (imperial: ft × ft = ft²)',
+    'brick.guide.step2Title': 'Paso 2: tener en cuenta las dimensiones del ladrillo y las juntas',
+    'brick.guide.step2Formula1': 'largo efectivo del ladrillo = largo del ladrillo + espesor de la junta',
+    'brick.guide.step2Formula2': 'alto efectivo del ladrillo = alto del ladrillo + espesor de la junta',
+    'brick.guide.step2Formula3': 'área efectiva del ladrillo = largo efectivo × alto efectivo',
+    'brick.guide.step2Formula4': 'ladrillos por unidad de área = 1 ÷ área efectiva del ladrillo',
+    'brick.guide.step2Note':
+      'Un ladrillo modular (194 mm × 57 mm) colocado con junta de 10 mm cubre una cara efectiva de 204 mm × 67 mm, es decir, unos 73 ladrillos por m². En el sistema imperial, el preset modular (7⅝ in × 2¼ in) con junta de ⅜ in cubre 8 in × 2⅝ in, unas 6,86 ladrillos por ft².',
+    'brick.guide.step3Title': 'Paso 3: calcular la cantidad base de ladrillos',
+    'brick.guide.step3Formula1': 'ladrillos de hilada simple = área de cara del muro × ladrillos por m² (redondeado)',
+    'brick.guide.step3Formula2': 'ladrillos base = ladrillos de hilada simple × número de hiladas',
+    'brick.guide.step4Title': 'Paso 4: agregar el margen de desperdicio',
+    'brick.guide.step4Formula1': 'ladrillos de desperdicio = ladrillos base × % de desperdicio, redondeado hacia arriba',
+    'brick.guide.step4Formula2': 'ladrillos totales = ladrillos base + ladrillos de desperdicio',
+    'brick.guide.exampleTitle': 'Ejemplo resuelto de la calculadora de ladrillos',
+    'brick.guide.exampleIntro':
+      'Ejemplo ilustrativo únicamente: muestra cómo un conjunto de entradas recorre el cálculo anterior. Su resultado depende de sus dimensiones, el espesor de la junta, el número de hiladas y el margen de desperdicio; trátelo como una estimación de planeación y no como una respuesta fija para todo muro.',
+    'brick.guide.exampleInputsLabel': 'Entradas',
+    'brick.guide.exampleInputsMetaMetric': 'Métrico · hilada simple · 10% de desperdicio',
+    'brick.guide.exampleInput1Metric': 'Largo del muro: 8 m · Alto del muro: 2,5 m',
+    'brick.guide.exampleInput2Metric': 'Ladrillo: modular estándar · Junta: 10 mm',
+    'brick.guide.exampleAreaMetric':
+      'Área del muro: <span class="text-slate-900 dark:text-white font-bold">8 × 2,5 = 20 m²</span>',
+    'brick.guide.exampleFaceMetric':
+      'Cara efectiva del ladrillo: <span class="text-slate-900 dark:text-white font-bold">204 mm × 67 mm</span>',
+    'brick.guide.exampleRateMetric':
+      'Ladrillos por m²: <span class="text-slate-900 dark:text-white font-bold">≈ 73,16</span>',
+    'brick.guide.exampleBaseMetric':
+      'Cantidad base de ladrillos: <span class="text-slate-900 dark:text-white font-bold">≈ 1463 ladrillos</span>',
+    'brick.guide.exampleWasteMetric':
+      '10% de desperdicio: <span class="text-accent font-bold">≈ 147 ladrillos</span>',
+    'brick.guide.exampleTotalMetric':
+      'Total: <span class="text-accent font-bold">≈ 1610 ladrillos</span>',
+    'brick.guide.exampleMortarMetric':
+      'Mortero (supuesto de planeación): <span class="text-slate-900 dark:text-white font-bold">13 bolsas Tipo N de 80 lb (≈ 36,3 kg)</span>',
+    'brick.guide.exampleNoteMetric':
+      'Redondear la tasa a 73,16 ladrillos por m² no cambia este resultado: el área efectiva sin redondear da los mismos 1463 ladrillos base.',
+    'brick.guide.mortarTitle': '¿Cuánto mortero necesito?',
+    'brick.guide.mortarIntro':
+      'La calculadora convierte el total de ladrillos en bolsas de 80 lb de mortero Tipo N premezclado usando un supuesto de planeación de aproximadamente <strong class="text-slate-900 dark:text-white font-semibold">130 ladrillos modulares por bolsa</strong>, y muestra el volumen aproximado de mezcla seca junto al número de bolsas. Este es un supuesto de planeación de esta herramienta, no una norma de construcción universal.',
+    'brick.guide.mortarCaveat':
+      'Los requerimientos reales de mortero varían según las dimensiones del ladrillo, el espesor de la junta, la construcción del muro, la mano de obra y el rendimiento del producto. La cantidad de mortero mostrada aquí es una estimación para planeación: confirme la cobertura del producto que piensa comprar y mantenga un margen por las condiciones de obra.',
+    'brick.guide.wytheTitle': 'Hilada simple vs. doble hilada',
+    'brick.guide.wytheP1':
+      'Una <strong class="text-slate-900 dark:text-white font-semibold">hilada simple</strong> es una sola capa (también llamada hoja o piel) de ladrillo, el espesor de una hilada colocada cara a cara. Una <strong class="text-slate-900 dark:text-white font-semibold">doble hilada</strong> son dos capas de ladrillo colocadas juntas, de modo que se levantan dos hojas por cada m² de cara del muro.',
+    'brick.guide.wytheP2':
+      'La calculadora multiplica la cantidad base de ladrillos por el número de hiladas elegido, por lo que elegir dos hiladas duplica aproximadamente los ladrillos y la estimación de mortero para la misma área. Seleccione la opción que coincida con el muro que planea; la herramienta solo informa cantidades de material y no evalúa si un muro en particular es estructuralmente suficiente o cumple la norma.',
+    'brick.guide.sizesTitle': 'Medidas de ladrillo y juntas de mortero',
+    'brick.guide.sizesP1':
+      'La calculadora ofrece tres presets de ladrillo — <strong class="text-slate-900 dark:text-white font-semibold">Modular</strong>, <strong class="text-slate-900 dark:text-white font-semibold">Queen</strong> y <strong class="text-slate-900 dark:text-white font-semibold">King</strong>. Cada preset carga un largo y alto de ladrillo coincidentes más un espesor de junta predeterminado, en unidades métricas (mm) o imperiales (in) según el control de unidades, de modo que cambiar de preset modifica la cara efectiva del ladrillo y el conteo resultante.',
+    'brick.guide.sizesP2':
+      'El espesor de la junta de mortero forma parte de la cara efectiva del ladrillo, por lo que afecta directamente la cantidad estimada. Una junta más gruesa aumenta el área que cubre cada ladrillo y reduce el conteo por unidad de muro; una junta más delgada hace lo contrario. El espesor de junta en uso se muestra debajo del muro 3D y en el desglose del cálculo, junto con los ladrillos por unidad de área que produce.',
+    'brick.guide.bondTitle': 'Consideraciones sobre el aparejo del ladrillo',
+    'brick.guide.bondP1':
+      'El patrón en que se colocan los ladrillos se llama aparejo. Entre los ejemplos comunes están el <strong class="text-slate-900 dark:text-white font-semibold">aparejo a soga</strong> (todas las hiladas van a soga con desplazamientos de media junta), el <strong class="text-slate-900 dark:text-white font-semibold">aparejo inglés</strong> (hiladas alternas a soga y a tizón) y el <strong class="text-slate-900 dark:text-white font-semibold">aparejo flamenco</strong> (sogas y tizones alternando dentro de cada hilada).',
+    'brick.guide.bondP2':
+      'El aparejo y la distribución pueden afectar los cortes, el detalle y el uso de material en esquinas, huecos y cambios de hilada. Esta calculadora estima la cantidad principalmente a partir de las dimensiones del muro, las dimensiones del ladrillo, el espesor de la junta y el número de hiladas, más el margen de desperdicio elegido; no modela un patrón de aparejo específico y no incluye un selector de aparejo.',
+
     'blog.backToListing': 'Todos los artículos',
 
     // ── Redacción métrica (solo con `isMetric && locale !== 'en'`) ────────
@@ -2726,6 +2903,86 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.guide.deductionTitle': 'Abatimentos padrão por vãos',
     'paint.guide.deductionBody':
       'Orçamentos de arquitetura abatem 2,0 m² (21 ft²) para cada porta interna padrão (0,91 × 2,13 m) e 1,4 m² (15 ft²) para cada janela padrão ou de batente (0,91 × 1,52 m). Para janelas panorâmicas amplas ou portas de correr de sacada, meça as dimensões reais e abata manualmente.',
+
+    // ── Guia da calculadora de tijolos ───────────────────────────────────
+    // TODO(needs native review): todas as chaves deste bloco.
+    'brick.guide.intro':
+      'Esta calculadora de tijolos estima quantos tijolos você precisa para uma parede a partir do comprimento e da altura da parede, das dimensões do tijolo, da espessura da junta de argamassa, do número de fiadas e da margem de perda. As dimensões e margens da parede são inseridas diretamente, enquanto as dimensões do tijolo e a espessura da junta são carregadas a partir do preset escolhido. Com esses valores, ela informa a área de face da parede, uma margem de argamassa para planejamento e, opcionalmente, o custo do material, além de uma visualização 3D interativa da parede de alvenaria. Dimensões métricas e imperiais são suportadas em todo o processo e cada resultado é atualizado a cada alteração de entrada.',
+    'brick.guide.howManyTitle': 'Quantos tijolos eu preciso para uma parede?',
+    'brick.guide.howManyIntro':
+      'O orçamento de tijolos de uma parede segue os mesmos cinco passos, seja feito à mão ou com a calculadora acima:',
+    'brick.guide.howManyStep1':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Calcule a área de face da parede</strong> multiplicando o comprimento pela altura da parede.',
+    'brick.guide.howManyStep2':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Determine a área de face efetiva do tijolo</strong> somando a espessura da junta de argamassa ao comprimento e à altura do tijolo e multiplicando os dois resultados.',
+    'brick.guide.howManyStep3':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Divida a área da parede pela área de face efetiva do tijolo</strong> para obter a quantidade base de tijolos.',
+    'brick.guide.howManyStep4':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Multiplique pelas fiadas adicionais</strong> — uma parede de fiada dupla precisa do dobro de tijolos de uma parede de fiada simples com a mesma área de face.',
+    'brick.guide.howManyStep5':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Acrescente uma margem de perda</strong> para cortes, quebras e manuseio até chegar ao número de tijolos a pedir.',
+    'brick.guide.methodologyTitle': 'Como calcular os tijolos de uma parede',
+    'brick.guide.methodologyIntro':
+      'As fórmulas abaixo são as mesmas que esta calculadora executa. Elas produzem uma estimativa de planejamento a partir das dimensões inseridas, usando a terminologia de área de face da parede, área efetiva do tijolo, tijolos base, tijolos de perda e tijolos totais mostrada no detalhamento do cálculo.',
+    'brick.guide.step1Title': 'Passo 1: calcular a área da parede',
+    'brick.guide.step1Formula': 'área de face da parede = comprimento da parede × altura da parede',
+    'brick.guide.step1Example': 'exemplo: 8 m × 2,5 m = 20 m² (imperial: ft × ft = ft²)',
+    'brick.guide.step2Title': 'Passo 2: considerar as dimensões do tijolo e as juntas de argamassa',
+    'brick.guide.step2Formula1': 'comprimento efetivo do tijolo = comprimento do tijolo + espessura da junta',
+    'brick.guide.step2Formula2': 'altura efetiva do tijolo = altura do tijolo + espessura da junta',
+    'brick.guide.step2Formula3': 'área efetiva do tijolo = comprimento efetivo × altura efetiva',
+    'brick.guide.step2Formula4': 'tijolos por unidade de área = 1 ÷ área efetiva do tijolo',
+    'brick.guide.step2Note':
+      'Um tijolo modular (194 mm × 57 mm) assentado com junta de 10 mm cobre uma face efetiva de 204 mm × 67 mm, ou cerca de 73 tijolos por m². No sistema imperial, o preset modular (7⅝ in × 2¼ in) com junta de ⅜ in cobre 8 in × 2⅝ in, cerca de 6,86 tijolos por ft².',
+    'brick.guide.step3Title': 'Passo 3: calcular a quantidade base de tijolos',
+    'brick.guide.step3Formula1': 'tijolos de fiada simples = área de face da parede × tijolos por m² (arredondado)',
+    'brick.guide.step3Formula2': 'tijolos base = tijolos de fiada simples × número de fiadas',
+    'brick.guide.step4Title': 'Passo 4: acrescentar a margem de perda',
+    'brick.guide.step4Formula1': 'tijolos de perda = tijolos base × percentual de perda, arredondado para cima',
+    'brick.guide.step4Formula2': 'tijolos totais = tijolos base + tijolos de perda',
+    'brick.guide.exampleTitle': 'Exemplo resolvido da calculadora de tijolos',
+    'brick.guide.exampleIntro':
+      'Exemplo ilustrativo apenas — mostra como um conjunto de entradas percorre o cálculo acima. Seu resultado depende das suas dimensões, da espessura da junta, do número de fiadas e da margem de perda; trate-o como uma estimativa de planejamento e não como uma resposta fixa para toda parede.',
+    'brick.guide.exampleInputsLabel': 'Entradas',
+    'brick.guide.exampleInputsMetaMetric': 'Métrico · fiada simples · 10% de perda',
+    'brick.guide.exampleInput1Metric': 'Comprimento da parede: 8 m · Altura da parede: 2,5 m',
+    'brick.guide.exampleInput2Metric': 'Tijolo: modular padrão · Junta: 10 mm',
+    'brick.guide.exampleAreaMetric':
+      'Área da parede: <span class="text-slate-900 dark:text-white font-bold">8 × 2,5 = 20 m²</span>',
+    'brick.guide.exampleFaceMetric':
+      'Face efetiva do tijolo: <span class="text-slate-900 dark:text-white font-bold">204 mm × 67 mm</span>',
+    'brick.guide.exampleRateMetric':
+      'Tijolos por m²: <span class="text-slate-900 dark:text-white font-bold">≈ 73,16</span>',
+    'brick.guide.exampleBaseMetric':
+      'Quantidade base de tijolos: <span class="text-slate-900 dark:text-white font-bold">≈ 1.463 tijolos</span>',
+    'brick.guide.exampleWasteMetric':
+      '10% de perda: <span class="text-accent font-bold">≈ 147 tijolos</span>',
+    'brick.guide.exampleTotalMetric':
+      'Total: <span class="text-accent font-bold">≈ 1.610 tijolos</span>',
+    'brick.guide.exampleMortarMetric':
+      'Argamassa (premissa de planejamento): <span class="text-slate-900 dark:text-white font-bold">13 sacos de 80 lb Tipo N (≈ 36,3 kg)</span>',
+    'brick.guide.exampleNoteMetric':
+      'Arredondar a taxa para 73,16 tijolos por m² não muda este resultado: a área efetiva sem arredondar dá os mesmos 1.463 tijolos base.',
+    'brick.guide.mortarTitle': 'Quanta argamassa eu preciso?',
+    'brick.guide.mortarIntro':
+      'A calculadora converte o total de tijolos em sacos de 80 lb de argamassa Tipo N pré-misturada usando uma premissa de planejamento de aproximadamente <strong class="text-slate-900 dark:text-white font-semibold">130 tijolos modulares por saco</strong> e mostra o volume aproximado de mistura seca ao lado da contagem de sacos. Esta é uma premissa de planejamento usada por esta ferramenta, não um padrão universal de construção.',
+    'brick.guide.mortarCaveat':
+      'Os requisitos reais de argamassa variam com as dimensões do tijolo, a espessura da junta, a construção da parede, o serviço e o rendimento do produto. A quantidade de argamassa exibida aqui é uma estimativa para planejamento; confirme a cobertura do produto que pretende comprar e mantenha uma margem para as condições de obra.',
+    'brick.guide.wytheTitle': 'Fiada simples vs. fiada dupla',
+    'brick.guide.wytheP1':
+      'Uma <strong class="text-slate-900 dark:text-white font-semibold">fiada simples</strong> é uma única camada (também chamada de folha ou pele) de tijolo — a espessura de uma fiada assentada face a face. Uma <strong class="text-slate-900 dark:text-white font-semibold">fiada dupla</strong> são duas camadas de tijolo assentadas juntas, de modo que duas folhas são levantadas para cada m² de face da parede.',
+    'brick.guide.wytheP2':
+      'A calculadora multiplica a quantidade base de tijolos pelo número de fiadas selecionado, então escolher duas fiadas duplica aproximadamente os tijolos e a estimativa de argamassa para a mesma área. Selecione a opção que corresponde à parede que está planejando; a ferramenta informa apenas quantidades de materiais e não avalia se uma parede específica é estruturalmente adequada ou conforme a norma.',
+    'brick.guide.sizesTitle': 'Medidas de tijolo e juntas de argamassa',
+    'brick.guide.sizesP1':
+      'A calculadora oferece três presets de tijolo — <strong class="text-slate-900 dark:text-white font-semibold">Modular</strong>, <strong class="text-slate-900 dark:text-white font-semibold">Queen</strong> e <strong class="text-slate-900 dark:text-white font-semibold">King</strong>. Cada preset carrega um comprimento e uma altura de tijolo correspondentes mais uma espessura padrão de junta, em unidades métricas (mm) ou imperiais (in) conforme o controle de unidades, de modo que trocar de preset altera a face efetiva do tijolo e a contagem resultante.',
+    'brick.guide.sizesP2':
+      'A espessura da junta de argamassa faz parte da face efetiva do tijolo e afeta diretamente a quantidade estimada. Uma junta mais espessa aumenta a área coberta por cada tijolo e reduz a contagem por unidade de parede; uma junta mais fina faz o contrário. A espessura de junta em uso é mostrada abaixo da parede 3D e no detalhamento do cálculo, junto com os tijolos por unidade de área que produz.',
+    'brick.guide.bondTitle': 'Considerações sobre o aparato do tijolo',
+    'brick.guide.bondP1':
+      'O padrão em que os tijolos são assentados chama-se aparato. Exemplos comuns incluem o <strong class="text-slate-900 dark:text-white font-semibold">aparato a junta corrida</strong> (toda fiada vai com juntas corridas e deslocamentos de meia junta), o <strong class="text-slate-900 dark:text-white font-semibold">aparato inglês</strong> (fiadas alternadas de juntas corridas e cabeças) e o <strong class="text-slate-900 dark:text-white font-semibold">aparato flamengo</strong> (juntas corridas e cabeças alternando dentro de cada fiada).',
+    'brick.guide.bondP2':
+      'O aparato e o layout podem afetar cortes, detalhamento e uso de material em cantos, vãos e mudanças de fiada. Esta calculadora estima a quantidade principalmente a partir das dimensões da parede, das dimensões do tijolo, da espessura da junta e do número de fiadas, mais a margem de perda selecionada — ela não modela um padrão de aparato específico e nenhum seletor de aparato foi adicionado à ferramenta.',
 
     'blog.backToListing': 'Todos os artigos',
 
@@ -3648,6 +3905,86 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.guide.deductionBody':
       'Les métrés d’architecture déduisent 2,0 m² (21 ft²) pour chaque porte intérieure standard (0,91 × 2,13 m) et 1,4 m² (15 ft²) pour chaque fenêtre standard à guillotine ou à vantaux (0,91 × 1,52 m). Pour les baies vitrées panoramiques ou les portes coulissantes de terrasse, mesurez les dimensions réelles et déduisez manuellement.',
 
+    // ── Guide de la calculateur de briques ───────────────────────────────
+    // TODO(needs native review) : toutes les clés de ce bloc.
+    'brick.guide.intro':
+      'Cette calculatrice de briques estime le nombre de briques nécessaires pour un mur à partir de la longueur et de la hauteur du mur, des dimensions de la brique, de l’épaisseur du joint de mortier, du nombre d’assises et de la marge de déchets. Les dimensions et marges du mur saisies directement, tandis que les dimensions de la brique et l’épaisseur du joint proviennent du préréglage choisi. À partir de ces valeurs, elle indique la surface de parement du mur, une marge de mortier pour la planification et, le cas échéant, le coût du matériau, ainsi qu’une visualisation 3D interactive du mur de maçonnerie. Les dimensions métriques et impériales sont prises en charge et chaque résultat se met à jour dès qu’une saisie change.',
+    'brick.guide.howManyTitle': 'Combien de briques faut-il pour un mur ?',
+    'brick.guide.howManyIntro':
+      'Le métré de briques d’un mur suit les mêmes cinq étapes, que vous les calculiez à la main ou avec la calculatrice ci-dessus :',
+    'brick.guide.howManyStep1':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Calculez la surface de parement du mur</strong> en multipliant la longueur par la hauteur du mur.',
+    'brick.guide.howManyStep2':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Déterminez la surface de parement effective de la brique</strong> en ajoutant l’épaisseur du joint de mortier à la longueur et à la hauteur de la brique, puis en multipliant les deux résultats.',
+    'brick.guide.howManyStep3':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Divisez la surface du mur par la surface de parement effective de la brique</strong> pour obtenir la quantité de briques de base.',
+    'brick.guide.howManyStep4':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Multipliez pour les assises supplémentaires</strong> — un mur en assise double nécessite deux fois plus de briques qu’un mur en assise simple de même surface de parement.',
+    'brick.guide.howManyStep5':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Ajoutez une marge de déchets</strong> pour les coupes, les cassures et la manutention afin d’obtenir le nombre de briques à commander.',
+    'brick.guide.methodologyTitle': 'Comment calculer les briques d’un mur',
+    'brick.guide.methodologyIntro':
+      'Les formules ci-dessous sont celles que cette calculatrice utilise. Elles produisent une estimation de planification à partir des dimensions saisies, avec la terminologie de surface de parement, de surface effective de la brique, briques de base, briques de déchets et briques totales présentée dans le détail du calcul.',
+    'brick.guide.step1Title': 'Étape 1 : calculer la surface du mur',
+    'brick.guide.step1Formula': 'surface de parement = longueur du mur × hauteur du mur',
+    'brick.guide.step1Example': 'exemple : 8 m × 2,5 m = 20 m² (impérial : ft × ft = ft²)',
+    'brick.guide.step2Title': 'Étape 2 : tenir compte des dimensions de la brique et des joints',
+    'brick.guide.step2Formula1': 'longueur effective de la brique = longueur de la brique + épaisseur du joint',
+    'brick.guide.step2Formula2': 'hauteur effective de la brique = hauteur de la brique + épaisseur du joint',
+    'brick.guide.step2Formula3': 'surface effective de la brique = longueur effective × hauteur effective',
+    'brick.guide.step2Formula4': 'briques par unité de surface = 1 ÷ surface effective de la brique',
+    'brick.guide.step2Note':
+      'Une brique modulaire (194 mm × 57 mm) posée avec un joint de 10 mm couvre une face effective de 204 mm × 67 mm, soit environ 73 briques par m². En unités impériales, le préréglage modulaire (7⅝ in × 2¼ in) avec un joint de ⅜ in couvre 8 in × 2⅝ in, soit environ 6,86 briques par ft².',
+    'brick.guide.step3Title': 'Étape 3 : calculer la quantité de briques de base',
+    'brick.guide.step3Formula1': 'briques en assise simple = surface de parement × briques par m² (arrondi)',
+    'brick.guide.step3Formula2': 'briques de base = briques en assise simple × nombre d’assises',
+    'brick.guide.step4Title': 'Étape 4 : ajouter la marge de déchets',
+    'brick.guide.step4Formula1': 'briques de déchets = briques de base × pourcentage de déchets, arrondi au supérieur',
+    'brick.guide.step4Formula2': 'briques totales = briques de base + briques de déchets',
+    'brick.guide.exampleTitle': 'Exemple détaillé de la calculateur de briques',
+    'brick.guide.exampleIntro':
+      'Exemple illustratif uniquement : il montre comment un jeu d’entrées traverse le calcul ci-dessus. Votre propre résultat dépend de vos dimensions, de l’épaisseur du joint, du nombre d’assises et de la marge de déchets : considérez-le comme une estimation de planification et non comme une réponse fixe pour tous les murs.',
+    'brick.guide.exampleInputsLabel': 'Saisies',
+    'brick.guide.exampleInputsMetaMetric': 'Métrique · assise simple · 10 % de déchets',
+    'brick.guide.exampleInput1Metric': 'Longueur du mur : 8 m · Hauteur du mur : 2,5 m',
+    'brick.guide.exampleInput2Metric': 'Brique : modulaire standard · Joint : 10 mm',
+    'brick.guide.exampleAreaMetric':
+      'Surface du mur : <span class="text-slate-900 dark:text-white font-bold">8 × 2,5 = 20 m²</span>',
+    'brick.guide.exampleFaceMetric':
+      'Face effective de la brique : <span class="text-slate-900 dark:text-white font-bold">204 mm × 67 mm</span>',
+    'brick.guide.exampleRateMetric':
+      'Briques par m² : <span class="text-slate-900 dark:text-white font-bold">≈ 73,16</span>',
+    'brick.guide.exampleBaseMetric':
+      'Quantité de briques de base : <span class="text-slate-900 dark:text-white font-bold">≈ 1 463 briques</span>',
+    'brick.guide.exampleWasteMetric':
+      '10 % de déchets : <span class="text-accent font-bold">≈ 147 briques</span>',
+    'brick.guide.exampleTotalMetric':
+      'Total : <span class="text-accent font-bold">≈ 1 610 briques</span>',
+    'brick.guide.exampleMortarMetric':
+      'Mortier (hypothèse de planification) : <span class="text-slate-900 dark:text-white font-bold">13 sacs de 80 lb type N (≈ 36,3 kg)</span>',
+    'brick.guide.exampleNoteMetric':
+      'Arrondir le taux à 73,16 briques par m² ne change pas ce résultat : la surface effective non arrondie donne les mêmes 1 463 briques de base.',
+    'brick.guide.mortarTitle': 'Combien de mortier faut-il ?',
+    'brick.guide.mortarIntro':
+      'La calculatrice convertit votre total de briques en sacs de 80 lb de mortier type N pré-mélangé selon une hypothèse de planification d’environ <strong class="text-slate-900 dark:text-white font-semibold">130 briques modulaires par sac</strong>, et affiche le volume approximatif de mortier sec à côté du nombre de sacs. Il s’agit d’une hypothèse de planification utilisée par cet outil, et non d’un standard de construction universel.',
+    'brick.guide.mortarCaveat':
+      'Les besoins réels en mortier varient avec les dimensions des briques, l’épaisseur du joint, la construction du mur, la main-d’œuvre et le rendement du produit. La quantité de mortier affichée ici est une estimation à des fins de planification : confirmez la couverture du produit que vous comptez acheter et gardez une marge pour les conditions de chantier.',
+    'brick.guide.wytheTitle': 'Assise simple vs. assise double',
+    'brick.guide.wytheP1':
+      'Une <strong class="text-slate-900 dark:text-white font-semibold">assise simple</strong> est une seule couche (appelée aussi feuille ou peau) de briques — l’épaisseur d’une assise posée face à face. Une <strong class="text-slate-900 dark:text-white font-semibold">assise double</strong> est deux couches de briques posées ensemble, soit deux feuilles pour chaque m² de parement.',
+    'brick.guide.wytheP2':
+      'La calculatrice multiplie la quantité de briques de base par le nombre d’assises choisi : sélectionner deux assises double sensiblement le nombre de briques et l’estimation de mortier pour la même surface. Choisissez l’option correspondant au mur que vous planifiez ; l’outil ne renseigne que les quantités de matériaux et n’évalue pas si un mur particulier est structurellement conforme.',
+    'brick.guide.sizesTitle': 'Formats de briques et joints de mortier',
+    'brick.guide.sizesP1':
+      'La calculatrice propose trois préréglages de briques — <strong class="text-slate-900 dark:text-white font-semibold">Modular</strong>, <strong class="text-slate-900 dark:text-white font-semibold">Queen</strong> et <strong class="text-slate-900 dark:text-white font-semibold">King</strong>. Chaque préréglage charge une longueur et une hauteur de brique assorties plus une épaisseur de joint par défaut, en unités métriques (mm) ou impériales (in) selon le contrôle d’unités ; changer de préréglage modifie la face effective et le nombre de briques résultant.',
+    'brick.guide.sizesP2':
+      'L’épaisseur du joint de mortier fait partie de la face effective de la brique et influe donc directement sur la quantité estimée. Un joint plus épais augmente la surface couverte par chaque brique et baisse le nombre par unité de mur ; un joint plus mince fait l’inverse. L’épaisseur de joint utilisée est affichée sous le mur 3D et dans le détail du calcul, avec le nombre de briques par unité de surface qu’elle produit.',
+    'brick.guide.bondTitle': 'Points de vigilance sur l’appareillage',
+    'brick.guide.bondP1':
+      'Le motif dans lequel les briques sont posées s’appelle l’appareillage. Les exemples courants incluent l’<strong class="text-slate-900 dark:text-white font-semibold">appareillage à joints vifs</strong> (chaque assise en parement avec décalage de demi-joint), l’<strong class="text-slate-900 dark:text-white font-semibold">appareillage anglais</strong> (assises alternées de parement et de bout) et l’<strong class="text-slate-900 dark:text-white font-semibold">appareillage flamand</strong> (parement et bout alternant dans chaque assise).',
+    'brick.guide.bondP2':
+      'L’appareillage et le tracé peuvent influencer les coupes, les détails et la consommation de matériau aux angles, aux ouvertures et aux changements d’assise. Cette calculatrice estime la quantité principalement à partir des dimensions du mur, des dimensions des briques, de l’épaisseur du joint et du nombre d’assises, plus la marge de déchets choisie — elle ne modélise aucun motif d’appareillage particulier et aucun sélecteur d’appareillage n’a été ajouté à l’outil.',
+
     // ── Formulation métrique (uniquement avec `isMetric && locale !== 'en'`)
     // TODO(needs native review) : toutes les clés de ce bloc.
     'concrete.headerBodyMetric':
@@ -4553,6 +4890,86 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'paint.guide.deductionTitle': 'Standardabzüge für Öffnungen',
     'paint.guide.deductionBody':
       'Kalkulationsmaßstäbe ziehen 2,0 m² (21 ft²) für jede Standard-Innentür (0,91 × 2,13 m) und 1,4 m² (15 ft²) für jedes Standard-Flügel- oder Drehfenster (0,91 × 1,52 m) ab. Für große Panoramafenster oder Schiebetüren messen Sie die tatsächlichen Abzüge und ziehen sie manuell ab.',
+
+    // ── Leitfaden zum Ziegelrechner ──────────────────────────────────────
+    // TODO(needs native review): alle Schlüssel in diesem Block.
+    'brick.guide.intro':
+      'Dieser Ziegelrechner schätzt, wie viele Steine Sie für eine Mauer benötigen, anhand von Mauerlänge, Mauerhöhe, Steinmaßen, Fugenbreite, Steinlagenzahl und Verlustmarge. Mauermaße und Margen werden direkt eingegeben, während Steinmaße und Fugenbreite aus der gewählten Stein-Voreinstellung geladen werden. Aus diesen Werten berechnet er die Mauerfläche, eine Mörtelreserve für die Planung und optional die Materialkosten, zusammen mit einer interaktiven 3D-Mauer visualisierung. Metrische und imperiale Maße werden durchgehend unterstützt, und jedes Ergebnis aktualisiert sich bei jeder Eingabe.',
+    'brick.guide.howManyTitle': 'Wie viele Steine brauche ich für eine Mauer?',
+    'brick.guide.howManyIntro':
+      'Die Ziegelermittlung für eine Mauer folgt den gleichen fünf Schritten, ob Sie sie von Hand oder mit dem Rechner oben durchführen:',
+    'brick.guide.howManyStep1':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Berechnen Sie die Mauerfläche</strong>, indem Sie die Mauerlänge mit der Mauerhöhe multiplizieren.',
+    'brick.guide.howManyStep2':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Ermitteln Sie die effektive Steinfläche</strong>, indem Sie die Fugenbreite zur Steinlänge und Steinhöhe addieren und die beiden Ergebnisse multiplizieren.',
+    'brick.guide.howManyStep3':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Teilen Sie die Mauerfläche durch die effektive Steinfläche</strong>, um die Grundsteinanzahl zu erhalten.',
+    'brick.guide.howManyStep4':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Multiplizieren Sie für zusätzliche Steinlagen</strong> — eine zweischalige Mauer benötigt doppelt so viele Steine wie eine einschalige Mauer mit gleicher Fläche.',
+    'brick.guide.howManyStep5':
+      '<strong class="text-slate-900 dark:text-white font-semibold">Fügen Sie eine Verlustmarge hinzu</strong>, um die zu bestellende Steinanzahl für Zuschnitte, Brüche und Transport zu erreichen.',
+    'brick.guide.methodologyTitle': 'So berechnen Sie Steine für eine Mauer',
+    'brick.guide.methodologyIntro':
+      'Die folgenden Formeln sind dieselben, die dieser Rechner verwendet. Sie erzeugen eine Planungsschätzung aus Ihren Eingabemaßen, mit den Begriffen Mauerfläche, effektive Steinfläche, Grundsteine, Verluststeine und Gesamtsteine aus der Berechnungsdarstellung.',
+    'brick.guide.step1Title': 'Schritt 1: Mauerfläche berechnen',
+    'brick.guide.step1Formula': 'Mauerfläche = Mauerlänge × Mauerhöhe',
+    'brick.guide.step1Example': 'Beispiel: 8 m × 2,5 m = 20 m² (imperial: ft × ft = ft²)',
+    'brick.guide.step2Title': 'Schritt 2: Steinmaße und Fugen berücksichtigen',
+    'brick.guide.step2Formula1': 'effektive Steinlänge = Steinlänge + Fugenbreite',
+    'brick.guide.step2Formula2': 'effektive Steinhöhe = Steinhöhe + Fugenbreite',
+    'brick.guide.step2Formula3': 'effektive Steinfläche = effektive Steinlänge × effektive Steinhöhe',
+    'brick.guide.step2Formula4': 'Steine pro Flächeneinheit = 1 ÷ effektive Steinfläche',
+    'brick.guide.step2Note':
+      'Ein Modulstein (194 mm × 57 mm) mit 10 mm Fuge deckt eine effektive Fläche von 204 mm × 67 mm, also etwa 73 Steine pro m². Im imperialen System deckt die Modul-Voreinstellung (7⅝ in × 2¼ in) mit ⅜ in Fuge 8 in × 2⅝ in, also etwa 6,86 Steine pro ft².',
+    'brick.guide.step3Title': 'Schritt 3: Grundsteinanzahl berechnen',
+    'brick.guide.step3Formula1': 'Steine der einschaligen Mauer = Mauerfläche × Steine pro m² (gerundet)',
+    'brick.guide.step3Formula2': 'Grundsteine = Steine der einschaligen Mauer × Anzahl der Steinlagen',
+    'brick.guide.step4Title': 'Schritt 4: Verlustmarge hinzufügen',
+    'brick.guide.step4Formula1': 'Verluststeine = Grundsteine × Verlustprozentsatz, aufgerundet',
+    'brick.guide.step4Formula2': 'Gesamtsteine = Grundsteine + Verluststeine',
+    'brick.guide.exampleTitle': 'Rechenbeispiel des Ziegelrechners',
+    'brick.guide.exampleIntro':
+      'Nur ein illustratives Beispiel — es zeigt, wie ein Satz von Eingaben durch die obige Berechnung fließt. Ihr eigenes Ergebnis hängt von Ihren Maßen, der Fugenbreite, der Steinlagenzahl und der Verlustmarge ab; behandeln Sie es als Planungsschätzung und nicht als feste Antwort für jede Mauer.',
+    'brick.guide.exampleInputsLabel': 'Eingaben',
+    'brick.guide.exampleInputsMetaMetric': 'Metrisch · einschalig · 10 % Verlust',
+    'brick.guide.exampleInput1Metric': 'Mauerlänge: 8 m · Mauerhöhe: 2,5 m',
+    'brick.guide.exampleInput2Metric': 'Stein: Modulstandard · Fuge: 10 mm',
+    'brick.guide.exampleAreaMetric':
+      'Mauerfläche: <span class="text-slate-900 dark:text-white font-bold">8 × 2,5 = 20 m²</span>',
+    'brick.guide.exampleFaceMetric':
+      'Effektive Steinfläche: <span class="text-slate-900 dark:text-white font-bold">204 mm × 67 mm</span>',
+    'brick.guide.exampleRateMetric':
+      'Steine pro m²: <span class="text-slate-900 dark:text-white font-bold">≈ 73,16</span>',
+    'brick.guide.exampleBaseMetric':
+      'Grundsteinanzahl: <span class="text-slate-900 dark:text-white font-bold">≈ 1.463 Steine</span>',
+    'brick.guide.exampleWasteMetric':
+      '10 % Verlust: <span class="text-accent font-bold">≈ 147 Steine</span>',
+    'brick.guide.exampleTotalMetric':
+      'Gesamt: <span class="text-accent font-bold">≈ 1.610 Steine</span>',
+    'brick.guide.exampleMortarMetric':
+      'Mörtel (Planungsannahme): <span class="text-slate-900 dark:text-white font-bold">13 Sack à 80 lb Typ N (≈ 36,3 kg)</span>',
+    'brick.guide.exampleNoteMetric':
+      'Die Rundung des Satzes auf 73,16 Steine pro m² ändert dieses Ergebnis nicht: die ungerundete effektive Fläche ergibt dieselben 1.463 Grundsteine.',
+    'brick.guide.mortarTitle': 'Wie viel Mörtel brauche ich?',
+    'brick.guide.mortarIntro':
+      'Der Rechner wandelt Ihre Gesamtsteinanzahl in Sack à 80 lb vorgemischten Typ-N-Mörtel um und verwendet dabei eine Planungsannahme von etwa <strong class="text-slate-900 dark:text-white font-semibold">130 Modulsteinen pro Sack</strong>; zusätzlich wird das ungefähre Trockenmischvolumen neben der Sackzahl angezeigt. Dies ist eine Planungsannahme dieses Tools, kein universeller Bautandard.',
+    'brick.guide.mortarCaveat':
+      'Tatsächliche Mörtelbedarfe variieren je nach Steinmaßen, Fugenbreite, Mauerbauweise, Handwerksqualität und Produktausbeute. Die hier angezeigte Mörtelmenge ist eine Schätzung zur Planung; bestätigen Sie die Deckung des Produkts, das Sie kaufen möchten, und halten Sie einen Puffer für die Baustellenbedingungen bereit.',
+    'brick.guide.wytheTitle': 'Einschalig vs. zweischalig',
+    'brick.guide.wytheP1':
+      'Eine <strong class="text-slate-900 dark:text-white font-semibold">einschalige</strong> Mauer ist eine einzige Lage (auch Blatt oder Schale genannt) aus Steinen — die Dicke einer auf der Fläche verlegten Lage. Eine <strong class="text-slate-900 dark:text-white font-semibold">zweischalige</strong> Mauer besteht aus zwei zusammenliegenden Steinalagen, sodass für jedes m² Mauerfläche zwei Blätter entstehen.',
+    'brick.guide.wytheP2':
+      'Der Rechner multipliziert die Grundsteinanzahl mit der gewählten Anzahl der Steinlagen; die Wahl von zwei Lagen verdoppelt daher annähernd Steine und Mörtelschätzung für dieselbe Fläche. Wählen Sie die Option, die zu Ihrer geplanten Mauer passt; das Tool weist nur Materialmengen aus und prüft nicht, ob eine bestimmte Mauer statisch ausreichend oder normkonform ist.',
+    'brick.guide.sizesTitle': 'Steinformat und Fugen',
+    'brick.guide.sizesP1':
+      'Der Rechner bietet drei Stein-Voreinstellungen — <strong class="text-slate-900 dark:text-white font-semibold">Modular</strong>, <strong class="text-slate-900 dark:text-white font-semibold">Queen</strong> und <strong class="text-slate-900 dark:text-white font-semibold">King</strong>. Jede Voreinstellung lädt eine passende Steinlänge und -höhe sowie eine Standardfugenbreite, in metrischen (mm) oder imperialen (in) Einheiten je nach Einheitenregler; das Wechseln der Voreinstellung ändert die effektive Steinfläche und die resultierende Steinanzahl.',
+    'brick.guide.sizesP2':
+      'Die Fugenbreite ist Teil der effektiven Steinfläche und beeinflusst daher direkt die geschätzte Steinanzahl. Eine dickere Fuge vergrößert die Fläche, die jeder Stein abdeckt, und verringert die Anzahl pro Mauereinheit; eine dünnere Fuge bewirkt das Gegenteil. Die verwendete Fugenbreite wird unter der 3D-Mauer und in der Berechnungsdarstellung angezeigt, zusammen mit der resultierenden Steinanzahl pro Flächeneinheit.',
+    'brick.guide.bondTitle': 'Überlegungen zum Verband',
+    'brick.guide.bondP1':
+      'Das Muster, in dem die Steine verlegt werden, heißt Verband. Zu den gängigen Beispielen gehören der <strong class="text-slate-900 dark:text-white font-semibold">Läuferverband</strong> (jede Lage mit Läufern und halbverband-Versatz), der <strong class="text-slate-900 dark:text-white font-semibold">englische Verband</strong> (abwechselnde Lagen aus Läufern und Bindern) und der <strong class="text-slate-900 dark:text-white font-semibold">flämische Verband</strong> (Läufer und Binder wechseln innerhalb jeder Lage).',
+    'brick.guide.bondP2':
+      'Verband und Lagerung können Zuschnitte, Details und Materialeinsatz an Ecken, Öffnungen und Lagenwechseln beeinflussen. Dieser Rechner schätzt die Menge hauptsächlich aus Mauermaßen, Steinmaßen, Fugenbreite und Steinlagenzahl sowie der gewählten Verlustmarge — er modelliert kein bestimmtes Verbandmuster, und es wurde kein Verbandwähler zum Tool hinzugefügt.',
 
     // ── Metrische Formulierung (nur bei `isMetric && locale !== 'en'`) ────
     // TODO(needs native review): alle Schlüssel in diesem Block.

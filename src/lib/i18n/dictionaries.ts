@@ -340,7 +340,7 @@ export const en = {
   'about.method1Label': '1. PURE GEOMETRY',
   'about.method1Title': 'Dimensional Equations',
   'about.method1Body':
-    'Standard volumetric mathematics ($L \\times W \\times H$) converted accurately across Imperial ($ft^3 \\to yd^3$) and Metric ($m^3$) systems.',
+    'Standard volumetric mathematics (L × W × H) converted accurately across Imperial (ft³ → yd³) and Metric (m³) systems.',
   'about.method2Label': '2. CLEAR ALLOWANCES',
   'about.method2Title': 'Configurable Waste',
   'about.method2Body':
@@ -1373,7 +1373,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'about.method1Label': '1. GEOMETRÍA PURA',
     'about.method1Title': 'Ecuaciones dimensionales',
     'about.method1Body':
-      'Matemática volumétrica estándar ($L \\times W \\times H$) convertida con precisión entre los sistemas imperial ($ft^3 \\to yd^3$) y métrico ($m^3$).',
+      'Matemática volumétrica estándar (L × W × H) convertida con precisión entre los sistemas imperial (ft³ → yd³) y métrico (m³).',
     'about.method2Label': '2. MÁRGENES CLAROS',
     'about.method2Title': 'Merma configurable',
     'about.method2Body':
@@ -2362,7 +2362,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'about.method1Label': '1. GEOMETRIA PURA',
     'about.method1Title': 'Equações dimensionais',
     'about.method1Body':
-      'Matemática volumétrica padrão ($L \\times W \\times H$) convertida com precisão entre os sistemas Imperial ($ft^3 \\to yd^3$) e Métrico ($m^3$).',
+      'Matemática volumétrica padrão (L × W × H) convertida com precisão entre os sistemas Imperial (ft³ → yd³) e Métrico (m³).',
     'about.method2Label': '2. MARGENS CLARAS',
     'about.method2Title': 'Desperdício configurável',
     'about.method2Body':
@@ -3362,7 +3362,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'about.method1Label': '1. GÉOMÉTRIE PURE',
     'about.method1Title': 'Équations dimensionnelles',
     'about.method1Body':
-      'Mathématiques volumétriques standard ($L \\times W \\times H$) converties avec précision entre les systèmes impérial ($ft^3 \\to yd^3$) et métrique ($m^3$).',
+      'Mathématiques volumétriques standard (L × W × H) converties avec précision entre les systèmes impérial (ft³ → yd³) et métrique (m³).',
     'about.method2Label': '2. TOLÉRANCES CLAIRES',
     'about.method2Title': 'Rebuts configurables',
     'about.method2Body':
@@ -4359,7 +4359,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'about.method1Label': '1. REINE GEOMETRIE',
     'about.method1Title': 'Dimensionsgleichungen',
     'about.method1Body':
-      'Standard volumetrische Mathematik ($L \\times W \\times H$), genau umgerechnet zwischen Imperial ($ft^3 \\to yd^3$) und Metrisch ($m^3$).',
+      'Standard volumetrische Mathematik (L × W × H), genau umgerechnet zwischen Imperial (ft³ → yd³) und Metrisch (m³).',
     'about.method2Label': '2. KLARE ZULAGEN',
     'about.method2Title': 'Konfigurierbarer Ausschuss',
     'about.method2Body':

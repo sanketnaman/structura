@@ -315,15 +315,15 @@ describe('Localized SEO metadata', () => {
 
   it('matches the documented translation example exactly', () => {
     expect(getRouteSEO('/es').title).toBe(
-      'MixTally — Calculadoras de construcción y herramientas de estimación 3D',
+      'MixTally — Calculadoras de construcción 3D',
     );
     expect(getRouteSEO('/pt').title).toBe(
-      'MixTally — Calculadoras de construção e ferramentas de estimativa 3D',
+      'MixTally — Calculadoras de construção com 3D',
     );
     expect(getRouteSEO('/fr').title).toBe(
-      "MixTally — Calculatrices de construction et outils d'estimation 3D",
+      "MixTally — Calculatrices de construction 3D",
     );
-    expect(getRouteSEO('/de').title).toBe('MixTally — Bau-Rechner & 3D-Schätzwerkzeuge');
+    expect(getRouteSEO('/de').title).toBe('MixTally — Bau-Rechner mit 3D-Visualisierung');
   });
 
   it('keeps the MixTally branding in every localized title', () => {
@@ -361,6 +361,105 @@ describe('Localized SEO metadata', () => {
 
   it('leaves the 404 registry entry without localized overrides', () => {
     expect(seoRegistry['404'].localized).toBeUndefined();
+  });
+});
+
+describe('SEO length limits and uniqueness (Phase 4)', () => {
+  // Characters, not bytes: accents, ², ³, — and : count as one.
+  const chars = (s: string) => [...s].length;
+
+  it('keeps every localized title ≤ 60 and description ≤ 155 characters', () => {
+    const over: string[] = [];
+    for (const basePath of SAMPLE_BASE_PATHS) {
+      const entry = seoRegistry[basePath];
+      for (const locale of LOCALIZED_LOCALES) {
+        const fields = entry.localized?.[locale];
+        if (chars(fields?.title ?? '') > 60) {
+          over.push(`title ${locale} ${basePath} (${chars(fields!.title!)}): ${fields!.title}`);
+        }
+        if (chars(fields?.description ?? '') > 155) {
+          over.push(
+            `description ${locale} ${basePath} (${chars(fields!.description!)}): ${fields!.description}`,
+          );
+        }
+      }
+    }
+    expect(over).toEqual([]);
+  });
+
+  it('keeps every page title unique across locales (no two localized pages share a title)', () => {
+    const seen = new Map<string, string>();
+    const dupes: string[] = [];
+    for (const basePath of SAMPLE_BASE_PATHS) {
+      const entry = seoRegistry[basePath];
+      const titles: Array<[string, string]> = [['en', entry.title]];
+      for (const locale of LOCALIZED_LOCALES) {
+        titles.push([locale, entry.localized?.[locale]?.title ?? '']);
+      }
+      for (const [locale, title] of titles) {
+        const key = title.trim().toLowerCase();
+        const existing = seen.get(key);
+        if (existing) {
+          dupes.push(`${locale} ${basePath} duplicates ${existing}: ${title}`);
+        } else {
+          seen.set(key, `${locale} ${basePath}`);
+        }
+      }
+    }
+    expect(dupes).toEqual([]);
+  });
+
+  it('keeps every page description unique across locales', () => {
+    const seen = new Map<string, string>();
+    const dupes: string[] = [];
+    for (const basePath of SAMPLE_BASE_PATHS) {
+      const entry = seoRegistry[basePath];
+      const descs: Array<[string, string]> = [['en', entry.description]];
+      for (const locale of LOCALIZED_LOCALES) {
+        descs.push([locale, entry.localized?.[locale]?.description ?? '']);
+      }
+      for (const [locale, desc] of descs) {
+        const key = desc.trim().toLowerCase();
+        const existing = seen.get(key);
+        if (existing) {
+          dupes.push(`${locale} ${basePath} duplicates ${existing}`);
+        } else {
+          seen.set(key, `${locale} ${basePath}`);
+        }
+      }
+    }
+    expect(dupes).toEqual([]);
+  });
+
+  it('carries the calculator H1 phrase in each localized calculator title', () => {
+    // The H1 (nav.*Calculator / brick.h1) must appear inside the page title so
+    // the SERP snippet and the on-page heading agree.
+    const h1Keys: Record<string, Record<string, string>> = {
+      '/calculators/concrete-slab-calculator': {
+        es: 'Calculadora de concreto para losa',
+        pt: 'Calculadora de concreto para laje',
+        fr: 'Calcul de dalle en béton',
+        de: 'Betonrechner',
+      },
+      '/calculators/brick-mortar-calculator': {
+        es: 'Calculadora de ladrillos',
+        pt: 'Calculadora de tijolos',
+        fr: 'Calcul de briques et mortier',
+        de: 'Ziegelrechner',
+      },
+      '/calculators/paint-calculator': {
+        es: 'Calculadora de pintura por m²',
+        pt: 'Calculadora de tinta',
+        fr: 'Calcul de peinture par m²',
+        de: 'Farbrechner pro m²',
+      },
+    };
+    for (const [basePath, byLocale] of Object.entries(h1Keys)) {
+      for (const [locale, h1] of Object.entries(byLocale)) {
+        const title = seoRegistry[basePath].localized?.[locale as 'es']?.title ?? '';
+        expect(title, `${locale} ${basePath}`).toContain(h1);
+      }
+    }
   });
 });
 

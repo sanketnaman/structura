@@ -144,7 +144,7 @@ describe('client effects over prerendered HTML', () => {
 
     expect(snapshot()).toEqual(before);
     expect(document.title).toBe(
-      'Betonplatten-Rechner — 3D-Volumen & Materialschätzung | MixTally',
+      'Betonrechner: m³ & Betonsäcke | MixTally',
     );
     expect(document.documentElement.lang).toBe('de');
     expect(

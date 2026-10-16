@@ -469,7 +469,7 @@ describe('representative routes (all five locales)', () => {
   it('/es/ — Spanish home', () => {
     const html = docFor('/es');
     expect(extractTitle(html)).toBe(
-      'MixTally — Calculadoras de construcción y herramientas de estimación 3D',
+      'MixTally — Calculadoras de construcción 3D',
     );
     expect(extract(html, /<html lang="([^"]*)">/)).toBe('es');
     expect(extractRootContent(html)).toContain(translate('es', 'hero.titleLine1'));
@@ -500,7 +500,7 @@ describe('representative routes (all five locales)', () => {
   it('/fr/calculators/paint-calculator — French calculator', () => {
     const html = docFor('/fr/calculators/paint-calculator');
     expect(extractTitle(html)).toBe(
-      'Calculateur de peinture — Quantité de peinture par pièce | MixTally',
+      'Calcul de peinture par m² : litres | MixTally',
     );
     expect(extract(html, /<html lang="([^"]*)">/)).toBe('fr');
     const root = extractRootContent(html);
@@ -515,7 +515,7 @@ describe('representative routes (all five locales)', () => {
   it('/de/calculators/concrete-slab-calculator — German 3D calculator', () => {
     const html = docFor('/de/calculators/concrete-slab-calculator');
     expect(extractTitle(html)).toBe(
-      'Betonplatten-Rechner — 3D-Volumen & Materialschätzung | MixTally',
+      'Betonrechner: m³ & Betonsäcke | MixTally',
     );
     expect(extract(html, /<html lang="([^"]*)">/)).toBe('de');
     const root = extractRootContent(html);

@@ -68,24 +68,24 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
     canonicalPath: '/',
     localized: {
       es: {
-        title: `${siteConfig.name} — Calculadoras de construcción y herramientas de estimación 3D`,
+        title: `${siteConfig.name} — Calculadoras de construcción 3D`,
         description:
-          'Calculadoras de construcción interactivas con visualización 3D para concreto, ladrillo, mortero, pintura y estimación de materiales. Calcula cantidades con supuestos transparentes y configurables.',
+          'Calculadoras de construcción con visualización 3D para concreto, ladrillo, mortero y pintura. Calcula cantidades con supuestos transparentes.',
       },
       pt: {
-        title: `${siteConfig.name} — Calculadoras de construção e ferramentas de estimativa 3D`,
+        title: `${siteConfig.name} — Calculadoras de construção com 3D`,
         description:
-          'Calculadoras de construção interativas com visualização 3D para concreto, alvenaria, argamassa, tinta e estimativas de materiais. Calcule quantidades com premissas transparentes e configuráveis.',
+          'Calculadoras de construção com visualização 3D para concreto, alvenaria, argamassa e tinta. Calcule quantidades com premissas transparentes.',
       },
       fr: {
-        title: `${siteConfig.name} — Calculatrices de construction et outils d'estimation 3D`,
+        title: `${siteConfig.name} — Calculatrices de construction 3D`,
         description:
-          `Calculatrices de construction interactives avec visualisation 3D pour le béton, la brique, le mortier, la peinture et l'estimation des matériaux. Calculez les quantités avec des hypothèses transparentes et configurables.`,
+          `Calculatrices de construction avec visualisation 3D pour béton, brique, mortier et peinture. Calculez les quantités avec des hypothèses transparentes.`,
       },
       de: {
-        title: `${siteConfig.name} — Bau-Rechner & 3D-Schätzwerkzeuge`,
+        title: `${siteConfig.name} — Bau-Rechner mit 3D-Visualisierung`,
         description:
-          'Interaktive Bau-Rechner mit 3D-Visualisierung für Beton, Ziegel, Mörtel, Farbe und Materialschätzungen. Berechnen Sie Mengen mit transparenten, konfigurierbaren Annahmen.',
+          'Interaktive Bau-Rechner mit 3D-Visualisierung für Beton, Ziegel, Mörtel und Farbe. Berechnen Sie Mengen mit transparenten Annahmen.',
       },
     },
   },
@@ -108,7 +108,7 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
       fr: {
         title: `Calculatrices de construction — ${siteConfig.name}`,
         description:
-          `Découvrez des calculatrices de construction interactives pour le béton, la brique et le mortier, la peinture et d'autres estimations de matériaux avec visualisation 3D.`,
+          `Découvrez des calculatrices de construction pour le béton, la brique, le mortier et la peinture, avec visualisation 3D.`,
       },
       de: {
         title: `Bau-Rechner — ${siteConfig.name}`,
@@ -117,6 +117,9 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
       },
     },
   },
+  // TODO(needs native review): localized calculator titles/descriptions below
+  // were rewritten for search intent (Phase 4) — ≤60/≤155 chars, one clear
+  // phrase per page, no keyword stuffing. English entries stay untouched.
   '/calculators/concrete-slab-calculator': {
     title: `Concrete Slab Calculator — 3D Volume & Material Estimate | ${siteConfig.name}`,
     description:
@@ -124,24 +127,24 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
     canonicalPath: '/calculators/concrete-slab-calculator',
     localized: {
       es: {
-        title: `Calculadora de losa de concreto — Volumen y estimación de materiales en 3D | ${siteConfig.name}`,
+        title: `Calculadora de concreto para losa: m³ y sacos | ${siteConfig.name}`,
         description:
-          'Calcula el volumen de una losa de concreto, las cantidades de materiales y los estimados de planificación con una visualización 3D interactiva de la losa.',
+          'Calcula el volumen de la losa en m³ y los sacos de concreto necesarios, con fórmulas transparentes y visualización 3D interactiva.',
       },
       pt: {
-        title: `Calculadora de laje de concreto — Volume 3D e estimativa de materiais | ${siteConfig.name}`,
+        title: `Calculadora de concreto para laje: m³ e sacos | ${siteConfig.name}`,
         description:
-          'Calcule o volume de uma laje de concreto, as quantidades de materiais e os planejamentos com uma visualização 3D interativa da laje.',
+          'Calcule o volume da laje em m³ e os sacos de concreto necessários, com fórmulas transparentes e visualização 3D interativa.',
       },
       fr: {
-        title: `Calculateur de dalle en béton — Volume 3D et estimation des matériaux | ${siteConfig.name}`,
+        title: `Calcul de dalle en béton : m³ et sacs | ${siteConfig.name}`,
         description:
-          `Calculez le volume d'une dalle en béton, les quantités de matériaux et les estimations de planification grâce à une visualisation 3D interactive de la dalle.`,
+          `Calculez le volume de la dalle en m³ et les sacs de béton nécessaires, avec formules transparentes et visualisation 3D interactive.`,
       },
       de: {
-        title: `Betonplatten-Rechner — 3D-Volumen & Materialschätzung | ${siteConfig.name}`,
+        title: `Betonrechner: m³ & Betonsäcke | ${siteConfig.name}`,
         description:
-          'Berechnen Sie das Volumen einer Betonplatte, die Materialmengen und die Planungsgrößen mit einer interaktiven 3D-Visualisierung der Platte.',
+          'Berechnen Sie das Plattenvolumen in m³ und die benötigten Betonsäcke – mit transparenten Formeln und interaktiver 3D-Visualisierung.',
       },
     },
   },
@@ -152,24 +155,24 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
     canonicalPath: '/calculators/brick-mortar-calculator',
     localized: {
       es: {
-        title: `Calculadora de ladrillos — Estimación de ladrillos y mortero | ${siteConfig.name}`,
+        title: `Calculadora de ladrillos: cantidad y mortero | ${siteConfig.name}`,
         description:
-          'Estima los ladrillos necesarios para un muro: cantidad de ladrillos, mortero y dimensiones del muro en metros o pies, con visualización 3D interactiva.',
+          'Estima los ladrillos y el mortero que necesitas para un muro: cantidades en metros o pies, juntas incluidas y visualización 3D interactiva.',
       },
       pt: {
-        title: `Calculadora de tijolos — Estimativa de tijolos e argamassa | ${siteConfig.name}`,
+        title: `Calculadora de tijolos: quantidade e argamassa | ${siteConfig.name}`,
         description:
-          'Estime os tijolos necessários para uma parede: quantidade de tijolos, argamassa e dimensões da parede em metros ou pés, com visualização 3D interativa.',
+          'Estime os tijolos e a argamassa para uma parede: quantidades em metros ou pés, juntas incluídas e visualização 3D interativa.',
       },
       fr: {
-        title: `Calculateur de briques — Estimation de briques et de mortier | ${siteConfig.name}`,
+        title: `Calcul de briques et mortier : m² | ${siteConfig.name}`,
         description:
-          'Estimez les briques nécessaires pour un mur : quantité de briques, mortier et dimensions du mur en mètres ou pieds, avec visualisation 3D interactive.',
+          'Estimez les briques et le mortier pour un mur : quantités en mètres ou pieds, joints compris et visualisation 3D interactive.',
       },
       de: {
-        title: `Ziegelrechner — Ziegel- und Mörtel-Schätzung | ${siteConfig.name}`,
+        title: `Ziegelrechner: Ziegel & Mörtel pro m² | ${siteConfig.name}`,
         description:
-          'Schätzen Sie die für eine Wand benötigten Ziegel: Anzahl, Mörtel und Wandabmessungen in Metern oder Fuß, mit interaktiver 3D-Visualisierung.',
+          'Schätzen Sie Ziegel und Mörtel für eine Wand: Mengen in Metern oder Fuß, Fugen inklusive und interaktive 3D-Visualisierung.',
       },
     },
   },
@@ -180,24 +183,24 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
     canonicalPath: '/calculators/paint-calculator',
     localized: {
       es: {
-        title: `Calculadora de pintura — Cantidad de pintura por habitación | ${siteConfig.name}`,
+        title: `Calculadora de pintura por m²: litros y galones | ${siteConfig.name}`,
         description:
-          'Calcula la superficie de paredes a pintar, la cantidad de pintura, las capas y los estimados de planificación con una visualización 3D interactiva de la habitación.',
+          'Calcula la superficie a pintar en m², la cantidad de pintura en litros o galones y las capas, con deducción de puertas y ventanas y vista 3D.',
       },
       pt: {
-        title: `Calculadora de tinta — Quantidade de tinta por cômodo | ${siteConfig.name}`,
+        title: `Calculadora de tinta: litros por m² | ${siteConfig.name}`,
         description:
-          'Calcule a área de paredes a pintar, a quantidade de tinta, as demãos e os planejamentos com uma visualização 3D interativa do ambiente.',
+          'Calcule a área de paredes em m², a quantidade de tinta em litros ou galões e as demãos, com desconto de portas e janelas e visualização 3D.',
       },
       fr: {
-        title: `Calculateur de peinture — Quantité de peinture par pièce | ${siteConfig.name}`,
+        title: `Calcul de peinture par m² : litres | ${siteConfig.name}`,
         description:
-          'Calculez la surface des murs à peindre, la quantité de peinture, le nombre de couches et les estimations de planification avec une visualisation 3D interactive de la pièce.',
+          'Calculez la surface à peindre en m², la quantité de peinture en litres ou gallons et le nombre de couches, avec déduction des ouvertures et vue 3D.',
       },
       de: {
-        title: `Farbrechner — Farbmenge pro Raum | ${siteConfig.name}`,
+        title: `Farbbedarf berechnen: Farbrechner pro m² | ${siteConfig.name}`,
         description:
-          'Berechnen Sie die zu streichende Wandfläche, die Farbmenge, die Anzahl der Schichten und die Planungsgrößen mit einer interaktiven 3D-Visualisierung des Raums.',
+          'Berechnen Sie die Wandfläche in m², die Farbmenge in Litern oder Gallonen und die Schichten – mit Abzügen für Türen und Fenster und 3D-Ansicht.',
       },
     },
   },
@@ -238,7 +241,7 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
       es: {
         title: `Blog de construcción — ${siteConfig.name}`,
         description:
-          'Guías prácticas de cálculos de construcción de MixTally: volumen de losas de concreto, estimaciones de alberería, cobertura de pintura y ejemplos de trabajo.',
+          'Guías de cálculos de construcción de MixTally: volumen de losas, estimaciones de alvenaria, cobertura de pintura y ejemplos resueltos.',
       },
       pt: {
         title: `Blog de construção — ${siteConfig.name}`,
@@ -264,24 +267,24 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
     canonicalPath: '/about',
     localized: {
       es: {
-        title: `Acerca de ${siteConfig.name} — Herramientas de estimación de construcción`,
+        title: `Acerca de ${siteConfig.name} — Estimación de construcción`,
         description:
-          `Conoce ${siteConfig.name}, una plataforma de estimación de construcción centrada en cálculos transparentes, visualización 3D interactiva y herramientas prácticas de planificación.`,
+          `Conoce ${siteConfig.name}, plataforma de estimación con cálculos transparentes, visualización 3D y herramientas de planificación.`,
       },
       pt: {
-        title: `Sobre o ${siteConfig.name} — Ferramentas de estimativa de construção`,
+        title: `Sobre o ${siteConfig.name} — Estimativa de construção`,
         description:
-          `Conheça o ${siteConfig.name}, uma plataforma de estimativa de construção focada em cálculos transparentes, visualização 3D interativa e ferramentas práticas de planejamento.`,
+          `Conheça o ${siteConfig.name}, plataforma de estimativa com cálculos transparentes, visualização 3D e ferramentas de planejamento.`,
       },
       fr: {
-        title: `À propos de ${siteConfig.name} — Outils d'estimation de construction`,
+        title: `À propos de ${siteConfig.name} — Estimation de construction`,
         description:
-          `Découvrez ${siteConfig.name}, une plateforme d'estimation de construction axée sur des calculs transparents, une visualisation 3D interactive et des outils de planification pratiques.`,
+          `Découvrez ${siteConfig.name}, plateforme d'estimation avec calculs transparents, visualisation 3D et outils de planification.`,
       },
       de: {
-        title: `Über ${siteConfig.name} — Werkzeuge zur Materialschätzung im Bauwesen`,
+        title: `Über ${siteConfig.name} — Materialschätzung im Bauwesen`,
         description:
-          `Erfahren Sie mehr über ${siteConfig.name}, eine Plattform für Materialschätzungen im Bauwesen mit transparenten Berechnungen, interaktiver 3D-Visualisierung und praktischen Planungswerkzeugen.`,
+          `Erfahren Sie mehr über ${siteConfig.name}: Plattform für Materialschätzungen mit transparenten Berechnungen, 3D-Visualisierung und Planungswerkzeugen.`,
       },
     },
   },
@@ -322,7 +325,7 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
       es: {
         title: `Política de privacidad — ${siteConfig.name}`,
         description:
-          `Consulta la política de privacidad de ${siteConfig.name} sobre el uso del sitio, los datos de las calculadoras, las cookies, la analítica, la publicidad y las prácticas de privacidad.`,
+          `Consulta la política de privacidad de ${siteConfig.name}: uso del sitio, datos de las calculadoras, cookies, analítica y publicidad.`,
       },
       pt: {
         title: `Política de privacidade — ${siteConfig.name}`,
@@ -332,7 +335,7 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
       fr: {
         title: `Politique de confidentialité — ${siteConfig.name}`,
         description:
-          `Consultez la politique de confidentialité de ${siteConfig.name} portant sur l'utilisation du site, les données des calculatrices, les cookies, la mesure d'audience, la publicité et les pratiques de confidentialité.`,
+          `Consultez la politique de confidentialité de ${siteConfig.name} : utilisation du site, données des calculatrices, cookies et publicité.`,
       },
       de: {
         title: `Datenschutzerklärung — ${siteConfig.name}`,
@@ -388,12 +391,12 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
       fr: {
         title: `Avertissement sur les calculs de construction — ${siteConfig.name}`,
         description:
-          `Informations importantes sur les calculs, les hypothèses, les estimations et les limites de ${siteConfig.name}. À lire avant de vous fier aux résultats des calculatrices.`,
+          `Informations sur les calculs, hypothèses et limites de ${siteConfig.name}. À lire avant de vous fier aux résultats.`,
       },
       de: {
         title: `Hinweis zu Bau-Berechnungen — ${siteConfig.name}`,
         description:
-          `Wichtige Informationen zu den Berechnungen, Annahmen, Schätzungen und Einschränkungen von ${siteConfig.name}. Bitte lesen, bevor Sie sich auf die Ergebnisse der Rechner verlassen.`,
+          `Wichtige Informationen zu Berechnungen, Annahmen und Einschränkungen von ${siteConfig.name}. Bitte lesen, bevor Sie sich auf die Ergebnisse verlassen.`,
       },
     },
   },
@@ -409,7 +412,7 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
           `Conoce cómo ${siteConfig.name} utiliza cookies y tecnologías similares en el sitio.`,
       },
       pt: {
-        title: `Política de cookies — ${siteConfig.name}`,
+        title: `Política de cookies do site — ${siteConfig.name}`,
         description:
           `Saiba como o ${siteConfig.name} usa cookies e tecnologias semelhantes no site.`,
       },

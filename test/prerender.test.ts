@@ -515,7 +515,7 @@ describe('representative routes (all five locales)', () => {
   it('/de/calculators/concrete-slab-calculator — German 3D calculator', () => {
     const html = docFor('/de/calculators/concrete-slab-calculator');
     expect(extractTitle(html)).toBe(
-      'Betonrechner: m³ & Betonsäcke | MixTally',
+      'Betonbedarf berechnen: Platte in m³ & Säcke | MixTally',
     );
     expect(extract(html, /<html lang="([^"]*)">/)).toBe('de');
     const root = extractRootContent(html);

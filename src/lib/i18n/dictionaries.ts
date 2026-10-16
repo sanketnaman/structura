@@ -4073,7 +4073,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'nav.brickMortar': 'Ziegel & Mörtel',
     'nav.architecturalPaint': 'Architekturfarbe',
     'nav.allCalculatorsDirectory': 'Verzeichnis aller Rechner',
-    'nav.concreteSlabCalculator': 'Betonrechner',
+    'nav.concreteSlabCalculator': 'Betonbedarf berechnen: Betonplatte',
     'nav.brickMortarCalculator': 'Ziegelrechner',
     'nav.paintCalculator': 'Farbrechner pro m²',
     'nav.fieldGuides': 'Praxis-Leitfäden',

@@ -142,7 +142,7 @@ export const seoRegistry: Record<string, RouteSEOEntry> = {
           `Ce calcul dalle béton détermine le volume en m³ et les sacs nécessaires, avec des formules transparentes et une visualisation 3D interactive.`,
       },
       de: {
-        title: `Betonrechner: m³ & Betonsäcke | ${siteConfig.name}`,
+        title: `Betonbedarf berechnen: Platte in m³ & Säcke | ${siteConfig.name}`,
         description:
           'Berechnen Sie das Plattenvolumen in m³ und die benötigten Betonsäcke – mit transparenten Formeln und interaktiver 3D-Visualisierung.',
       },

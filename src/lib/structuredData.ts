@@ -1,7 +1,12 @@
 import { siteConfig } from './config/site';
-import { BRICK_FAQ } from './calculators/brick/faq';
+import {
+  BRICK_FAQ_ANSWER_KEYS,
+  BRICK_FAQ_QUESTION_KEYS,
+} from './calculators/brick/faq';
 import { parseLocalePath, localizePath } from './i18n/routing';
-import { absoluteSiteUrl } from './seo';
+import { translate } from './i18n/translate';
+import type { TranslationKey } from './i18n/dictionaries';
+import { absoluteSiteUrl, getRouteSEO } from './seo';
 import { buildArticleSchemas, buildBlogListingSchemas } from './blog/structuredData';
 import { isArticleBasePath } from './blog/registry';
 
@@ -9,12 +14,15 @@ import { isArticleBasePath } from './blog/registry';
  * Pure builder for the dynamic JSON-LD schemas the runtime
  * <StructuredData> effect injects per route.
  *
- * Schema types, properties and wording are identical to the historic effect
- * output — the effect now calls this function, and build-time server
- * rendering serializes the same result into prerendered HTML, so the two
- * can never drift apart. Schemas match on the locale-stripped path and emit
- * URLs for the locale the URL addresses, so `/es/...` pages carry localized
- * JSON-LD links.
+ * Schema types, properties and wording are localized: application names and
+ * breadcrumb labels resolve through the i18n dictionary, calculator
+ * descriptions reuse the localized seoRegistry descriptions, and FAQPage
+ * entries map the same dictionary keys the visible FAQ sections render, so
+ * the schema always matches the page content per locale. The effect now
+ * calls this function, and build-time server rendering serializes the same
+ * result into prerendered HTML, so the two can never drift apart. Schemas
+ * match on the locale-stripped path and emit URLs for the locale the URL
+ * addresses, so `/es/...` pages carry localized JSON-LD links.
  *
  * Blog routes delegate to `blog/structuredData.ts`: the listing emits a
  * `BreadcrumbList`, and each article emits `Article` + `BreadcrumbList`.
@@ -26,6 +34,9 @@ import { isArticleBasePath } from './blog/registry';
 export function buildStructuredDataSchemas(pathname: string): Record<string, unknown>[] {
   const { locale, basePath } = parseLocalePath(pathname);
   const siteUrl = (target: string) => absoluteSiteUrl(localizePath(locale, target));
+  const t = (key: TranslationKey) => translate(locale, key);
+  const routeDescription = (target: string) =>
+    getRouteSEO(localizePath(locale, target)).description;
 
   const schemas: Record<string, unknown>[] = [];
 
@@ -45,28 +56,27 @@ export function buildStructuredDataSchemas(pathname: string): Record<string, unk
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl('/') },
-        { '@type': 'ListItem', position: 2, name: 'Calculators', item: siteUrl('/calculators') },
+        { '@type': 'ListItem', position: 1, name: t('common.home'), item: siteUrl('/') },
+        { '@type': 'ListItem', position: 2, name: t('common.calculators'), item: siteUrl('/calculators') },
       ],
     });
   } else if (basePath === '/calculators/concrete-slab-calculator') {
     schemas.push({
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      name: 'Concrete Slab Calculator',
+      name: t('nav.concreteSlabCalculator'),
       url: siteUrl('/calculators/concrete-slab-calculator'),
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Web',
-      description:
-        'Calculate concrete slab volume, cubic yards, cubic feet, material quantities, and planning estimates with an interactive 3D slab visualization.',
+      description: routeDescription('/calculators/concrete-slab-calculator'),
     });
     schemas.push({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl('/') },
-        { '@type': 'ListItem', position: 2, name: 'Calculators', item: siteUrl('/calculators') },
-        { '@type': 'ListItem', position: 3, name: 'Concrete Slab Calculator', item: siteUrl('/calculators/concrete-slab-calculator') },
+        { '@type': 'ListItem', position: 1, name: t('common.home'), item: siteUrl('/') },
+        { '@type': 'ListItem', position: 2, name: t('common.calculators'), item: siteUrl('/calculators') },
+        { '@type': 'ListItem', position: 3, name: t('nav.concreteSlabCalculator'), item: siteUrl('/calculators/concrete-slab-calculator') },
       ],
     });
     schemas.push({
@@ -75,26 +85,26 @@ export function buildStructuredDataSchemas(pathname: string): Record<string, unk
       mainEntity: [
         {
           '@type': 'Question',
-          name: 'How many 80 lb bags of concrete equal one cubic yard?',
+          name: t('concrete.faqQ1'),
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'One 80-pound bag yields approximately 0.60 cubic feet. Since one cubic yard contains 27 cubic feet, it mathematically requires approximately 45 bags of 80 lb concrete (or 60 bags of 60 lb concrete) per cubic yard based on this planning assumption.',
+            text: t('concrete.faqA1'),
           },
         },
         {
           '@type': 'Question',
-          name: 'How thick should a concrete slab be?',
+          name: t('concrete.faqQ2'),
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Sidewalks, walkways, and patios typically require 4 inches (10 cm). Vehicle driveways, garage slabs, and heavy storage pads require a minimum of 5 to 6 inches (13 to 15 cm) with steel rebar or wire mesh reinforcement.',
+            text: t('concrete.faqA2'),
           },
         },
         {
           '@type': 'Question',
-          name: 'What does a cubic yard of concrete weigh?',
+          name: t('concrete.faqQ3'),
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Standard normal-weight concrete weighs approximately 4,050 lbs (about 2 tons or 1,840 kg) per cubic yard when wet.',
+            text: t('concrete.faqA3'),
           },
         },
       ],
@@ -103,31 +113,30 @@ export function buildStructuredDataSchemas(pathname: string): Record<string, unk
     schemas.push({
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      name: 'Brick Calculator',
+      name: t('nav.brickMortarCalculator'),
       url: siteUrl('/calculators/brick-mortar-calculator'),
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Web',
-      description:
-        'Estimate bricks needed for a wall with this brick calculator: brick quantity, mortar, wall dimensions in metric or imperial, plus interactive 3D visualization.',
+      description: routeDescription('/calculators/brick-mortar-calculator'),
     });
     schemas.push({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl('/') },
-        { '@type': 'ListItem', position: 2, name: 'Calculators', item: siteUrl('/calculators') },
-        { '@type': 'ListItem', position: 3, name: 'Brick Calculator', item: siteUrl('/calculators/brick-mortar-calculator') },
+        { '@type': 'ListItem', position: 1, name: t('common.home'), item: siteUrl('/') },
+        { '@type': 'ListItem', position: 2, name: t('common.calculators'), item: siteUrl('/calculators') },
+        { '@type': 'ListItem', position: 3, name: t('nav.brickMortarCalculator'), item: siteUrl('/calculators/brick-mortar-calculator') },
       ],
     });
     schemas.push({
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: BRICK_FAQ.map((item) => ({
+      mainEntity: BRICK_FAQ_QUESTION_KEYS.map((questionKey, index) => ({
         '@type': 'Question',
-        name: item.question,
+        name: t(questionKey),
         acceptedAnswer: {
           '@type': 'Answer',
-          text: item.answer,
+          text: t(BRICK_FAQ_ANSWER_KEYS[index]),
         },
       })),
     });
@@ -135,20 +144,19 @@ export function buildStructuredDataSchemas(pathname: string): Record<string, unk
     schemas.push({
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      name: 'Paint Calculator',
+      name: t('nav.paintCalculator'),
       url: siteUrl('/calculators/paint-calculator'),
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Web',
-      description:
-        'Calculate paintable wall area, paint quantity, coats, and planning estimates with an interactive 3D room visualization.',
+      description: routeDescription('/calculators/paint-calculator'),
     });
     schemas.push({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl('/') },
-        { '@type': 'ListItem', position: 2, name: 'Calculators', item: siteUrl('/calculators') },
-        { '@type': 'ListItem', position: 3, name: 'Paint Calculator', item: siteUrl('/calculators/paint-calculator') },
+        { '@type': 'ListItem', position: 1, name: t('common.home'), item: siteUrl('/') },
+        { '@type': 'ListItem', position: 2, name: t('common.calculators'), item: siteUrl('/calculators') },
+        { '@type': 'ListItem', position: 3, name: t('nav.paintCalculator'), item: siteUrl('/calculators/paint-calculator') },
       ],
     });
   }

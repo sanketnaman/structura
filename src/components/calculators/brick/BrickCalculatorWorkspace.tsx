@@ -6,7 +6,10 @@ import { calculateBrick } from '../../../lib/calculators/brick/calculator';
 import type { UnitSystem } from '../../../types/layout';
 import { formatNumber } from '../../../lib/calculators/common/math';
 import { useViewToPath } from '../../../lib/routes';
-import { BRICK_FAQ } from '../../../lib/calculators/brick/faq';
+import {
+  BRICK_FAQ_ANSWER_KEYS,
+  BRICK_FAQ_QUESTION_KEYS,
+} from '../../../lib/calculators/brick/faq';
 import { AdSlot } from '../../common/AdSlot';
 import { TechnicalDiagram } from '../../common/TechnicalDiagram';
 import { useLocale } from '../../../lib/i18n/context';
@@ -31,29 +34,6 @@ interface BrickCalculatorWorkspaceProps {
   unitSystem: UnitSystem;
   onUnitSystemChange: (system: UnitSystem) => void;
 }
-
-/** Dictionary keys for the FAQ entries rendered below the calculator. */
-const FAQ_QUESTION_KEYS = [
-  'brick.faqQ1',
-  'brick.faqQ2',
-  'brick.faqQ3',
-  'brick.faqQ4',
-  'brick.faqQ5',
-  'brick.faqQ6',
-  'brick.faqQ7',
-  'brick.faqQ8',
-] as const;
-
-const FAQ_ANSWER_KEYS = [
-  'brick.faqA1',
-  'brick.faqA2',
-  'brick.faqA3',
-  'brick.faqA4',
-  'brick.faqA5',
-  'brick.faqA6',
-  'brick.faqA7',
-  'brick.faqA8',
-] as const;
 
 export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> = ({
   unitSystem,
@@ -907,12 +887,12 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             {t('common.faqTitle')}
           </h2>
           <div className="space-y-5">
-            {BRICK_FAQ.map((item, index) => (
-              <div key={item.question} className="space-y-1.5">
+            {BRICK_FAQ_QUESTION_KEYS.map((questionKey, index) => (
+              <div key={questionKey} className="space-y-1.5">
                 <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-                  {t(FAQ_QUESTION_KEYS[index])}
+                  {t(questionKey)}
                 </h3>
-                <p>{t(FAQ_ANSWER_KEYS[index])}</p>
+                <p>{t(BRICK_FAQ_ANSWER_KEYS[index])}</p>
               </div>
             ))}
           </div>

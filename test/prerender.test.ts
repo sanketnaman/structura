@@ -19,7 +19,7 @@ import { buildStructuredDataSchemas } from '../src/lib/structuredData';
 import { getLocaleDefinition } from '../src/lib/i18n/config';
 import { parseLocalePath } from '../src/lib/i18n/routing';
 import { translate } from '../src/lib/i18n/translate';
-import { BRICK_FAQ } from '../src/lib/calculators/brick/faq';
+import { BRICK_FAQ_QUESTION_KEYS } from '../src/lib/calculators/brick/faq';
 import { ARTICLE_REGISTRY, resolveArticleForLocale } from '../src/lib/blog/registry';
 
 /**
@@ -551,7 +551,7 @@ describe('representative routes (all five locales)', () => {
       'FAQPage',
     ]);
     const faq = schemas[2] as { mainEntity: unknown[] };
-    expect(faq.mainEntity).toHaveLength(BRICK_FAQ.length);
+    expect(faq.mainEntity).toHaveLength(BRICK_FAQ_QUESTION_KEYS.length);
   });
 });
 

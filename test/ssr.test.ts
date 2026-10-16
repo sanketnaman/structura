@@ -3,7 +3,7 @@ import { render } from '../src/entry-server';
 import { buildSeoHeadSpec, getRouteSEO } from '../src/lib/seo';
 import { buildStructuredDataSchemas } from '../src/lib/structuredData';
 import { translate } from '../src/lib/i18n/translate';
-import { BRICK_FAQ } from '../src/lib/calculators/brick/faq';
+import { BRICK_FAQ_QUESTION_KEYS } from '../src/lib/calculators/brick/faq';
 
 /**
  * Phase 4H-1 — representative server rendering (renderToString) for
@@ -228,7 +228,7 @@ describe('buildStructuredDataSchemas', () => {
       'FAQPage',
     ]);
     expect(schemas[0]).toMatchObject({
-      name: 'Concrete Slab Calculator',
+      name: translate('de', 'nav.concreteSlabCalculator'),
       url: 'https://mixtally.com/de/calculators/concrete-slab-calculator',
     });
     const breadcrumb = schemas[1] as { itemListElement: { item: string }[] };
@@ -236,11 +236,13 @@ describe('buildStructuredDataSchemas', () => {
     expect(breadcrumb.itemListElement[2].item).toBe(
       'https://mixtally.com/de/calculators/concrete-slab-calculator',
     );
-    const faq = schemas[2] as { mainEntity: unknown[] };
+    const faq = schemas[2] as { mainEntity: { name: string }[] };
     expect(faq.mainEntity).toHaveLength(3);
+    expect(faq.mainEntity[0].name).toBe(translate('de', 'concrete.faqQ1'));
+    expect(faq.mainEntity[0].name).not.toBe(translate('en', 'concrete.faqQ1'));
   });
 
-  it('emits the full BRICK_FAQ FAQPage for the English brick calculator', () => {
+  it('emits the full localized brick FAQPage for the English brick calculator', () => {
     const schemas = buildStructuredDataSchemas('/calculators/brick-mortar-calculator');
 
     expect(schemas).toHaveLength(3);
@@ -250,8 +252,8 @@ describe('buildStructuredDataSchemas', () => {
       'FAQPage',
     ]);
     const faq = schemas[2] as { mainEntity: unknown[] };
-    expect(faq.mainEntity).toHaveLength(BRICK_FAQ.length);
-    expect(BRICK_FAQ.length).toBeGreaterThan(0);
+    expect(faq.mainEntity).toHaveLength(BRICK_FAQ_QUESTION_KEYS.length);
+    expect(BRICK_FAQ_QUESTION_KEYS.length).toBeGreaterThan(0);
   });
 
   it('emits WebApplication + BreadcrumbList (no FAQ) for the French paint calculator', () => {
@@ -260,23 +262,28 @@ describe('buildStructuredDataSchemas', () => {
     expect(schemas).toHaveLength(2);
     expect(schemas.map((s) => s['@type'])).toEqual(['WebApplication', 'BreadcrumbList']);
     expect(schemas[0]).toMatchObject({
-      name: 'Paint Calculator',
+      name: translate('fr', 'nav.paintCalculator'),
       url: 'https://mixtally.com/fr/calculators/paint-calculator',
     });
   });
 
-  it('emits a breadcrumb only for the calculators directory', () => {
+  it('emits a localized breadcrumb only for the calculators directory', () => {
     const schemas = buildStructuredDataSchemas('/pt/calculators');
 
     expect(schemas).toHaveLength(1);
     expect(schemas[0]).toMatchObject({
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://mixtally.com/pt/' },
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: translate('pt', 'common.home'),
+          item: 'https://mixtally.com/pt/',
+        },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Calculators',
+          name: translate('pt', 'common.calculators'),
           item: 'https://mixtally.com/pt/calculators',
         },
       ],

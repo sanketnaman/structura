@@ -19,8 +19,7 @@ import { localizePath, parseLocalePath } from '../src/lib/i18n/routing';
 /** One file written for one route. */
 export interface PrerenderFile {
   /** Route pathname, e.g. `/pt/privacy`. */
-  urlPath: string;
-  /** Path relative to the output directory, e.g. `pt/privacy.html`. */
+  urlPath: string;  /** Path relative to the output directory, e.g. `pt/privacy.html`. */
   outputPath: string;
   bytes: number;
 }
@@ -133,6 +132,15 @@ function jsonForScript(data: unknown): string {
 }
 
 /**
+ * The English `description` string inside the site-level application/ld+json
+ * block that index.html carries into every prerendered document. Must stay
+ * in sync with index.html; buildDocument swaps it for the locale's home
+ * description so localized pages never ship the English site schema text.
+ */
+const STATIC_SITE_JSONLD_DESCRIPTION =
+  'Formula-based construction material calculators with interactive 3D visualizations for concrete, masonry, paint, and project planning.';
+
+/**
  * Builds one complete prerendered document:
  *
  * 1. Strips every managed tag from the template (title, description,
@@ -145,9 +153,11 @@ function jsonForScript(data: unknown): string {
  * 4. Fills the empty `<div id="root">` with the server-rendered body.
  *
  * Everything outside those slots (GA4, icons, fetch patch, Vite asset
- * tags, the site-level JSON-LD from index.html) passes through untouched.
+ * tags, the site-level JSON-LD shell from index.html — whose description
+ * text is localized in step 2b) passes through untouched.
  */
 export function buildDocument(templateHtml: string, urlPath: string, bodyHtml: string): string {
+  const { locale } = parseLocalePath(urlPath);
   const spec = buildSeoHeadSpec(getRouteSEO(urlPath));
   const schemas = buildStructuredDataSchemas(urlPath);
 
@@ -164,6 +174,17 @@ export function buildDocument(templateHtml: string, urlPath: string, bodyHtml: s
     throw new Error('HTML template is missing <html lang="...">');
   }
   html = html.replace(/<html lang="[^"]*">/, `<html lang="${escapeAttr(spec.htmlLang)}">`);
+
+  // 2b. Localize the description inside the site-level JSON-LD that
+  // index.html carries into every document (that script tag itself passes
+  // through untouched; only its English description text is swapped for the
+  // locale's home description). The match string below must stay in sync
+  // with the `"description"` value of the application/ld+json block in
+  // index.html.
+  const homeSeo = getRouteSEO(locale === 'en' ? '/' : `/${locale}/`);
+  html = html
+    .split(STATIC_SITE_JSONLD_DESCRIPTION)
+    .join(JSON.stringify(homeSeo.description).slice(1, -1));
 
   // 3. Route-specific head tags, exactly one of each.
   const headTags: string[] = [

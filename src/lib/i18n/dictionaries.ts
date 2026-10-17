@@ -1181,7 +1181,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'home.concreteBadge': 'Concreto estructural',
     'home.concreteTitle': 'Losas y volumen de concreto',
     'home.concreteBody':
-      'Calcule yardas cúbicas, cargas de hormigonera y sacos de mezcla prefabricada de 80 lb/60 lb, con margen de base de piedra triturada y cálculo de juntas de dilatación.',
+      'Calcule yardas cúbicas, cargas de revolvedora y sacos de mezcla prefabricada de 80 lb/60 lb, con margen de base de piedra triturada y cálculo de juntas de dilatación.',
     'home.openConcrete': 'Abrir área de concreto',
     'home.masonryBadge': 'Cantería y muros',
     'home.masonryTitle': 'Estimación de ladrillo y mortero',
@@ -1224,7 +1224,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'home.step4Label': '04. CÁLCULO DEL PEDIDO',
     'home.step4Title': 'Unidades de compra',
     'home.step4Body':
-      'Los volúmenes se traducen de inmediato en unidades comerciales reales: cargas de hormigonera, sacos de mezcla o cubetas comerciales.',
+      'Los volúmenes se traducen de inmediato en unidades comerciales reales: cargas de revolvedora, sacos de mezcla o cubetas comerciales.',
     'home.faqEyebrow': 'Base de conocimiento de campo',
     'home.faqTitle': 'Principios prácticos de cálculo de obra',
     'home.faqBody':
@@ -1239,9 +1239,9 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'home.faq3Answer':
       'Las puertas interiores estándar suelen medir ~21 ft² (2,0 m²) y las ventanas residenciales estándar ocupan ~15 ft² (1,4 m²). Deducir las aberturas importantes evita compras excesivas de pintura en proyectos de varias habitaciones.',
     'home.faq4Question':
-      '¿Cómo se comparan el rendimiento de los sacos con los camiones de hormigón fresco entregados?',
+      '¿Cómo se comparan el rendimiento de los sacos con los camiones de concreto premezclado entregados?',
     'home.faq4Answer':
-      'Una yarda cúbica contiene 27 pies cúbicos. Un saco estándar de mezcla de concreto de 80 lb rinde aproximadamente 0,60 pies cúbicos, lo que significa que se requieren 45 sacos de concreto de 80 lb (o 60 sacos de 60 lb) para fabricar una yarda cúbica. Para vertidos superiores a 2 yardas cúbicas, los camiones de hormigón fresco entregado suelen ser más económicos.',
+      'Una yarda cúbica contiene 27 pies cúbicos. Un saco estándar de mezcla de concreto de 80 lb rinde aproximadamente 0,60 pies cúbicos, lo que significa que se requieren 45 sacos de concreto de 80 lb (o 60 sacos de 60 lb) para fabricar una yarda cúbica. Para vertidos superiores a 2 yardas cúbicas, los camiones de concreto premezclado entregado suelen ser más económicos.',
 
     'directory.eyebrow': 'Directorio de calculadoras de producción',
     'directory.title': 'Calculadoras de construcción',
@@ -1323,7 +1323,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'guides.launchCalculator': 'Abrir calculadora',
     'guides.concreteBadge': 'Guía de concreto 01',
     'guides.concreteTitle':
-      'Cómo calcular el volumen de una losa de concreto y los pedidos de hormigón fresco',
+      'Cómo calcular el volumen de una losa de concreto y los pedidos de concreto premezclado',
     'guides.concreteIntro':
       'El concreto vertido se mide y se compra en <strong>yardas cúbicas</strong> (en el sistema estadounidense) o en <strong>metros cúbicos</strong> (en países de sistema métrico). Como en obra las dimensiones suelen registrarse como largo y ancho en pies, pero el espesor de la losa en pulgadas, la conversión correcta de unidades es esencial:',
     'guides.concreteSubhead': 'Por qué el desnivel del terreno exige un margen de pedido',
@@ -1381,7 +1381,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'about.method3Label': '3. EMBALAJE REAL',
     'about.method3Title': 'Cálculos comerciales',
     'about.method3Body':
-      'Los volúmenes en bruto se traducen en unidades de embalaje comerciales reales: hormigoneras (~9 yd³), sacos de 80 lb / 60 lb, paletas y cubetas de 5 galones.',
+      'Los volúmenes en bruto se traducen en unidades de embalaje comerciales reales: revolvedoras (~9 yd³), sacos de 80 lb / 60 lb, paletas y cubetas de 5 galones.',
     'about.audienceTitle': 'Para quién está diseñada la plataforma',
     'about.audience1Title': 'Contratistas generales y constructores',
     'about.audience1Body':
@@ -1519,7 +1519,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
       'El concreto húmedo ejerce una alta presión hidrostática sobre los encofrados de madera, creando abombamientos que aumentan el consumo de volumen.',
     'disclaimer.var3Label': 'Diferencias de embalaje del fabricante:',
     'disclaimer.var3Body':
-      'El rendimiento de las bolsas (como bolsas de mezcla previa de 80 lb o 60 lb) varía según la mezcla del fabricante, la densidad del agregado y el agua añadida.',
+      'El rendimiento de los sacos (como sacos de mezcla previa de 80 lb o 60 lb) varía según la mezcla del fabricante, la densidad del agregado y el agua añadida.',
     'disclaimer.var4Label': 'Desperdicio de albañilería y mortero:',
     'disclaimer.var4Body':
       'Los ladrillos astillados durante el transporte, las piezas cortadas en las esquinas de los muros y el mortero caído en el andamio requieren márgenes realistas de obra.',
@@ -1659,8 +1659,9 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.unitsMetric': 'Sistema métrico (metros / centímetros)',
     'concrete.presetsLabel': 'Preajustes de proyecto:',
     'concrete.customActive': 'Proyecto personalizado activo',
-    'concrete.presetWalkwayMetric': 'Andén (4×3 m)',
-    'concrete.presetWalkwayImperial': 'Andén / terraza (12×10 ft)',
+    // TODO(needs native review): "andén" is regional for sidewalk; using the neutral "acera".
+    'concrete.presetWalkwayMetric': 'Acera (4×3 m)',
+    'concrete.presetWalkwayImperial': 'Acera / terraza (12×10 ft)',
     'concrete.presetStandardMetric': 'Estándar (6×3 m)',
     'concrete.presetStandardImperial': 'Losa estándar (20×10 ft)',
     'concrete.presetGarageMetric': 'Garaje (7×6 m, 15 cm)',
@@ -1670,9 +1671,10 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.width': 'Ancho',
     'concrete.widthSliderAria': 'Control de ancho de la losa',
     'concrete.thickness': 'Espesor / Profundidad',
-    'concrete.thickHintSidewalk': 'Andén / terraza estándar',
+    'concrete.thickHintSidewalk': 'Acera / terraza estándar',
     'concrete.thickHintDriveway': 'Entrada de vehículos / piso de garaje',
-    'concrete.thickHintCommercial': 'Base comercial pesada',
+    // TODO(needs native review): was "Base comercial pesada" — "base" is not a slab.
+    'concrete.thickHintCommercial': 'Losa comercial pesada',
     'concrete.thicknessSliderAria': 'Control de espesor de la losa',
     'concrete.wasteLabel': 'Margen de merma / exceso de pedido',
     'concrete.wasteHint':
@@ -1696,13 +1698,13 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.resultsTitle': 'Concreto estimado necesario',
     'concrete.resultsSubtitle':
       'Precisión racional con margen de exceso calibrado según la práctica de obra',
-    'concrete.astmLabel': 'Equivalentes de hormigón fresco y mezcla prefabricada (ASTM)',
+    'concrete.astmLabel': 'Equivalentes de concreto premezclado y mezcla prefabricada (ASTM)',
     'concrete.requiredLabel': 'CONCRETO NECESARIO',
     'concrete.primaryTakeoff': 'Cálculo principal',
     'concrete.baseVolumeLabel': 'Volumen base:',
     'concrete.planningAllowance': 'Margen de planificación:',
     'concrete.orderingQuantity': 'Cantidad a pedir:',
-    'concrete.readyMixDeliveries': 'Entregas de hormigón fresco:',
+    'concrete.readyMixDeliveries': 'Entregas de concreto premezclado:',
     'concrete.trucks': '~{count} camiones (tambor de ~9 yd³)',
     'concrete.baseGeoVolume': 'Volumen geométrico base',
     'concrete.yardsNet': '{v} yd³ neto',
@@ -1713,7 +1715,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.bags80': 'Sacos (80 lb)',
     'concrete.orBags60': 'o {count} sacos (60 lb)',
     'concrete.preMixBody':
-      'Para mezclar sacos de concreto a granel en obra con una hormigonera portátil o una carretilla.',
+      'Para mezclar sacos de concreto a granel en obra con una revolvedora portátil o una carretilla.',
     'concrete.yieldFactors': 'Factores de rendimiento:',
     'concrete.breakdownTitle': 'Desglose transparente del cálculo',
     'concrete.step1Title': 'Paso 1: convertir el espesor',
@@ -1736,7 +1738,8 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.pricePlaceholderMetric': 'p. ej. 150,00',
     'concrete.pricePlaceholderImperial': 'p. ej. 145,00',
     'concrete.priceHint':
-      'Contacte a su hormigonera local para el precio actual entregado en obra.',
+      // TODO(needs native review): source said "hormigonera local" — this means the ready-mix plant, not a mixer.
+      'Contacte a su planta de concreto local para el precio actual entregado en obra.',
     'concrete.estCostLabel': 'Costo estimado del material de concreto',
     'concrete.estCostNote':
       'Solo estimación. No incluye cargos ambientales del proveedor, tarifas de entrega fraccionada, costos de bombeo, madera de cimbra, acero de refuerzo ni mano de obra de acabado.',
@@ -1749,7 +1752,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.copy.waste': 'Margen de merma / exceso: {pct}% ({v})',
     'concrete.copy.finalQty': 'Cantidad final necesaria: {v} ({alt})',
     'concrete.copy.bags': 'Concreto prefabricado en sacos: {b80} sacos de 80 lb (o {b60} de 60 lb)',
-    'concrete.copy.trucks': 'Entregas de hormigón fresco: ~{count} viajes (tambor de ~9 yd³)',
+    'concrete.copy.trucks': 'Entregas de concreto premezclado: ~{count} viajes (tambor de ~9 yd³)',
     'concrete.copy.cost': 'Costo estimado del material: ${cost} (@ ${price}/{unit})',
     'concrete.relatedBrickSub': 'Aparejo modular y cálculo de mortero tipo N',
     'concrete.relatedPaintSub': 'Cobertura de pared multicapa y embalaje comercial',
@@ -1761,7 +1764,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
       'Un saco de 80 libras rinde aproximadamente 0,60 pies cúbicos. Como una yarda cúbica contiene 27 pies cúbicos, matemáticamente se requieren unos 45 sacos de concreto de 80 lb (o 60 sacos de 60 lb) por yarda cúbica, según este supuesto de planificación.',
     'concrete.faqQ2': '¿Qué espesor debe tener una losa de concreto?',
     'concrete.faqA2':
-      'Los andenes, pasarelas y terrazas suelen requerir 4 pulgadas (10 cm). Las entradas de vehículos, las losas de garaje y las bases de almacenamiento pesado requieren un mínimo de 5 a 6 pulgadas (13 a 15 cm) con refuerzo de acero o malla electrosoldada.',
+      'Las aceras, pasarelas y terrazas suelen requerir 4 pulgadas (10 cm). Las entradas de vehículos, las losas de garaje y las bases de almacenamiento pesado requieren un mínimo de 5 a 6 pulgadas (13 a 15 cm) con refuerzo de acero o malla electrosoldada.',
     'concrete.faqQ3': '¿Cuánto pesa una yarda cúbica de concreto?',
     'concrete.faqA3':
       'El concreto estándar de peso normal pesa aproximadamente 4.050 libras (unas 2 toneladas o 1.840 kg) por yarda cúbica cuando está húmedo.',
@@ -1903,9 +1906,9 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.guide.exampleStep2Metric': '2. Calcular el volumen base: 6 m × 3 m × 0,1 m = 1,8 m³',
     'concrete.guide.exampleStep3Metric': '3. Agregar 10% de margen: 1,8 m³ × 1,1 = 1,98 m³',
     'concrete.guide.exampleStep4Metric':
-      '4. Equivalente en sacos: 1,98 m³ ≈ 69,92 ft³ ÷ 0,60 ft³ = 117 bolsas de 80 lb (≈ 36,3 kg)',
+      '4. Equivalente en sacos: 1,98 m³ ≈ 69,92 ft³ ÷ 0,60 ft³ = 117 sacos de 80 lb (≈ 36,3 kg)',
     'concrete.guide.exampleNoteMetric':
-      'Para entrega a granel el pedido se redondea a 2,0 m³. Para concreto en sacos hacen falta 117 bolsas de 80 lb (≈ 36,3 kg) o 156 bolsas de 60 lb (≈ 27,2 kg).',
+      'Para entrega a granel el pedido se redondea a 2,0 m³. Para concreto en sacos hacen falta 117 sacos de 80 lb (≈ 36,3 kg) o 156 sacos de 60 lb (≈ 27,2 kg).',
     'concrete.guide.extraTitle': '¿Cuánto concreto extra debo pedir?',
     'concrete.guide.extraIntro':
       'Quedarse corto de concreto durante un vaciado es la peor pesadilla de un contratista: obliga a una entrega de emergencia y arriesga una "junta fría" débil y poco estética, donde el concreto fresco fragua contra concreto que ya endureció. Las recomendaciones estándar del oficio sugieren:',
@@ -1990,12 +1993,12 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'brick.guide.exampleTotalMetric':
       'Total: <span class="text-accent font-bold">≈ 1610 ladrillos</span>',
     'brick.guide.exampleMortarMetric':
-      'Mortero (supuesto de planeación): <span class="text-slate-900 dark:text-white font-bold">13 bolsas Tipo N de 80 lb (≈ 36,3 kg)</span>',
+      'Mortero (supuesto de planeación): <span class="text-slate-900 dark:text-white font-bold">13 sacos Tipo N de 80 lb (≈ 36,3 kg)</span>',
     'brick.guide.exampleNoteMetric':
       'Redondear la tasa a 73,16 ladrillos por m² no cambia este resultado: el área efectiva sin redondear da los mismos 1463 ladrillos base.',
     'brick.guide.mortarTitle': '¿Cuánto mortero necesito?',
     'brick.guide.mortarIntro':
-      'La calculadora convierte el total de ladrillos en bolsas de 80 lb de mortero Tipo N premezclado usando un supuesto de planeación de aproximadamente <strong class="text-slate-900 dark:text-white font-semibold">130 ladrillos modulares por bolsa</strong>, y muestra el volumen aproximado de mezcla seca junto al número de bolsas. Este es un supuesto de planeación de esta herramienta, no una norma de construcción universal.',
+      'La calculadora convierte el total de ladrillos en sacos de 80 lb de mortero Tipo N premezclado usando un supuesto de planeación de aproximadamente <strong class="text-slate-900 dark:text-white font-semibold">130 ladrillos modulares por saco</strong>, y muestra el volumen aproximado de mezcla seca junto al número de sacos. Este es un supuesto de planeación de esta herramienta, no una norma de construcción universal.',
     'brick.guide.mortarCaveat':
       'Los requerimientos reales de mortero varían según las dimensiones del ladrillo, el espesor de la junta, la construcción del muro, la mano de obra y el rendimiento del producto. La cantidad de mortero mostrada aquí es una estimación para planeación: confirme la cobertura del producto que piensa comprar y mantenga un margen por las condiciones de obra.',
     'brick.guide.wytheTitle': 'Hilada simple vs. doble hilada',
@@ -2026,7 +2029,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.orBags60Metric': 'o {count} sacos (60 lb ≈ 27,2 kg)',
     'concrete.copy.bagsMetric':
       'Concreto prefabricado en sacos: {b80} sacos de 80 lb (≈ 36,3 kg) o {b60} de 60 lb (≈ 27,2 kg)',
-    'concrete.copy.trucksMetric': 'Entregas de hormigón fresco: ~{count} viajes (tambor de ~6,9 m³)',
+    'concrete.copy.trucksMetric': 'Entregas de concreto premezclado: ~{count} viajes (tambor de ~6,9 m³)',
     'concrete.yieldFactorsValue': '80 lb = 0,60 ft³ · 60 lb = 0,45 ft³',
     'concrete.yieldFactorsValueMetric':
       '80 lb ≈ 36,3 kg = 0,017 m³ · 60 lb ≈ 27,2 kg = 0,013 m³',
@@ -3058,7 +3061,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'scene.resetView': 'Réinitialiser la vue',
     'scene.resetCamera': 'Réinitialiser la caméra',
     'scene.orbitHint': 'Orbite : clic gauche / glisser le doigt',
-    'scene.zoomHint': 'Zoom : défilet / pincement',
+    'scene.zoomHint': 'Zoom : défilement / pincement',
 
     'nav.overview': 'Vue d’ensemble',
     'nav.calculators': 'Calculateurs',
@@ -4074,7 +4077,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'nav.blog': 'Blog',
     'nav.about': 'Über uns',
     'nav.directoryAllTools': 'Verzeichnis (alle Werkzeuge)',
-    'nav.concreteSlab': 'Betondecke',
+    'nav.concreteSlab': 'Betonplatte',
     'nav.brickMortar': 'Ziegel & Mörtel',
     'nav.architecturalPaint': 'Architekturfarbe',
     'nav.allCalculatorsDirectory': 'Verzeichnis aller Rechner',
@@ -4110,7 +4113,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'error.returnHome': 'Zurück zur Startseite',
 
     'diagram.title': 'Technisches Arbeitsablauf-Diagramm',
-    'diagram.concreteTakeoff': 'Betondecken-Mengenermittlung',
+    'diagram.concreteTakeoff': 'Betonplatten-Mengenermittlung',
     'diagram.brickTakeoff': 'Mauerwerks-Verband-Ermittlung',
     'diagram.paintTakeoff': 'Farb- & Beschichtungs-Ermittlung',
     'diagram.dimensions': 'Abmessungen',
@@ -4179,9 +4182,9 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
       'Präzise Arbeitsbereiche, entwickelt speziell für Stahlbeton, Mauerwerksverband und architekturbezogene Oberflächenbeschichtungen.',
     'home.activeWorkspace': 'Aktiver Arbeitsbereich',
     'home.concreteBadge': 'Stahlbeton',
-    'home.concreteTitle': 'Betondecke & Volumen',
+    'home.concreteTitle': 'Betonplatte & Volumen',
     'home.concreteBody':
-      'Berechnen Sie Kubikyards, Mischer-LKWs und 80-lb-/60-lb-Trockenmischung samt Kies-Fundationszulage und Dehnfugenberechnungen.',
+      'Berechnen Sie Kubikyards, Mischer-LKWs und 80-lb-/60-lb-Trockenmischung samt Kieszuschlägen für den Untergrund und Dehnfugenberechnungen.',
     'home.openConcrete': 'Beton-Arbeitsbereich öffnen',
     'home.masonryBadge': 'Mauerwerk & Wände',
     'home.masonryTitle': 'Ziegel- & Mörtelschätzer',
@@ -4220,7 +4223,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'home.step3Label': '03. FORMEL-ENGINE',
     'home.step3Title': 'Volumen- & Ausschuss-Mathematik',
     'home.step3Body':
-      'Standard geometrische Gleichungen kombiniert mit konfigurierbaren Gewerkezulagen für Fundationssenkungen und Zuschnittausschuss.',
+      'Standard geometrische Gleichungen kombiniert mit konfigurierbaren Zuschlägen für Untergrundsenkungen und Zuschnittausschuss.',
     'home.step4Label': '04. BESTELL-ERMITTLLUNG',
     'home.step4Title': 'Beschaffungseinheiten',
     'home.step4Body':
@@ -4228,10 +4231,10 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'home.faqEyebrow': 'Praxiswissen-Datenbank',
     'home.faqTitle': 'Prinzipien der praktischen Baustoffkalkulation',
     'home.faqBody':
-      'Häufige Fragen zu Fundationssenkungen, Ausschussfaktoren, Mörtelzulagen und Öffnungsabzügen.',
-    'home.faq1Question': 'Warum muss bei Betondecken eine Bestellzulage hinzugefügt werden?',
+      'Häufige Fragen zu Untergrundsenkungen, Ausschussfaktoren, Mörtelzulagen und Öffnungsabzügen.',
+    'home.faq1Question': 'Warum muss bei Betonplatten eine Bestellzulage hinzugefügt werden?',
     'home.faq1Answer':
-      'Aufgegrabene Fundationen sind selten laserplan. Kleine Senken von nur 1/2 Zoll auf einer 20×20-ft-Terrasse erhöhen den Betonverbrauch um fast 0,6 Kubikyards. Auch die Holzschalung weicht unter dem hydrostatischen Druck des frischen Betons leicht nach außen aus. Eine Bestellmarge von 5 % bis 10 % verhindert Kaltfugen, die entstehen, wenn frischer Beton nicht vor dem Abbinden der vorherigen Charge eingebracht werden kann.',
+      'Ausgegrabene Fundamente sind selten laserplan. Kleine Senken von nur 1/2 Zoll auf einer 20×20-ft-Terrasse erhöhen den Betonverbrauch um fast 0,6 Kubikyards. Auch die Holzschalung weicht unter dem hydrostatischen Druck des frischen Betons leicht nach außen aus. Eine Bestellmarge von 5 % bis 10 % verhindert Kaltfugen, die entstehen, wenn frischer Beton nicht vor dem Abbinden der vorherigen Charge eingebracht werden kann.',
     'home.faq2Question': 'Wie viele Modulsteine braucht man pro Quadratfuß Wand?',
     'home.faq2Answer':
       'Standardmodulsteine (7-5/8" × 2-1/4" × 3-5/8") mit einer standardmäßigen Lager- und Kopffuge von 3/8" ergeben eine effektive Verbandsfläche von 8" × 2-2/3". Mathematisch entspricht das etwa 6,75 bis 7,0 Steinen pro Quadratfuß einreihiger Wandfläche.',
@@ -4259,20 +4262,20 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
       'Architekturfarben, Raumflächen, Trockenbau, Fliesen und Dielenböden.',
     'category.landscaping-aggregates.label': 'Gartenbau & Zuschlagstoffe',
     'category.landscaping-aggregates.description':
-      'Verdichtete Kies-Fundationen, Schotter-Tonnage, Mulch und gesiebte Oberbodenvolumen.',
+      'Verdichtete Kies-Fundamente, Schotter-Tonnage, Mulch und gesiebte Oberbodenvolumen.',
     'category.cost-estimation.label': 'Kosten- & Projektschätzung',
     'category.cost-estimation.description':
       'Detaillierte Materialpreise, Vergleich von Lieferantenangeboten und Budgets für die Mengenermittlung.',
 
-    'tool.concrete-slab-calculator.name': 'Betondecken-Rechner',
-    'tool.concrete-slab-calculator.shortName': 'Betondecke',
+    'tool.concrete-slab-calculator.name': 'Betonplatten-Rechner',
+    'tool.concrete-slab-calculator.shortName': 'Betonplatte',
     'tool.concrete-slab-calculator.categoryLabel': 'Beton & Mauerwerk',
     'tool.concrete-slab-calculator.description':
       'Berechnen Sie Betonvolumen, Materialmengen und Planungszulagen mit einem interaktiven 3D-Parametrik-Platteninspektor.',
     'tool.concrete-slab-calculator.tagline':
       'Volumetrische Mengenermittlung mit interaktiver 3D-Bemaßungsvisualisierung.',
     'tool.concrete-slab-calculator.imageAlt':
-      'Bewehrungsgitter und Holzschalung, vorbereitet für einen Betondeckenguß',
+      'Bewehrungsgitter und Holzschalung, vorbereitet für einen Betonplattenguss',
     'tool.brick-mortar-calculator.name': 'Ziegel- & Mörtel-Rechner',
     'tool.brick-mortar-calculator.shortName': 'Ziegelmauerwerk',
     'tool.brick-mortar-calculator.categoryLabel': 'Beton & Mauerwerk',
@@ -4322,13 +4325,13 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'guides.launchCalculator': 'Rechner starten',
     'guides.concreteBadge': 'Beton-Leitfaden 01',
     'guides.concreteTitle':
-      'So berechnen Sie das Volumen einer Betondecke und Mischer-Bestellungen',
+      'So berechnen Sie das Volumen einer Betonplatte und Mischer-Bestellungen',
     'guides.concreteIntro':
       'Gussbeton wird in <strong>Kubikyards</strong> (US-amerikanisches Maßsystem) oder <strong>Kubikmetern</strong> (metrischen Systemen) gemessen und gekauft. Da Maße auf der Baustelle üblicherweise als Länge und Breite in Fuß, aber die Plattendicke in Zoll erfasst werden, ist die korrekte Einheitenumrechnung unverzichtbar:',
-    'guides.concreteSubhead': 'Warum Fundationssenkungen eine Bestellzulage erfordern',
+    'guides.concreteSubhead': 'Warum Untergrundsenkungen eine Bestellzulage erfordern',
     'guides.concreteBody':
-      'Der Erdboden ist selten laserflächig. Fundationen senken sich, Schalungen weichen unter dem hohen hydrostatischen Druck des frischen Zements nach außen aus, und Pumpleitungen behalten Restschlamm. Eine übliche Sicherheitsmarge von 5 % bis 10 % verhindert Kaltfugen — sie entstehen, wenn frischer Beton nicht vor dem Abbinden der vorherigen Charge eingebracht werden kann.',
-    'guides.concreteCaption': 'Vorbereitete Fundation mit Schotterunterbau vor dem Plattenguss',
+      'Der Erdboden ist selten laserflächig. Fundamente senken sich, Schalungen weichen unter dem hohen hydrostatischen Druck des frischen Zements nach außen aus, und Pumpleitungen behalten Restschlamm. Eine übliche Sicherheitsmarge von 5 % bis 10 % verhindert Kaltfugen — sie entstehen, wenn frischer Beton nicht vor dem Abbinden der vorherigen Charge eingebracht werden kann.',
+    'guides.concreteCaption': 'Vorbereiteter Untergrund mit Schotterunterbau vor dem Plattenguss',
     'guides.concreteAlt': 'Zwei Arbeiter in Warnwesten zeigen auf Baupläne auf einem Tisch',
     'guides.concreteCaptionAlt': 'Schotterunterbau in einem abgestützten Fundamentgraben',
     'guides.masonryBadge': 'Mauerwerk-Leitfaden 02',
@@ -4355,7 +4358,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'about.imageAlt': 'Baustellenarbeiter notiert auf einem Klemmbrett über Bauplänen',
     'about.problemTitle': 'Das Problem, das wir lösen',
     'about.problemBody1':
-      'Traditionelle Baustoffrechner bieten flache numerische Webformulare. Bei der Eingabe mehrerer Einheiten — etwa eine Betondecke, deren Länge und Breite in Fuß, aber deren Dicke in Zoll gemessen wird — passieren Fehler häufig. Ein falsch gesetztes Dezimalzeichen oder eine verwechselte Einheit liefert ein um den Faktor 12 falsches Ergebnis.',
+      'Traditionelle Baustoffrechner bieten flache numerische Webformulare. Bei der Eingabe mehrerer Einheiten — etwa eine Betonplatte, deren Länge und Breite in Fuß, aber deren Dicke in Zoll gemessen wird — passieren Fehler häufig. Ein falsch gesetztes Dezimalzeichen oder eine verwechselte Einheit liefert ein um den Faktor 12 falsches Ergebnis.',
     'about.problemBody2':
       'Im realen Bau führen Bestellfehler zu unmittelbaren Projektstörungen: Unterbestellungen von Beton führen zu Notliefergebühren oder schwachen Kaltfugen, Überbestellungen zu verschwendetem Budget und der schwierigen Entsorgung von Betonrückständen.',
     'about.why3dTitle': 'Warum interaktive 3D-Raummodellierung wichtig ist',
@@ -4369,7 +4372,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'about.method2Label': '2. KLARE ZULAGEN',
     'about.method2Title': 'Konfigurierbarer Ausschuss',
     'about.method2Body':
-      'Transparente, vom Nutzer anpassbare Prozente berücksichtigen Fundationssenkungen, Schalungsverformung, Mauerwerkszuschnitte und Rinnenverluste.',
+      'Transparente, vom Nutzer anpassbare Prozente berücksichtigen Untergrundsenkungen, Schalungsverformung, Mauerwerkszuschnitte und Rinnenverluste.',
     'about.method3Label': '3. ECHTE VERPACKUNG',
     'about.method3Title': 'Handelsübliche Mengenermittlung',
     'about.method3Body':
@@ -4407,7 +4410,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'contact.sendAnother': 'Weitere Nachricht senden',
     'contact.formTitle': 'Nachricht senden',
     'contact.subjectLabel': 'Thema / Betreff',
-    'contact.subjectPlaceholder': 'z. B. Anfrage zur Betondecken-Formel',
+    'contact.subjectPlaceholder': 'z. B. Anfrage zur Betonplatten-Formel',
     'contact.messageLabel': 'Nachrichtendetails',
     'contact.messagePlaceholder': 'Beschreiben Sie Ihre Frage oder Ihren Vorschlag...',
     'contact.sendEmail': 'Per E-Mail senden',
@@ -4663,7 +4666,8 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.thickness': 'Dicke / Tiefe',
     'concrete.thickHintSidewalk': 'Standardweg / Terrasse',
     'concrete.thickHintDriveway': 'Zufahrt / Garagenboden',
-    'concrete.thickHintCommercial': 'Schwere Gewerkeplatte',
+    // TODO(needs native review): was "Schwere Gewerkeplatte" (Gewerke = trades, not a slab).
+    'concrete.thickHintCommercial': 'Schwere Gewerbeplatte',
     'concrete.thicknessSliderAria': 'Schieberegler für die Plattendicke',
     'concrete.wasteLabel': 'Ausschuss- / Überbestellzulage',
     'concrete.wasteHint':
@@ -4718,7 +4722,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.step3NoteImperial': '{v} ft³ ÷ 27 = {y} Kubikyards zu bestellen.',
     'concrete.fieldNoteLead': 'Hinweis aus der Praxis:',
     'concrete.fieldNoteBody':
-      'Fundationen sind nie laserplan. Kleine Senken, Schalungsverformung unter dem hydrostatischen Druck des frischen Betons und anhaftender Beton in der Lieferrinne verbrauchen regelmäßig 5 % bis 10 % mehr Volumen als die theoretischen Pläne ausweisen. Bestellen Sie stets mit ausreichender Marge.',
+      'Fundamente sind nie laserplan. Kleine Senken, Schalungsverformung unter dem hydrostatischen Druck des frischen Betons und anhaftender Beton in der Lieferrinne verbrauchen regelmäßig 5 % bis 10 % mehr Volumen als die theoretischen Pläne ausweisen. Bestellen Sie stets mit ausreichender Marge.',
     'concrete.costTitle': 'Optionale Kostenschätzung für Material',
     'concrete.costSubtitle':
       'Geben Sie das Angebot Ihres lokalen Lieferanten ein, um die geschätzten Materialkosten zu berechnen',
@@ -4749,7 +4753,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.faqQ1': 'Wie viele 80-lb-Säcke Beton entsprechen einem Kubikyard?',
     'concrete.faqA1':
       'Ein 80-Pfund-Sack liefert etwa 0,60 Kubikfuß. Da ein Kubikyard 27 Kubikfuß enthält, sind mathematisch etwa 45 Säcke à 80 lb (oder 60 Säcke à 60 lb) pro Kubikyard erforderlich — basierend auf dieser Planungsannahme.',
-    'concrete.faqQ2': 'Wie dick sollte eine Betondecke sein?',
+    'concrete.faqQ2': 'Wie dick sollte eine Betonplatte sein?',
     'concrete.faqA2':
       'Wege, Gehwege und Terrassen benötigen üblicherweise 4 Zoll (10 cm). Zufahrten, Garagenplatten und schwere Lagerflächen erfordern mindestens 5 bis 6 Zoll (13 bis 15 cm) mit Stahlbewehrung oder Schweißgitter.',
     'concrete.faqQ3': 'Wie viel wiegt ein Kubikyard Beton?',
@@ -4903,11 +4907,11 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
       'Während eines Betonierens zu wenig Beton zu haben, ist der Albtraum jedes Bauunternehmers – es erzwingt eine Notlieferung und riskiert eine schwache, unansehnliche Kaltfuge, in der frischer Beton gegen bereits abgebundenen Beton anstößt. Die branchenüblichen Richtlinien empfehlen:',
     'concrete.guide.extraLi1': '<strong>Standardplatten auf ebenem Boden:</strong> <strong>10 % mehr bestellen</strong>.',
     'concrete.guide.extraLi2':
-      '<strong>Tiefe Fundamente oder unregelmäßige Aushubungen:</strong> <strong>12 % bis 15 % mehr bestellen</strong>, wegen Bodenrutschungen und Grachtoleranzen.',
+      '<strong>Tiefe Fundamente oder unregelmäßige Aushubungen:</strong> <strong>12 % bis 15 % mehr bestellen</strong>, wegen Bodenrutschungen und Aushubtoleranzen.',
     'concrete.guide.extraLi3':
       '<strong>Glatte, vorgefertigte erhöhte Terrassen:</strong> <strong>5 % mehr bestellen</strong>.',
     'concrete.guide.considerationsTitle': 'Wichtige Hinweise',
-    'concrete.guide.surchargeTitle': 'Mindestbestellmengen und Kurstreckenzuschläge',
+    'concrete.guide.surchargeTitle': 'Mindestbestellmengen und Kurzstreckenzuschläge',
     'concrete.guide.surchargeBody':
       'Die meisten Mischanlagen verlangen eine Mindestbestellung (normalerweise 4 bis 5 Kubikyards, also rund 3 bis 4 m³). Bestellungen darunter fallen Lieferzuschläge für kleine Mengen an.',
     'concrete.guide.subgradeTitle': 'Verdichtung des Untergrunds',

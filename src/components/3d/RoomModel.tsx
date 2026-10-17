@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Edges } from '@react-three/drei';
 import { DimensionLine } from './DimensionLine';
 import { formatNumber } from '../../lib/calculators/common/math';
+import type { LocaleCode } from '../../lib/i18n/config';
 
 export interface RoomModelProps {
   length: number; // room length (ft or m)
@@ -11,6 +12,8 @@ export interface RoomModelProps {
   coats?: number;
   doorsCount?: number;
   windowsCount?: number;
+  /** Locale used for on-canvas dimension labels (defaults to English). */
+  labelLocale?: LocaleCode;
 }
 
 export const RoomModel: React.FC<RoomModelProps> = ({
@@ -21,6 +24,7 @@ export const RoomModel: React.FC<RoomModelProps> = ({
   coats = 2,
   doorsCount = 1,
   windowsCount = 2,
+  labelLocale = 'en',
 }) => {
   const isMetric = unit === 'metric';
 
@@ -48,9 +52,9 @@ export const RoomModel: React.FC<RoomModelProps> = ({
   // Architectural finish: 1 coat = primer/primer coat, 2 coats = solid satin, 3+ coats = deep pigment
   const paintColor = coats === 1 ? '#94A3B8' : coats === 2 ? '#38BDF8' : '#0284C7';
 
-  const lengthLabel = `${formatNumber(length)} ${isMetric ? 'm' : 'ft'}`;
-  const widthLabel = `${formatNumber(width)} ${isMetric ? 'm' : 'ft'}`;
-  const heightLabel = `${formatNumber(height)} ${isMetric ? 'm' : 'ft'}`;
+  const lengthLabel = `${formatNumber(length, 2, labelLocale)} ${isMetric ? 'm' : 'ft'}`;
+  const widthLabel = `${formatNumber(width, 2, labelLocale)} ${isMetric ? 'm' : 'ft'}`;
+  const heightLabel = `${formatNumber(height, 2, labelLocale)} ${isMetric ? 'm' : 'ft'}`;
 
   return (
     <group position={[0, 0, 0]}>

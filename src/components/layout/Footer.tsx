@@ -182,7 +182,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between pt-6 border-t border-paper-300 dark:border-charcoal-800 text-caption text-slate-500 dark:text-slate-400">
-          <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
+          <p>{t('footer.copyright', { year: String(new Date().getFullYear()) })}</p>
           <div className="flex items-center gap-3 mt-4 sm:mt-0 text-micro">
             <span>{t('footer.bottomFormula')}</span>
             <span aria-hidden="true">·</span>

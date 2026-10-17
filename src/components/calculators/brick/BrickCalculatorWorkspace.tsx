@@ -155,7 +155,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
       metricWording
         ? t('brick.copy.mortarMetric', {
             bags: result.mortarBags,
-            m3: formatNumber(result.mortarVolumeCuFt * 0.0283168, 2),
+            m3: formatNumber(result.mortarVolumeCuFt * 0.0283168, 2, locale),
           })
         : t('brick.copy.mortar', {
             bags: result.mortarBags,
@@ -163,8 +163,8 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
           }),
       enableCost && parsedPrice > 0
         ? t('brick.copy.cost', {
-            cost: result.estimatedCost.toFixed(2),
-            price: parsedPrice.toFixed(2),
+            cost: formatNumber(result.estimatedCost, 2, locale, 2),
+            price: formatNumber(parsedPrice, 2, locale, 2),
           })
         : null,
       t('concrete.copy.separator'),
@@ -329,7 +329,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                   {t('brick.wallLength')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
-                  {formatNumber(wallLength)} {isMetric ? 'm' : 'ft'}
+                  {formatNumber(wallLength, 2, locale)} {isMetric ? 'm' : 'ft'}
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -367,7 +367,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                   {t('brick.wallHeight')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
-                  {formatNumber(wallHeight)} {isMetric ? 'm' : 'ft'}
+                  {formatNumber(wallHeight, 2, locale)} {isMetric ? 'm' : 'ft'}
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -507,7 +507,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                   <div className="flex justify-between items-center text-caption font-mono pt-1 text-slate-700 dark:text-slate-300">
                     <span>{t('brick.estTakeoffLabel')}</span>
                     <span className="text-emerald-600 dark:text-emerald-400 font-bold text-body-sm">
-                      ${result.estimatedCost.toFixed(2)}
+                      ${formatNumber(result.estimatedCost, 2, locale, 2)}
                     </span>
                   </div>
                 )}
@@ -540,13 +540,14 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                 brickLength={brickLength}
                 brickHeight={brickHeight}
                 jointThickness={jointThickness}
+                labelLocale={locale}
               />
             </ConstructionScene>
 
             <div className="flex items-center justify-between text-micro text-slate-500 px-1 font-mono">
               <span>
                 {t('brick.surfaceLine', {
-                  area: formatNumber(result.wallArea),
+                  area: formatNumber(result.wallArea, 2, locale),
                   unit: isMetric ? 'm²' : 'sq ft',
                   wythe: wythes === 2 ? t('brick.doubleWytheTag') : t('brick.singleWytheTag'),
                 })}
@@ -564,18 +565,18 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
               </div>
               <div className="flex items-baseline gap-3">
                 <span className="text-display font-bold font-mono text-slate-900 dark:text-white tabular-nums tracking-tight">
-                  {formatNumber(result.totalBricks, 0)}
+                  {formatNumber(result.totalBricks, 0, locale)}
                 </span>
                 <span className="text-caption font-mono text-slate-500">
                   {t('brick.units')}
                 </span>
               </div>
               <div className="mt-3 pt-3 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-mono text-slate-600 dark:text-slate-400">
-                <span>{t('brick.baseLine', { count: formatNumber(result.baseBricks, 0) })}</span>
+                <span>{t('brick.baseLine', { count: formatNumber(result.baseBricks, 0, locale) })}</span>
                 <span className="text-accent">
                   {t('brick.cutsLine', {
                     pct: waste,
-                    count: formatNumber(result.wasteBricks, 0),
+                    count: formatNumber(result.wasteBricks, 0, locale),
                   })}
                 </span>
               </div>
@@ -596,7 +597,7 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
               </div>
               <div className="text-micro font-mono text-slate-500 pt-2 border-t border-paper-200 dark:border-charcoal-800">
                 {metricWording
-                  ? t('brick.dryMixMetric', { v: formatNumber(result.mortarVolumeCuFt * 0.0283168, 2) })
+                  ? t('brick.dryMixMetric', { v: formatNumber(result.mortarVolumeCuFt * 0.0283168, 2, locale) })
                   : t('brick.dryMix', { v: result.mortarVolumeCuFt })}
               </div>
             </div>
@@ -652,10 +653,10 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
               {t('brick.step1Title')}
             </span>
             <p className="font-mono text-slate-800 dark:text-slate-200">
-              {formatNumber(wallLength)} {isMetric ? 'm' : 'ft'} × {formatNumber(wallHeight)} {isMetric ? 'm' : 'ft'}
+              {formatNumber(wallLength, 2, locale)} {isMetric ? 'm' : 'ft'} × {formatNumber(wallHeight, 2, locale)} {isMetric ? 'm' : 'ft'}
             </p>
             <p className="text-slate-500">
-              = <span className="text-slate-900 dark:text-white font-bold">{formatNumber(result.wallArea)} {isMetric ? 'm²' : 'sq ft'}</span> {t('brick.grossSurface')}
+              = <span className="text-slate-900 dark:text-white font-bold">{formatNumber(result.wallArea, 2, locale)} {isMetric ? 'm²' : 'sq ft'}</span> {t('brick.grossSurface')}
             </p>
           </div>
 
@@ -679,10 +680,10 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
               {t('brick.step3Title')}
             </span>
             <p className="font-mono text-slate-800 dark:text-slate-200">
-              {formatNumber(result.baseBricks, 0)} base × 1.{waste < 10 ? `0${waste}` : waste}
+              {formatNumber(result.baseBricks, 0, locale)} base × {formatNumber(1 + waste / 100, 2, locale, 2)}
             </p>
             <p className="text-slate-500">
-              = <span className="text-accent font-bold">{formatNumber(result.totalBricks, 0)} {t('brick.bricksWord')}</span> + {result.mortarBags}{' '}
+              = <span className="text-accent font-bold">{formatNumber(result.totalBricks, 0, locale)} {t('brick.bricksWord')}</span> + {result.mortarBags}{' '}
                 {metricWording ? t('brick.typeNBagsMetric') : t('brick.typeNBags')}
             </p>
           </div>

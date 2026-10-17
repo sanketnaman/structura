@@ -20,7 +20,7 @@ export const HeroInteractiveScene: React.FC<HeroInteractiveSceneProps> = ({
   onExploreTools,
 }) => {
   const isMetric = unitSystem === 'metric';
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
 
   const [heroLength, setHeroLength] = useState<number>(isMetric ? 6 : 20);
   const [heroWidth, setHeroWidth] = useState<number>(isMetric ? 3 : 10);
@@ -73,7 +73,7 @@ export const HeroInteractiveScene: React.FC<HeroInteractiveSceneProps> = ({
               <div className="space-y-1.5">
                 <div className="flex justify-between text-micro font-mono">
                   <span className="text-slate-500">{t('hero.length')}</span>
-                  <span className="text-accent font-semibold">{formatNumber(heroLength)} {isMetric ? 'm' : 'ft'}</span>
+                  <span className="text-accent font-semibold">{formatNumber(heroLength, 2, locale)} {isMetric ? 'm' : 'ft'}</span>
                 </div>
                 <input
                   type="number"
@@ -90,7 +90,7 @@ export const HeroInteractiveScene: React.FC<HeroInteractiveSceneProps> = ({
               <div className="space-y-1.5">
                 <div className="flex justify-between text-micro font-mono">
                   <span className="text-slate-500">{t('hero.width')}</span>
-                  <span className="text-accent font-semibold">{formatNumber(heroWidth)} {isMetric ? 'm' : 'ft'}</span>
+                  <span className="text-accent font-semibold">{formatNumber(heroWidth, 2, locale)} {isMetric ? 'm' : 'ft'}</span>
                 </div>
                 <input
                   type="number"
@@ -107,7 +107,7 @@ export const HeroInteractiveScene: React.FC<HeroInteractiveSceneProps> = ({
               <div className="space-y-1.5">
                 <div className="flex justify-between text-micro font-mono">
                   <span className="text-slate-500">{t('hero.thickness')}</span>
-                  <span className="text-accent font-semibold">{formatNumber(heroThickness)} {isMetric ? 'cm' : 'in'}</span>
+                  <span className="text-accent font-semibold">{formatNumber(heroThickness, 2, locale)} {isMetric ? 'cm' : 'in'}</span>
                 </div>
                 <input
                   type="number"
@@ -126,7 +126,9 @@ export const HeroInteractiveScene: React.FC<HeroInteractiveSceneProps> = ({
               <span className="text-slate-500 font-sans text-caption">{t('hero.estimatedTakeoff')}</span>
               <div className="flex items-center gap-2">
                 <span className="text-accent font-bold text-heading-md tabular-nums">
-                  {isMetric ? `${heroResult.totalVolumeM3} m³` : `${heroResult.totalCubicYards} yd³`}
+                  {isMetric
+                    ? `${formatNumber(heroResult.totalVolumeM3, 2, locale)} m³`
+                    : `${formatNumber(heroResult.totalCubicYards, 2, locale)} yd³`}
                 </span>
                 <span className="text-micro text-slate-400 font-sans">
                   {t('hero.bags', { count: heroResult.bags80lb })}
@@ -171,6 +173,7 @@ export const HeroInteractiveScene: React.FC<HeroInteractiveSceneProps> = ({
                   width={heroWidth}
                   thickness={heroThickness}
                   unit={unitSystem}
+                  labelLocale={locale}
                 />
               </ConstructionScene>
             </div>

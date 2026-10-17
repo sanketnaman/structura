@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Edges } from '@react-three/drei';
 import { DimensionLine } from './DimensionLine';
 import { formatNumber } from '../../lib/calculators/common/math';
+import type { LocaleCode } from '../../lib/i18n/config';
 
 export interface ConcreteSlabProps {
   length: number;      // real-world length in feet or meters
@@ -9,6 +10,8 @@ export interface ConcreteSlabProps {
   thickness: number;   // real-world thickness in inches or centimeters
   unit?: 'imperial' | 'metric';
   showSubgrade?: boolean;
+  /** Locale used for on-canvas dimension labels (defaults to English). */
+  labelLocale?: LocaleCode;
 }
 
 export const ConcreteSlab: React.FC<ConcreteSlabProps> = ({
@@ -17,6 +20,7 @@ export const ConcreteSlab: React.FC<ConcreteSlabProps> = ({
   thickness,
   unit = 'imperial',
   showSubgrade = true,
+  labelLocale = 'en',
 }) => {
   const isMetric = unit === 'metric';
 
@@ -65,9 +69,9 @@ export const ConcreteSlab: React.FC<ConcreteSlabProps> = ({
   const dimCornerX = halfL + 0.4;
   const dimCornerZ = halfW + 0.4;
 
-  const lengthLabel = `${formatNumber(length)} ${isMetric ? 'm' : 'ft'}`;
-  const widthLabel = `${formatNumber(width)} ${isMetric ? 'm' : 'ft'}`;
-  const thicknessLabel = `${formatNumber(thickness)} ${isMetric ? 'cm' : 'in'}`;
+  const lengthLabel = `${formatNumber(length, 2, labelLocale)} ${isMetric ? 'm' : 'ft'}`;
+  const widthLabel = `${formatNumber(width, 2, labelLocale)} ${isMetric ? 'm' : 'ft'}`;
+  const thicknessLabel = `${formatNumber(thickness, 2, labelLocale)} ${isMetric ? 'cm' : 'in'}`;
 
   // Calculate contraction joint X-coordinates
   const jointPositions = useMemo(() => {

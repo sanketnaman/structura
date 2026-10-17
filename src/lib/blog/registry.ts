@@ -187,20 +187,20 @@ const concreteVolumeEs: ArticleTranslation = {
       headers: ['Cantidad', 'Conversión', '¿Exacta?'],
       rows: [
         ['1 pie', '12 pulgadas', 'Sí'],
-        ['1 pulgada', '25.4 milímetros', 'Sí'],
-        ['1 pie', '0.3048 metros', 'Sí'],
-        ['1 pie cúbico', '0.0283168 metros cúbicos', 'Sí'],
+        ['1 pulgada', '25,4 milímetros', 'Sí'],
+        ['1 pie', '0,3048 metros', 'Sí'],
+        ['1 pie cúbico', '0,0283168 metros cúbicos', 'Sí'],
         ['1 yarda cúbica', '27 pies cúbicos', 'Sí'],
-        ['1 yarda cúbica', '0.764555 metros cúbicos', 'Redondeada'],
-        ['1 metro cúbico', '35.3147 pies cúbicos', 'Redondeada'],
-        ['1 metro cúbico', '1.30795 yardas cúbicas', 'Redondeada'],
+        ['1 yarda cúbica', '0,764555 metros cúbicos', 'Redondeada'],
+        ['1 metro cúbico', '35,3147 pies cúbicos', 'Redondeada'],
+        ['1 metro cúbico', '1,30795 yardas cúbicas', 'Redondeada'],
       ],
     },
     {
       type: 'callout',
       tone: 'warning',
       title: 'El error del factor 12',
-      body: 'Multiplicar 10 ft × 10 ft × 4 sin dividir el 4 entre 12 da 400 en lugar de 33.33 pies cúbicos: doce veces demasiado. Si la respuesta parece descabellada frente a la losa que tienes delante, revisa primero la unidad del espesor.',
+      body: 'Multiplicar 10 ft × 10 ft × 4 sin dividir el 4 entre 12 da 400 en lugar de 33,33 pies cúbicos: doce veces demasiado. Si la respuesta parece descabellada frente a la losa que tienes delante, revisa primero la unidad del espesor.',
     },
     {
       type: 'heading',
@@ -216,15 +216,15 @@ const concreteVolumeEs: ArticleTranslation = {
       type: 'list',
       ordered: true,
       items: [
-        'T (ft) = 4 ÷ 12 = 0.33333 ft',
-        'V = 10 × 10 × 0.33333 = 33.333 ft³',
-        'V (yd³) = 33.333 ÷ 27 = 1.2346 yd³',
-        'Redondeado para informar: 33.33 ft³ ≈ 1.23 yd³',
+        'T (ft) = 4 ÷ 12 = 0,33333 ft',
+        'V = 10 × 10 × 0,33333 = 33,333 ft³',
+        'V (yd³) = 33,333 ÷ 27 = 1,2346 yd³',
+        'Redondeado para informar: 33,33 ft³ ≈ 1,23 yd³',
       ],
     },
     {
       type: 'paragraph',
-      text: 'Esos 1.23 yardas cúbicas son el volumen geométrico exacto de la caja. Es la respuesta correcta a «¿cuánto espacio ocupa esta losa?», y todavía no es la cifra que se entrega al proveedor. La sección 8 trata la diferencia.',
+      text: 'Esos 1,23 yardas cúbicas son el volumen geométrico exacto de la caja. Es la respuesta correcta a «¿cuánto espacio ocupa esta losa?», y todavía no es la cifra que se entrega al proveedor. La sección 8 trata la diferencia.',
     },
     {
       type: 'heading',
@@ -234,20 +234,20 @@ const concreteVolumeEs: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Ahora el mismo trabajo dibujado en unidades métricas: una losa de 3.05 m por 3.05 m especificada con 100 mm de espesor. Convierte primero el espesor a metros y luego multiplica.',
+      text: 'Ahora el mismo trabajo dibujado en unidades métricas: una losa de 3,05 m por 3,05 m especificada con 100 mm de espesor. Convierte primero el espesor a metros y luego multiplica.',
     },
     {
       type: 'list',
       ordered: true,
       items: [
-        'T (m) = 100 ÷ 1000 = 0.100 m',
-        'V = 3.05 × 3.05 × 0.100 = 0.93025 m³',
-        'Redondeado para informar: 0.930 m³',
+        'T (m) = 100 ÷ 1000 = 0,100 m',
+        'V = 3,05 × 3,05 × 0,100 = 0,93025 m³',
+        'Redondeado para informar: 0,930 m³',
       ],
     },
     {
       type: 'paragraph',
-      text: 'Los dos ejemplos son parecidos pero deliberadamente no idénticos: 3.05 m equivale a 10.007 ft y 100 mm a 3.937 in, de modo que la losa métrica es ligeramente menor. Para que el mismo trabajo sea exactamente equivalente, 3.048 m × 3.048 m × 0.1016 m = 0.94389 m³, que se convierte de vuelta en 33.333 ft³: la respuesta imperial, cifra por cifra. Si tus dos sistemas de unidades discrepan más allá de eso, alguno tiene un error de conversión.',
+      text: 'Los dos ejemplos son parecidos pero deliberadamente no idénticos: 3,05 m equivale a 10,007 ft y 100 mm a 3,937 in, de modo que la losa métrica es ligeramente menor. Para que el mismo trabajo sea exactamente equivalente, 3,048 m × 3,048 m × 0,1016 m = 0,94389 m³, que se convierte de vuelta en 33,333 ft³: la respuesta imperial, cifra por cifra. Si tus dos sistemas de unidades discrepan más allá de eso, alguno tiene un error de conversión.',
     },
     {
       type: 'heading',
@@ -264,14 +264,14 @@ const concreteVolumeEs: ArticleTranslation = {
       items: [
         'De pies cúbicos a yardas cúbicas: divide entre 27.',
         'De yardas cúbicas a pies cúbicos: multiplica por 27.',
-        'De pies cúbicos a metros cúbicos: multiplica por 0.0283168.',
-        'De metros cúbicos a pies cúbicos: multiplica por 35.3147.',
-        'De metros cúbicos a yardas cúbicas: multiplica por 1.30795, o divide entre 0.764555.',
+        'De pies cúbicos a metros cúbicos: multiplica por 0,0283168.',
+        'De metros cúbicos a pies cúbicos: multiplica por 35,3147.',
+        'De metros cúbicos a yardas cúbicas: multiplica por 1,30795, o divide entre 0,764555.',
       ],
     },
     {
       type: 'paragraph',
-      text: 'Para el ejemplo imperial, 33.333 ft³ ÷ 27 = 1.2346 yd³, y 1.2346 yd³ × 0.764555 = 0.94389 m³. La mezcla en bolsas es otra conversión: una bolsa de 80 lb rinde unos 0.60 ft³ de concreto húmedo, así que 33.333 ÷ 0.60 = 55.6, que redondea a 56 bolsas. La misma cifra equivale a unas 45 bolsas de 80 libras por yarda cúbica, ya que una yarda cúbica son 27 ft³.',
+      text: 'Para el ejemplo imperial, 33,333 ft³ ÷ 27 = 1,2346 yd³, y 1,2346 yd³ × 0,764555 = 0,94389 m³. La mezcla en bolsas es otra conversión: una bolsa de 80 lb rinde unos 0,60 ft³ de concreto húmedo, así que 33,333 ÷ 0,60 = 55,6, que redondea a 56 bolsas. La misma cifra equivale a unas 45 bolsas de 80 libras por yarda cúbica, ya que una yarda cúbica son 27 ft³.',
     },
     {
       type: 'heading',
@@ -330,12 +330,12 @@ const concreteVolumeEs: ArticleTranslation = {
         {
           question: '¿Cuánto concreto hay en una losa de 10 ft × 10 ft con 4 pulgadas?',
           answer:
-            '33.33 pies cúbicos, equivalentes a 1.23 yardas cúbicas, antes de cualquier margen de pedido. Multiplica por 1.10 para un margen del 10 % y la cifra pasa a 1.36 yardas cúbicas.',
+            '33,33 pies cúbicos, equivalentes a 1,23 yardas cúbicas, antes de cualquier margen de pedido. Multiplica por 1,10 para un margen del 10 % y la cifra pasa a 1,36 yardas cúbicas.',
         },
         {
           question: '¿Cuántas bolsas de 80 lb necesita esa losa?',
           answer:
-            'Una bolsa de 80 lb rinde unos 0.60 pies cúbicos, así que 33.33 ÷ 0.60 = 55.6, que redondea a 56 bolsas. Equivalente: una yarda cúbica necesita unas 45 bolsas de 80 libras.',
+            'Una bolsa de 80 lb rinde unos 0,60 pies cúbicos, así que 33,33 ÷ 0,60 = 55,6, que redondea a 56 bolsas. Equivalente: una yarda cúbica necesita unas 45 bolsas de 80 libras.',
         },
         {
           question: '¿Cuál es la fórmula en unidades métricas?',
@@ -447,20 +447,20 @@ const concreteVolumePt: ArticleTranslation = {
       headers: ['Quantidade', 'Conversão', 'Exata?'],
       rows: [
         ['1 pé', '12 polegadas', 'Sim'],
-        ['1 polegada', '25.4 milímetros', 'Sim'],
-        ['1 pé', '0.3048 metros', 'Sim'],
-        ['1 pé cúbico', '0.0283168 metros cúbicos', 'Sim'],
+        ['1 polegada', '25,4 milímetros', 'Sim'],
+        ['1 pé', '0,3048 metros', 'Sim'],
+        ['1 pé cúbico', '0,0283168 metros cúbicos', 'Sim'],
         ['1 jarda cúbica', '27 pés cúbicos', 'Sim'],
-        ['1 jarda cúbica', '0.764555 metros cúbicos', 'Arredondado'],
-        ['1 metro cúbico', '35.3147 pés cúbicos', 'Arredondado'],
-        ['1 metro cúbico', '1.30795 jardas cúbicas', 'Arredondado'],
+        ['1 jarda cúbica', '0,764555 metros cúbicos', 'Arredondado'],
+        ['1 metro cúbico', '35,3147 pés cúbicos', 'Arredondado'],
+        ['1 metro cúbico', '1,30795 jardas cúbicas', 'Arredondado'],
       ],
     },
     {
       type: 'callout',
       tone: 'warning',
       title: 'O erro do fator 12',
-      body: 'Multiplicar 10 ft × 10 ft × 4 sem dividir o 4 por 12 dá 400 em vez de 33.33 pés cúbicos: doze vezes demais. Se uma resposta parece implausível contra a laje na sua frente, confira primeiro a unidade da espessura.',
+      body: 'Multiplicar 10 ft × 10 ft × 4 sem dividir o 4 por 12 dá 400 em vez de 33,33 pés cúbicos: doze vezes demais. Se uma resposta parece implausível contra a laje na sua frente, confira primeiro a unidade da espessura.',
     },
     {
       type: 'heading',
@@ -476,15 +476,15 @@ const concreteVolumePt: ArticleTranslation = {
       type: 'list',
       ordered: true,
       items: [
-        'T (ft) = 4 ÷ 12 = 0.33333 ft',
-        'V = 10 × 10 × 0.33333 = 33.333 ft³',
-        'V (yd³) = 33.333 ÷ 27 = 1.2346 yd³',
-        'Arredondado para informar: 33.33 ft³ ≈ 1.23 yd³',
+        'T (ft) = 4 ÷ 12 = 0,33333 ft',
+        'V = 10 × 10 × 0,33333 = 33,333 ft³',
+        'V (yd³) = 33,333 ÷ 27 = 1,2346 yd³',
+        'Arredondado para informar: 33,33 ft³ ≈ 1,23 yd³',
       ],
     },
     {
       type: 'paragraph',
-      text: 'Esses 1.23 jardas cúbicas são o volume geométrico exato da caixa. É a resposta correta para «quanto espaço esta laje ocupa», e ainda não é o número que se entrega a um fornecedor. A seção 8 trata da diferença.',
+      text: 'Esses 1,23 jardas cúbicas são o volume geométrico exato da caixa. É a resposta correta para «quanto espaço esta laje ocupa», e ainda não é o número que se entrega a um fornecedor. A seção 8 trata da diferença.',
     },
     {
       type: 'heading',
@@ -494,20 +494,20 @@ const concreteVolumePt: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Agora o mesmo trabalho desenhado em unidades métricas: uma laje de 3.05 m por 3.05 m especificada com 100 mm de espessura. Converta primeiro a espessura para metros e depois multiplique.',
+      text: 'Agora o mesmo trabalho desenhado em unidades métricas: uma laje de 3,05 m por 3,05 m especificada com 100 mm de espessura. Converta primeiro a espessura para metros e depois multiplique.',
     },
     {
       type: 'list',
       ordered: true,
       items: [
-        'T (m) = 100 ÷ 1000 = 0.100 m',
-        'V = 3.05 × 3.05 × 0.100 = 0.93025 m³',
-        'Arredondado para informar: 0.930 m³',
+        'T (m) = 100 ÷ 1000 = 0,100 m',
+        'V = 3,05 × 3,05 × 0,100 = 0,93025 m³',
+        'Arredondado para informar: 0,930 m³',
       ],
     },
     {
       type: 'paragraph',
-      text: 'Os dois exemplos são próximos, mas deliberadamente não idênticos: 3.05 m equivale a 10.007 ft e 100 mm a 3.937 in, então a laje métrica é um pouco menor. Para deixar o mesmo trabalho exatamente equivalente, 3.048 m × 3.048 m × 0.1016 m = 0.94389 m³, que volta a 33.333 ft³: a resposta imperial, dígito por dígito. Se os dois sistemas de unidades discordarem além disso, algum deles tem erro de conversão.',
+      text: 'Os dois exemplos são próximos, mas deliberadamente não idênticos: 3,05 m equivale a 10,007 ft e 100 mm a 3,937 in, então a laje métrica é um pouco menor. Para deixar o mesmo trabalho exatamente equivalente, 3,048 m × 3,048 m × 0,1016 m = 0,94389 m³, que volta a 33,333 ft³: a resposta imperial, dígito por dígito. Se os dois sistemas de unidades discordarem além disso, algum deles tem erro de conversão.',
     },
     {
       type: 'heading',
@@ -524,14 +524,14 @@ const concreteVolumePt: ArticleTranslation = {
       items: [
         'De pés cúbicos para jardas cúbicas: divida por 27.',
         'De jardas cúbicas para pés cúbicos: multiplique por 27.',
-        'De pés cúbicos para metros cúbicos: multiplique por 0.0283168.',
-        'De metros cúbicos para pés cúbicos: multiplique por 35.3147.',
-        'De metros cúbicos para jardas cúbicas: multiplique por 1.30795, ou divida por 0.764555.',
+        'De pés cúbicos para metros cúbicos: multiplique por 0,0283168.',
+        'De metros cúbicos para pés cúbicos: multiplique por 35,3147.',
+        'De metros cúbicos para jardas cúbicas: multiplique por 1,30795, ou divida por 0,764555.',
       ],
     },
     {
       type: 'paragraph',
-      text: 'No exemplo imperial, 33.333 ft³ ÷ 27 = 1.2346 yd³, e 1.2346 yd³ × 0.764555 = 0.94389 m³. Mistura em sacos é outra conversão: um saco de 80 lb rende cerca de 0.60 ft³ de concreto úmido, então 33.333 ÷ 0.60 = 55.6, que arredonda para 56 sacos. O mesmo número equivale a umas 45 sacos de 80 libras por jarda cúbica, já que uma jarda cúbica tem 27 ft³.',
+      text: 'No exemplo imperial, 33,333 ft³ ÷ 27 = 1,2346 yd³, e 1,2346 yd³ × 0,764555 = 0,94389 m³. Mistura em sacos é outra conversão: um saco de 80 lb rende cerca de 0,60 ft³ de concreto úmido, então 33,333 ÷ 0,60 = 55,6, que arredonda para 56 sacos. O mesmo número equivale a umas 45 sacos de 80 libras por jarda cúbica, já que uma jarda cúbica tem 27 ft³.',
     },
     {
       type: 'heading',
@@ -590,12 +590,12 @@ const concreteVolumePt: ArticleTranslation = {
         {
           question: 'Quanto de concreto tem numa laje de 10 ft × 10 ft com 4 polegadas?',
           answer:
-            '33.33 pés cúbicos, que são 1.23 jardas cúbicas, antes de qualquer margem de pedido. Multiplique por 1.10 para uma margem de 10% e o número vira 1.36 jardas cúbicas.',
+            '33,33 pés cúbicos, que são 1,23 jardas cúbicas, antes de qualquer margem de pedido. Multiplique por 1,10 para uma margem de 10% e o número vira 1,36 jardas cúbicas.',
         },
         {
           question: 'Quantos sacos de 80 lb essa laje precisa?',
           answer:
-            'Um saco de 80 lb rende cerca de 0.60 pés cúbicos, então 33.33 ÷ 0.60 = 55.6, que arredonda para 56 sacos. De forma equivalente, uma jarda cúbica precisa de umas 45 sacos de 80 libras.',
+            'Um saco de 80 lb rende cerca de 0,60 pés cúbicos, então 33,33 ÷ 0,60 = 55,6, que arredonda para 56 sacos. De forma equivalente, uma jarda cúbica precisa de umas 45 sacos de 80 libras.',
         },
         {
           question: 'Qual é a fórmula em unidades métricas?',
@@ -707,20 +707,20 @@ const concreteVolumeFr: ArticleTranslation = {
       headers: ['Quantité', 'Conversion', 'Exact ?'],
       rows: [
         ['1 pied', '12 pouces', 'Oui'],
-        ['1 pouce', '25.4 millimètres', 'Oui'],
-        ['1 pied', '0.3048 mètre', 'Oui'],
-        ['1 pied cube', '0.0283168 mètre cube', 'Oui'],
+        ['1 pouce', '25,4 millimètres', 'Oui'],
+        ['1 pied', '0,3048 mètre', 'Oui'],
+        ['1 pied cube', '0,0283168 mètre cube', 'Oui'],
         ['1 yard cube', '27 pieds cubes', 'Oui'],
-        ['1 yard cube', '0.764555 mètre cube', 'Arrondi'],
-        ['1 mètre cube', '35.3147 pieds cubes', 'Arrondi'],
-        ['1 mètre cube', '1.30795 yards cubes', 'Arrondi'],
+        ['1 yard cube', '0,764555 mètre cube', 'Arrondi'],
+        ['1 mètre cube', '35,3147 pieds cubes', 'Arrondi'],
+        ['1 mètre cube', '1,30795 yards cubes', 'Arrondi'],
       ],
     },
     {
       type: 'callout',
       tone: 'warning',
       title: 'L’erreur du facteur 12',
-      body: 'Multiplier 10 ft × 10 ft × 4 sans diviser le 4 par 12 donne 400 au lieu de 33.33 pieds cubes — douze fois trop. Si une réponse semble irréaliste face à la dalle devant vous, vérifiez d’abord l’unité de l’épaisseur.',
+      body: 'Multiplier 10 ft × 10 ft × 4 sans diviser le 4 par 12 donne 400 au lieu de 33,33 pieds cubes — douze fois trop. Si une réponse semble irréaliste face à la dalle devant vous, vérifiez d’abord l’unité de l’épaisseur.',
     },
     {
       type: 'heading',
@@ -736,15 +736,15 @@ const concreteVolumeFr: ArticleTranslation = {
       type: 'list',
       ordered: true,
       items: [
-        'T (ft) = 4 ÷ 12 = 0.33333 ft',
-        'V = 10 × 10 × 0.33333 = 33.333 ft³',
-        'V (yd³) = 33.333 ÷ 27 = 1.2346 yd³',
-        'Arrondi pour le rapport : 33.33 ft³ ≈ 1.23 yd³',
+        'T (ft) = 4 ÷ 12 = 0,33333 ft',
+        'V = 10 × 10 × 0,33333 = 33,333 ft³',
+        'V (yd³) = 33,333 ÷ 27 = 1,2346 yd³',
+        'Arrondi pour le rapport : 33,33 ft³ ≈ 1,23 yd³',
       ],
     },
     {
       type: 'paragraph',
-      text: 'Ces 1.23 yards cubes sont le volume géométrique exact de la boîte. C’est la bonne réponse à « combien d’espace cette dalle occupe-t-elle », et ce n’est pas encore le chiffre à remettre à un fournisseur. La section 8 traite de l’écart.',
+      text: 'Ces 1,23 yards cubes sont le volume géométrique exact de la boîte. C’est la bonne réponse à « combien d’espace cette dalle occupe-t-elle », et ce n’est pas encore le chiffre à remettre à un fournisseur. La section 8 traite de l’écart.',
     },
     {
       type: 'heading',
@@ -754,20 +754,20 @@ const concreteVolumeFr: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Le même travail dessiné en unités métriques : une dalle de 3.05 m sur 3.05 m spécifiée à 100 mm d’épaisseur. Convertissez d’abord l’épaisseur en mètres, puis multipliez.',
+      text: 'Le même travail dessiné en unités métriques : une dalle de 3,05 m sur 3,05 m spécifiée à 100 mm d’épaisseur. Convertissez d’abord l’épaisseur en mètres, puis multipliez.',
     },
     {
       type: 'list',
       ordered: true,
       items: [
-        'T (m) = 100 ÷ 1000 = 0.100 m',
-        'V = 3.05 × 3.05 × 0.100 = 0.93025 m³',
-        'Arrondi pour le rapport : 0.930 m³',
+        'T (m) = 100 ÷ 1000 = 0,100 m',
+        'V = 3,05 × 3,05 × 0,100 = 0,93025 m³',
+        'Arrondi pour le rapport : 0,930 m³',
       ],
     },
     {
       type: 'paragraph',
-      text: 'Les deux exemples sont proches mais volontairement pas identiques : 3.05 m vaut 10.007 ft et 100 mm valent 3.937 in, la dalle métrique est donc légèrement plus petite. Pour rendre le travail exactement équivalent, 3.048 m × 3.048 m × 0.1016 m = 0.94389 m³, qui revient à 33.333 ft³ — la réponse impériale, chiffre pour chiffre. Si vos deux systèmes d’unités divergent au-delà de cela, l’un des deux contient une erreur de conversion.',
+      text: 'Les deux exemples sont proches mais volontairement pas identiques : 3,05 m vaut 10,007 ft et 100 mm valent 3,937 in, la dalle métrique est donc légèrement plus petite. Pour rendre le travail exactement équivalent, 3,048 m × 3,048 m × 0,1016 m = 0,94389 m³, qui revient à 33,333 ft³ — la réponse impériale, chiffre pour chiffre. Si vos deux systèmes d’unités divergent au-delà de cela, l’un des deux contient une erreur de conversion.',
     },
     {
       type: 'heading',
@@ -784,14 +784,14 @@ const concreteVolumeFr: ArticleTranslation = {
       items: [
         'Des pieds cubes aux yards cubes : divisez par 27.',
         'Des yards cubes aux pieds cubes : multipliez par 27.',
-        'Des pieds cubes aux mètres cubes : multipliez par 0.0283168.',
-        'Des mètres cubes aux pieds cubes : multipliez par 35.3147.',
-        'Des mètres cubes aux yards cubes : multipliez par 1.30795, ou divisez par 0.764555.',
+        'Des pieds cubes aux mètres cubes : multipliez par 0,0283168.',
+        'Des mètres cubes aux pieds cubes : multipliez par 35,3147.',
+        'Des mètres cubes aux yards cubes : multipliez par 1,30795, ou divisez par 0,764555.',
       ],
     },
     {
       type: 'paragraph',
-      text: 'Pour l’exemple impérial, 33.333 ft³ ÷ 27 = 1.2346 yd³, puis 1.2346 yd³ × 0.764555 = 0.94389 m³. Le mélange en sacs obéit à une autre conversion : un sac de 80 lb produit environ 0.60 ft³ de béton frais, donc 33.333 ÷ 0.60 = 55.6, soit 56 sacs arrondis. Le même chiffre donne environ 45 sacs de 80 livres par yard cube, un yard cube faisant 27 ft³.',
+      text: 'Pour l’exemple impérial, 33,333 ft³ ÷ 27 = 1,2346 yd³, puis 1,2346 yd³ × 0,764555 = 0,94389 m³. Le mélange en sacs obéit à une autre conversion : un sac de 80 lb produit environ 0,60 ft³ de béton frais, donc 33,333 ÷ 0,60 = 55,6, soit 56 sacs arrondis. Le même chiffre donne environ 45 sacs de 80 livres par yard cube, un yard cube faisant 27 ft³.',
     },
     {
       type: 'heading',
@@ -850,12 +850,12 @@ const concreteVolumeFr: ArticleTranslation = {
         {
           question: 'Combien de béton y a-t-il dans une dalle de 10 ft × 10 ft à 4 pouces ?',
           answer:
-            '33.33 pieds cubes, soit 1.23 yards cubes, avant toute marge de commande. Multipliez par 1.10 pour une marge de 10 % et le chiffre devient 1.36 yards cubes.',
+            '33,33 pieds cubes, soit 1,23 yards cubes, avant toute marge de commande. Multipliez par 1,10 pour une marge de 10 % et le chiffre devient 1,36 yards cubes.',
         },
         {
           question: 'Combien de sacs de 80 lb cette dalle demande-t-elle ?',
           answer:
-            'Un sac de 80 lb produit environ 0.60 pied cube, donc 33.33 ÷ 0.60 = 55.6, soit 56 sacs arrondis. Autrement dit, un yard cube demande environ 45 sacs de 80 livres.',
+            'Un sac de 80 lb produit environ 0,60 pied cube, donc 33,33 ÷ 0,60 = 55,6, soit 56 sacs arrondis. Autrement dit, un yard cube demande environ 45 sacs de 80 livres.',
         },
         {
           question: 'Quelle est la formule en unités métriques ?',
@@ -967,20 +967,20 @@ const concreteVolumeDe: ArticleTranslation = {
       headers: ['Größe', 'Umrechnung', 'Exakt?'],
       rows: [
         ['1 Fuß', '12 Zoll', 'Ja'],
-        ['1 Zoll', '25.4 Millimeter', 'Ja'],
-        ['1 Fuß', '0.3048 Meter', 'Ja'],
-        ['1 Kubikfuß', '0.0283168 Kubikmeter', 'Ja'],
+        ['1 Zoll', '25,4 Millimeter', 'Ja'],
+        ['1 Fuß', '0,3048 Meter', 'Ja'],
+        ['1 Kubikfuß', '0,0283168 Kubikmeter', 'Ja'],
         ['1 Kubikyard', '27 Kubikfuß', 'Ja'],
-        ['1 Kubikyard', '0.764555 Kubikmeter', 'Gerundet'],
-        ['1 Kubikmeter', '35.3147 Kubikfuß', 'Gerundet'],
-        ['1 Kubikmeter', '1.30795 Kubikyard', 'Gerundet'],
+        ['1 Kubikyard', '0,764555 Kubikmeter', 'Gerundet'],
+        ['1 Kubikmeter', '35,3147 Kubikfuß', 'Gerundet'],
+        ['1 Kubikmeter', '1,30795 Kubikyard', 'Gerundet'],
       ],
     },
     {
       type: 'callout',
       tone: 'warning',
       title: 'Der Faktor-12-Fehler',
-      body: 'Wer 10 ft × 10 ft × 4 multipliziert, ohne die 4 durch 12 zu teilen, erhält 400 statt 33.33 Kubikfuß — zwölfmal zu viel. Wenn ein Ergebnis im Vergleich zur Platte vor Ihnen unplausibel aussieht, prüfen Sie zuerst die Einheit der Dicke.',
+      body: 'Wer 10 ft × 10 ft × 4 multipliziert, ohne die 4 durch 12 zu teilen, erhält 400 statt 33,33 Kubikfuß — zwölfmal zu viel. Wenn ein Ergebnis im Vergleich zur Platte vor Ihnen unplausibel aussieht, prüfen Sie zuerst die Einheit der Dicke.',
     },
     {
       type: 'heading',
@@ -996,15 +996,15 @@ const concreteVolumeDe: ArticleTranslation = {
       type: 'list',
       ordered: true,
       items: [
-        'T (ft) = 4 ÷ 12 = 0.33333 ft',
-        'V = 10 × 10 × 0.33333 = 33.333 ft³',
-        'V (yd³) = 33.333 ÷ 27 = 1.2346 yd³',
-        'Für die Angabe gerundet: 33.33 ft³ ≈ 1.23 yd³',
+        'T (ft) = 4 ÷ 12 = 0,33333 ft',
+        'V = 10 × 10 × 0,33333 = 33,333 ft³',
+        'V (yd³) = 33,333 ÷ 27 = 1,2346 yd³',
+        'Für die Angabe gerundet: 33,33 ft³ ≈ 1,23 yd³',
       ],
     },
     {
       type: 'paragraph',
-      text: 'Diese 1.23 Kubikyard sind das exakte geometrische Volumen des Kastens. Das ist die richtige Antwort auf „Wie viel Platz nimmt diese Platte ein“, und es ist noch nicht die Zahl, die man einem Lieferanten übergibt. Abschnitt 8 behandelt den Unterschied.',
+      text: 'Diese 1,23 Kubikyard sind das exakte geometrische Volumen des Kastens. Das ist die richtige Antwort auf „Wie viel Platz nimmt diese Platte ein“, und es ist noch nicht die Zahl, die man einem Lieferanten übergibt. Abschnitt 8 behandelt den Unterschied.',
     },
     {
       type: 'heading',
@@ -1014,20 +1014,20 @@ const concreteVolumeDe: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Derselbe Auftrag in metrischen Einheiten: eine 3.05 m breite und 3.05 m lange Platte mit 100 mm Dicke. Rechnen Sie zuerst die Dicke in Meter um und multiplizieren Sie dann.',
+      text: 'Derselbe Auftrag in metrischen Einheiten: eine 3,05 m breite und 3,05 m lange Platte mit 100 mm Dicke. Rechnen Sie zuerst die Dicke in Meter um und multiplizieren Sie dann.',
     },
     {
       type: 'list',
       ordered: true,
       items: [
-        'T (m) = 100 ÷ 1000 = 0.100 m',
-        'V = 3.05 × 3.05 × 0.100 = 0.93025 m³',
-        'Für die Angabe gerundet: 0.930 m³',
+        'T (m) = 100 ÷ 1000 = 0,100 m',
+        'V = 3,05 × 3,05 × 0,100 = 0,93025 m³',
+        'Für die Angabe gerundet: 0,930 m³',
       ],
     },
     {
       type: 'paragraph',
-      text: 'Die beiden Beispiele sind ähnlich, aber bewusst nicht identisch: 3.05 m entsprechen 10.007 ft und 100 mm entsprechen 3.937 in, die metrische Platte ist also etwas kleiner. Damit derselbe Auftrag exakt gleichwertig wird, ergibt 3.048 m × 3.048 m × 0.1016 m = 0.94389 m³, was zurück auf 33.333 ft³ führt — die imperale Antwort, Ziffer für Ziffer. Wenn Ihre beiden Einheitensysteme darüber hinaus auseinandergehen, steckt in einem der beiden ein Umrechnungsfehler.',
+      text: 'Die beiden Beispiele sind ähnlich, aber bewusst nicht identisch: 3,05 m entsprechen 10,007 ft und 100 mm entsprechen 3,937 in, die metrische Platte ist also etwas kleiner. Damit derselbe Auftrag exakt gleichwertig wird, ergibt 3,048 m × 3,048 m × 0,1016 m = 0,94389 m³, was zurück auf 33,333 ft³ führt — die imperale Antwort, Ziffer für Ziffer. Wenn Ihre beiden Einheitensysteme darüber hinaus auseinandergehen, steckt in einem der beiden ein Umrechnungsfehler.',
     },
     {
       type: 'heading',
@@ -1044,14 +1044,14 @@ const concreteVolumeDe: ArticleTranslation = {
       items: [
         'Von Kubikfuß zu Kubikyard: durch 27 teilen.',
         'Von Kubikyard zu Kubikfuß: mit 27 multiplizieren.',
-        'Von Kubikfuß zu Kubikmeter: mit 0.0283168 multiplizieren.',
-        'Von Kubikmeter zu Kubikfuß: mit 35.3147 multiplizieren.',
-        'Von Kubikmeter zu Kubikyard: mit 1.30795 multiplizieren oder durch 0.764555 teilen.',
+        'Von Kubikfuß zu Kubikmeter: mit 0,0283168 multiplizieren.',
+        'Von Kubikmeter zu Kubikfuß: mit 35,3147 multiplizieren.',
+        'Von Kubikmeter zu Kubikyard: mit 1,30795 multiplizieren oder durch 0,764555 teilen.',
       ],
     },
     {
       type: 'paragraph',
-      text: 'Für das imperale Beispiel gilt 33.333 ft³ ÷ 27 = 1.2346 yd³ und 1.2346 yd³ × 0.764555 = 0.94389 m³. Sackware ist eine eigene Rechnung: Ein 80-lb-Sack liefert etwa 0.60 ft³ frischen Beton, also 33.333 ÷ 0.60 = 55.6, aufgerundet 56 Säcke. Derselbe Wert entspricht etwa 45 Säcken zu 80 Pfund pro Kubikyard, weil ein Kubikyard 27 ft³ hat.',
+      text: 'Für das imperale Beispiel gilt 33,333 ft³ ÷ 27 = 1,2346 yd³ und 1,2346 yd³ × 0,764555 = 0,94389 m³. Sackware ist eine eigene Rechnung: Ein 80-lb-Sack liefert etwa 0,60 ft³ frischen Beton, also 33,333 ÷ 0,60 = 55,6, aufgerundet 56 Säcke. Derselbe Wert entspricht etwa 45 Säcken zu 80 Pfund pro Kubikyard, weil ein Kubikyard 27 ft³ hat.',
     },
     {
       type: 'heading',
@@ -1110,12 +1110,12 @@ const concreteVolumeDe: ArticleTranslation = {
         {
           question: 'Wie viel Beton steckt in einer 10 ft × 10 ft Platte bei 4 Zoll?',
           answer:
-            '33.33 Kubikfuß, also 1.23 Kubikyard, vor jedem Bestellzuschlag. Multiplizieren Sie mit 1.10 für 10 % Zuschlag, dann werden daraus 1.36 Kubikyard.',
+            '33,33 Kubikfuß, also 1,23 Kubikyard, vor jedem Bestellzuschlag. Multiplizieren Sie mit 1,10 für 10 % Zuschlag, dann werden daraus 1,36 Kubikyard.',
         },
         {
           question: 'Wie viele 80-lb-Säcke braucht diese Platte?',
           answer:
-            'Ein 80-lb-Sack liefert etwa 0.60 Kubikfuß, also 33.33 ÷ 0.60 = 55.6, aufgerundet 56 Säcke. Anders ausgedrückt: Ein Kubikyard braucht etwa 45 Säcke zu 80 Pfund.',
+            'Ein 80-lb-Sack liefert etwa 0,60 Kubikfuß, also 33,33 ÷ 0,60 = 55,6, aufgerundet 56 Säcke. Anders ausgedrückt: Ein Kubikyard braucht etwa 45 Säcke zu 80 Pfund.',
         },
         {
           question: 'Wie lautet die Formel in metrischen Einheiten?',
@@ -1419,7 +1419,7 @@ const tenByTenSlabEs: ArticleTranslation = {
   ogImageAlt: 'Ilustración isométrica de una losa de concreto cuadrada con flechas de dimensión sobre una cuadrícula medida',
   title: '¿Cuánto concreto necesito para una losa de 10x10?',
   description:
-    'Una losa de 10x10 necesita 1.23 jardas cúbicas a 4 pulgadas y 1.85 a 6 pulgadas. Vea el cálculo, los sacos, el margen y las opciones de entrega.',
+    'Una losa de 10x10 necesita 1,23 jardas cúbicas a 4 pulgadas y 1,85 a 6 pulgadas. Vea el cálculo, los sacos, el margen y las opciones de entrega.',
   excerpt:
     'Volumen exacto para una losa de 10x10 a 4 y 6 pulgadas, los sacos que de él se derivan y cuánto pedir de más según las condiciones de la obra.',
   blocks: [
@@ -1433,11 +1433,11 @@ const tenByTenSlabEs: ArticleTranslation = {
       type: 'callout',
       tone: 'note',
       title: 'Respuesta rápida',
-      body: 'Una losa de 10 ft × 10 ft con 4 pulgadas de espesor tiene 33.33 pies cúbicos, es decir 1.23 jardas cúbicas. Con 6 pulgadas tiene 50.00 pies cúbicos, es decir 1.85 jardas cúbicas. Son volúmenes geométricos exactos antes de cualquier margen: con un margen del 10% el pedido pasa a 36.67 pies cúbicos (1.36 jardas cúbicas) y a 55.00 pies cúbicos (2.04 jardas cúbicas).',
+      body: 'Una losa de 10 ft × 10 ft con 4 pulgadas de espesor tiene 33,33 pies cúbicos, es decir 1,23 jardas cúbicas. Con 6 pulgadas tiene 50,00 pies cúbicos, es decir 1,85 jardas cúbicas. Son volúmenes geométricos exactos antes de cualquier margen: con un margen del 10% el pedido pasa a 36,67 pies cúbicos (1,36 jardas cúbicas) y a 55,00 pies cúbicos (2,04 jardas cúbicas).',
     },
     {
       type: 'paragraph',
-      text: 'Una losa de 10 por 10 cubre 100 pies cuadrados, que son 11.11 yardas cuadradas de superficie en planta. Esa cifra nunca cambia. Todo lo que sigue proviene de un único segundo dato: el espesor de la losa. A 4 pulgadas la losa tiene un tercio de pie de profundidad, así que contiene 33.33 pies cúbicos de concreto. A 6 pulgadas tiene medio pie, así que contiene 50.00 pies cúbicos. Seis pulgadas es una vez y media cuatro pulgadas, y el volumen responde exactamente en la misma proporción.',
+      text: 'Una losa de 10 por 10 cubre 100 pies cuadrados, que son 11,11 yardas cuadradas de superficie en planta. Esa cifra nunca cambia. Todo lo que sigue proviene de un único segundo dato: el espesor de la losa. A 4 pulgadas la losa tiene un tercio de pie de profundidad, así que contiene 33,33 pies cúbicos de concreto. A 6 pulgadas tiene medio pie, así que contiene 50,00 pies cúbicos. Seis pulgadas es una vez y media cuatro pulgadas, y el volumen responde exactamente en la misma proporción.',
     },
     {
       type: 'paragraph',
@@ -1490,7 +1490,7 @@ const tenByTenSlabEs: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Los planos anotan el espesor en pulgadas, así que convierta antes de multiplicar. Cuatro pulgadas es 4 ÷ 12 = 0.33333 ft y seis pulgadas es 6 ÷ 12 = 0.50000 ft. Omitir esta conversión es el clásico error del factor 12: devuelve 400 en lugar de 33.33, una cifra doce veces demasiado grande.',
+      text: 'Los planos anotan el espesor en pulgadas, así que convierta antes de multiplicar. Cuatro pulgadas es 4 ÷ 12 = 0,33333 ft y seis pulgadas es 6 ÷ 12 = 0,50000 ft. Omitir esta conversión es el clásico error del factor 12: devuelve 400 en lugar de 33,33, una cifra doce veces demasiado grande.',
     },
     {
       type: 'heading',
@@ -1503,9 +1503,9 @@ const tenByTenSlabEs: ArticleTranslation = {
       ordered: true,
       items: [
         'Superficie en planta: 10 × 10 = 100 ft²',
-        'Espesor en pies: 4 ÷ 12 = 0.33333 ft',
-        'Volumen a 4 in: 100 × 0.33333 = 33.333 ft³',
-        'Volumen a 6 in: 100 × 0.50000 = 50.000 ft³',
+        'Espesor en pies: 4 ÷ 12 = 0,33333 ft',
+        'Volumen a 4 in: 100 × 0,33333 = 33,333 ft³',
+        'Volumen a 6 in: 100 × 0,50000 = 50,000 ft³',
       ],
     },
     {
@@ -1516,7 +1516,7 @@ const tenByTenSlabEs: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'El concreto listo se despacha por jarda cúbica, así que divida los pies cúbicos entre 27. A 4 pulgadas, 33.333 ÷ 27 = 1.2346 jardas cúbicas, que se informan como 1.23. A 6 pulgadas, 50.000 ÷ 27 = 1.8519 jardas cúbicas, que se informan como 1.85. Mantenga toda la precisión durante esa división y redondee solo las cifras que va a escribir, porque redondear dos veces —una en pies cúbicos y otra en jardas cúbicas— desplaza la respuesta sin que se note.',
+      text: 'El concreto listo se despacha por jarda cúbica, así que divida los pies cúbicos entre 27. A 4 pulgadas, 33,333 ÷ 27 = 1,2346 jardas cúbicas, que se informan como 1,23. A 6 pulgadas, 50,000 ÷ 27 = 1,8519 jardas cúbicas, que se informan como 1,85. Mantenga toda la precisión durante esa división y redondee solo las cifras que va a escribir, porque redondear dos veces —una en pies cúbicos y otra en jardas cúbicas— desplaza la respuesta sin que se note.',
     },
     {
       type: 'heading',
@@ -1532,15 +1532,15 @@ const tenByTenSlabEs: ArticleTranslation = {
       type: 'table',
       headers: ['Espesor', 'Base (yd³)', '+5% (yd³)', '+10% (yd³)', '+10% (ft³)'],
       rows: [
-        ['4 in', '1.23', '1.30', '1.36', '36.67'],
-        ['6 in', '1.85', '1.94', '2.04', '55.00'],
+        ['4 in', '1,23', '1,30', '1,36', '36,67'],
+        ['6 in', '1,85', '1,94', '2,04', '55,00'],
       ],
     },
     {
       type: 'callout',
       tone: 'warning',
       title: 'No redondee antes de dividir',
-      body: 'Informar 1.23 jardas cúbicas y luego tratarla como el valor de trabajo pierde las 0.0046 jardas cúbicas que el redondeo eliminó, y repetir ese hábito en varios vaciados se acumula. Lleve 1.2346 por todo el cálculo del margen y redondee la cantidad final de pedido una sola vez.',
+      body: 'Informar 1,23 jardas cúbicas y luego tratarla como el valor de trabajo pierde las 0,0046 jardas cúbicas que el redondeo eliminó, y repetir ese hábito en varios vaciados se acumula. Lleve 1,2346 por todo el cálculo del margen y redondee la cantidad final de pedido una sola vez.',
     },
     {
       type: 'heading',
@@ -1550,20 +1550,20 @@ const tenByTenSlabEs: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Ambos espesores describen la misma huella, así que la comparación es puramente proporcional. Seis pulgadas de concreto son una vez y media cuatro pulgadas, lo que significa 50.00 pies cúbicos frente a 33.33 pies cúbicos, 1.85 jardas cúbicas frente a 1.23 jardas cúbicas y 28 sacos de 80 lb más.',
+      text: 'Ambos espesores describen la misma huella, así que la comparación es puramente proporcional. Seis pulgadas de concreto son una vez y media cuatro pulgadas, lo que significa 50,00 pies cúbicos frente a 33,33 pies cúbicos, 1,85 jardas cúbicas frente a 1,23 jardas cúbicas y 28 sacos de 80 lb más.',
     },
     {
       type: 'table',
       headers: ['Espesor', 'Volumen (ft³)', 'Volumen (yd³)', 'Sacos de 80 lb', 'Sacos de 60 lb'],
       rows: [
-        ['4 in', '33.33', '1.23', '56', '75'],
-        ['6 in', '50.00', '1.85', '84', '112'],
-        ['Diferencia', '+16.67', '+0.62', '+28', '+37'],
+        ['4 in', '33,33', '1,23', '56', '75'],
+        ['6 in', '50,00', '1,85', '84', '112'],
+        ['Diferencia', '+16,67', '+0,62', '+28', '+37'],
       ],
     },
     {
       type: 'paragraph',
-      text: 'Los 0.62 jardas cúbicas adicionales rara vez son por sí solos el factor decisivo, pero son la diferencia entre una estrategia de pedido y otra, y la diferencia entre una losa que coincide con el plano y una que no. Elija el espesor según el uso previsto y la especificación estructural; el cálculo de cantidad solo informa de lo que esa decisión cuesta en material.',
+      text: 'Los 0,62 jardas cúbicas adicionales rara vez son por sí solos el factor decisivo, pero son la diferencia entre una estrategia de pedido y otra, y la diferencia entre una losa que coincide con el plano y una que no. Elija el espesor según el uso previsto y la especificación estructural; el cálculo de cantidad solo informa de lo que esa decisión cuesta en material.',
     },
     {
       type: 'figure',
@@ -1581,30 +1581,30 @@ const tenByTenSlabEs: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'La mezcla en sacos se compra por saco y no por volumen, así que hay que dividir el volumen entre el rendimiento de un solo saco y redondear siempre hacia arriba. Un saco de 80 lb rinde 0.60 pies cúbicos de concreto fresco y un saco de 60 lb rinde 0.45 pies cúbicos: las mismas cifras que usa la calculadora de MixTally y los rendimientos publicados para el concreto en sacos QUIKRETE.',
+      text: 'La mezcla en sacos se compra por saco y no por volumen, así que hay que dividir el volumen entre el rendimiento de un solo saco y redondear siempre hacia arriba. Un saco de 80 lb rinde 0,60 pies cúbicos de concreto fresco y un saco de 60 lb rinde 0,45 pies cúbicos: las mismas cifras que usa la calculadora de MixTally y los rendimientos publicados para el concreto en sacos QUIKRETE.',
     },
     {
       type: 'formula',
       expression: 'bags = ⌈ total ft³ ÷ bag yield ⌉',
-      note: 'Un saco de 80 lb da 0.60 ft³; un saco de 60 lb da 0.45 ft³.',
+      note: 'Un saco de 80 lb da 0,60 ft³; un saco de 60 lb da 0,45 ft³.',
     },
     {
       type: 'table',
       headers: ['Tamaño del saco', 'Rendimiento (ft³)', 'Sacos por yd³', 'A 4 in', 'A 6 in'],
       rows: [
-        ['80 lb', '0.60', '45', '56', '84'],
-        ['60 lb', '0.45', '60', '75', '112'],
+        ['80 lb', '0,60', '45', '56', '84'],
+        ['60 lb', '0,45', '60', '75', '112'],
       ],
     },
     {
       type: 'paragraph',
-      text: 'La aritmética para la losa de 4 pulgadas es 33.333 ÷ 0.60 = 55.6, que redondea hacia arriba a 56 sacos; con sacos de 60 lb es 33.333 ÷ 0.45 = 74.1, que redondea hacia arriba a 75. Por jarda cúbica los conteos son exactos: 27 ÷ 0.60 = 45 sacos de ochenta libras y 27 ÷ 0.45 = 60 sacos de sesenta libras. Aplicar el margen antes de dividir cambia los totales a 62 y 82 sacos a 4 pulgadas, y a 92 y 123 sacos a 6 pulgadas.',
+      text: 'La aritmética para la losa de 4 pulgadas es 33,333 ÷ 0,60 = 55,6, que redondea hacia arriba a 56 sacos; con sacos de 60 lb es 33,333 ÷ 0,45 = 74,1, que redondea hacia arriba a 75. Por jarda cúbica los conteos son exactos: 27 ÷ 0,60 = 45 sacos de ochenta libras y 27 ÷ 0,45 = 60 sacos de sesenta libras. Aplicar el margen antes de dividir cambia los totales a 62 y 82 sacos a 4 pulgadas, y a 92 y 123 sacos a 6 pulgadas.',
     },
     {
       type: 'callout',
       tone: 'note',
       title: 'Cuente los sacos desde los pies cúbicos, nunca desde las yardas redondeadas',
-      body: 'Dividir las 1.23 jardas cúbicas informadas entre 0.60 da un número sin sentido, y convertir esas 1.23 de vuelta a pies cúbicos da 33.21 en lugar de 33.33. Cuente los sacos desde los pies cúbicos sin redondear para que el redondeo ocurra una sola vez, en el límite del saco.',
+      body: 'Dividir las 1,23 jardas cúbicas informadas entre 0,60 da un número sin sentido, y convertir esas 1,23 de vuelta a pies cúbicos da 33,21 en lugar de 33,33. Cuente los sacos desde los pies cúbicos sin redondear para que el redondeo ocurra una sola vez, en el límite del saco.',
     },
     {
       type: 'heading',
@@ -1614,7 +1614,7 @@ const tenByTenSlabEs: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Una cantidad entre 1.23 y 2.04 jardas cúbicas se sitúa donde ambas rutas de entrega son realistas. La mezcla en sacos le permite comprar exactamente el conteo que produce el cálculo y guarda los sacos sin abrir para más tarde. El concreto listo se dosifica por volumen en la planta, llega listo para descargarse y suele tener un mínimo del proveedor para cargas pequeñas, así que confirme qué aplica antes de dar por sentado que la cifra calculada es la cantidad que le cobrarán.',
+      text: 'Una cantidad entre 1,23 y 2,04 jardas cúbicas se sitúa donde ambas rutas de entrega son realistas. La mezcla en sacos le permite comprar exactamente el conteo que produce el cálculo y guarda los sacos sin abrir para más tarde. El concreto listo se dosifica por volumen en la planta, llega listo para descargarse y suele tener un mínimo del proveedor para cargas pequeñas, así que confirme qué aplica antes de dar por sentado que la cifra calculada es la cantidad que le cobrarán.',
     },
     {
       type: 'figure',
@@ -1662,7 +1662,7 @@ const tenByTenSlabEs: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Aplicado a la losa de 4 pulgadas, un margen del 10% mueve el pedido de 33.33 pies cúbicos a 36.67 pies cúbicos, de 1.23 jardas cúbicas a 1.36 jardas cúbicas y de 56 sacos de mezcla de 80 lb a 62. Pedir exactamente el volumen geométrico arriesga quedarse corto a mitad del vaciado, donde una segunda descarga significa una junta fría; pedir muy por encima de lo que la obra necesita desperdicia presupuesto y deja material por desechar. Anote el margen que eligió y por qué.',
+      text: 'Aplicado a la losa de 4 pulgadas, un margen del 10% mueve el pedido de 33,33 pies cúbicos a 36,67 pies cúbicos, de 1,23 jardas cúbicas a 1,36 jardas cúbicas y de 56 sacos de mezcla de 80 lb a 62. Pedir exactamente el volumen geométrico arriesga quedarse corto a mitad del vaciado, donde una segunda descarga significa una junta fría; pedir muy por encima de lo que la obra necesita desperdicia presupuesto y deja material por desechar. Anote el margen que eligió y por qué.',
     },
     {
       type: 'heading',
@@ -1676,12 +1676,12 @@ const tenByTenSlabEs: ArticleTranslation = {
         {
           question: '¿Cuánto concreto hay en una losa de 10 ft × 10 ft a 4 pulgadas?',
           answer:
-            '33.33 pies cúbicos, es decir 1.23 jardas cúbicas, antes de cualquier margen. Con un margen del 10% el pedido pasa a 36.67 pies cúbicos, o 1.36 jardas cúbicas.',
+            '33,33 pies cúbicos, es decir 1,23 jardas cúbicas, antes de cualquier margen. Con un margen del 10% el pedido pasa a 36,67 pies cúbicos, o 1,36 jardas cúbicas.',
         },
         {
           question: '¿Cuánto concreto se necesita a 6 pulgadas?',
           answer:
-            '50.00 pies cúbicos, es decir 1.85 jardas cúbicas. Eso es exactamente 1.5 veces la losa de 4 pulgadas, porque 6 pulgadas es 1.5 veces 4 pulgadas.',
+            '50,00 pies cúbicos, es decir 1,85 jardas cúbicas. Eso es exactamente 1,5 veces la losa de 4 pulgadas, porque 6 pulgadas es 1,5 veces 4 pulgadas.',
         },
         {
           question: '¿Cuántos sacos de concreto necesito?',
@@ -1724,7 +1724,7 @@ const tenByTenSlabPt: ArticleTranslation = {
   ogImageAlt: 'Ilustração isométrica de uma laje de concreto quadrada com setas de dimensão sobre uma grade medida',
   title: 'Quanto de concreto preciso para uma laje de 10x10?',
   description:
-    'Uma laje de 10x10 precisa de 1.23 jardas cúbicas com 4 polegadas e 1.85 com 6 polegadas. Veja o cálculo, os sacos, a margem e as opções de entrega.',
+    'Uma laje de 10x10 precisa de 1,23 jardas cúbicas com 4 polegadas e 1,85 com 6 polegadas. Veja o cálculo, os sacos, a margem e as opções de entrega.',
   excerpt:
     'Volume exato para uma laje de 10x10 a 4 e 6 polegadas, os sacos daí resultantes e quanto pedir de mais conforme as condições do canteiro.',
   blocks: [
@@ -1738,11 +1738,11 @@ const tenByTenSlabPt: ArticleTranslation = {
       type: 'callout',
       tone: 'note',
       title: 'Resposta rápida',
-      body: 'Uma laje de 10 ft × 10 ft com 4 polegadas de espessura tem 33.33 pés cúbicos, ou seja 1.23 jardas cúbicas. Com 6 polegadas tem 50.00 pés cúbicos, ou seja 1.85 jardas cúbicas. São volumes geométricos exatos antes de qualquer margem: com 10% de margem o pedido passa para 36.67 pés cúbicos (1.36 jardas cúbicas) e para 55.00 pés cúbicos (2.04 jardas cúbicas).',
+      body: 'Uma laje de 10 ft × 10 ft com 4 polegadas de espessura tem 33,33 pés cúbicos, ou seja 1,23 jardas cúbicas. Com 6 polegadas tem 50,00 pés cúbicos, ou seja 1,85 jardas cúbicas. São volumes geométricos exatos antes de qualquer margem: com 10% de margem o pedido passa para 36,67 pés cúbicos (1,36 jardas cúbicas) e para 55,00 pés cúbicos (2,04 jardas cúbicas).',
     },
     {
       type: 'paragraph',
-      text: 'Uma laje de 10 por 10 cobre 100 pés quadrados, que são 11.11 jardas quadradas de área em planta. Esse número nunca muda. Tudo o que vem daí deriva de um único segundo dado: a espessura da laje. A 4 polegadas a laje tem um terço de pé de profundidade, então contém 33.33 pés cúbicos de concreto. A 6 polegadas tem meio pé, então contém 50.00 pés cúbicos. Seis polegadas é uma vez e meia quatro polegadas, e o volume responde exatamente na mesma proporção.',
+      text: 'Uma laje de 10 por 10 cobre 100 pés quadrados, que são 11,11 jardas quadradas de área em planta. Esse número nunca muda. Tudo o que vem daí deriva de um único segundo dado: a espessura da laje. A 4 polegadas a laje tem um terço de pé de profundidade, então contém 33,33 pés cúbicos de concreto. A 6 polegadas tem meio pé, então contém 50,00 pés cúbicos. Seis polegadas é uma vez e meia quatro polegadas, e o volume responde exatamente na mesma proporção.',
     },
     {
       type: 'paragraph',
@@ -1795,7 +1795,7 @@ const tenByTenSlabPt: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Os desenhos anotam a espessura em polegadas, então converta antes de multiplicar. Quatro polegadas é 4 ÷ 12 = 0.33333 ft e seis polegadas é 6 ÷ 12 = 0.50000 ft. Pular essa conversão é o clássico erro do fator 12: devolve 400 em vez de 33.33, um número doze vezes maior.',
+      text: 'Os desenhos anotam a espessura em polegadas, então converta antes de multiplicar. Quatro polegadas é 4 ÷ 12 = 0,33333 ft e seis polegadas é 6 ÷ 12 = 0,50000 ft. Pular essa conversão é o clássico erro do fator 12: devolve 400 em vez de 33,33, um número doze vezes maior.',
     },
     {
       type: 'heading',
@@ -1808,9 +1808,9 @@ const tenByTenSlabPt: ArticleTranslation = {
       ordered: true,
       items: [
         'Área em planta: 10 × 10 = 100 ft²',
-        'Espessura em pés: 4 ÷ 12 = 0.33333 ft',
-        'Volume a 4 in: 100 × 0.33333 = 33.333 ft³',
-        'Volume a 6 in: 100 × 0.50000 = 50.000 ft³',
+        'Espessura em pés: 4 ÷ 12 = 0,33333 ft',
+        'Volume a 4 in: 100 × 0,33333 = 33,333 ft³',
+        'Volume a 6 in: 100 × 0,50000 = 50,000 ft³',
       ],
     },
     {
@@ -1821,7 +1821,7 @@ const tenByTenSlabPt: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'O concreto pronto é despachado em jarda cúbica, então divida os pés cúbicos por 27. A 4 polegadas, 33.333 ÷ 27 = 1.2346 jardas cúbicas, informadas como 1.23. A 6 polegadas, 50.000 ÷ 27 = 1.8519 jardas cúbicas, informadas como 1.85. Mantenha toda a precisão durante essa divisão e arredonde apenas os números que vai escrever, porque arredondar duas vezes — uma em pés cúbicos e outra em jardas cúbicas — desloca a resposta sem que se perceba.',
+      text: 'O concreto pronto é despachado em jarda cúbica, então divida os pés cúbicos por 27. A 4 polegadas, 33,333 ÷ 27 = 1,2346 jardas cúbicas, informadas como 1,23. A 6 polegadas, 50,000 ÷ 27 = 1,8519 jardas cúbicas, informadas como 1,85. Mantenha toda a precisão durante essa divisão e arredonde apenas os números que vai escrever, porque arredondar duas vezes — uma em pés cúbicos e outra em jardas cúbicas — desloca a resposta sem que se perceba.',
     },
     {
       type: 'heading',
@@ -1837,15 +1837,15 @@ const tenByTenSlabPt: ArticleTranslation = {
       type: 'table',
       headers: ['Espessura', 'Base (yd³)', '+5% (yd³)', '+10% (yd³)', '+10% (ft³)'],
       rows: [
-        ['4 in', '1.23', '1.30', '1.36', '36.67'],
-        ['6 in', '1.85', '1.94', '2.04', '55.00'],
+        ['4 in', '1,23', '1,30', '1,36', '36,67'],
+        ['6 in', '1,85', '1,94', '2,04', '55,00'],
       ],
     },
     {
       type: 'callout',
       tone: 'warning',
       title: 'Não arredonde antes de dividir',
-      body: 'Informar 1.23 jardas cúbicas e depois tratá-las como o valor de trabalho perde as 0.0046 jardas cúbicas que o arredondamento removeu, e repetir esse hábito em várias concretagens se acumula. Leve 1.2346 por todo o cálculo da margem e arredonde a quantidade final do pedido uma única vez.',
+      body: 'Informar 1,23 jardas cúbicas e depois tratá-las como o valor de trabalho perde as 0,0046 jardas cúbicas que o arredondamento removeu, e repetir esse hábito em várias concretagens se acumula. Leve 1,2346 por todo o cálculo da margem e arredonde a quantidade final do pedido uma única vez.',
     },
     {
       type: 'heading',
@@ -1855,20 +1855,20 @@ const tenByTenSlabPt: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'As duas espessuras descrevem a mesma implantação, então a comparação é puramente proporcional. Seis polegadas de concreto são uma vez e meia quatro polegadas, o que significa 50.00 pés cúbicos contra 33.33 pés cúbicos, 1.85 jardas cúbicas contra 1.23 jardas cúbicas e 28 sacos de 80 lb a mais.',
+      text: 'As duas espessuras descrevem a mesma implantação, então a comparação é puramente proporcional. Seis polegadas de concreto são uma vez e meia quatro polegadas, o que significa 50,00 pés cúbicos contra 33,33 pés cúbicos, 1,85 jardas cúbicas contra 1,23 jardas cúbicas e 28 sacos de 80 lb a mais.',
     },
     {
       type: 'table',
       headers: ['Espessura', 'Volume (ft³)', 'Volume (yd³)', 'Sacos de 80 lb', 'Sacos de 60 lb'],
       rows: [
-        ['4 in', '33.33', '1.23', '56', '75'],
-        ['6 in', '50.00', '1.85', '84', '112'],
-        ['Diferença', '+16.67', '+0.62', '+28', '+37'],
+        ['4 in', '33,33', '1,23', '56', '75'],
+        ['6 in', '50,00', '1,85', '84', '112'],
+        ['Diferença', '+16,67', '+0,62', '+28', '+37'],
       ],
     },
     {
       type: 'paragraph',
-      text: 'Os 0.62 jardas cúbicas a mais raramente são por si só o fator decisivo, mas são a diferença entre uma estratégia de pedido e outra, e a diferença entre uma laje que bate com o desenho e uma que não bate. Escolha a espessura pelo uso pretendido e pela especificação estrutural; o cálculo da quantidade apenas informa o que essa decisão custa em material.',
+      text: 'Os 0,62 jardas cúbicas a mais raramente são por si só o fator decisivo, mas são a diferença entre uma estratégia de pedido e outra, e a diferença entre uma laje que bate com o desenho e uma que não bate. Escolha a espessura pelo uso pretendido e pela especificação estrutural; o cálculo da quantidade apenas informa o que essa decisão custa em material.',
     },
     {
       type: 'figure',
@@ -1886,30 +1886,30 @@ const tenByTenSlabPt: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'A mistura em sacos é comprada por saco e não por volume, então é preciso dividir o volume pelo rendimento de um único saco e sempre arredondar para cima. Um saco de 80 lb rende 0.60 pés cúbicos de concreto fresco e um saco de 60 lb rende 0.45 pés cúbicos — os mesmos números que a calculadora do MixTally usa e os rendimentos publicados para o concreto em sacos QUIKRETE.',
+      text: 'A mistura em sacos é comprada por saco e não por volume, então é preciso dividir o volume pelo rendimento de um único saco e sempre arredondar para cima. Um saco de 80 lb rende 0,60 pés cúbicos de concreto fresco e um saco de 60 lb rende 0,45 pés cúbicos — os mesmos números que a calculadora do MixTally usa e os rendimentos publicados para o concreto em sacos QUIKRETE.',
     },
     {
       type: 'formula',
       expression: 'bags = ⌈ total ft³ ÷ bag yield ⌉',
-      note: 'Um saco de 80 lb dá 0.60 ft³; um saco de 60 lb dá 0.45 ft³.',
+      note: 'Um saco de 80 lb dá 0,60 ft³; um saco de 60 lb dá 0,45 ft³.',
     },
     {
       type: 'table',
       headers: ['Tamanho do saco', 'Rendimento (ft³)', 'Sacos por yd³', 'A 4 in', 'A 6 in'],
       rows: [
-        ['80 lb', '0.60', '45', '56', '84'],
-        ['60 lb', '0.45', '60', '75', '112'],
+        ['80 lb', '0,60', '45', '56', '84'],
+        ['60 lb', '0,45', '60', '75', '112'],
       ],
     },
     {
       type: 'paragraph',
-      text: 'A aritmética para a laje de 4 polegadas é 33.333 ÷ 0.60 = 55.6, que arredonda para cima a 56 sacos; com sacos de 60 lb é 33.333 ÷ 0.45 = 74.1, que arredonda para cima a 75. Por jarda cúbica as contagens são exatas: 27 ÷ 0.60 = 45 sacos de oitenta libras e 27 ÷ 0.45 = 60 sacos de sessenta libras. Aplicar a margem antes de dividir muda os totais para 62 e 82 sacos a 4 polegadas, e para 92 e 123 sacos a 6 polegadas.',
+      text: 'A aritmética para a laje de 4 polegadas é 33,333 ÷ 0,60 = 55,6, que arredonda para cima a 56 sacos; com sacos de 60 lb é 33,333 ÷ 0,45 = 74,1, que arredonda para cima a 75. Por jarda cúbica as contagens são exatas: 27 ÷ 0,60 = 45 sacos de oitenta libras e 27 ÷ 0,45 = 60 sacos de sessenta libras. Aplicar a margem antes de dividir muda os totais para 62 e 82 sacos a 4 polegadas, e para 92 e 123 sacos a 6 polegadas.',
     },
     {
       type: 'callout',
       tone: 'note',
       title: 'Conte os sacos pelos pés cúbicos, nunca pelas jardas arredondadas',
-      body: 'Dividir as 1.23 jardas cúbicas informadas por 0.60 dá um número sem sentido, e converter essas 1.23 de volta para pés cúbicos dá 33.21 em vez de 33.33. Conte os sacos pelos pés cúbicos sem arredondar para que o arredondamento aconteça uma única vez, na fronteira do saco.',
+      body: 'Dividir as 1,23 jardas cúbicas informadas por 0,60 dá um número sem sentido, e converter essas 1,23 de volta para pés cúbicos dá 33,21 em vez de 33,33. Conte os sacos pelos pés cúbicos sem arredondar para que o arredondamento aconteça uma única vez, na fronteira do saco.',
     },
     {
       type: 'heading',
@@ -1919,7 +1919,7 @@ const tenByTenSlabPt: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Uma quantidade entre 1.23 e 2.04 jardas cúbicas fica onde as duas rotas de entrega são realistas. A mistura em sacos deixa você comprar exatamente a contagem que o cálculo produz e guarda os sacos intactos para depois. O concreto pronto é dosificado por volume na planta, chega pronto para descarga e normalmente tem um mínimo do fornecedor para cargas pequenas, então confirme o que se aplica antes de dar como certo que a cifra calculada é a quantidade que será cobrada.',
+      text: 'Uma quantidade entre 1,23 e 2,04 jardas cúbicas fica onde as duas rotas de entrega são realistas. A mistura em sacos deixa você comprar exatamente a contagem que o cálculo produz e guarda os sacos intactos para depois. O concreto pronto é dosificado por volume na planta, chega pronto para descarga e normalmente tem um mínimo do fornecedor para cargas pequenas, então confirme o que se aplica antes de dar como certo que a cifra calculada é a quantidade que será cobrada.',
     },
     {
       type: 'figure',
@@ -1967,7 +1967,7 @@ const tenByTenSlabPt: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Aplicado à laje de 4 polegadas, uma margem de 10% move o pedido de 33.33 pés cúbicos para 36.67 pés cúbicos, de 1.23 jardas cúbicas para 1.36 jardas cúbicas e de 56 sacos de mistura de 80 lb para 62. Pedir exatamente o volume geométrico arrisca faltar material no meio da concretagem, onde uma segunda descarga significa uma junta fria; pedir muito além do que o canteiro precisa desperdiça orçamento e deixa material para descartar. Anote a margem que escolheu e por que.',
+      text: 'Aplicado à laje de 4 polegadas, uma margem de 10% move o pedido de 33,33 pés cúbicos para 36,67 pés cúbicos, de 1,23 jardas cúbicas para 1,36 jardas cúbicas e de 56 sacos de mistura de 80 lb para 62. Pedir exatamente o volume geométrico arrisca faltar material no meio da concretagem, onde uma segunda descarga significa uma junta fria; pedir muito além do que o canteiro precisa desperdiça orçamento e deixa material para descartar. Anote a margem que escolheu e por que.',
     },
     {
       type: 'heading',
@@ -1981,12 +1981,12 @@ const tenByTenSlabPt: ArticleTranslation = {
         {
           question: 'Quanto de concreto tem numa laje de 10 ft × 10 ft a 4 polegadas?',
           answer:
-            '33.33 pés cúbicos, ou seja 1.23 jardas cúbicas, antes de qualquer margem. Com 10% de margem o pedido passa para 36.67 pés cúbicos, ou 1.36 jardas cúbicas.',
+            '33,33 pés cúbicos, ou seja 1,23 jardas cúbicas, antes de qualquer margem. Com 10% de margem o pedido passa para 36,67 pés cúbicos, ou 1,36 jardas cúbicas.',
         },
         {
           question: 'Quanto de concreto é preciso a 6 polegadas?',
           answer:
-            '50.00 pés cúbicos, ou seja 1.85 jardas cúbicas. Isso é exatamente 1.5 vezes a laje de 4 polegadas, porque 6 polegadas é 1.5 vezes 4 polegadas.',
+            '50,00 pés cúbicos, ou seja 1,85 jardas cúbicas. Isso é exatamente 1,5 vezes a laje de 4 polegadas, porque 6 polegadas é 1,5 vezes 4 polegadas.',
         },
         {
           question: 'Quantos sacos de concreto eu preciso?',
@@ -2029,7 +2029,7 @@ const tenByTenSlabFr: ArticleTranslation = {
   ogImageAlt: 'Illustration isométrique d’une dalle carrée en béton avec des flèches de cote sur une grille graduée',
   title: 'Combien de béton faut-il pour une dalle de 10x10 ?',
   description:
-    'Une dalle de 10x10 demande 1.23 yards cubes à 4 pouces et 1.85 à 6 pouces. Voyez le calcul, les sacs, la marge et les options de livraison.',
+    'Une dalle de 10x10 demande 1,23 yards cubes à 4 pouces et 1,85 à 6 pouces. Voyez le calcul, les sacs, la marge et les options de livraison.',
   excerpt:
     'Volume exact d’une dalle de 10x10 à 4 et 6 pouces, les sacs qui en découlent et la quantité à commander en plus selon l’état du chantier.',
   blocks: [
@@ -2043,11 +2043,11 @@ const tenByTenSlabFr: ArticleTranslation = {
       type: 'callout',
       tone: 'note',
       title: 'Réponse rapide',
-      body: 'Une dalle de 10 ft × 10 ft à 4 pouces d’épaisseur fait 33.33 pieds cubes, soit 1.23 yards cubes. À 6 pouces, elle fait 50.00 pieds cubes, soit 1.85 yards cubes. Ce sont des volumes géométriques exacts avant toute marge : avec 10 % de marge, la commande passe à 36.67 pieds cubes (1.36 yards cubes) et à 55.00 pieds cubes (2.04 yards cubes).',
+      body: 'Une dalle de 10 ft × 10 ft à 4 pouces d’épaisseur fait 33,33 pieds cubes, soit 1,23 yards cubes. À 6 pouces, elle fait 50,00 pieds cubes, soit 1,85 yards cubes. Ce sont des volumes géométriques exacts avant toute marge : avec 10 % de marge, la commande passe à 36,67 pieds cubes (1,36 yards cubes) et à 55,00 pieds cubes (2,04 yards cubes).',
     },
     {
       type: 'paragraph',
-      text: 'Une dalle de 10 sur 10 couvre 100 pieds carrés, soit 11.11 yards carrés de surface au plan. Ce chiffre ne change jamais. Tout ce qui suit découle d’une seule seconde donnée : l’épaisseur de la dalle. À 4 pouces, la dalle mesure un tiers de pied de profondeur et contient donc 33.33 pieds cubes de béton. À 6 pouces, elle mesure un demi-pied et en contient 50.00. Six pouces font une fois et demie quatre pouces, et le volume répond exactement dans cette proportion.',
+      text: 'Une dalle de 10 sur 10 couvre 100 pieds carrés, soit 11,11 yards carrés de surface au plan. Ce chiffre ne change jamais. Tout ce qui suit découle d’une seule seconde donnée : l’épaisseur de la dalle. À 4 pouces, la dalle mesure un tiers de pied de profondeur et contient donc 33,33 pieds cubes de béton. À 6 pouces, elle mesure un demi-pied et en contient 50,00. Six pouces font une fois et demie quatre pouces, et le volume répond exactement dans cette proportion.',
     },
     {
       type: 'paragraph',
@@ -2100,7 +2100,7 @@ const tenByTenSlabFr: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Les plans annotent l’épaisseur en pouces, convertissez donc avant de multiplier. Quatre pouces valent 4 ÷ 12 = 0.33333 ft et six pouces valent 6 ÷ 12 = 0.50000 ft. Omettre cette conversion, c’est l’erreur classique du facteur 12 : elle renvoie 400 au lieu de 33.33, un chiffre douze fois trop grand.',
+      text: 'Les plans annotent l’épaisseur en pouces, convertissez donc avant de multiplier. Quatre pouces valent 4 ÷ 12 = 0,33333 ft et six pouces valent 6 ÷ 12 = 0,50000 ft. Omettre cette conversion, c’est l’erreur classique du facteur 12 : elle renvoie 400 au lieu de 33,33, un chiffre douze fois trop grand.',
     },
     {
       type: 'heading',
@@ -2113,9 +2113,9 @@ const tenByTenSlabFr: ArticleTranslation = {
       ordered: true,
       items: [
         'Surface au plan : 10 × 10 = 100 ft²',
-        'Épaisseur en pieds : 4 ÷ 12 = 0.33333 ft',
-        'Volume à 4 in : 100 × 0.33333 = 33.333 ft³',
-        'Volume à 6 in : 100 × 0.50000 = 50.000 ft³',
+        'Épaisseur en pieds : 4 ÷ 12 = 0,33333 ft',
+        'Volume à 4 in : 100 × 0,33333 = 33,333 ft³',
+        'Volume à 6 in : 100 × 0,50000 = 50,000 ft³',
       ],
     },
     {
@@ -2126,7 +2126,7 @@ const tenByTenSlabFr: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Le béton prêt à l’emploi se livre au yard cube, divisez donc les pieds cubes par 27. À 4 pouces, 33.333 ÷ 27 = 1.2346 yards cubes, annoncés comme 1.23. À 6 pouces, 50.000 ÷ 27 = 1.8519 yards cubes, annoncés comme 1.85. Conservez toute la précision pendant cette division et n’arrondissez que les chiffres que vous écrivez, car arrondir deux fois — une fois en pieds cubes puis en yards cubes — déplace la réponse sans qu’on le voie.',
+      text: 'Le béton prêt à l’emploi se livre au yard cube, divisez donc les pieds cubes par 27. À 4 pouces, 33,333 ÷ 27 = 1,2346 yards cubes, annoncés comme 1,23. À 6 pouces, 50,000 ÷ 27 = 1,8519 yards cubes, annoncés comme 1,85. Conservez toute la précision pendant cette division et n’arrondissez que les chiffres que vous écrivez, car arrondir deux fois — une fois en pieds cubes puis en yards cubes — déplace la réponse sans qu’on le voie.',
     },
     {
       type: 'heading',
@@ -2142,15 +2142,15 @@ const tenByTenSlabFr: ArticleTranslation = {
       type: 'table',
       headers: ['Épaisseur', 'Base (yd³)', '+5% (yd³)', '+10% (yd³)', '+10% (ft³)'],
       rows: [
-        ['4 in', '1.23', '1.30', '1.36', '36.67'],
-        ['6 in', '1.85', '1.94', '2.04', '55.00'],
+        ['4 in', '1,23', '1,30', '1,36', '36,67'],
+        ['6 in', '1,85', '1,94', '2,04', '55,00'],
       ],
     },
     {
       type: 'callout',
       tone: 'warning',
       title: 'N’arrondissez pas avant de diviser',
-      body: 'Annoncer 1.23 yards cubes puis utiliser ce chiffre comme valeur de travail perd les 0.0046 yards cubes supprimés par l’arrondi, et répéter cette habitude sur plusieurs coulées finit par se sentir. Gardez 1.2346 pendant tout le calcul de marge et n’arrondissez la quantité finale qu’une seule fois.',
+      body: 'Annoncer 1,23 yards cubes puis utiliser ce chiffre comme valeur de travail perd les 0,0046 yards cubes supprimés par l’arrondi, et répéter cette habitude sur plusieurs coulées finit par se sentir. Gardez 1,2346 pendant tout le calcul de marge et n’arrondissez la quantité finale qu’une seule fois.',
     },
     {
       type: 'heading',
@@ -2160,20 +2160,20 @@ const tenByTenSlabFr: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Les deux épaisseurs décrivent la même emprise, la comparaison est donc purement proportionnelle. Six pouces de béton font une fois et demie quatre pouces, soit 50.00 pieds cubes contre 33.33 pieds cubes, 1.85 yards cubes contre 1.23 yards cubes, et 28 sacs de 80 lb de plus.',
+      text: 'Les deux épaisseurs décrivent la même emprise, la comparaison est donc purement proportionnelle. Six pouces de béton font une fois et demie quatre pouces, soit 50,00 pieds cubes contre 33,33 pieds cubes, 1,85 yards cubes contre 1,23 yards cubes, et 28 sacs de 80 lb de plus.',
     },
     {
       type: 'table',
       headers: ['Épaisseur', 'Volume (ft³)', 'Volume (yd³)', 'Sacs de 80 lb', 'Sacs de 60 lb'],
       rows: [
-        ['4 in', '33.33', '1.23', '56', '75'],
-        ['6 in', '50.00', '1.85', '84', '112'],
-        ['Écart', '+16.67', '+0.62', '+28', '+37'],
+        ['4 in', '33,33', '1,23', '56', '75'],
+        ['6 in', '50,00', '1,85', '84', '112'],
+        ['Écart', '+16,67', '+0,62', '+28', '+37'],
       ],
     },
     {
       type: 'paragraph',
-      text: 'Les 0.62 yards cubes supplémentaires sont rarement le seul facteur décisif, mais ils font la différence entre deux stratégies d’approvisionnement, et la différence entre une dalle conforme au plan et une dalle qui ne l’est pas. Choisissez l’épaisseur selon l’usage prévu et la prescription structurelle ; le calcul de quantité indique simplement ce que ce choix coûte en matériau.',
+      text: 'Les 0,62 yards cubes supplémentaires sont rarement le seul facteur décisif, mais ils font la différence entre deux stratégies d’approvisionnement, et la différence entre une dalle conforme au plan et une dalle qui ne l’est pas. Choisissez l’épaisseur selon l’usage prévu et la prescription structurelle ; le calcul de quantité indique simplement ce que ce choix coûte en matériau.',
     },
     {
       type: 'figure',
@@ -2191,30 +2191,30 @@ const tenByTenSlabFr: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Le mélange en sacs s’achète au sac et non au volume : il faut donc diviser le volume par le rendement d’un seul sac et toujours arrondir à la hausse. Un sac de 80 lb produit 0.60 pied cube de béton frais et un sac de 60 lb produit 0.45 pied cube — les mêmes chiffres que la calculatrice MixTally et les rendements publiés pour le béton en sacs QUIKRETE.',
+      text: 'Le mélange en sacs s’achète au sac et non au volume : il faut donc diviser le volume par le rendement d’un seul sac et toujours arrondir à la hausse. Un sac de 80 lb produit 0,60 pied cube de béton frais et un sac de 60 lb produit 0,45 pied cube — les mêmes chiffres que la calculatrice MixTally et les rendements publiés pour le béton en sacs QUIKRETE.',
     },
     {
       type: 'formula',
       expression: 'bags = ⌈ total ft³ ÷ bag yield ⌉',
-      note: 'Un sac de 80 lb donne 0.60 ft³ ; un sac de 60 lb donne 0.45 ft³.',
+      note: 'Un sac de 80 lb donne 0,60 ft³ ; un sac de 60 lb donne 0,45 ft³.',
     },
     {
       type: 'table',
       headers: ['Taille du sac', 'Rendement (ft³)', 'Sacs par yd³', 'À 4 in', 'À 6 in'],
       rows: [
-        ['80 lb', '0.60', '45', '56', '84'],
-        ['60 lb', '0.45', '60', '75', '112'],
+        ['80 lb', '0,60', '45', '56', '84'],
+        ['60 lb', '0,45', '60', '75', '112'],
       ],
     },
     {
       type: 'paragraph',
-      text: 'Pour la dalle de 4 pouces, le calcul est 33.333 ÷ 0.60 = 55.6, arrondi à la hausse à 56 sacs ; avec des sacs de 60 lb, 33.333 ÷ 0.45 = 74.1, arrondi à la hausse à 75. Par yard cube, les décomptes sont exacts : 27 ÷ 0.60 = 45 sacs de quatre-vingts livres et 27 ÷ 0.45 = 60 sacs de soixante livres. Appliquer la marge avant de diviser porte les totaux à 62 et 82 sacs à 4 pouces, et à 92 et 123 sacs à 6 pouces.',
+      text: 'Pour la dalle de 4 pouces, le calcul est 33,333 ÷ 0,60 = 55,6, arrondi à la hausse à 56 sacs ; avec des sacs de 60 lb, 33,333 ÷ 0,45 = 74,1, arrondi à la hausse à 75. Par yard cube, les décomptes sont exacts : 27 ÷ 0,60 = 45 sacs de quatre-vingts livres et 27 ÷ 0,45 = 60 sacs de soixante livres. Appliquer la marge avant de diviser porte les totaux à 62 et 82 sacs à 4 pouces, et à 92 et 123 sacs à 6 pouces.',
     },
     {
       type: 'callout',
       tone: 'note',
       title: 'Comptez les sacs à partir des pieds cubes, jamais des yards arrondis',
-      body: 'Diviser les 1.23 yards cubes annoncés par 0.60 donne un nombre sans portée, et reconvertir ces 1.23 en pieds cubes donne 33.21 au lieu de 33.33. Comptez les sacs à partir des pieds cubes non arrondis pour que l’arrondi n’ait lieu qu’une fois, au passage au sac.',
+      body: 'Diviser les 1,23 yards cubes annoncés par 0,60 donne un nombre sans portée, et reconvertir ces 1,23 en pieds cubes donne 33,21 au lieu de 33,33. Comptez les sacs à partir des pieds cubes non arrondis pour que l’arrondi n’ait lieu qu’une fois, au passage au sac.',
     },
     {
       type: 'heading',
@@ -2224,7 +2224,7 @@ const tenByTenSlabFr: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Une quantité comprise entre 1.23 et 2.04 yards cubes se situe là où les deux voies de livraison sont réalistes. Le mélange en sacs permet d’acheter exactement le décompte produit par le calcul et de garder les sacs scellés pour plus tard. Le béton prêt à l’emploi est dosé au volume à l’usine, arrive prêt à se déverser et comporte en général un minimum fournisseur pour les petites charges : vérifiez ce qui s’applique avant de tenir le chiffre calculé pour la quantité facturée.',
+      text: 'Une quantité comprise entre 1,23 et 2,04 yards cubes se situe là où les deux voies de livraison sont réalistes. Le mélange en sacs permet d’acheter exactement le décompte produit par le calcul et de garder les sacs scellés pour plus tard. Le béton prêt à l’emploi est dosé au volume à l’usine, arrive prêt à se déverser et comporte en général un minimum fournisseur pour les petites charges : vérifiez ce qui s’applique avant de tenir le chiffre calculé pour la quantité facturée.',
     },
     {
       type: 'figure',
@@ -2272,7 +2272,7 @@ const tenByTenSlabFr: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Appliquée à la dalle de 4 pouces, une marge de 10 % fait passer la commande de 33.33 pieds cubes à 36.67 pieds cubes, de 1.23 yards cubes à 1.36 yards cubes, et de 56 sacs de mélange de 80 lb à 62. Commander exactement le volume géométrique risque un manquant au milieu de la coulée, où une seconde livraison signifie un joint de reprise ; commander bien au-delà des besoins du chantier gaspille le budget et laisse du matériau à évacuer. Notez la marge choisie et pourquoi.',
+      text: 'Appliquée à la dalle de 4 pouces, une marge de 10 % fait passer la commande de 33,33 pieds cubes à 36,67 pieds cubes, de 1,23 yards cubes à 1,36 yards cubes, et de 56 sacs de mélange de 80 lb à 62. Commander exactement le volume géométrique risque un manquant au milieu de la coulée, où une seconde livraison signifie un joint de reprise ; commander bien au-delà des besoins du chantier gaspille le budget et laisse du matériau à évacuer. Notez la marge choisie et pourquoi.',
     },
     {
       type: 'heading',
@@ -2286,12 +2286,12 @@ const tenByTenSlabFr: ArticleTranslation = {
         {
           question: 'Combien de béton y a-t-il dans une dalle de 10 ft × 10 ft à 4 pouces ?',
           answer:
-            '33.33 pieds cubes, soit 1.23 yards cubes, avant toute marge. Avec 10 % de marge, la commande passe à 36.67 pieds cubes, soit 1.36 yards cubes.',
+            '33,33 pieds cubes, soit 1,23 yards cubes, avant toute marge. Avec 10 % de marge, la commande passe à 36,67 pieds cubes, soit 1,36 yards cubes.',
         },
         {
           question: 'Combien de béton faut-il à 6 pouces ?',
           answer:
-            '50.00 pieds cubes, soit 1.85 yards cubes. C’est exactement 1.5 fois la dalle de 4 pouces, car 6 pouces vaut 1.5 fois 4 pouces.',
+            '50,00 pieds cubes, soit 1,85 yards cubes. C’est exactement 1,5 fois la dalle de 4 pouces, car 6 pouces vaut 1,5 fois 4 pouces.',
         },
         {
           question: 'Combien de sacs de béton faut-il ?',
@@ -2334,7 +2334,7 @@ const tenByTenSlabDe: ArticleTranslation = {
   ogImageAlt: 'Isometrische Illustration einer quadratischen Betonplatte mit Maßpfeilen auf einem vermaßten Raster',
   title: 'Wie viel Beton brauche ich für eine 10x10-Platte?',
   description:
-    'Eine 10x10-Platte braucht bei 4 Zoll 1.23 Kubikyard und bei 6 Zoll 1.85. Sehen Sie die Rechnung, die Säcke, den Zuschlag und die Lieferoptionen.',
+    'Eine 10x10-Platte braucht bei 4 Zoll 1,23 Kubikyard und bei 6 Zoll 1,85. Sehen Sie die Rechnung, die Säcke, den Zuschlag und die Lieferoptionen.',
   excerpt:
     'Exaktes Volumen für eine 10x10-Platte bei 4 und 6 Zoll, die sich daraus ergebenden Sackzahlen und wie viel mehr man für die Bedingungen der Baustelle bestellen soll.',
   blocks: [
@@ -2348,11 +2348,11 @@ const tenByTenSlabDe: ArticleTranslation = {
       type: 'callout',
       tone: 'note',
       title: 'Kurze Antwort',
-      body: 'Eine 10 ft × 10 ft Platte mit 4 Zoll Dicke misst 33.33 Kubikfuß, also 1.23 Kubikyard. Bei 6 Zoll sind es 50.00 Kubikfuß, also 1.85 Kubikyard. Das sind exakte geometrische Volumina vor jedem Zuschlag: Bei 10 % Zuschlag wird aus der Bestellung 36.67 Kubikfuß (1.36 Kubikyard) und 55.00 Kubikfuß (2.04 Kubikyard).',
+      body: 'Eine 10 ft × 10 ft Platte mit 4 Zoll Dicke misst 33,33 Kubikfuß, also 1,23 Kubikyard. Bei 6 Zoll sind es 50,00 Kubikfuß, also 1,85 Kubikyard. Das sind exakte geometrische Volumina vor jedem Zuschlag: Bei 10 % Zuschlag wird aus der Bestellung 36,67 Kubikfuß (1,36 Kubikyard) und 55,00 Kubikfuß (2,04 Kubikyard).',
     },
     {
       type: 'paragraph',
-      text: 'Eine 10 mal 10 Platte bedeckt 100 Quadratfuß, das sind 11.11 Quadratyard Grundfläche. Dieser Wert ändert sich nie. Alles Weitere stammt aus einem einzigen zweiten Eingabewert: der Dicke der Platte. Bei 4 Zoll ist die Platte ein Drittel Fuß tief und enthält 33.33 Kubikfuß Beton. Bei 6 Zoll ist sie einen halben Fuß tief und enthält 50.00 Kubikfuß. Sechs Zoll sind eineinhalb mal vier Zoll, und das Volumen verhält sich genau in diesem Verhältnis.',
+      text: 'Eine 10 mal 10 Platte bedeckt 100 Quadratfuß, das sind 11,11 Quadratyard Grundfläche. Dieser Wert ändert sich nie. Alles Weitere stammt aus einem einzigen zweiten Eingabewert: der Dicke der Platte. Bei 4 Zoll ist die Platte ein Drittel Fuß tief und enthält 33,33 Kubikfuß Beton. Bei 6 Zoll ist sie einen halben Fuß tief und enthält 50,00 Kubikfuß. Sechs Zoll sind eineinhalb mal vier Zoll, und das Volumen verhält sich genau in diesem Verhältnis.',
     },
     {
       type: 'paragraph',
@@ -2405,7 +2405,7 @@ const tenByTenSlabDe: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Zeichnungen notieren die Dicke in Zoll, rechnen Sie also vor dem Multiplizieren um. Vier Zoll sind 4 ÷ 12 = 0.33333 ft und sechs Zoll sind 6 ÷ 12 = 0.50000 ft. Diese Umrechnung zu überspringen ist der klassische Faktor-12-Fehler: Er liefert 400 statt 33.33, eine zwölfmal zu große Zahl.',
+      text: 'Zeichnungen notieren die Dicke in Zoll, rechnen Sie also vor dem Multiplizieren um. Vier Zoll sind 4 ÷ 12 = 0,33333 ft und sechs Zoll sind 6 ÷ 12 = 0,50000 ft. Diese Umrechnung zu überspringen ist der klassische Faktor-12-Fehler: Er liefert 400 statt 33,33, eine zwölfmal zu große Zahl.',
     },
     {
       type: 'heading',
@@ -2418,9 +2418,9 @@ const tenByTenSlabDe: ArticleTranslation = {
       ordered: true,
       items: [
         'Grundfläche: 10 × 10 = 100 ft²',
-        'Dicke in Fuß: 4 ÷ 12 = 0.33333 ft',
-        'Volumen bei 4 in: 100 × 0.33333 = 33.333 ft³',
-        'Volumen bei 6 in: 100 × 0.50000 = 50.000 ft³',
+        'Dicke in Fuß: 4 ÷ 12 = 0,33333 ft',
+        'Volumen bei 4 in: 100 × 0,33333 = 33,333 ft³',
+        'Volumen bei 6 in: 100 × 0,50000 = 50,000 ft³',
       ],
     },
     {
@@ -2431,7 +2431,7 @@ const tenByTenSlabDe: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Mischanlagen-Beton wird nach Kubikyard disponiert, teilen Sie die Kubikfuß also durch 27. Bei 4 Zoll ergibt 33.333 ÷ 27 = 1.2346 Kubikyard, gemeldet als 1.23. Bei 6 Zoll ergibt 50.000 ÷ 27 = 1.8519 Kubikyard, gemeldet als 1.85. Halten Sie die volle Genauigkeit durch diese Division und runden Sie nur die Zahlen, die Sie aufschreiben, denn zweimaliges Runden — einmal in Kubikfuß und dann in Kubikyard — verschiebt das Ergebnis unbemerkt.',
+      text: 'Mischanlagen-Beton wird nach Kubikyard disponiert, teilen Sie die Kubikfuß also durch 27. Bei 4 Zoll ergibt 33,333 ÷ 27 = 1,2346 Kubikyard, gemeldet als 1,23. Bei 6 Zoll ergibt 50,000 ÷ 27 = 1,8519 Kubikyard, gemeldet als 1,85. Halten Sie die volle Genauigkeit durch diese Division und runden Sie nur die Zahlen, die Sie aufschreiben, denn zweimaliges Runden — einmal in Kubikfuß und dann in Kubikyard — verschiebt das Ergebnis unbemerkt.',
     },
     {
       type: 'heading',
@@ -2447,15 +2447,15 @@ const tenByTenSlabDe: ArticleTranslation = {
       type: 'table',
       headers: ['Dicke', 'Basis (yd³)', '+5% (yd³)', '+10% (yd³)', '+10% (ft³)'],
       rows: [
-        ['4 in', '1.23', '1.30', '1.36', '36.67'],
-        ['6 in', '1.85', '1.94', '2.04', '55.00'],
+        ['4 in', '1,23', '1,30', '1,36', '36,67'],
+        ['6 in', '1,85', '1,94', '2,04', '55,00'],
       ],
     },
     {
       type: 'callout',
       tone: 'warning',
       title: 'Nicht runden, bevor Sie teilen',
-      body: 'Wer 1.23 Kubikyard meldet und diese Zahl danach als Arbeitswert behandelt, verliert die 0.0046 Kubikyard, die das Runden entfernt hat — und diese Gewohnheit über mehrere Güsse hinweg summiert sich. Führen Sie 1.2346 durch die Zuschlagsrechnung und runden Sie die endgültige Bestellmenge genau einmal.',
+      body: 'Wer 1,23 Kubikyard meldet und diese Zahl danach als Arbeitswert behandelt, verliert die 0,0046 Kubikyard, die das Runden entfernt hat — und diese Gewohnheit über mehrere Güsse hinweg summiert sich. Führen Sie 1,2346 durch die Zuschlagsrechnung und runden Sie die endgültige Bestellmenge genau einmal.',
     },
     {
       type: 'heading',
@@ -2465,20 +2465,20 @@ const tenByTenSlabDe: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Beide Dicken beschreiben dieselbe Grundfläche, der Vergleich ist also rein proportional. Sechs Zoll Beton sind eineinhalb mal vier Zoll, also 50.00 Kubikfuß gegen 33.33 Kubikfuß, 1.85 Kubikyard gegen 1.23 Kubikyard und 28 Säcke zu 80 lb mehr.',
+      text: 'Beide Dicken beschreiben dieselbe Grundfläche, der Vergleich ist also rein proportional. Sechs Zoll Beton sind eineinhalb mal vier Zoll, also 50,00 Kubikfuß gegen 33,33 Kubikfuß, 1,85 Kubikyard gegen 1,23 Kubikyard und 28 Säcke zu 80 lb mehr.',
     },
     {
       type: 'table',
       headers: ['Dicke', 'Volumen (ft³)', 'Volumen (yd³)', '80-lb-Säcke', '60-lb-Säcke'],
       rows: [
-        ['4 in', '33.33', '1.23', '56', '75'],
-        ['6 in', '50.00', '1.85', '84', '112'],
-        ['Differenz', '+16.67', '+0.62', '+28', '+37'],
+        ['4 in', '33,33', '1,23', '56', '75'],
+        ['6 in', '50,00', '1,85', '84', '112'],
+        ['Differenz', '+16,67', '+0,62', '+28', '+37'],
       ],
     },
     {
       type: 'paragraph',
-      text: 'Die zusätzlichen 0.62 Kubikyard sind selten für sich der entscheidende Faktor, aber sie sind der Unterschied zwischen zwei Bestellstrategien und der Unterschied zwischen einer Platte, die der Zeichnung entspricht, und einer, die es nicht tut. Wählen Sie die Dicke nach dem vorgesehenen Gebrauch und der statischen Spezifikation; die Mengenberechnung zeigt nur, was diese Entscheidung an Material kostet.',
+      text: 'Die zusätzlichen 0,62 Kubikyard sind selten für sich der entscheidende Faktor, aber sie sind der Unterschied zwischen zwei Bestellstrategien und der Unterschied zwischen einer Platte, die der Zeichnung entspricht, und einer, die es nicht tut. Wählen Sie die Dicke nach dem vorgesehenen Gebrauch und der statischen Spezifikation; die Mengenberechnung zeigt nur, was diese Entscheidung an Material kostet.',
     },
     {
       type: 'figure',
@@ -2496,30 +2496,30 @@ const tenByTenSlabDe: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Sackware wird pro Sack und nicht nach Volumen gekauft, deshalb muss das Volumen durch die Ausbeute eines einzelnen Sacks geteilt und immer aufgerundet werden. Ein 80-lb-Sack liefert 0.60 Kubikfuß frischen Beton und ein 60-lb-Sack liefert 0.45 Kubikfuß — dieselben Werte, die der MixTally-Rechner verwendet, und die für QUIKRETE-Sackbeton veröffentlichten Ausbeuten.',
+      text: 'Sackware wird pro Sack und nicht nach Volumen gekauft, deshalb muss das Volumen durch die Ausbeute eines einzelnen Sacks geteilt und immer aufgerundet werden. Ein 80-lb-Sack liefert 0,60 Kubikfuß frischen Beton und ein 60-lb-Sack liefert 0,45 Kubikfuß — dieselben Werte, die der MixTally-Rechner verwendet, und die für QUIKRETE-Sackbeton veröffentlichten Ausbeuten.',
     },
     {
       type: 'formula',
       expression: 'bags = ⌈ total ft³ ÷ bag yield ⌉',
-      note: 'Ein 80-lb-Sack liefert 0.60 ft³; ein 60-lb-Sack liefert 0.45 ft³.',
+      note: 'Ein 80-lb-Sack liefert 0,60 ft³; ein 60-lb-Sack liefert 0,45 ft³.',
     },
     {
       type: 'table',
       headers: ['Sackgröße', 'Ausbeute (ft³)', 'Säcke pro yd³', 'Bei 4 in', 'Bei 6 in'],
       rows: [
-        ['80 lb', '0.60', '45', '56', '84'],
-        ['60 lb', '0.45', '60', '75', '112'],
+        ['80 lb', '0,60', '45', '56', '84'],
+        ['60 lb', '0,45', '60', '75', '112'],
       ],
     },
     {
       type: 'paragraph',
-      text: 'Für die 4-Zoll-Platte lautet die Rechnung 33.333 ÷ 0.60 = 55.6, aufgerundet auf 56 Säcke; mit 60-lb-Säcken sind es 33.333 ÷ 0.45 = 74.1, aufgerundet auf 75. Pro Kubikyard sind die Zahlen exakt: 27 ÷ 0.60 = 45 Säcke zu achtzig Pfund und 27 ÷ 0.45 = 60 Säcke zu sechzig Pfund. Wenden Sie den Zuschlag vor dem Teilen an, ändern sich die Summen auf 62 und 82 Säcke bei 4 Zoll sowie 92 und 123 Säcke bei 6 Zoll.',
+      text: 'Für die 4-Zoll-Platte lautet die Rechnung 33,333 ÷ 0,60 = 55,6, aufgerundet auf 56 Säcke; mit 60-lb-Säcken sind es 33,333 ÷ 0,45 = 74,1, aufgerundet auf 75. Pro Kubikyard sind die Zahlen exakt: 27 ÷ 0,60 = 45 Säcke zu achtzig Pfund und 27 ÷ 0,45 = 60 Säcke zu sechzig Pfund. Wenden Sie den Zuschlag vor dem Teilen an, ändern sich die Summen auf 62 und 82 Säcke bei 4 Zoll sowie 92 und 123 Säcke bei 6 Zoll.',
     },
     {
       type: 'callout',
       tone: 'note',
       title: 'Säcke aus Kubikfuß zählen, nie aus gerundeten Kubikyard',
-      body: 'Die gemeldeten 1.23 Kubikyard durch 0.60 zu teilen ergibt einen sinnlosen Wert, und das Zurückrechnen dieser 1.23 in Kubikfuß ergibt 33.21 statt 33.33. Zählen Sie die Säcke aus den ungerundeten Kubikfuß, damit das Runden genau einmal stattfindet — an der Sackgrenze.',
+      body: 'Die gemeldeten 1,23 Kubikyard durch 0,60 zu teilen ergibt einen sinnlosen Wert, und das Zurückrechnen dieser 1,23 in Kubikfuß ergibt 33,21 statt 33,33. Zählen Sie die Säcke aus den ungerundeten Kubikfuß, damit das Runden genau einmal stattfindet — an der Sackgrenze.',
     },
     {
       type: 'heading',
@@ -2529,7 +2529,7 @@ const tenByTenSlabDe: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Eine Menge zwischen 1.23 und 2.04 Kubikyard liegt dort, wo beide Lieferwege realistisch sind. Sackware erlaubt es, genau die Anzahl zu kaufen, die die Rechnung ergibt, und ungeöffnete Säcke für später aufzubewahren. Mischanlagen-Beton wird im Werk nach Volumen dosiert, kommt lieferbereit an und hat bei kleinen Mengen in der Regel ein Lieferanten-Minimum; klären Sie, was gilt, bevor Sie davon ausgehen, dass die berechnete Zahl die Menge ist, die Ihnen in Rechnung gestellt wird.',
+      text: 'Eine Menge zwischen 1,23 und 2,04 Kubikyard liegt dort, wo beide Lieferwege realistisch sind. Sackware erlaubt es, genau die Anzahl zu kaufen, die die Rechnung ergibt, und ungeöffnete Säcke für später aufzubewahren. Mischanlagen-Beton wird im Werk nach Volumen dosiert, kommt lieferbereit an und hat bei kleinen Mengen in der Regel ein Lieferanten-Minimum; klären Sie, was gilt, bevor Sie davon ausgehen, dass die berechnete Zahl die Menge ist, die Ihnen in Rechnung gestellt wird.',
     },
     {
       type: 'figure',
@@ -2577,7 +2577,7 @@ const tenByTenSlabDe: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Auf die 4-Zoll-Platte angewendet, verschiebt ein Zuschlag von 10 % die Bestellung von 33.33 Kubikfuß auf 36.67 Kubikfuß, von 1.23 Kubikyard auf 1.36 Kubikyard und von 56 Säcken 80-lb-Mischung auf 62. Genau das geometrische Volumen zu bestellen riskiert einen Mangel mitten im Guss, bei dem eine zweite Charge eine Kaltfuge bedeutet; weit über das hinaus zu bestellen, was die Baustelle braucht, verschenkt Budget und lässt Material zum Entsorgen. Notieren Sie den Zuschlag, den Sie gewählt haben, und warum.',
+      text: 'Auf die 4-Zoll-Platte angewendet, verschiebt ein Zuschlag von 10 % die Bestellung von 33,33 Kubikfuß auf 36,67 Kubikfuß, von 1,23 Kubikyard auf 1,36 Kubikyard und von 56 Säcken 80-lb-Mischung auf 62. Genau das geometrische Volumen zu bestellen riskiert einen Mangel mitten im Guss, bei dem eine zweite Charge eine Kaltfuge bedeutet; weit über das hinaus zu bestellen, was die Baustelle braucht, verschenkt Budget und lässt Material zum Entsorgen. Notieren Sie den Zuschlag, den Sie gewählt haben, und warum.',
     },
     {
       type: 'heading',
@@ -2591,12 +2591,12 @@ const tenByTenSlabDe: ArticleTranslation = {
         {
           question: 'Wie viel Beton steckt in einer 10 ft × 10 ft Platte bei 4 Zoll?',
           answer:
-            '33.33 Kubikfuß, also 1.23 Kubikyard, vor jedem Zuschlag. Mit 10 % Zuschlag wird aus der Bestellung 36.67 Kubikfuß oder 1.36 Kubikyard.',
+            '33,33 Kubikfuß, also 1,23 Kubikyard, vor jedem Zuschlag. Mit 10 % Zuschlag wird aus der Bestellung 36,67 Kubikfuß oder 1,36 Kubikyard.',
         },
         {
           question: 'Wie viel Beton braucht es bei 6 Zoll?',
           answer:
-            '50.00 Kubikfuß, also 1.85 Kubikyard. Das ist genau das 1.5-fache der 4-Zoll-Platte, denn 6 Zoll sind 1.5 mal 4 Zoll.',
+            '50,00 Kubikfuß, also 1,85 Kubikyard. Das ist genau das 1,5-fache der 4-Zoll-Platte, denn 6 Zoll sind 1,5 mal 4 Zoll.',
         },
         {
           question: 'Wie viele Betonsäcke brauche ich?',
@@ -2995,7 +2995,7 @@ const paintRoomEs: ArticleTranslation = {
       type: 'callout',
       tone: 'note',
       title: 'Respuesta rápida para una habitación estándar',
-      body: 'Una habitación de 12 ft × 12 ft con paredes de 8 ft tiene 384 ft² de área bruta. Al descontar una puerta y dos ventanas (51 ft² en este ejemplo) quedan 333 ft². Con una cobertura ilustrativa de 350 ft² por galón por capa, dos capas necesitan 666 ft² recubiertos, es decir 1.90 galones. Con un margen opcional del 10% la cifra ronda los 2.1 galones. Todos estos números son ejemplos calculados a partir de datos declarados, no un estándar para todas las pinturas.',
+      body: 'Una habitación de 12 ft × 12 ft con paredes de 8 ft tiene 384 ft² de área bruta. Al descontar una puerta y dos ventanas (51 ft² en este ejemplo) quedan 333 ft². Con una cobertura ilustrativa de 350 ft² por galón por capa, dos capas necesitan 666 ft² recubiertos, es decir 1,90 galones. Con un margen opcional del 10% la cifra ronda los 2,1 galones. Todos estos números son ejemplos calculados a partir de datos declarados, no un estándar para todas las pinturas.',
     },
     {
       type: 'heading',
@@ -3068,7 +3068,7 @@ const paintRoomEs: ArticleTranslation = {
       items: [
         'Descuente el marco completo de las puertas y ventanas que va a dejar intactas.',
         'No descuente molduras, zócalos o marcos que piense pintar: añaden un poco de área, y dejarlos en el cálculo es la elección conservadora.',
-        'Pintar las caras de las puertas es un presupuesto pequeño y aparte: una cara de puerta estándar ronda los 13 a 15 ft², de modo que dos caras añaden unos 30 ft² de área recubierta, equivalentes a unos 0.17 galones por las dos capas con la cobertura de ejemplo.',
+        'Pintar las caras de las puertas es un presupuesto pequeño y aparte: una cara de puerta estándar ronda los 13 a 15 ft², de modo que dos caras añaden unos 30 ft² de área recubierta, equivalentes a unos 0,17 galones por las dos capas con la cobertura de ejemplo.',
         'Persianas, cortinas y muebles adheridos a la pared también cubren área. Descuente solo lo que permanezca en su sitio durante el trabajo.',
       ],
     },
@@ -3130,9 +3130,9 @@ const paintRoomEs: ArticleTranslation = {
       type: 'table',
       headers: ['Capas', 'Área recubierta', 'Galones a 350 ft²/gal'],
       rows: [
-        ['1', '333 ft²', '0.95'],
-        ['2', '666 ft²', '1.90'],
-        ['3', '999 ft²', '2.85'],
+        ['1', '333 ft²', '0,95'],
+        ['2', '666 ft²', '1,90'],
+        ['3', '999 ft²', '2,85'],
       ],
     },
     {
@@ -3162,12 +3162,12 @@ const paintRoomEs: ArticleTranslation = {
     { type: 'heading', level: 3, id: 'example-gallons', text: 'Paso 3: capas y cobertura' },
     {
       type: 'paragraph',
-      text: 'Dos capas cubren 333 × 2 = 666 ft². Dividiendo entre la cobertura de ejemplo: 666 ÷ 350 = 1.90 galones.',
+      text: 'Dos capas cubren 333 × 2 = 666 ft². Dividiendo entre la cobertura de ejemplo: 666 ÷ 350 = 1,90 galones.',
     },
     { type: 'heading', level: 3, id: 'example-allowance', text: 'Paso 4: margen opcional' },
     {
       type: 'paragraph',
-      text: 'La textura, la absorción, las pérdidas del corte de bordes y una reserva para retoques no están en la cifra geométrica. Un margen opcional del 10% sobre 1.90 galones es 1.90 × 1.10 = 2.09 galones, que redondea a unos 2.1 galones.',
+      text: 'La textura, la absorción, las pérdidas del corte de bordes y una reserva para retoques no están en la cifra geométrica. Un margen opcional del 10% sobre 1,90 galones es 1,90 × 1,10 = 2,09 galones, que redondea a unos 2,1 galones.',
     },
     {
       type: 'table',
@@ -3178,13 +3178,13 @@ const paintRoomEs: ArticleTranslation = {
         ['Descuentos de puertas y ventanas', '51 ft²'],
         ['Área neta de paredes', '333 ft²'],
         ['Área recubierta a dos capas', '666 ft²'],
-        ['Pintura sin margen (350 ft²/gal)', '1.90 galones'],
-        ['Pintura con margen opcional del 10%', '≈ 2.1 galones'],
+        ['Pintura sin margen (350 ft²/gal)', '1,90 galones'],
+        ['Pintura con margen opcional del 10%', '≈ 2,1 galones'],
       ],
     },
     {
       type: 'paragraph',
-      text: 'La pintura se vende en envases enteros, de modo que 1.90 galones son una compra de dos galones y 2.1 galones una de tres si solo hay galones sueltos en el estante. Las habitaciones grandes suelen cruzar a los bidones de cinco galones, donde la aritmética simplemente continúa: divida y redondee al siguiente envase completo.',
+      text: 'La pintura se vende en envases enteros, de modo que 1,90 galones son una compra de dos galones y 2,1 galones una de tres si solo hay galones sueltos en el estante. Las habitaciones grandes suelen cruzar a los bidones de cinco galones, donde la aritmética simplemente continúa: divida y redondee al siguiente envase completo.',
     },
     {
       type: 'callout',
@@ -3200,7 +3200,7 @@ const paintRoomEs: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Los techos son planos y se miden con el área del piso, no con el perímetro. El techo de la misma habitación de 12 ft × 12 ft mide 12 × 12 = 144 ft², y dos capas necesitan 288 ft² recubiertos —unos 0.82 galones con la cobertura de ejemplo, es decir en la práctica una compra de un galón.',
+      text: 'Los techos son planos y se miden con el área del piso, no con el perímetro. El techo de la misma habitación de 12 ft × 12 ft mide 12 × 12 = 144 ft², y dos capas necesitan 288 ft² recubiertos —unos 0,82 galones con la cobertura de ejemplo, es decir en la práctica una compra de un galón.',
     },
     { type: 'formula', expression: 'área del techo = largo × ancho' },
     {
@@ -3228,7 +3228,7 @@ const paintRoomEs: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Un margen del 5 a 10% es una elección de planificación habitual en interiores corrientes; la textura más marcada o una primera mano sobre superficies crudas pueden justificar más. En el ejemplo continuo, el 10% lleva las paredes de 1.90 a 2.09 galones: un seguro barato contra un segundo viaje, y aún muy lejos del desperdicio de comprar el doble de lo necesario. Elija la cifra deliberadamente y mantenla separada del resultado geométrico, para que ambas cifras sigan visibles.',
+      text: 'Un margen del 5 a 10% es una elección de planificación habitual en interiores corrientes; la textura más marcada o una primera mano sobre superficies crudas pueden justificar más. En el ejemplo continuo, el 10% lleva las paredes de 1,90 a 2,09 galones: un seguro barato contra un segundo viaje, y aún muy lejos del desperdicio de comprar el doble de lo necesario. Elija la cifra deliberadamente y mantenla separada del resultado geométrico, para que ambas cifras sigan visibles.',
     },
     {
       type: 'heading',
@@ -3256,7 +3256,7 @@ const paintRoomEs: ArticleTranslation = {
         {
           question: '¿Cuánta pintura necesito para una habitación de 12 ft × 12 ft?',
           answer:
-            'Para las paredes, unos 1.9 galones para dos capas con una cobertura ilustrativa de 350 ft² por galón, tras descontar una puerta y dos ventanas; unos 2.1 galones con un margen del 10%. El techo añade aproximadamente un galón más. La lata de su producto y sus propias aberturas desplazarán estas cifras.',
+            'Para las paredes, unos 1,9 galones para dos capas con una cobertura ilustrativa de 350 ft² por galón, tras descontar una puerta y dos ventanas; unos 2,1 galones con un margen del 10%. El techo añade aproximadamente un galón más. La lata de su producto y sus propias aberturas desplazarán estas cifras.',
         },
         {
           question: '¿Cuál es una cobertura típica por pie cuadrado?',
@@ -3271,7 +3271,7 @@ const paintRoomEs: ArticleTranslation = {
         {
           question: '¿Cuánta pintura necesito para dos capas?',
           answer:
-            'Duplique el área recubierta y divida entre la cobertura. La habitación de ejemplo necesita 333 × 2 = 666 ft² recubiertos, y 666 ÷ 350 = 1.90 galones antes del margen.',
+            'Duplique el área recubierta y divida entre la cobertura. La habitación de ejemplo necesita 333 × 2 = 666 ft² recubiertos, y 666 ÷ 350 = 1,90 galones antes del margen.',
         },
         {
           question: '¿Debe incluirse el techo en el área de paredes?',
@@ -3286,7 +3286,7 @@ const paintRoomEs: ArticleTranslation = {
         {
           question: '¿Cómo convierto galones y pies cuadrados a litros y metros cuadrados?',
           answer:
-            'Un galón estadounidense equivale a unos 3.785 litros y un pie cuadrado a unos 0.0929 m². O use directamente la cobertura métrica: 333 ft² son unos 30.9 m², y con una cobertura de ejemplo de 8.5 m² por litro y capa, dos capas necesitan 61.8 ÷ 8.5 ≈ 7.3 litros —cercano a los 1.90 galones del cálculo imperial, convertidos (1.90 × 3.785 ≈ 7.2 litros). La pequeña diferencia viene de que las tasas de ejemplo no son conversiones exactas la una de la otra.',
+            'Un galón estadounidense equivale a unos 3,785 litros y un pie cuadrado a unos 0,0929 m². O use directamente la cobertura métrica: 333 ft² son unos 30,9 m², y con una cobertura de ejemplo de 8,5 m² por litro y capa, dos capas necesitan 61,8 ÷ 8,5 ≈ 7,3 litros —cercano a los 1,90 galones del cálculo imperial, convertidos (1,90 × 3,785 ≈ 7,2 litros). La pequeña diferencia viene de que las tasas de ejemplo no son conversiones exactas la una de la otra.',
         },
       ],
     },
@@ -3357,7 +3357,7 @@ const paintRoomPt: ArticleTranslation = {
       type: 'callout',
       tone: 'note',
       title: 'Resposta rápida para um cômodo padrão',
-      body: 'Um cômodo de 12 ft × 12 ft com paredes de 8 ft tem 384 ft² de área bruta. Ao deduzir uma porta e duas janelas (51 ft² neste exemplo), restam 333 ft². Com uma cobertura ilustrativa de 350 ft² por galão por demão, duas demãos precisam de 666 ft² revestidos, ou seja 1.90 galões. Com uma margem opcional de 10%, o número fica em torno de 2.1 galões. Todos estes valores são exemplos calculados a partir de dados declarados, não um padrão para todas as tintas.',
+      body: 'Um cômodo de 12 ft × 12 ft com paredes de 8 ft tem 384 ft² de área bruta. Ao deduzir uma porta e duas janelas (51 ft² neste exemplo), restam 333 ft². Com uma cobertura ilustrativa de 350 ft² por galão por demão, duas demãos precisam de 666 ft² revestidos, ou seja 1,90 galões. Com uma margem opcional de 10%, o número fica em torno de 2,1 galões. Todos estes valores são exemplos calculados a partir de dados declarados, não um padrão para todas as tintas.',
     },
     {
       type: 'heading',
@@ -3435,7 +3435,7 @@ const paintRoomPt: ArticleTranslation = {
       items: [
         'Deduza a caixilharia completa das portas e janelas que ficarão intactas.',
         'Não deduça molduras, rodapés ou batentes que você pretenda pintar: eles acrescentam um pouco de área, e deixá-los no cálculo é a escolha conservadora.',
-        'Pintar as faces das portas é um pequeno orçamento à parte: uma face de porta padrão tem cerca de 13 a 15 ft², de modo que duas faces acrescentam aproximadamente 30 ft² de área revestida, equivalentes a cerca de 0.17 galões nas duas demãos com a cobertura de exemplo.',
+        'Pintar as faces das portas é um pequeno orçamento à parte: uma face de porta padrão tem cerca de 13 a 15 ft², de modo que duas faces acrescentam aproximadamente 30 ft² de área revestida, equivalentes a cerca de 0,17 galões nas duas demãos com a cobertura de exemplo.',
         'Persianas, cortinas e armários fixos na parede também cobrem área. Deduz apenas o que permanecer no lugar durante o serviço.',
       ],
     },
@@ -3497,9 +3497,9 @@ const paintRoomPt: ArticleTranslation = {
       type: 'table',
       headers: ['Demãos', 'Área revestida', 'Galões a 350 ft²/gal'],
       rows: [
-        ['1', '333 ft²', '0.95'],
-        ['2', '666 ft²', '1.90'],
-        ['3', '999 ft²', '2.85'],
+        ['1', '333 ft²', '0,95'],
+        ['2', '666 ft²', '1,90'],
+        ['3', '999 ft²', '2,85'],
       ],
     },
     {
@@ -3529,12 +3529,12 @@ const paintRoomPt: ArticleTranslation = {
     { type: 'heading', level: 3, id: 'example-gallons', text: 'Passo 3: demãos e cobertura' },
     {
       type: 'paragraph',
-      text: 'Duas demãos cobrem 333 × 2 = 666 ft². Dividindo pela cobertura de exemplo: 666 ÷ 350 = 1.90 galões.',
+      text: 'Duas demãos cobrem 333 × 2 = 666 ft². Dividindo pela cobertura de exemplo: 666 ÷ 350 = 1,90 galões.',
     },
     { type: 'heading', level: 3, id: 'example-allowance', text: 'Passo 4: margem opcional' },
     {
       type: 'paragraph',
-      text: 'Textura, absorção, perdas no recorte de bordas e uma reserva para retoques não estão no número geométrico. Uma margem opcional de 10% sobre 1.90 galões dá 1.90 × 1.10 = 2.09 galões, que arredonda para cerca de 2.1 galões.',
+      text: 'Textura, absorção, perdas no recorte de bordas e uma reserva para retoques não estão no número geométrico. Uma margem opcional de 10% sobre 1,90 galões dá 1,90 × 1,10 = 2,09 galões, que arredonda para cerca de 2,1 galões.',
     },
     {
       type: 'table',
@@ -3545,13 +3545,13 @@ const paintRoomPt: ArticleTranslation = {
         ['Deduções de portas e janelas', '51 ft²'],
         ['Área líquida das paredes', '333 ft²'],
         ['Área revestida em duas demãos', '666 ft²'],
-        ['Tinta sem margem (350 ft²/gal)', '1.90 galões'],
-        ['Tinta com margem opcional de 10%', '≈ 2.1 galões'],
+        ['Tinta sem margem (350 ft²/gal)', '1,90 galões'],
+        ['Tinta com margem opcional de 10%', '≈ 2,1 galões'],
       ],
     },
     {
       type: 'paragraph',
-      text: 'Tinta é vendida em recipientes inteiros, de modo que 1.90 galões são uma compra de dois galões e 2.1 galões uma de três se houver apenas galões avulsos na prateleira. Cômodos grandes costumam cruzar para latas de cinco galões, onde a aritmética simplesmente continua: divida e arredonde para o próximo recipiente cheio.',
+      text: 'Tinta é vendida em recipientes inteiros, de modo que 1,90 galões são uma compra de dois galões e 2,1 galões uma de três se houver apenas galões avulsos na prateleira. Cômodos grandes costumam cruzar para latas de cinco galões, onde a aritmética simplesmente continua: divida e arredonde para o próximo recipiente cheio.',
     },
     {
       type: 'callout',
@@ -3567,7 +3567,7 @@ const paintRoomPt: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Tetos são planos e são medidos pela área do piso, não pelo perímetro. O teto do mesmo cômodo de 12 ft × 12 ft mede 12 × 12 = 144 ft², e duas demãos precisam de 288 ft² revestidos — cerca de 0.82 galões com a cobertura de exemplo, ou seja na prática uma compra de um galão.',
+      text: 'Tetos são planos e são medidos pela área do piso, não pelo perímetro. O teto do mesmo cômodo de 12 ft × 12 ft mede 12 × 12 = 144 ft², e duas demãos precisam de 288 ft² revestidos — cerca de 0,82 galões com a cobertura de exemplo, ou seja na prática uma compra de um galão.',
     },
     { type: 'formula', expression: 'área do teto = comprimento × largura' },
     {
@@ -3595,7 +3595,7 @@ const paintRoomPt: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Uma margem de 5 a 10% é uma escolha de planejamento comum em interiores correntes; textura mais marcante ou uma primeira demão sobre superfícies cruas podem justificar mais. No exemplo contínuo, 10% leva as paredes de 1.90 a 2.09 galões: um seguro barato contra uma segunda viagem, e ainda muito longe do desperdício de comprar o dobro do necessário. Escolha o número deliberadamente e mantenha-o separado do resultado geométrico, para que ambos permaneçam visíveis.',
+      text: 'Uma margem de 5 a 10% é uma escolha de planejamento comum em interiores correntes; textura mais marcante ou uma primeira demão sobre superfícies cruas podem justificar mais. No exemplo contínuo, 10% leva as paredes de 1,90 a 2,09 galões: um seguro barato contra uma segunda viagem, e ainda muito longe do desperdício de comprar o dobro do necessário. Escolha o número deliberadamente e mantenha-o separado do resultado geométrico, para que ambos permaneçam visíveis.',
     },
     {
       type: 'heading',
@@ -3623,7 +3623,7 @@ const paintRoomPt: ArticleTranslation = {
         {
           question: 'Quanta tinta preciso para um cômodo de 12 ft × 12 ft?',
           answer:
-            'Para as paredes, cerca de 1.9 galões para duas demãos com uma cobertura ilustrativa de 350 ft² por galão, depois de deduzir uma porta e duas janelas; cerca de 2.1 galões com uma margem de 10%. O teto acrescenta aproximadamente mais um galão. A lata do seu produto e seus próprios vãos deslocarão estes números.',
+            'Para as paredes, cerca de 1,9 galões para duas demãos com uma cobertura ilustrativa de 350 ft² por galão, depois de deduzir uma porta e duas janelas; cerca de 2,1 galões com uma margem de 10%. O teto acrescenta aproximadamente mais um galão. A lata do seu produto e seus próprios vãos deslocarão estes números.',
         },
         {
           question: 'Qual é uma cobertura típica por pé quadrado?',
@@ -3638,7 +3638,7 @@ const paintRoomPt: ArticleTranslation = {
         {
           question: 'Quanta tinta preciso para duas demãos?',
           answer:
-            'Dobre a área revestida e divida pela cobertura. O cômodo de exemplo precisa de 333 × 2 = 666 ft² revestidos, e 666 ÷ 350 = 1.90 galões antes da margem.',
+            'Dobre a área revestida e divida pela cobertura. O cômodo de exemplo precisa de 333 × 2 = 666 ft² revestidos, e 666 ÷ 350 = 1,90 galões antes da margem.',
         },
         {
           question: 'O teto deve ser incluído na área das paredes?',
@@ -3653,7 +3653,7 @@ const paintRoomPt: ArticleTranslation = {
         {
           question: 'Como converto galões e pés quadrados em litros e metros quadrados?',
           answer:
-            'Um galão americano equivale a cerca de 3.785 litros e um pé quadrado a cerca de 0.0929 m². Ou use diretamente a cobertura métrica: 333 ft² são cerca de 30.9 m², e com uma cobertura de exemplo de 8.5 m² por litro por demão, duas demãos precisam de 61.8 ÷ 8.5 ≈ 7.3 litros — próximo dos 1.90 galões do cálculo imperial, convertidos (1.90 × 3.785 ≈ 7.2 litros). A pequena diferença vem de as taxas de exemplo não serem conversões exatas uma da outra.',
+            'Um galão americano equivale a cerca de 3,785 litros e um pé quadrado a cerca de 0,0929 m². Ou use diretamente a cobertura métrica: 333 ft² são cerca de 30,9 m², e com uma cobertura de exemplo de 8,5 m² por litro por demão, duas demãos precisam de 61,8 ÷ 8,5 ≈ 7,3 litros — próximo dos 1,90 galões do cálculo imperial, convertidos (1,90 × 3,785 ≈ 7,2 litros). A pequena diferença vem de as taxas de exemplo não serem conversões exatas uma da outra.',
         },
       ],
     },
@@ -3727,7 +3727,7 @@ const paintRoomFr: ArticleTranslation = {
       type: 'callout',
       tone: 'note',
       title: 'Réponse rapide pour une pièce standard',
-      body: 'Une pièce de 12 ft × 12 ft aux murs de 8 ft présente 384 ft² de surface brute. Après déduction d\'une porte et de deux fenêtres (51 ft² dans cet exemple), il reste 333 ft². Avec une couverture illustrative de 350 ft² par gallon par couche, deux couches demandent 666 ft² recouverts, soit 1.90 gallons. Avec une marge optionnelle de 10 %, le chiffre approche 2.1 gallons. Tous ces nombres sont des exemples calculés à partir de données déclarées, pas une norme pour toutes les peintures.',
+      body: 'Une pièce de 12 ft × 12 ft aux murs de 8 ft présente 384 ft² de surface brute. Après déduction d\'une porte et de deux fenêtres (51 ft² dans cet exemple), il reste 333 ft². Avec une couverture illustrative de 350 ft² par gallon par couche, deux couches demandent 666 ft² recouverts, soit 1,90 gallons. Avec une marge optionnelle de 10 %, le chiffre approche 2,1 gallons. Tous ces nombres sont des exemples calculés à partir de données déclarées, pas une norme pour toutes les peintures.',
     },
     {
       type: 'heading',
@@ -3805,7 +3805,7 @@ const paintRoomFr: ArticleTranslation = {
       items: [
         'Déduisez le cadre complet des portes et fenêtres que vous laisserez intacts.',
         'Ne déduisez pas les moulures, plinthes ou encadrements que vous comptez peindre : ils ajoutent un peu de surface, et les laisser dans le calcul est le choix prudent.',
-        'Peindre les faces de portes est un petit métrage à part : une face de porte standard mesure environ 13 à 15 ft², soit environ 30 ft² de surface ajoutée pour deux faces, l\'équivalent d\'environ 0.17 gallons sur deux couches avec la couverture d\'exemple.',
+        'Peindre les faces de portes est un petit métrage à part : une face de porte standard mesure environ 13 à 15 ft², soit environ 30 ft² de surface ajoutée pour deux faces, l\'équivalent d\'environ 0,17 gallons sur deux couches avec la couverture d\'exemple.',
         'Stores, rideaux et placards fixés au mur couvrent eux aussi une surface. Ne déduisez que ce qui restera en place pendant les travaux.',
       ],
     },
@@ -3867,9 +3867,9 @@ const paintRoomFr: ArticleTranslation = {
       type: 'table',
       headers: ['Couches', 'Surface recouverte', 'Gallons à 350 ft²/gal'],
       rows: [
-        ['1', '333 ft²', '0.95'],
-        ['2', '666 ft²', '1.90'],
-        ['3', '999 ft²', '2.85'],
+        ['1', '333 ft²', '0,95'],
+        ['2', '666 ft²', '1,90'],
+        ['3', '999 ft²', '2,85'],
       ],
     },
     {
@@ -3899,12 +3899,12 @@ const paintRoomFr: ArticleTranslation = {
     { type: 'heading', level: 3, id: 'example-gallons', text: 'Étape 3 : couches et couverture' },
     {
       type: 'paragraph',
-      text: 'Deux couches recouvrent 333 × 2 = 666 ft². Divisé par la couverture d\'exemple : 666 ÷ 350 = 1.90 gallons.',
+      text: 'Deux couches recouvrent 333 × 2 = 666 ft². Divisé par la couverture d\'exemple : 666 ÷ 350 = 1,90 gallons.',
     },
     { type: 'heading', level: 3, id: 'example-allowance', text: 'Étape 4 : marge optionnelle' },
     {
       type: 'paragraph',
-      text: 'La texture, l\'absorption, les pertes de coupe aux arêtes et une réserve pour retouches ne figurent pas dans le chiffre géométrique. Une marge optionnelle de 10 % sur 1.90 gallons vaut 1.90 × 1.10 = 2.09 gallons, soit environ 2.1 gallons arrondis.',
+      text: 'La texture, l\'absorption, les pertes de coupe aux arêtes et une réserve pour retouches ne figurent pas dans le chiffre géométrique. Une marge optionnelle de 10 % sur 1,90 gallons vaut 1,90 × 1,10 = 2,09 gallons, soit environ 2,1 gallons arrondis.',
     },
     {
       type: 'table',
@@ -3915,13 +3915,13 @@ const paintRoomFr: ArticleTranslation = {
         ['Déductions portes et fenêtres', '51 ft²'],
         ['Surface nette des murs', '333 ft²'],
         ['Surface recouverte en deux couches', '666 ft²'],
-        ['Peinture sans marge (350 ft²/gal)', '1.90 gallons'],
-        ['Peinture avec marge optionnelle de 10 %', '≈ 2.1 gallons'],
+        ['Peinture sans marge (350 ft²/gal)', '1,90 gallons'],
+        ['Peinture avec marge optionnelle de 10 %', '≈ 2,1 gallons'],
       ],
     },
     {
       type: 'paragraph',
-      text: 'La peinture se vend en contenants entiers : 1.90 gallons sont donc un achat de deux gallons et 2.1 gallons un achat de trois si seuls des gallons unitaires sont en rayon. Les grandes pièces franchissent souvent le seuil des bidons de cinq gallons, où l\'arithmétique se poursuit simplement : divisez, puis arrondissez au contenant supérieur.',
+      text: 'La peinture se vend en contenants entiers : 1,90 gallons sont donc un achat de deux gallons et 2,1 gallons un achat de trois si seuls des gallons unitaires sont en rayon. Les grandes pièces franchissent souvent le seuil des bidons de cinq gallons, où l\'arithmétique se poursuit simplement : divisez, puis arrondissez au contenant supérieur.',
     },
     {
       type: 'callout',
@@ -3937,7 +3937,7 @@ const paintRoomFr: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Les plafonds sont des plans qui se mesurent en surface au sol, pas en périmètre. Le plafond de la même pièce de 12 ft × 12 ft mesure 12 × 12 = 144 ft², et deux couches demandent 288 ft² recouverts — environ 0.82 gallons avec la couverture d\'exemple, soit en pratique l\'achat d\'un gallon.',
+      text: 'Les plafonds sont des plans qui se mesurent en surface au sol, pas en périmètre. Le plafond de la même pièce de 12 ft × 12 ft mesure 12 × 12 = 144 ft², et deux couches demandent 288 ft² recouverts — environ 0,82 gallons avec la couverture d\'exemple, soit en pratique l\'achat d\'un gallon.',
     },
     { type: 'formula', expression: 'surface du plafond = longueur × largeur' },
     {
@@ -3965,7 +3965,7 @@ const paintRoomFr: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Une marge de 5 à 10 % est un choix de planification courant pour les intérieurs ordinaires ; une texture plus marquée ou une première couche sur surface brute peuvent en justifier davantage. Sur l\'exemple continu, 10 % portent les murs de 1.90 à 2.09 gallons : une assurance bon marché contre un second trajet, et encore très loin du gaspillage d\'acheter le double. Choisissez le chiffre délibérément et gardez-le séparé du résultat géométrique, afin que les deux valeurs restent visibles.',
+      text: 'Une marge de 5 à 10 % est un choix de planification courant pour les intérieurs ordinaires ; une texture plus marquée ou une première couche sur surface brute peuvent en justifier davantage. Sur l\'exemple continu, 10 % portent les murs de 1,90 à 2,09 gallons : une assurance bon marché contre un second trajet, et encore très loin du gaspillage d\'acheter le double. Choisissez le chiffre délibérément et gardez-le séparé du résultat géométrique, afin que les deux valeurs restent visibles.',
     },
     {
       type: 'heading',
@@ -3993,7 +3993,7 @@ const paintRoomFr: ArticleTranslation = {
         {
           question: 'Combien de peinture pour une pièce de 12 ft × 12 ft ?',
           answer:
-            'Pour les murs, environ 1.9 gallons pour deux couches avec une couverture illustrative de 350 ft² par gallon, après déduction d\'une porte et de deux fenêtres ; environ 2.1 gallons avec une marge de 10 %. Le plafond ajoute à peu près un gallon de plus. La boîte de votre produit et vos propres ouvertures déplaceront ces chiffres.',
+            'Pour les murs, environ 1,9 gallons pour deux couches avec une couverture illustrative de 350 ft² par gallon, après déduction d\'une porte et de deux fenêtres ; environ 2,1 gallons avec une marge de 10 %. Le plafond ajoute à peu près un gallon de plus. La boîte de votre produit et vos propres ouvertures déplaceront ces chiffres.',
         },
         {
           question: 'Quelle est une couverture typique au pied carré ?',
@@ -4008,7 +4008,7 @@ const paintRoomFr: ArticleTranslation = {
         {
           question: 'Combien de peinture pour deux couches ?',
           answer:
-            'Doublez la surface recouverte, puis divisez par la couverture. La pièce d\'exemple demande 333 × 2 = 666 ft² recouverts, et 666 ÷ 350 = 1.90 gallons avant marge.',
+            'Doublez la surface recouverte, puis divisez par la couverture. La pièce d\'exemple demande 333 × 2 = 666 ft² recouverts, et 666 ÷ 350 = 1,90 gallons avant marge.',
         },
         {
           question: 'Le plafond doit-il être inclus dans la surface des murs ?',
@@ -4023,7 +4023,7 @@ const paintRoomFr: ArticleTranslation = {
         {
           question: 'Comment convertir gallons et pieds carrés en litres et mètres carrés ?',
           answer:
-            'Un gallon américain vaut environ 3.785 litres et un pied carré environ 0.0929 m². Ou utilisez directement la couverture métrique : 333 ft² représentent environ 30.9 m², et avec une couverture d\'exemple de 8.5 m² par litre par couche, deux couches demandent 61.8 ÷ 8.5 ≈ 7.3 litres — proche des 1.90 gallons du calcul impérial, convertis (1.90 × 3.785 ≈ 7.2 litres). La légère différence vient de ce que les taux d\'exemple ne sont pas des conversions exactes l\'un de l\'autre.',
+            'Un gallon américain vaut environ 3,785 litres et un pied carré environ 0,0929 m². Ou utilisez directement la couverture métrique : 333 ft² représentent environ 30,9 m², et avec une couverture d\'exemple de 8,5 m² par litre par couche, deux couches demandent 61,8 ÷ 8,5 ≈ 7,3 litres — proche des 1,90 gallons du calcul impérial, convertis (1,90 × 3,785 ≈ 7,2 litres). La légère différence vient de ce que les taux d\'exemple ne sont pas des conversions exactes l\'un de l\'autre.',
         },
       ],
     },
@@ -4094,7 +4094,7 @@ const paintRoomDe: ArticleTranslation = {
       type: 'callout',
       tone: 'note',
       title: 'Kurze Antwort für einen Standardraum',
-      body: 'Ein Raum von 12 ft × 12 ft mit 8 ft Wandhöhe hat 384 ft² Bruttowandfläche. Nach Abzug einer Tür und zweier Fenster (51 ft² in diesem Beispiel) bleiben 333 ft². Bei einer illustrativen Deckung von 350 ft² pro Gallone pro Schicht brauchen zwei Schichten 666 ft² Deckfläche, also 1.90 Gallonen. Mit einem optionalen Zuschlag von 10 % liegt die Zahl bei etwa 2.1 Gallonen. Alle diese Werte sind Beispiele aus deklarierten Eingaben, kein Standard für alle Farben.',
+      body: 'Ein Raum von 12 ft × 12 ft mit 8 ft Wandhöhe hat 384 ft² Bruttowandfläche. Nach Abzug einer Tür und zweier Fenster (51 ft² in diesem Beispiel) bleiben 333 ft². Bei einer illustrativen Deckung von 350 ft² pro Gallone pro Schicht brauchen zwei Schichten 666 ft² Deckfläche, also 1,90 Gallonen. Mit einem optionalen Zuschlag von 10 % liegt die Zahl bei etwa 2,1 Gallonen. Alle diese Werte sind Beispiele aus deklarierten Eingaben, kein Standard für alle Farben.',
     },
     {
       type: 'heading',
@@ -4172,7 +4172,7 @@ const paintRoomDe: ArticleTranslation = {
       items: [
         'Ziehen Sie den vollständigen Rahmen aller Türen und Fenster ab, die unberührt bleiben.',
         'Ziehen Sie keine Profile, Sockel oder Laibungen ab, die Sie streichen wollen; sie fügen etwas Fläche hinzu, und sie im Rennen zu lassen ist die vorsichtige Wahl.',
-        'Türflächen zu streichen ist ein eigenes kleines Aufmaß: Eine Standardtürfläche misst etwa 13 bis 15 ft², zwei Flächen also rund 30 ft² zugesätzliche Deckfläche — bei der Beispieldeckung etwa 0.17 Gallonen über zwei Schichten.',
+        'Türflächen zu streichen ist ein eigenes kleines Aufmaß: Eine Standardtürfläche misst etwa 13 bis 15 ft², zwei Flächen also rund 30 ft² zugesätzliche Deckfläche — bei der Beispieldeckung etwa 0,17 Gallonen über zwei Schichten.',
         'Jalousien, Vorhänge und schrankartige Einbauten bedecken ebenfalls Fläche. Ziehen Sie nur ab, was während der Arbeit an Ort und Stelle bleibt.',
       ],
     },
@@ -4234,9 +4234,9 @@ const paintRoomDe: ArticleTranslation = {
       type: 'table',
       headers: ['Schichten', 'Deckfläche', 'Gallonen bei 350 ft²/gal'],
       rows: [
-        ['1', '333 ft²', '0.95'],
-        ['2', '666 ft²', '1.90'],
-        ['3', '999 ft²', '2.85'],
+        ['1', '333 ft²', '0,95'],
+        ['2', '666 ft²', '1,90'],
+        ['3', '999 ft²', '2,85'],
       ],
     },
     {
@@ -4266,12 +4266,12 @@ const paintRoomDe: ArticleTranslation = {
     { type: 'heading', level: 3, id: 'example-gallons', text: 'Schritt 3: Schichten und Deckung' },
     {
       type: 'paragraph',
-      text: 'Zwei Schichten decken 333 × 2 = 666 ft². Geteilt durch die Beispieldeckung: 666 ÷ 350 = 1.90 Gallonen.',
+      text: 'Zwei Schichten decken 333 × 2 = 666 ft². Geteilt durch die Beispieldeckung: 666 ÷ 350 = 1,90 Gallonen.',
     },
     { type: 'heading', level: 3, id: 'example-allowance', text: 'Schritt 4: optionaler Zuschlag' },
     {
       type: 'paragraph',
-      text: 'Struktur, Absorption, Verluste an den Kanten und ein Reservebetrag für Nachbesserungen stehen nicht in der geometrischen Zahl. Ein optionaler Zuschlag von 10 % auf 1.90 Gallonen ergibt 1.90 × 1.10 = 2.09 Gallonen, gerundet etwa 2.1 Gallonen.',
+      text: 'Struktur, Absorption, Verluste an den Kanten und ein Reservebetrag für Nachbesserungen stehen nicht in der geometrischen Zahl. Ein optionaler Zuschlag von 10 % auf 1,90 Gallonen ergibt 1,90 × 1,10 = 2,09 Gallonen, gerundet etwa 2,1 Gallonen.',
     },
     {
       type: 'table',
@@ -4282,13 +4282,13 @@ const paintRoomDe: ArticleTranslation = {
         ['Abzüge für Türen und Fenster', '51 ft²'],
         ['Nettowandfläche', '333 ft²'],
         ['Deckfläche bei zwei Schichten', '666 ft²'],
-        ['Farbe ohne Zuschlag (350 ft²/gal)', '1.90 Gallonen'],
-        ['Farbe mit optionalem Zuschlag von 10 %', '≈ 2.1 Gallonen'],
+        ['Farbe ohne Zuschlag (350 ft²/gal)', '1,90 Gallonen'],
+        ['Farbe mit optionalem Zuschlag von 10 %', '≈ 2,1 Gallonen'],
       ],
     },
     {
       type: 'paragraph',
-      text: 'Farbe wird in ganzen Gebinden verkauft: 1.90 Gallonen sind damit ein Kauf von zwei Gallonen und 2.1 Gallonen ein Kauf von drei, wenn im Regal nur Einzelgallonen stehen. Größere Räume wechseln oft zu Fünf-Gallonen-Eimern, wo die Arithmetik einfach weiterläuft: teilen und auf das nächste volle Gebinde aufrunden.',
+      text: 'Farbe wird in ganzen Gebinden verkauft: 1,90 Gallonen sind damit ein Kauf von zwei Gallonen und 2,1 Gallonen ein Kauf von drei, wenn im Regal nur Einzelgallonen stehen. Größere Räume wechseln oft zu Fünf-Gallonen-Eimern, wo die Arithmetik einfach weiterläuft: teilen und auf das nächste volle Gebinde aufrunden.',
     },
     {
       type: 'callout',
@@ -4304,7 +4304,7 @@ const paintRoomDe: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Decken sind Flächen und werden in Bodenfläche gemessen, nicht im Umfang. Die Decke desselben Raums von 12 ft × 12 ft misst 12 × 12 = 144 ft², und zwei Schichten brauchen 288 ft² Deckfläche — bei der Beispieldeckung etwa 0.82 Gallonen, in der Praxis also ein Kauf über eine Gallone.',
+      text: 'Decken sind Flächen und werden in Bodenfläche gemessen, nicht im Umfang. Die Decke desselben Raums von 12 ft × 12 ft misst 12 × 12 = 144 ft², und zwei Schichten brauchen 288 ft² Deckfläche — bei der Beispieldeckung etwa 0,82 Gallonen, in der Praxis also ein Kauf über eine Gallone.',
     },
     { type: 'formula', expression: 'Deckenfläche = Länge × Breite' },
     {
@@ -4332,7 +4332,7 @@ const paintRoomDe: ArticleTranslation = {
     },
     {
       type: 'paragraph',
-      text: 'Ein Zuschlag von 5 bis 10 % ist eine übliche Planungswahl für gewöhnliche Innenräume; stärkere Struktur oder eine erste Schicht auf rohen Oberflächen können mehr rechtfertigen. Im durchgehenden Beispiel bringt 10 % die Wände von 1.90 auf 2.09 Gallonen — günstige Absicherung gegen eine zweite Fahrt und immer noch weit entfernt vom Verschwendens, das Doppeltes zu kaufen. Wählen Sie die Zahl bewusst und halten Sie sie vom geometrischen Ergebnis getrennt, damit beide Werte sichtbar bleiben.',
+      text: 'Ein Zuschlag von 5 bis 10 % ist eine übliche Planungswahl für gewöhnliche Innenräume; stärkere Struktur oder eine erste Schicht auf rohen Oberflächen können mehr rechtfertigen. Im durchgehenden Beispiel bringt 10 % die Wände von 1,90 auf 2,09 Gallonen — günstige Absicherung gegen eine zweite Fahrt und immer noch weit entfernt vom Verschwendens, das Doppeltes zu kaufen. Wählen Sie die Zahl bewusst und halten Sie sie vom geometrischen Ergebnis getrennt, damit beide Werte sichtbar bleiben.',
     },
     {
       type: 'heading',
@@ -4360,7 +4360,7 @@ const paintRoomDe: ArticleTranslation = {
         {
           question: 'Wie viel Farbe brauche ich für einen Raum von 12 ft × 12 ft?',
           answer:
-            'Für die Wände etwa 1.9 Gallonen für zwei Schichten bei einer illustrativen Deckung von 350 ft² pro Gallone, nach Abzug einer Tür und zweier Fenster; mit 10 % Zuschlag etwa 2.1 Gallonen. Die Decke fügt etwa eine Gallone hinzu. Ihre Produkt-Dose und Ihre eigenen Öffnungen verschieben diese Werte.',
+            'Für die Wände etwa 1,9 Gallonen für zwei Schichten bei einer illustrativen Deckung von 350 ft² pro Gallone, nach Abzug einer Tür und zweier Fenster; mit 10 % Zuschlag etwa 2,1 Gallonen. Die Decke fügt etwa eine Gallone hinzu. Ihre Produkt-Dose und Ihre eigenen Öffnungen verschieben diese Werte.',
         },
         {
           question: 'Was ist eine typische Farbdeckung pro Quadratfuß?',
@@ -4375,7 +4375,7 @@ const paintRoomDe: ArticleTranslation = {
         {
           question: 'Wie viel Farbe brauche ich für zwei Schichten?',
           answer:
-            'Verdoppeln Sie die Deckfläche und teilen Sie durch die Deckung. Der Beispielsraum braucht 333 × 2 = 666 ft² Deckfläche, und 666 ÷ 350 = 1.90 Gallonen vor dem Zuschlag.',
+            'Verdoppeln Sie die Deckfläche und teilen Sie durch die Deckung. Der Beispielsraum braucht 333 × 2 = 666 ft² Deckfläche, und 666 ÷ 350 = 1,90 Gallonen vor dem Zuschlag.',
         },
         {
           question: 'Soll die Decke in die Wandfläche einbezogen werden?',
@@ -4390,7 +4390,7 @@ const paintRoomDe: ArticleTranslation = {
         {
           question: 'Wie rechne ich Gallonen und Quadratfuß in Liter und Quadratmeter um?',
           answer:
-            'Eine US-Gallone sind etwa 3.785 Liter und ein Quadratfuß etwa 0.0929 m². Oder verwenden Sie die metrische Deckung direkt: 333 ft² sind etwa 30.9 m², und bei einer Beispieldeckung von 8.5 m² pro Liter pro Schicht brauchen zwei Schichten 61.8 ÷ 8.5 ≈ 7.3 Liter — nah an den 1.90 Gallonen der imperialen Rechnung, umgerechnet (1.90 × 3.785 ≈ 7.2 Liter). Der kleine Unterschied kommt daher, dass die Beispielsraten keine exakten Umrechnungen voneinander sind.',
+            'Eine US-Gallone sind etwa 3,785 Liter und ein Quadratfuß etwa 0,0929 m². Oder verwenden Sie die metrische Deckung direkt: 333 ft² sind etwa 30,9 m², und bei einer Beispieldeckung von 8,5 m² pro Liter pro Schicht brauchen zwei Schichten 61,8 ÷ 8,5 ≈ 7,3 Liter — nah an den 1,90 Gallonen der imperialen Rechnung, umgerechnet (1,90 × 3,785 ≈ 7,2 Liter). Der kleine Unterschied kommt daher, dass die Beispielsraten keine exakten Umrechnungen voneinander sind.',
         },
       ],
     },

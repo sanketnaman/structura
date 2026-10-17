@@ -731,6 +731,59 @@ describe('deterministic generation', () => {
   }, 240_000);
 });
 
+describe('locale number style in every non-English document (digit-dot scan)', () => {
+  /**
+   * es/pt/fr/de write decimals with a comma, so a `\d+\.\d+` token in
+   * visible copy is an English-style leak. The only permitted dots are
+   * the locale thousands separators baked into the guide dictionaries
+   * (es/pt/de write 1.463 for one thousand four hundred sixty-three).
+   */
+  const ALLOWED_DOT_NUMBERS = new Set(['1.463', '1.581', '1.610', '2.407']);
+
+  /** Full document text with scripts, styles and tags (attributes) removed. */
+  function visibleText(html: string): string {
+    return unescapeHtml(
+      html
+        .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+        .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+        .replace(/<[^>]+>/g, ' '),
+    ).replace(/\s+/g, ' ');
+  }
+
+  it('renders only locale-correct numbers, an ungrouped copyright year included', () => {
+    const failures: string[] = [];
+    const year = String(new Date().getFullYear());
+    for (const expectation of expectations) {
+      const { locale } = parseLocalePath(expectation.urlPath);
+      if (locale === 'en') continue;
+      const html = docFor(expectation.urlPath);
+      const body = visibleText(html);
+      const texts: [string, string][] = [
+        ['document text', body],
+        ['meta description', extractMeta(html, 'name', 'description') ?? ''],
+      ];
+      for (const [where, text] of texts) {
+        for (const match of text.matchAll(/\d+\.\d+/g)) {
+          if (ALLOWED_DOT_NUMBERS.has(match[0])) continue;
+          const index = match.index ?? 0;
+          failures.push(
+            `${expectation.urlPath} (${where}): "${match[0]}" in ...${text.slice(
+              Math.max(0, index - 40),
+              index + match[0].length + 24,
+            )}...`,
+          );
+        }
+      }
+      if (!body.includes(`© ${year} MixTally`)) {
+        failures.push(
+          `${expectation.urlPath}: copyright year missing or locale-grouped (want "© ${year} MixTally")`,
+        );
+      }
+    }
+    expect(failures).toEqual([]);
+  });
+});
+
 describe('single-route document builder', () => {
   it('is deterministic for repeated calls', () => {
     const body = render('/pt/privacy');

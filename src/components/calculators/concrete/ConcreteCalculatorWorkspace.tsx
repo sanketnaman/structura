@@ -7,6 +7,7 @@ import {
   calculateConcreteCost,
   roundTo,
 } from '../../../lib/calculators/quickCalculations';
+import { formatNumber } from '../../../lib/calculators/common/math';
 import type { UnitSystem } from '../../../types/layout';
 import { useViewToPath } from '../../../lib/routes';
 import { AdSlot } from '../../common/AdSlot';
@@ -157,9 +158,13 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
   // Copy Estimate to Clipboard
   const handleCopyEstimate = () => {
     const unitText = isMetric ? 'm' : 'ft';
-    const thickText = isMetric ? `${thickness} cm` : `${thickness} in`;
-    const primaryVolume = isMetric ? `${result.totalVolumeM3} m³` : `${result.totalCubicYards} yd³`;
-    const baseVolume = isMetric ? `${result.baseVolumeM3} m³` : `${result.baseVolumeCuFt} ft³ (${result.baseVolumeYards} yd³)`;
+    const thickText = isMetric ? `${formatNumber(thickness, 2, locale)} cm` : `${thickness} in`;
+    const primaryVolume = isMetric
+      ? `${formatNumber(result.totalVolumeM3, 2, locale)} m³`
+      : `${formatNumber(result.totalCubicYards, 2, locale)} yd³`;
+    const baseVolume = isMetric
+      ? `${formatNumber(result.baseVolumeM3, 2, locale)} m³`
+      : `${formatNumber(result.baseVolumeCuFt, 2, locale)} ft³ (${formatNumber(result.baseVolumeYards, 2, locale)} yd³)`;
 
     const summary = [
       t('concrete.copy.header'),
@@ -168,11 +173,15 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
       t('concrete.copy.baseVolume', { v: baseVolume }),
       t('concrete.copy.waste', {
         pct: waste,
-        v: isMetric ? result.wasteVolumeM3 + ' m³' : result.wasteVolumeCuFt + ' ft³',
+        v: isMetric
+          ? `${formatNumber(result.wasteVolumeM3, 2, locale)} m³`
+          : result.wasteVolumeCuFt + ' ft³',
       }),
       t('concrete.copy.finalQty', {
         v: primaryVolume,
-        alt: isMetric ? result.totalVolumeM3 + ' m³' : result.totalCuFt + ' ft³',
+        alt: isMetric
+          ? `${formatNumber(result.totalVolumeM3, 2, locale)} m³`
+          : `${formatNumber(result.totalCuFt, 2, locale)} ft³`,
       }),
       metricWording
         ? t('concrete.copy.bagsMetric', { b80: result.bags80lb, b60: result.bags60lb })
@@ -182,8 +191,8 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
         : t('concrete.copy.trucks', { count: result.truckLoads }),
       enableCost && parsedPrice > 0
         ? t('concrete.copy.cost', {
-            cost: estimatedCost.toFixed(2),
-            price: parsedPrice.toFixed(2),
+            cost: formatNumber(estimatedCost, 2, locale, 2),
+            price: formatNumber(parsedPrice, 2, locale, 2),
             unit: isMetric ? 'm³' : 'yd³',
           })
         : null,
@@ -597,6 +606,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                 thickness={thickness}
                 unit={unitSystem}
                 showSubgrade
+                labelLocale={locale}
               />
             </ConstructionScene>
           </div>
@@ -611,8 +621,8 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
               thickness,
               thickUnit: isMetric ? t('concrete.unitCentimeters') : t('concrete.unitInches'),
               volume: isMetric
-                ? `${result.totalVolumeM3} ${t('volumeUnit.m3')}`
-                : `${result.totalCubicYards} ${t('volumeUnit.yd3')}`,
+                ? `${formatNumber(result.totalVolumeM3, 2, locale)} ${t('volumeUnit.m3')}`
+                : `${formatNumber(result.totalCubicYards, 2, locale)} ${t('volumeUnit.yd3')}`,
             })}
           </div>
 
@@ -653,20 +663,20 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                 </span>
               </div>
               <div className="text-display-lg font-bold text-white font-mono tabular-nums tracking-tight my-3">
-                {isMetric ? `${result.totalVolumeM3} m³` : `${result.totalCubicYards} yd³`}
+                {isMetric ? `${formatNumber(result.totalVolumeM3, 2, locale)} m³` : `${formatNumber(result.totalCubicYards, 2, locale)} yd³`}
               </div>
               <div className="space-y-1.5 pt-3 border-t border-charcoal-800 text-caption font-mono">
                 <div className="flex justify-between text-slate-300">
                   <span>{t('concrete.baseVolumeLabel')}</span>
-                  <span className="text-white font-semibold">{isMetric ? `${result.baseVolumeM3} m³` : `${result.baseVolumeYards} yd³`}</span>
+                  <span className="text-white font-semibold">{isMetric ? `${formatNumber(result.baseVolumeM3, 2, locale)} m³` : `${formatNumber(result.baseVolumeYards, 2, locale)} yd³`}</span>
                 </div>
                 <div className="flex justify-between text-slate-300">
                   <span>{t('concrete.planningAllowance')}</span>
-                  <span className="text-accent font-semibold">{waste}% (+{isMetric ? `${result.wasteVolumeM3} m³` : `${result.wasteVolumeYards} yd³`})</span>
+                  <span className="text-accent font-semibold">{waste}% (+{isMetric ? `${formatNumber(result.wasteVolumeM3, 2, locale)} m³` : `${formatNumber(result.wasteVolumeYards, 2, locale)} yd³`})</span>
                 </div>
                 <div className="flex justify-between text-slate-300">
                   <span>{t('concrete.orderingQuantity')}</span>
-                  <span className="text-white font-bold">{isMetric ? `${result.totalVolumeM3} m³` : `${result.totalCubicYards} yd³`}</span>
+                  <span className="text-white font-bold">{isMetric ? `${formatNumber(result.totalVolumeM3, 2, locale)} m³` : `${formatNumber(result.totalCubicYards, 2, locale)} yd³`}</span>
                 </div>
               </div>
             </div>
@@ -688,14 +698,14 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
               </span>
               <div className="text-display font-bold text-slate-800 dark:text-slate-200 font-mono tabular-nums tracking-tight mt-2">
                 {isMetric
-                  ? `${result.baseVolumeM3} m³`
-                  : `${result.baseVolumeCuFt} ft³`}
+                  ? `${formatNumber(result.baseVolumeM3, 2, locale)} m³`
+                  : `${formatNumber(result.baseVolumeCuFt, 2, locale)} ft³`}
               </div>
               <div className="text-heading-sm text-slate-500 font-mono tabular-nums mt-1">
                 {isMetric
                   ? metricWording
                     ? t('concrete.baseNetMetric', { v: result.baseVolumeM3 })
-                    : `${result.baseVolumeYards} yd³`
+                    : `${formatNumber(result.baseVolumeYards, 2, locale)} yd³`
                   : t('concrete.yardsNet', { v: result.baseVolumeYards })}
               </div>
               <p className="text-caption text-slate-600 dark:text-slate-400 mt-2">
@@ -705,7 +715,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             <div className="pt-4 mt-4 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-mono">
               <span className="text-slate-500">{t('concrete.overOrderAllowance', { pct: waste })}</span>
               <span className="font-semibold text-accent">
-                +{isMetric ? `${result.wasteVolumeM3} m³` : `${result.wasteVolumeCuFt} ft³ (${result.wasteVolumeYards} yd³)`}
+                +{isMetric ? `${formatNumber(result.wasteVolumeM3, 2, locale)} m³` : `${formatNumber(result.wasteVolumeCuFt, 2, locale)} ft³ (${formatNumber(result.wasteVolumeYards, 2, locale)} yd³)`}
               </span>
             </div>
           </div>
@@ -761,8 +771,8 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             </span>
             <div className="font-mono text-body-sm text-slate-900 dark:text-white font-semibold">
               {isMetric
-                ? `${thickness} cm ÷ 100 = ${result.thicknessInMeters} m`
-                : `${thickness} in ÷ 12 = ${result.thicknessInFeet} ft`}
+                ? `${formatNumber(thickness, 2, locale)} cm ÷ 100 = ${formatNumber(result.thicknessInMeters, 3, locale)} m`
+                : `${formatNumber(thickness, 2, locale)} in ÷ 12 = ${formatNumber(result.thicknessInFeet, 3, locale)} ft`}
             </div>
             <p className="text-slate-600 dark:text-slate-400 text-micro leading-relaxed">
               {t('concrete.step1Note')}
@@ -776,8 +786,8 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             </span>
             <div className="font-mono text-body-sm text-slate-900 dark:text-white font-semibold">
               {isMetric
-                ? `${length} × ${width} × ${result.thicknessInMeters} = ${result.baseVolumeM3} m³`
-                : `${length} × ${width} × ${result.thicknessInFeet} = ${result.baseVolumeCuFt} ft³`}
+                ? `${formatNumber(length, 2, locale)} × ${formatNumber(width, 2, locale)} × ${formatNumber(result.thicknessInMeters, 3, locale)} = ${formatNumber(result.baseVolumeM3, 2, locale)} m³`
+                : `${formatNumber(length, 2, locale)} × ${formatNumber(width, 2, locale)} × ${formatNumber(result.thicknessInFeet, 3, locale)} = ${formatNumber(result.baseVolumeCuFt, 2, locale)} ft³`}
             </div>
             <p className="text-slate-600 dark:text-slate-400 text-micro leading-relaxed">
               {isMetric
@@ -799,8 +809,8 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             </span>
             <div className="font-mono text-body-sm text-slate-900 dark:text-white font-semibold">
               {isMetric
-                ? `${result.baseVolumeM3} × 1.${waste < 10 ? '0' + waste : waste} = ${result.totalVolumeM3} m³`
-                : `${result.baseVolumeCuFt} × 1.${waste < 10 ? '0' + waste : waste} = ${result.totalCuFt} ft³`}
+                ? `${formatNumber(result.baseVolumeM3, 2, locale)} × ${formatNumber(1 + waste / 100, 2, locale, 2)} = ${formatNumber(result.totalVolumeM3, 2, locale)} m³`
+                : `${formatNumber(result.baseVolumeCuFt, 2, locale)} × ${formatNumber(1 + waste / 100, 2, locale, 2)} = ${formatNumber(result.totalCuFt, 2, locale)} ft³`}
             </div>
             <p className="text-slate-600 dark:text-slate-400 text-micro leading-relaxed">
               {isMetric
@@ -888,7 +898,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                   {t('concrete.estCostLabel')}
                 </span>
                 <div className="text-display font-bold font-mono text-slate-900 dark:text-white tabular-nums mt-1">
-                  ${estimatedCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  ${formatNumber(estimatedCost, 2, locale, 2)}
                 </div>
               </div>
               <span className="text-micro text-slate-500 mt-2">

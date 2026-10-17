@@ -15,6 +15,7 @@ import {
   writeStoredLocale,
   type TranslationKey,
 } from '../src/lib/i18n';
+import { formatNumber } from '../src/lib/calculators/common/math';
 
 describe('Locale configuration', () => {
   it('exposes the five Phase 1 locales with English as default', () => {
@@ -178,5 +179,32 @@ describe('Locale persistence', () => {
 
   it('never throws when storage is unavailable', () => {
     expect(() => writeStoredLocale('fr')).not.toThrow();
+  });
+});
+
+describe('Locale-aware number formatting', () => {
+  it('switches the decimal separator per locale while English stays unchanged', () => {
+    expect(formatNumber(4.2)).toBe('4.2');
+    expect(formatNumber(4.2, 2, 'en')).toBe('4.2');
+    expect(formatNumber(4.2, 2, 'es')).toBe('4,2');
+    expect(formatNumber(3.6, 2, 'pt')).toBe('3,6');
+    expect(formatNumber(0.95, 2, 'fr')).toBe('0,95');
+    expect(formatNumber(0.95, 2, 'de')).toBe('0,95');
+    expect(formatNumber(1.1, 2, 'es', 2)).toBe('1,10');
+    expect(formatNumber(1610, 2, 'pt')).toBe('1.610');
+    expect(formatNumber(Number.NaN)).toBe('0');
+  });
+
+  it('formats numeric translate params outside English and passes strings through untouched', () => {
+    expect(translate('en', 'concrete.baseNetMetric', { v: 1.8 })).toBe('≈ 1.8 m³ net');
+    expect(translate('es', 'concrete.baseNetMetric', { v: 1.8 })).toBe('≈ 1,8 m³ neto');
+    expect(translate('pt', 'paint.pailsOf5', { count: 1610 })).toBe('1.610 × 5-Gal');
+    // Years must stay ungrouped, so callers pass them as strings.
+    expect(translate('de', 'footer.copyright', { year: '2026' })).toBe(
+      '© 2026 MixTally. Alle Rechte vorbehalten.',
+    );
+    expect(translate('en', 'footer.copyright', { year: '2026' })).toBe(
+      '© 2026 MixTally. All rights reserved.',
+    );
   });
 });

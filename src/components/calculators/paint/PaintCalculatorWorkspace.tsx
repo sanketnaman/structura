@@ -143,8 +143,8 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
         : t('paint.copy.packaging', { p: result.pails5Gal, e: result.extraUnits }),
       enableCost && parsedPrice > 0
         ? t('paint.copy.cost', {
-            cost: result.estimatedCost.toFixed(2),
-            price: parsedPrice.toFixed(2),
+            cost: formatNumber(result.estimatedCost, 2, locale, 2),
+            price: formatNumber(parsedPrice, 2, locale, 2),
             unit: isMetric ? 'L' : 'gal',
           })
         : null,
@@ -270,7 +270,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                   {t('paint.roomLength')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
-                  {formatNumber(roomLength)} {isMetric ? 'm' : 'ft'}
+                  {formatNumber(roomLength, 2, locale)} {isMetric ? 'm' : 'ft'}
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -308,7 +308,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                   {t('paint.roomWidth')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
-                  {formatNumber(roomWidth)} {isMetric ? 'm' : 'ft'}
+                  {formatNumber(roomWidth, 2, locale)} {isMetric ? 'm' : 'ft'}
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -346,7 +346,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                   {t('paint.ceilingHeight')}
                 </label>
                 <span className="text-caption font-mono font-semibold text-accent">
-                  {formatNumber(wallHeight)} {isMetric ? 'm' : 'ft'}
+                  {formatNumber(wallHeight, 2, locale)} {isMetric ? 'm' : 'ft'}
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -382,7 +382,13 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
               <div className="space-y-1.5">
                 <label htmlFor={doorsId} className="text-micro font-mono uppercase text-slate-500 flex items-center gap-1">
                   <DoorOpen className="w-3.5 h-3.5" />
-                  <span>{t('paint.doorsLabel', { deduction: isMetric ? '2.0m²' : '21 sq ft' })}</span>
+                  <span>{t('paint.doorsLabel', {
+                  deduction: isMetric
+                    ? metricWording
+                      ? `${formatNumber(2, 1, locale, 1)} m²`
+                      : '2.0m²'
+                    : '21 sq ft',
+                })}</span>
                 </label>
                 <div className="flex gap-1">
                   {[0, 1, 2, 3].map((d) => (
@@ -404,7 +410,13 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
 
               <div className="space-y-1.5">
                 <label htmlFor={windowsId} className="text-micro font-mono uppercase text-slate-500 flex items-center gap-1">
-                  <span>{t('paint.windowsLabel', { deduction: isMetric ? '1.4m²' : '15 sq ft' })}</span>
+                  <span>{t('paint.windowsLabel', {
+                  deduction: isMetric
+                    ? metricWording
+                      ? `${formatNumber(1.4, 1, locale, 1)} m²`
+                      : '1.4m²'
+                    : '15 sq ft',
+                })}</span>
                 </label>
                 <div className="flex gap-1">
                   {[0, 1, 2, 4].map((w) => (
@@ -497,7 +509,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                   <div className="flex justify-between items-center text-caption font-mono pt-1 text-slate-700 dark:text-slate-300">
                     <span>{t('paint.estimatedCost')}</span>
                     <span className="text-emerald-600 dark:text-emerald-400 font-bold text-body-sm">
-                      ${result.estimatedCost.toFixed(2)}
+                      ${formatNumber(result.estimatedCost, 2, locale, 2)}
                     </span>
                   </div>
                 )}
@@ -530,14 +542,15 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                 coats={coats}
                 doorsCount={doorsCount}
                 windowsCount={windowsCount}
+                labelLocale={locale}
               />
             </ConstructionScene>
 
             <div className="flex items-center justify-between text-micro text-slate-500 px-1 font-mono">
               <span>
-                {t('paint.netAreaLabel')} {formatNumber(result.netWallArea)} {isMetric ? 'm²' : 'sq ft'} · {t('paint.deductionsLabel')} -{formatNumber(result.totalDeductions)} {isMetric ? 'm²' : 'sq ft'}
+                {t('paint.netAreaLabel')} {formatNumber(result.netWallArea, 2, locale)} {isMetric ? 'm²' : 'sq ft'} · {t('paint.deductionsLabel')} -{formatNumber(result.totalDeductions, 2, locale)} {isMetric ? 'm²' : 'sq ft'}
               </span>
-              <span className="text-accent">{t('paint.coverageLabel')} {result.coverageRate} {isMetric ? 'm²/L' : 'sq ft/gal'}</span>
+              <span className="text-accent">{t('paint.coverageLabel')} {formatNumber(result.coverageRate, 2, locale)} {isMetric ? 'm²/L' : 'sq ft/gal'}</span>
             </div>
           </div>
 
@@ -560,8 +573,8 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                 </span>
               </div>
               <div className="mt-3 pt-3 border-t border-paper-200 dark:border-charcoal-800 flex items-center justify-between text-caption font-mono text-slate-600 dark:text-slate-400">
-                <span>{t('paint.exactLabel')} {result.rawVolume} {isMetric ? 'L' : 'gal'}</span>
-                <span className="text-accent">{t('paint.totalCoatedLabel')} {formatNumber(result.totalCoatedArea)} {isMetric ? 'm²' : 'sq ft'}</span>
+                <span>{t('paint.exactLabel')} {formatNumber(result.rawVolume, 2, locale)} {isMetric ? 'L' : 'gal'}</span>
+                <span className="text-accent">{t('paint.totalCoatedLabel')} {formatNumber(result.totalCoatedArea, 2, locale)} {isMetric ? 'm²' : 'sq ft'}</span>
               </div>
             </div>
 
@@ -645,8 +658,8 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             </span>
             <p className="font-mono text-slate-800 dark:text-slate-200">
               {t('paint.step1Line1', {
-                a: formatNumber(roomLength),
-                b: formatNumber(roomWidth),
+                a: formatNumber(roomLength, 2, locale),
+                b: formatNumber(roomWidth, 2, locale),
                 c: result.perimeter,
                 unit: isMetric ? 'm' : 'ft',
               })}
@@ -654,10 +667,10 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             <p className="text-slate-500">
               {t('paint.step1Line2Lead', {
                 a: result.perimeter,
-                b: formatNumber(wallHeight),
+                b: formatNumber(wallHeight, 2, locale),
               })}{' '}
               <span className="text-slate-900 dark:text-white font-bold">
-                {formatNumber(result.grossWallArea)} {isMetric ? 'm²' : 'sq ft'}
+                {formatNumber(result.grossWallArea, 2, locale)} {isMetric ? 'm²' : 'sq ft'}
               </span>
             </p>
           </div>
@@ -680,7 +693,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                 b: result.totalDeductions,
               })}{' '}
               <span className="text-slate-900 dark:text-white font-bold">
-                {formatNumber(result.netWallArea)} {isMetric ? 'm²' : 'sq ft'}
+                {formatNumber(result.netWallArea, 2, locale)} {isMetric ? 'm²' : 'sq ft'}
               </span>
             </p>
           </div>
@@ -691,7 +704,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
             </span>
             <p className="font-mono text-slate-800 dark:text-slate-200">
               {t('paint.step3Line1', {
-                area: formatNumber(result.netWallArea),
+                area: formatNumber(result.netWallArea, 2, locale),
                 coats,
                 rate: result.coverageRate,
                 unit: isMetric ? 'm²/L' : 'sq ft/gal',

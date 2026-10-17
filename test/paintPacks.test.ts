@@ -86,7 +86,7 @@ describe('paint per-locale pack sizes', () => {
     const pt = calculatePaint({ ...metricDefaults, packSizes: METRIC_PACKS.pt });
     expect(pt.packs).toEqual([{ size: 3.6, count: 2 }]);
     expect(pt.remainder).toBeCloseTo(1.8, 9);
-    expect(translate('pt', 'paint.pailsOf5Metric', { count: 2, size: 3.6 })).toBe('2 × 3.6 L');
+    expect(translate('pt', 'paint.pailsOf5Metric', { count: 2, size: 3.6 })).toBe('2 × 3,6 L');
 
     const fr = calculatePaint({ ...metricDefaults, packSizes: METRIC_PACKS.fr });
     expect(fr.packs).toEqual([{ size: 2.5, count: 3 }]);
@@ -115,7 +115,7 @@ describe('paint per-locale pack sizes', () => {
     expect(r.packs).toEqual([]);
     expect(r.pails5Gal).toBe(0);
     expect(r.remainder).toBe(r.primaryQuantity);
-    expect(translate('fr', 'paint.oneGalCansMetric', { size: 2.5 })).toBe('Pots de 2.5 L');
+    expect(translate('fr', 'paint.oneGalCansMetric', { size: 2.5 })).toBe('Pots de 2,5 L');
   });
 
   it('imperial and plain-metric defaults keep the legacy formulas', () => {

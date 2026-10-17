@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Edges } from '@react-three/drei';
 import { DimensionLine } from './DimensionLine';
 import { formatNumber } from '../../lib/calculators/common/math';
+import type { LocaleCode } from '../../lib/i18n/config';
 
 export interface BrickWallProps {
   length: number;          // wall length (ft or m)
@@ -11,6 +12,8 @@ export interface BrickWallProps {
   brickLength?: number;    // inches or mm
   brickHeight?: number;    // inches or mm
   jointThickness?: number; // inches or mm
+  /** Locale used for on-canvas dimension labels (defaults to English). */
+  labelLocale?: LocaleCode;
 }
 
 export const BrickWall: React.FC<BrickWallProps> = ({
@@ -21,6 +24,7 @@ export const BrickWall: React.FC<BrickWallProps> = ({
   brickLength,
   brickHeight,
   jointThickness,
+  labelLocale = 'en',
 }) => {
   const isMetric = unit === 'metric';
 
@@ -76,8 +80,8 @@ export const BrickWall: React.FC<BrickWallProps> = ({
   const halfH = visualHeight / 2;
   const halfT = visualThickness / 2;
 
-  const lengthLabel = `${formatNumber(length)} ${isMetric ? 'm' : 'ft'}`;
-  const heightLabel = `${formatNumber(height)} ${isMetric ? 'm' : 'ft'}`;
+  const lengthLabel = `${formatNumber(length, 2, labelLocale)} ${isMetric ? 'm' : 'ft'}`;
+  const heightLabel = `${formatNumber(height, 2, labelLocale)} ${isMetric ? 'm' : 'ft'}`;
   const thickLabel = isDoubleWythe
     ? (isMetric ? '20 cm Double Wythe' : '8" Double Wythe')
     : (isMetric ? '10 cm Single Wythe' : '4" Single Wythe');

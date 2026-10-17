@@ -1,3 +1,5 @@
+import type { LocaleCode } from '../../i18n/config';
+
 /**
  * Pure mathematical utilities and unit conversion constants
  * Strict decimal stability without floating-point distortion
@@ -30,13 +32,31 @@ export const SQ_FEET_TO_SQ_METERS = 0.09290304;
 export const GALLONS_TO_LITERS = 3.785411784;
 export const LITERS_TO_GALLONS = 0.264172052;
 
+/** Intl locale tags used for locale-aware number display. */
+const NUMBER_LOCALES: Record<LocaleCode, string> = {
+  en: 'en-US',
+  es: 'es-ES',
+  pt: 'pt-BR',
+  fr: 'fr-FR',
+  de: 'de-DE',
+};
+
 /**
- * Format a number for clean architectural display
+ * Format a number for clean architectural display.
+ *
+ * `locale` selects the Intl tag (comma vs dot decimals, digit grouping);
+ * the default keeps English rendering exactly as before. `minDecimals`
+ * pins trailing zeros for values shown as exact money/ratios (e.g. 1.10).
  */
-export function formatNumber(num: number, maxDecimals: number = 2): string {
+export function formatNumber(
+  num: number,
+  maxDecimals: number = 2,
+  locale: LocaleCode = 'en',
+  minDecimals: number = 0,
+): string {
   if (isNaN(num) || !isFinite(num)) return '0';
-  return Number(roundTo(num, maxDecimals)).toLocaleString('en-US', {
+  return Number(roundTo(num, maxDecimals)).toLocaleString(NUMBER_LOCALES[locale] ?? 'en-US', {
     maximumFractionDigits: maxDecimals,
-    minimumFractionDigits: 0,
+    minimumFractionDigits: Math.min(minDecimals, maxDecimals),
   });
 }

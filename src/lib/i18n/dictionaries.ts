@@ -2032,11 +2032,12 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
       '80 lb ≈ 36,3 kg = 0,017 m³ · 60 lb ≈ 27,2 kg = 0,013 m³',
     'paint.headerBodyMetric':
       'Calcule litros de pintura, cubetas comerciales de 19 litros y requisitos de cobertura con deducción de aberturas y visualización 3D en corte del ambiente en tiempo real.',
-    'paint.pailsOf5Metric': '{count} × 19 L',
-    'paint.oneGalCansMetric': 'Latas de 3,78 L',
+    // TODO(needs native review): pack templates now carry a {size} param (es packs: 19 L, 4 L).
+    'paint.pailsOf5Metric': '{count} × {size} L',
+    'paint.oneGalCansMetric': 'Latas de {size} L',
     'paint.extraCansMetric': '+ {count} L adicionales',
     'paint.cansTotalMetric': '{count} L en total',
-    'paint.copy.packagingMetric': 'Desglose de embalaje: {p} × cubetas de 19 L + {e} L',
+    'paint.copy.packagingMetric': 'Desglose de embalaje: {p} + {e} L',
     'paint.preventsOverbuyMetric': 'Evita comprar pintura de más',
     'brick.bagsLabelMetric': 'sacos prefabricados de 80 lb (≈ 36,3 kg)',
     'brick.dryMixMetric': '~{v} m³ de mezcla seca',
@@ -3018,13 +3019,15 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.yieldFactorsValue': '80 lb = 0,60 ft³ · 60 lb = 0,45 ft³',
     'concrete.yieldFactorsValueMetric':
       '80 lb ≈ 36,3 kg = 0,017 m³ · 60 lb ≈ 27,2 kg = 0,013 m³',
+    // TODO(needs native review): intro now matches pt's largest pack (18 L, was 19 L).
     'paint.headerBodyMetric':
-      'Calcule litros de tinta, latas comerciais de 19 litros e a cobertura necessária, com dedução de aberturas e visualização 3D em corte do ambiente em tempo real.',
-    'paint.pailsOf5Metric': '{count} × 19 L',
-    'paint.oneGalCansMetric': 'Latas de 3,78 L',
+      'Calcule litros de tinta, latas comerciais de 18 litros e a cobertura necessária, com dedução de aberturas e visualização 3D em corte do ambiente em tempo real.',
+    // TODO(needs native review): pack templates now carry a {size} param (pt packs: 18 L, 3.6 L).
+    'paint.pailsOf5Metric': '{count} × {size} L',
+    'paint.oneGalCansMetric': 'Latas de {size} L',
     'paint.extraCansMetric': '+ {count} L adicionais',
     'paint.cansTotalMetric': '{count} L no total',
-    'paint.copy.packagingMetric': 'Distribuição em embalagens: {p} × latas de 19 L + {e} L',
+    'paint.copy.packagingMetric': 'Distribuição em embalagens: {p} + {e} L',
     'paint.preventsOverbuyMetric': 'Evita comprar tinta a mais',
     'brick.bagsLabelMetric': 'sacos pré-misturados de 80 lb (≈ 36,3 kg)',
     'brick.dryMixMetric': '~{v} m³ de mistura seca',
@@ -4024,13 +4027,15 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.yieldFactorsValue': '80 lb = 0,60 ft³ · 60 lb = 0,45 ft³',
     'concrete.yieldFactorsValueMetric':
       '80 lb ≈ 36,3 kg = 0,017 m³ · 60 lb ≈ 27,2 kg = 0,013 m³',
+    // TODO(needs native review): intro now matches fr's largest pack (10 L, was 19 L).
     'paint.headerBodyMetric':
-      'Calculez les litres de peinture, les seaux commerciaux de 19 litres et les besoins de couverture avec déduction des ouvertures et visualisation 3D en coupe de la pièce en temps réel.',
-    'paint.pailsOf5Metric': '{count} × 19 L',
-    'paint.oneGalCansMetric': 'Pots de 3,78 L',
+      'Calculez les litres de peinture, les seaux de 10 litres et les besoins de couverture avec déduction des ouvertures et visualisation 3D en coupe de la pièce en temps réel.',
+    // TODO(needs native review): pack templates now carry a {size} param (fr packs: 10 L, 2.5 L).
+    'paint.pailsOf5Metric': '{count} × {size} L',
+    'paint.oneGalCansMetric': 'Pots de {size} L',
     'paint.extraCansMetric': '+ {count} L supplémentaires',
     'paint.cansTotalMetric': '{count} L au total',
-    'paint.copy.packagingMetric': 'Répartition des emballages : {p} × seaux de 19 L + {e} L',
+    'paint.copy.packagingMetric': 'Répartition des emballages : {p} + {e} L',
     'paint.preventsOverbuyMetric': 'Évite d’acheter trop de peinture',
     'brick.bagsLabelMetric': 'sacs de prémélange de 80 lb (≈ 36,3 kg)',
     'brick.dryMixMetric': '~{v} m³ de mélange sec',
@@ -5016,13 +5021,15 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.yieldFactorsValue': '80 lb = 0,60 ft³ · 60 lb = 0,45 ft³',
     'concrete.yieldFactorsValueMetric':
       '80 lb ≈ 36,3 kg = 0,017 m³ · 60 lb ≈ 27,2 kg = 0,013 m³',
+    // TODO(needs native review): intro now matches de's largest pack (10 L, was 19 L).
     'paint.headerBodyMetric':
-      'Berechnen Sie Farbliter, kommerzielle 19-Liter-Eimer und Deckungsanforderungen mit Öffnungsabzügen und Live-3D-Raumschnittvisualisierung.',
-    'paint.pailsOf5Metric': '{count} × 19 L',
-    'paint.oneGalCansMetric': 'Dosen mit 3,78 L',
+      'Berechnen Sie Farbliter, kommerzielle 10-Liter-Eimer und Deckungsanforderungen mit Öffnungsabzügen und Live-3D-Raumschnittvisualisierung.',
+    // TODO(needs native review): pack templates now carry a {size} param (de packs: 10 L, 5 L, 2.5 L).
+    'paint.pailsOf5Metric': '{count} × {size} L',
+    'paint.oneGalCansMetric': 'Dosen mit {size} L',
     'paint.extraCansMetric': '+ {count} L zusätzlich',
     'paint.cansTotalMetric': '{count} L insgesamt',
-    'paint.copy.packagingMetric': 'Verpackungsaufteilung: {p} × 19-Liter-Eimer + {e} L',
+    'paint.copy.packagingMetric': 'Verpackungsaufteilung: {p} + {e} L',
     'paint.preventsOverbuyMetric': 'Verhindert den Kauf von zu viel Farbe',
     'brick.bagsLabelMetric': '80-lb-Trockenmischsäcke (≈ 36,3 kg)',
     'brick.dryMixMetric': '~{v} m³ Trockenmischung',

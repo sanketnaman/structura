@@ -1,5 +1,14 @@
 import { roundTo } from '../common/math';
-import type { PaintInputs, PaintResult } from './types';
+import type { PaintInputs, PaintResult, PaintPack } from './types';
+
+// Commercial container sizes (liters), largest first, per metric locale.
+// English and imperial keep the historical 19 L / 5-gal + 1-gal behaviour.
+export const METRIC_PACKS: Record<string, number[]> = {
+  pt: [18, 3.6],
+  es: [19, 4],
+  fr: [10, 2.5],
+  de: [10, 5, 2.5],
+};
 
 export function calculatePaint(inputs: PaintInputs): PaintResult {
   const {
@@ -12,6 +21,7 @@ export function calculatePaint(inputs: PaintInputs): PaintResult {
     coverageRate,
     isMetric,
     unitPrice = 0,
+    packSizes,
   } = inputs;
 
   const safeL = Math.max(0, isNaN(roomLength) ? 0 : roomLength);
@@ -52,17 +62,26 @@ export function calculatePaint(inputs: PaintInputs): PaintResult {
   const rawVolume = rate > 0 ? totalCoatedArea / rate : 0;
   const primaryQuantity = Math.ceil(rawVolume);
 
-  let pails5Gal = 0;
-  let extraUnits = 0;
+  // Greedy largest-first pack breakdown. Defaults preserve the historical
+  // behaviour: 19 L pails (metric) / 5-gal pails (imperial).
+  const sizes = [...(packSizes && packSizes.length > 0 ? packSizes : isMetric ? [19] : [5])]
+    .filter((s) => s > 0)
+    .sort((a, b) => b - a);
 
-  if (isMetric) {
-    // 1 standard pail = 19 Liters (~5 Gallons)
-    pails5Gal = Math.floor(primaryQuantity / 19);
-    extraUnits = primaryQuantity % 19;
-  } else {
-    pails5Gal = Math.floor(primaryQuantity / 5);
-    extraUnits = primaryQuantity % 5;
+  const packs: PaintPack[] = [];
+  let remaining = primaryQuantity;
+  for (const size of sizes) {
+    const count = Math.floor(remaining / size + 1e-9);
+    if (count > 0) {
+      packs.push({ size, count });
+      const next = roundTo(remaining - count * size, 2);
+      remaining = Math.abs(next) < 1e-9 ? 0 : next;
+    }
   }
+  const remainder = roundTo(remaining, 2);
+
+  const pails5Gal = packs.length > 0 ? packs[0].count : 0;
+  const extraUnits = remainder;
 
   const estimatedCost = safePrice > 0 ? roundTo(primaryQuantity * safePrice, 2) : 0;
 
@@ -84,6 +103,8 @@ export function calculatePaint(inputs: PaintInputs): PaintResult {
     primaryQuantity,
     pails5Gal,
     extraUnits,
+    packs,
+    remainder,
 
     unitPrice: safePrice,
     estimatedCost,

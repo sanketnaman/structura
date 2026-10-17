@@ -8,6 +8,12 @@ export interface PaintInputs {
   coverageRate?: number; // sq ft per gallon (default: 350) or m² per liter (default: 8.5)
   isMetric: boolean;
   unitPrice?: number;    // Price per gallon or per liter
+  packSizes?: number[];  // Commercial container sizes (liters), largest first; metric locales only
+}
+
+export interface PaintPack {
+  size: number; // liters (or gallons for the imperial default)
+  count: number;
 }
 
 export interface PaintResult {
@@ -26,8 +32,10 @@ export interface PaintResult {
   coverageRate: number;      // sq ft/gal or m²/L
   rawVolume: number;
   primaryQuantity: number;   // whole gallons or liters
-  pails5Gal: number;
-  extraUnits: number;
+  pails5Gal: number;         // count of the largest pack (compat field)
+  extraUnits: number;        // liters/gallons left after the pack breakdown
+  packs: PaintPack[];        // greedy largest-first pack breakdown
+  remainder: number;         // primaryQuantity - sum(count × size)
 
   unitPrice: number;
   estimatedCost: number;

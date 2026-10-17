@@ -2,7 +2,7 @@ import React, { useState, useId, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ConstructionScene } from '../../3d/ConstructionScene';
 import { RoomModel } from '../../3d/RoomModel';
-import { calculatePaint } from '../../../lib/calculators/paint/calculator';
+import { calculatePaint, METRIC_PACKS } from '../../../lib/calculators/paint/calculator';
 import type { UnitSystem } from '../../../types/layout';
 import { formatNumber } from '../../../lib/calculators/common/math';
 import { useViewToPath } from '../../../lib/routes';
@@ -36,7 +36,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
 }) => {
   const isMetric = unitSystem === 'metric';
   const { t, locale } = useLocale();
-  // Metric pages outside English switch packaging copy to litres and 19 L pails.
+  // Metric pages outside English switch packaging copy to litres and per-locale pack sizes.
   const metricWording = isMetric && locale !== 'en';
   const viewToPath = useViewToPath();
 
@@ -105,7 +105,16 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
     coats,
     isMetric,
     unitPrice: enableCost ? parsedPrice : 0,
+    packSizes: metricWording ? METRIC_PACKS[locale] : undefined,
   });
+
+  // Metric pack heading: "5 × 19 L + 3 × 4 L" (falls back to one small can).
+  const packSummary =
+    result.packs.length > 0
+      ? result.packs
+          .map((pk) => t('paint.pailsOf5Metric', { count: pk.count, size: pk.size }))
+          .join(' + ')
+      : t('paint.oneGalCansMetric', { size: Math.min(...(METRIC_PACKS[locale] ?? [19])) });
 
   // Copy estimate
   const handleCopyEstimate = () => {
@@ -130,7 +139,7 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
         u: isMetric ? t('paint.liters') : t('paint.gallons'),
       }),
       metricWording
-        ? t('paint.copy.packagingMetric', { p: result.pails5Gal, e: result.extraUnits })
+        ? t('paint.copy.packagingMetric', { p: packSummary, e: result.remainder })
         : t('paint.copy.packaging', { p: result.pails5Gal, e: result.extraUnits }),
       enableCost && parsedPrice > 0
         ? t('paint.copy.cost', {
@@ -563,18 +572,16 @@ export const PaintCalculatorWorkspace: React.FC<PaintCalculatorWorkspaceProps> =
                   {t('paint.packagingStrategy')}
                 </div>
                 <div className="text-heading-md font-bold font-mono text-slate-900 dark:text-white">
-                  {result.pails5Gal > 0
-                    ? metricWording
-                      ? t('paint.pailsOf5Metric', { count: result.pails5Gal })
-                      : t('paint.pailsOf5', { count: result.pails5Gal })
-                    : metricWording
-                      ? t('paint.oneGalCansMetric')
+                  {metricWording
+                    ? packSummary
+                    : result.pails5Gal > 0
+                      ? t('paint.pailsOf5', { count: result.pails5Gal })
                       : t('paint.oneGalCans')}
                 </div>
                 <div className="text-micro font-mono text-slate-400 mt-0.5">
                   {result.pails5Gal > 0 && result.extraUnits > 0
                     ? metricWording
-                      ? t('paint.extraCansMetric', { count: result.extraUnits })
+                      ? t('paint.extraCansMetric', { count: result.remainder })
                       : t('paint.extraCans', { count: result.extraUnits })
                     : metricWording
                       ? t('paint.cansTotalMetric', { count: result.primaryQuantity })

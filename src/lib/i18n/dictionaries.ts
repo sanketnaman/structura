@@ -87,6 +87,8 @@ export const en = {
   'diagram.netVolume': 'Net ft³ / m³',
   'diagram.orderTotal': 'Order Total',
   'diagram.orderValue': '+ Waste % → yd³ / Trucks',
+  'diagram.netVolumeMetric': 'Net m³',
+  'diagram.orderValueMetric': '+ Waste % → m³',
   'diagram.wallArea': 'Wall Area',
   'diagram.wallAreaValue': 'Length × Height',
   'diagram.brickCount': 'Brick Count',
@@ -726,6 +728,14 @@ export const en = {
   'concrete.faqQ3': 'What does a cubic yard of concrete weigh?',
   'concrete.faqA3':
     'Standard normal-weight concrete weighs approximately 4,050 lbs (about 2 tons or 1,840 kg) per cubic yard when wet.',
+  'concrete.faqQ1Metric': 'How many bags of concrete equal one cubic meter?',
+  'concrete.faqA1Metric':
+    'One 36.3 kg bag yields approximately 0.017 m³, so one cubic meter mathematically requires approximately 59 bags of pre-mix concrete based on this planning assumption. For reference, a 6 m × 3 m slab at 10 cm thick needs 1.8 m³ of concrete base (1.98 m³ with a 10% allowance).',
+  'concrete.faqA2Metric':
+    'Sidewalks, walkways, and patios typically require 10 cm (4 inches). Vehicle driveways, garage slabs, and heavy storage pads require a minimum of 13 to 15 cm (5 to 6 inches) with steel rebar or wire mesh reinforcement.',
+  'concrete.faqQ3Metric': 'What does a cubic meter of concrete weigh?',
+  'concrete.faqA3Metric':
+    'Standard normal-weight concrete weighs approximately 2,407 kg (about 2.4 metric tons) per cubic meter when wet.',
 
   // ── Brick calculator ─────────────────────────────────────────────────
   'brick.breadcrumb': 'Brick Calculator',
@@ -801,6 +811,11 @@ export const en = {
   'brick.faqQ4': 'How much mortar do I need for brickwork?',
   'brick.faqA4':
     'The calculator uses a planning assumption of approximately 130 modular bricks per 80 lb bag of Type N mortar and reports the bag count plus the approximate dry mix volume. Actual mortar requirements vary with brick dimensions, joint thickness, wall construction, workmanship, and product yield.',
+  'brick.faqQ2Metric': 'How many bricks are needed per square metre?',
+  'brick.faqA2Metric':
+    'With the default metric brick (194 mm by 57 mm) laid in a 10 mm mortar joint, the calculator uses approximately 73.16 bricks per square metre of single-wythe wall.',
+  'brick.faqA4Metric':
+    'The calculator uses a planning assumption of approximately 130 modular bricks per 36.3 kg bag of Type N mortar and reports the bag count plus the approximate dry mix volume in m³. Actual mortar requirements vary with brick dimensions, joint thickness, wall construction, workmanship, and product yield.',
   'brick.faqQ5': 'How much waste should I add when ordering bricks?',
   'brick.faqA5':
     'Waste depends on wall size, bond pattern, cutting, and breakage. The calculator offers 5%, 8%, 10%, and 15% presets so you can pick an allowance that suits your project, and shows the waste bricks it adds to the base quantity.',
@@ -1118,6 +1133,8 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'diagram.netVolume': 'Neto ft³ / m³',
     'diagram.orderTotal': 'Total del pedido',
     'diagram.orderValue': '+ Merma % → yd³ / Camiones',
+    'diagram.netVolumeMetric': 'Neto m³',
+    'diagram.orderValueMetric': '+ Merma % → m³',
     'diagram.wallArea': 'Área de pared',
     'diagram.wallAreaValue': 'Largo × Alto',
     'diagram.brickCount': 'Cantidad de ladrillos',
@@ -1744,7 +1761,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.estCostNote':
       'Solo estimación. No incluye cargos ambientales del proveedor, tarifas de entrega fraccionada, costos de bombeo, madera de cimbra, acero de refuerzo ni mano de obra de acabado.',
     'concrete.costDisabledNote':
-      'Marque la casilla de arriba para informar la cotización de su proveedor por yarda (o por metro cúbico) y calcular el costo del material.',
+      'Marque la casilla de arriba para informar la cotización de su proveedor por metro cúbico (o por yarda) y calcular el costo del material.',
     'concrete.saveExport': 'Guarde o exporte este cálculo de concreto:',
     'concrete.copy.header': 'MIXTALLY — CÁLCULO DE LOSA DE CONCRETO',
     'concrete.copy.dimensions': 'Dimensiones del proyecto: {l} {u} × {w} {u} × {th}',
@@ -1768,6 +1785,15 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.faqQ3': '¿Cuánto pesa una yarda cúbica de concreto?',
     'concrete.faqA3':
       'El concreto estándar de peso normal pesa aproximadamente 4.050 libras (unas 2 toneladas o 1.840 kg) por yarda cúbica cuando está húmedo.',
+    // TODO(needs native review): metric-native FAQ variants (locale-gated like the guide examples).
+    'concrete.faqQ1Metric': '¿Cuántos sacos de concreto equivalen a un metro cúbico?',
+    'concrete.faqA1Metric':
+      'Un saco de concreto premezclado de 36,3 kg rinde aproximadamente 0,017 m³, por lo que un metro cúbico requiere matemáticamente unos 59 sacos según este supuesto de planificación. Como referencia, una losa de 6 m × 3 m a 10 cm de espesor necesita 1,8 m³ de base de concreto (1,98 m³ con un 10% de margen).',
+    'concrete.faqA2Metric':
+      'Las aceras, pasarelas y terrazas suelen requerir 10 cm (4 pulgadas). Las entradas de vehículos, las losas de garaje y las bases de almacenamiento pesado requieren un mínimo de 13 a 15 cm (5 a 6 pulgadas) con refuerzo de varillas de acero o malla electrosoldada.',
+    'concrete.faqQ3Metric': '¿Cuánto pesa un metro cúbico de concreto?',
+    'concrete.faqA3Metric':
+      'El concreto estándar de peso normal pesa aproximadamente 2.407 kg (unas 2,4 toneladas) por metro cúbico cuando está húmedo.',
 
     'brick.breadcrumb': 'Calculadora de ladrillos',
     'brick.h1': 'Calculadora de ladrillos',
@@ -1842,6 +1868,12 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'brick.faqQ4': '¿Cuánto mortero necesito para la cantería?',
     'brick.faqA4':
       'La calculadora usa un supuesto de planificación de aproximadamente 130 ladrillos modulares por saco de 80 lb de mortero tipo N e informa la cantidad de sacos además del volumen aproximado de mezcla seca. La necesidad real de mortero varía según las dimensiones del ladrillo, el espesor de la junta, la construcción de la pared, la mano de obra y el rendimiento del producto.',
+    // TODO(needs native review): metric-native brick FAQ (per m² and kg-bag wording).
+    'brick.faqQ2Metric': '¿Cuántos ladrillos se necesitan por metro cuadrado?',
+    'brick.faqA2Metric':
+      'Con el ladrillo métrico por defecto (194 mm × 57 mm) colocado en una junta de mortero de 10 mm, la calculadora usa aproximadamente 73,16 ladrillos por metro cuadrado de pared de hilada simple.',
+    'brick.faqA4Metric':
+      'La calculadora usa un supuesto de planificación de aproximadamente 130 ladrillos modulares por saco de mortero tipo N de 36,3 kg e informa la cantidad de sacos además del volumen aproximado de mezcla seca en m³. La necesidad real de mortero varía según las dimensiones del ladrillo, el espesor de la junta, la construcción de la pared, la mano de obra y el rendimiento del producto.',
     'brick.faqQ5': '¿Cuánta merma debo añadir al pedir ladrillos?',
     'brick.faqA5':
       'La merma depende del tamaño de la pared, el patrón de aparejo, los cortes y las roturas. La calculadora ofrece preajustes del 5%, 8%, 10% y 15% para que elija el margen que mejor se adapte a su proyecto, y muestra los ladrillos de merma que añade a la cantidad base.',
@@ -2123,6 +2155,8 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'diagram.netVolume': 'Líq. ft³ / m³',
     'diagram.orderTotal': 'Total do pedido',
     'diagram.orderValue': '+ Desperdício % → yd³ / Caminhões',
+    'diagram.netVolumeMetric': 'Líq. m³',
+    'diagram.orderValueMetric': '+ Desperdício % → m³',
     'diagram.wallArea': 'Área da parede',
     'diagram.wallAreaValue': 'Comprimento × Altura',
     'diagram.brickCount': 'Quantidade de tijolos',
@@ -2732,7 +2766,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.estCostNote':
       'Apenas estimativa. Não inclui taxas ambientais do fornecedor, taxas de carga fracionada, custos de bombeamento, madeira de forma, aço de armadura e mão de obra de acabamento.',
     'concrete.costDisabledNote':
-      'Marque a caixa acima para informar o orçamento do fornecedor por jarda (ou por metro cúbico) e calcular o custo do material.',
+      'Marque a caixa acima para informar o orçamento do fornecedor por metro cúbico (ou por jarda) e calcular o custo do material.',
     'concrete.saveExport': 'Salve ou exporte esta medição de concreto:',
     'concrete.copy.header': 'MIXTALLY — MEDIÇÃO DE LAJE DE CONCRETO',
     'concrete.copy.separator': '----------------------------------------',
@@ -2755,6 +2789,15 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.faqQ3': 'Quanto pesa uma jarda cúbica de concreto?',
     'concrete.faqA3':
       'O concreto comum de peso normal pesa aproximadamente 4.050 libras (cerca de 2 toneladas ou 1.840 kg) por jarda cúbica quando úmido.',
+    // TODO(needs native review): metric-native FAQ variants (locale-gated like the guide examples).
+    'concrete.faqQ1Metric': 'Quantos sacos de concreto equivalem a um metro cúbico?',
+    'concrete.faqA1Metric':
+      'Um saco de concreto pré-misturado de 36,3 kg rende aproximadamente 0,017 m³, de modo que um metro cúbico exige matematicamente cerca de 59 sacos, com base nesse pressuposto de planejamento. Como referência, uma laje de 6 m × 3 m com 10 cm de espessura precisa de 1,8 m³ de base de concreto (1,98 m³ com 10% de margem).',
+    'concrete.faqA2Metric':
+      'Calçadas, passagens e terraços normalmente exigem 10 cm (4 polegadas). Estacionamentos, lajes de garagem e bases de armazenagem pesada exigem no mínimo 13 a 15 cm (5 a 6 polegadas) com armadura de aço ou tela soldada.',
+    'concrete.faqQ3Metric': 'Quanto pesa um metro cúbico de concreto?',
+    'concrete.faqA3Metric':
+      'O concreto comum de peso normal pesa aproximadamente 2.407 kg (cerca de 2,4 toneladas) por metro cúbico quando úmido.',
 
     // ── Brick calculator ─────────────────────────────────────────────────
     'brick.breadcrumb': 'Calculadora de tijolo',
@@ -2831,6 +2874,12 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'brick.faqQ4': 'Quanta argamassa preciso para a alvenaria?',
     'brick.faqA4':
       'A calculadora usa um pressuposto de planejamento de aproximadamente 130 tijolos modulares por saco de 80 lb de argamassa tipo N e informa a quantidade de sacos além do volume aproximado de mistura seca. A necessidade real de argamassa varia conforme as dimensões do tijolo, a espessura da junta, a construção da parede, a execução e o rendimento do produto.',
+    // TODO(needs native review): metric-native brick FAQ (per m² and kg-bag wording).
+    'brick.faqQ2Metric': 'Quantos tijolos são necessários por metro quadrado?',
+    'brick.faqA2Metric':
+      'Com o tijolo métrico padrão (194 mm × 57 mm) assentado em junta de argamassa de 10 mm, a calculadora usa aproximadamente 73,16 tijolos por metro quadrado de parede de fiada simples.',
+    'brick.faqA4Metric':
+      'A calculadora usa um pressuposto de planejamento de aproximadamente 130 tijolos modulares por saco de argamassa tipo N de 36,3 kg e informa a quantidade de sacos além do volume aproximado de mistura seca em m³. A necessidade real de argamassa varia conforme as dimensões do tijolo, a espessura da junta, a construção da parede, a execução e o rendimento do produto.',
     'brick.faqQ5': 'Quanto desperdício devo acrescentar ao pedir tijolos?',
     'brick.faqA5':
       'O desperdício depende do tamanho da parede, do arranjo das fiadas, dos cortes e das quebras. A calculadora oferece predefinições de 5%, 8%, 10% e 15% para você escolher a margem que melhor se adapta ao projeto, e mostra os tijolos de desperdício somados à quantidade base.',
@@ -3114,6 +3163,8 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'diagram.netVolume': 'Volume net ft³ / m³',
     'diagram.orderTotal': 'Total à commander',
     'diagram.orderValue': '+ rebut % → yd³ / camions',
+    'diagram.netVolumeMetric': 'Volume net m³',
+    'diagram.orderValueMetric': '+ rebut % → m³',
     'diagram.wallArea': 'Surface du mur',
     'diagram.wallAreaValue': 'Longueur × hauteur',
     'diagram.brickCount': 'Nombre de briques',
@@ -3739,7 +3790,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.estCostNote':
       'Estimation uniquement. Exclut les frais environnementaux du fournisseur, les frais de petite livraison, les coûts de pompage, le bois de coffrage, les aciers d’armature et la main-d’œuvre de finition.',
     'concrete.costDisabledNote':
-      'Cochez la case ci-dessus pour indiquer le devis de votre fournisseur par yard (ou par mètre cube) et calculer le coût du matériau.',
+      'Cochez la case ci-dessus pour indiquer le devis de votre fournisseur par mètre cube (ou par yard) et calculer le coût du matériau.',
     'concrete.saveExport': 'Enregistrez ou exportez ce métré de béton :',
     'concrete.copy.header': 'MIXTALLY — MÉTRÉ DE DALLE EN BÉTON',
     'concrete.copy.dimensions': 'Dimensions du projet : {l} {u} × {w} {u} × {th}',
@@ -3764,6 +3815,15 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.faqQ3': 'Quel est le poids d’un yard cube de béton ?',
     'concrete.faqA3':
       'Le béton standard de poids normal pèse environ 4 050 livres (environ 2 tonnes ou 1 840 kg) par yard cube lorsqu’il est humide.',
+    // TODO(needs native review): metric-native FAQ variants (locale-gated like the guide examples).
+    'concrete.faqQ1Metric': 'Combien de sacs de béton équivalent à un mètre cube ?',
+    'concrete.faqA1Metric':
+      'Un sac de béton prémélangé de 36,3 kg produit environ 0,017 m³ ; un mètre cube demande donc mathématiquement environ 59 sacs selon cette hypothèse de planification. À titre de référence, une dalle de 6 m × 3 m épaisse de 10 cm nécessite 1,8 m³ de béton de base (1,98 m³ avec une marge de 10 %).',
+    'concrete.faqA2Metric':
+      'Les allées, promenades et terrasses exigent généralement 10 cm (4 pouces). Les accès de véhicules, les dalles de garage et les semelles de stockage lourd nécessitent un minimum de 13 à 15 cm (5 à 6 pouces) avec armature en barres d’acier ou treillis soudé.',
+    'concrete.faqQ3Metric': 'Quel est le poids d’un mètre cube de béton ?',
+    'concrete.faqA3Metric':
+      'Le béton standard de poids normal pèse environ 2 407 kg (environ 2,4 tonnes métriques) par mètre cube lorsqu’il est humide.',
 
     'brick.breadcrumb': 'Calculateur de briques',
     'brick.h1': 'Calcul de briques et mortier',
@@ -3838,6 +3898,12 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'brick.faqQ4': 'Combien de mortier faut-il pour un travail de maçonnerie ?',
     'brick.faqA4':
       'Le calculateur utilise une hypothèse de planification d’environ 130 briques modulaires par sac de 80 lb de mortier de type N et indique le nombre de sacs ainsi que le volume approximatif de mélange sec. Le besoin réel en mortier varie selon les dimensions de la brique, l’épaisseur du joint, la construction du mur, la main-d’œuvre et le rendement du produit.',
+    // TODO(needs native review): metric-native brick FAQ (per m² and kg-bag wording).
+    'brick.faqQ2Metric': 'Combien de briques faut-il par mètre carré ?',
+    'brick.faqA2Metric':
+      'Avec la brique métrique par défaut (194 mm sur 57 mm) posée dans un joint de mortier de 10 mm, le calculateur utilise environ 73,16 briques par mètre carré de mur à une seule feuille.',
+    'brick.faqA4Metric':
+      'Le calculateur utilise une hypothèse de planification d’environ 130 briques modulaires par sac de mortier de type N de 36,3 kg et indique le nombre de sacs ainsi que le volume approximatif de mélange sec en m³. Le besoin réel en mortier varie selon les dimensions de la brique, l’épaisseur du joint, la construction du mur, la main-d’œuvre et le rendement du produit.',
     'brick.faqQ5': 'Combien de rebut dois-je ajouter lors de la commande de briques ?',
     'brick.faqA5':
       'Le rebut dépend de la taille du mur, du motif d’appareillage, des coupes et des casses. Le calculateur propose des préréglages de 5 %, 8 %, 10 % et 15 % afin de choisir une marge adaptée à votre projet, et affiche les briques de rebut ajoutées à la quantité de base.',
@@ -4122,6 +4188,8 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'diagram.netVolume': 'Netto ft³ / m³',
     'diagram.orderTotal': 'Bestellmenge gesamt',
     'diagram.orderValue': '+ Ausschuss % → yd³ / LKWs',
+    'diagram.netVolumeMetric': 'Netto m³',
+    'diagram.orderValueMetric': '+ Ausschuss % → m³',
     'diagram.wallArea': 'Wandfläche',
     'diagram.wallAreaValue': 'Länge × Höhe',
     'diagram.brickCount': 'Ziegelanzahl',
@@ -4735,7 +4803,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.estCostNote':
       'Nur Schätzung. Schließt Umweltgebühren des Lieferanten, Zuschläge für Kleinstmengen, Pumpkosten, Schalholz, Bewehrungsstahl und Verarbeitungskosten aus.',
     'concrete.costDisabledNote':
-      'Aktivieren Sie das Kästchen oben, um das Angebot Ihres Lieferanten pro Yard (oder pro Kubikmeter) einzugeben und die Materialkosten zu berechnen.',
+      'Aktivieren Sie das Kästchen oben, um das Angebot Ihres Lieferanten pro Kubikmeter (oder pro Yard) einzugeben und die Materialkosten zu berechnen.',
     'concrete.saveExport': 'Diese Betonkalkulation speichern oder exportieren:',
     'concrete.copy.header': 'MIXTALLY BETONPLATTEN-ERMITTLUNG',
     'concrete.copy.dimensions': 'Projektabmessungen: {l} {u} × {w} {u} × {th}',
@@ -4759,6 +4827,15 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.faqQ3': 'Wie viel wiegt ein Kubikyard Beton?',
     'concrete.faqA3':
       'Standardbeton mit normalem Gewicht wiegt etwa 4.050 Pfund (rund 2 Tonnen oder 1.840 kg) pro Kubikyard im nassen Zustand.',
+    // TODO(needs native review): metric-native FAQ variants (locale-gated like the guide examples).
+    'concrete.faqQ1Metric': 'Wie viele Säcke Beton entsprechen einem Kubikmeter?',
+    'concrete.faqA1Metric':
+      'Ein 36,3-kg-Sack liefert etwa 0,017 m³, sodass ein Kubikmeter mathematisch etwa 59 Säcke Betonmischung erfordert — basierend auf dieser Planungsannahme. Zur Referenz: Eine 6 m × 3 m Platte bei 10 cm Dicke benötigt 1,8 m³ Betonunterbau (1,98 m³ mit 10 % Zuschlag).',
+    'concrete.faqA2Metric':
+      'Wege, Gehwege und Terrassen benötigen üblicherweise 10 cm (4 Zoll). Zufahrten, Garagenplatten und schwere Lagerflächen erfordern mindestens 13 bis 15 cm (5 bis 6 Zoll) mit Stahlbewehrung oder Schweißgitter.',
+    'concrete.faqQ3Metric': 'Wie viel wiegt ein Kubikmeter Beton?',
+    'concrete.faqA3Metric':
+      'Standardbeton mit normalem Gewicht wiegt etwa 2.407 kg (rund 2,4 Tonnen) pro Kubikmeter im nassen Zustand.',
 
     'brick.breadcrumb': 'Ziegelrechner',
     'brick.h1': 'Ziegelrechner',
@@ -4833,6 +4910,12 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'brick.faqQ4': 'Wie viel Mörtel brauche ich für Mauerwerk?',
     'brick.faqA4':
       'Der Rechner verwendet eine Planungsannahme von etwa 130 Modulsteinen pro 80-lb-Sack Mörtel Typ N und gibt die Sackanzahl sowie das ungefähre Trockenmischungsvolumen aus. Der tatsächliche Mörtelbedarf hängt von Steinformat, Fugendicke, Wandkonstruktion, Ausführung und Produktausbeute ab.',
+    // TODO(needs native review): metric-native brick FAQ (per m² and kg-bag wording).
+    'brick.faqQ2Metric': 'Wie viele Steine braucht man pro Quadratmeter?',
+    'brick.faqA2Metric':
+      'Bei der Standard-Modulplatte (194 mm × 57 mm) in einer 10-mm-Mörtelfuge verwendet der Rechner etwa 73,16 Steine pro Quadratmeter einreihiger Wand.',
+    'brick.faqA4Metric':
+      'Der Rechner verwendet eine Planungsannahme von etwa 130 Modulsteinen pro 36,3-kg-Sack Mörtel Typ N und gibt die Sackanzahl sowie das ungefähre Trockenmischungsvolumen in m³ aus. Der tatsächliche Mörtelbedarf hängt von Steinformat, Fugendicke, Wandkonstruktion, Ausführung und Produktausbeute ab.',
     'brick.faqQ5': 'Wie viel Ausschuss sollte ich bei der Steinbestellung hinzufügen?',
     'brick.faqA5':
       'Der Ausschuss hängt von der Wandgröße, dem Verband, den Zuschnitten und Brüchen ab. Der Rechner bietet Vorlagen von 5 %, 8 %, 10 % und 15 %, damit Sie eine zu Ihrem Projekt passende Marge wählen können, und zeigt die zusätzlichen Ausschusssteine zur Grundmenge an.',

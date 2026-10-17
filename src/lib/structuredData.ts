@@ -1,6 +1,7 @@
 import { siteConfig } from './config/site';
 import {
   BRICK_FAQ_ANSWER_KEYS,
+  BRICK_FAQ_METRIC_OVERRIDES,
   BRICK_FAQ_QUESTION_KEYS,
 } from './calculators/brick/faq';
 import { parseLocalePath, localizePath } from './i18n/routing';
@@ -35,6 +36,10 @@ export function buildStructuredDataSchemas(pathname: string): Record<string, unk
   const { locale, basePath } = parseLocalePath(pathname);
   const siteUrl = (target: string) => absoluteSiteUrl(localizePath(locale, target));
   const t = (key: TranslationKey) => translate(locale, key);
+  // Same locale rule as the visible FAQ sections: outside English the
+  // calculator FAQs render their metric-native variants, so the schema must
+  // select the same keys to stay in sync with the rendered page.
+  const metricNative = locale !== 'en';
   const routeDescription = (target: string) =>
     getRouteSEO(localizePath(locale, target)).description;
 
@@ -85,10 +90,10 @@ export function buildStructuredDataSchemas(pathname: string): Record<string, unk
       mainEntity: [
         {
           '@type': 'Question',
-          name: t('concrete.faqQ1'),
+          name: t(metricNative ? 'concrete.faqQ1Metric' : 'concrete.faqQ1'),
           acceptedAnswer: {
             '@type': 'Answer',
-            text: t('concrete.faqA1'),
+            text: t(metricNative ? 'concrete.faqA1Metric' : 'concrete.faqA1'),
           },
         },
         {
@@ -96,15 +101,15 @@ export function buildStructuredDataSchemas(pathname: string): Record<string, unk
           name: t('concrete.faqQ2'),
           acceptedAnswer: {
             '@type': 'Answer',
-            text: t('concrete.faqA2'),
+            text: t(metricNative ? 'concrete.faqA2Metric' : 'concrete.faqA2'),
           },
         },
         {
           '@type': 'Question',
-          name: t('concrete.faqQ3'),
+          name: t(metricNative ? 'concrete.faqQ3Metric' : 'concrete.faqQ3'),
           acceptedAnswer: {
             '@type': 'Answer',
-            text: t('concrete.faqA3'),
+            text: t(metricNative ? 'concrete.faqA3Metric' : 'concrete.faqA3'),
           },
         },
       ],
@@ -131,14 +136,17 @@ export function buildStructuredDataSchemas(pathname: string): Record<string, unk
     schemas.push({
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: BRICK_FAQ_QUESTION_KEYS.map((questionKey, index) => ({
-        '@type': 'Question',
-        name: t(questionKey),
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: t(BRICK_FAQ_ANSWER_KEYS[index]),
-        },
-      })),
+      mainEntity: BRICK_FAQ_QUESTION_KEYS.map((questionKey, index) => {
+        const override = metricNative ? BRICK_FAQ_METRIC_OVERRIDES[index] : undefined;
+        return {
+          '@type': 'Question',
+          name: t(override?.question ?? questionKey),
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: t(override?.answer ?? BRICK_FAQ_ANSWER_KEYS[index]),
+          },
+        };
+      }),
     });
   } else if (basePath === '/calculators/paint-calculator') {
     schemas.push({

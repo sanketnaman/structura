@@ -47,9 +47,9 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
   // Metric pages outside English drop US customary wording (yd³ drums, bag
   // yields, inch-based notes) in favour of the localized metric variants.
   const metricWording = isMetric && locale !== 'en';
-  // Guide editorial content is always metric-first outside English, regardless
+  // Guide and FAQ content is always metric-first outside English, regardless
   // of the in-page unit toggle.
-  const guideLocalized = locale !== 'en';
+  const metricNative = locale !== 'en';
   const viewToPath = useViewToPath();
 
   // Form IDs for accessibility
@@ -742,7 +742,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
       </section>
 
       {/* Technical Workflow Diagram */}
-      <TechnicalDiagram type="concrete" />
+      <TechnicalDiagram type="concrete" metricWording={metricWording} />
 
       {/* 4. CALCULATION BREAKDOWN & STEP-BY-STEP PROOF */}
       <section className="p-6 sm:p-8 rounded-tech-lg bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 space-y-6">
@@ -978,7 +978,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             {t('concrete.guide.formulaTitle')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {guideLocalized && (
+            {metricNative && (
               <div className="p-4 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-2">
                 <span className="text-micro font-mono uppercase text-accent font-bold">
                   {t('concrete.guide.formulaMetricLabel')}
@@ -996,7 +996,7 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                 {t('concrete.guide.formulaImperial')}
               </div>
             </div>
-            {!guideLocalized && (
+            {!metricNative && (
               <div className="p-4 rounded-tech bg-white dark:bg-charcoal-850 border border-paper-300 dark:border-charcoal-750 space-y-2">
                 <span className="text-micro font-mono uppercase text-accent font-bold">
                   {t('concrete.guide.formulaMetricLabel')}
@@ -1018,35 +1018,35 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
             <p
               className="text-body-sm leading-relaxed"
               dangerouslySetInnerHTML={{
-                __html: guideLocalized
+                __html: metricNative
                   ? t('concrete.guide.exampleIntroMetric')
                   : t('concrete.guide.exampleIntro'),
               }}
             />
             <div className="font-mono text-body-sm p-4 rounded bg-white dark:bg-charcoal-950 border border-paper-300 dark:border-charcoal-800 space-y-1">
               <div>
-                {guideLocalized
+                {metricNative
                   ? t('concrete.guide.exampleStep1Metric')
                   : t('concrete.guide.exampleStep1')}
               </div>
               <div>
-                {guideLocalized
+                {metricNative
                   ? t('concrete.guide.exampleStep2Metric')
                   : t('concrete.guide.exampleStep2')}
               </div>
               <div>
-                {guideLocalized
+                {metricNative
                   ? t('concrete.guide.exampleStep3Metric')
                   : t('concrete.guide.exampleStep3')}
               </div>
               <div>
-                {guideLocalized
+                {metricNative
                   ? t('concrete.guide.exampleStep4Metric')
                   : t('concrete.guide.exampleStep4')}
               </div>
             </div>
             <p className="text-micro text-slate-500">
-              {guideLocalized
+              {metricNative
                 ? t('concrete.guide.exampleNoteMetric')
                 : t('concrete.guide.exampleNote')}
             </p>
@@ -1099,10 +1099,10 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
           <div className="divide-y divide-paper-200 dark:divide-charcoal-800">
             <div className="py-3.5 space-y-1">
               <h4 className="font-semibold text-slate-900 dark:text-white text-body-sm">
-                {t('concrete.faqQ1')}
+                {t(metricNative ? 'concrete.faqQ1Metric' : 'concrete.faqQ1')}
               </h4>
               <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-                {t('concrete.faqA1')}
+                {t(metricNative ? 'concrete.faqA1Metric' : 'concrete.faqA1')}
               </p>
             </div>
             <div className="py-3.5 space-y-1">
@@ -1110,15 +1110,15 @@ export const ConcreteCalculatorWorkspace: React.FC<ConcreteCalculatorWorkspacePr
                 {t('concrete.faqQ2')}
               </h4>
               <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-                {t('concrete.faqA2')}
+                {t(metricNative ? 'concrete.faqA2Metric' : 'concrete.faqA2')}
               </p>
             </div>
             <div className="py-3.5 space-y-1">
               <h4 className="font-semibold text-slate-900 dark:text-white text-body-sm">
-                {t('concrete.faqQ3')}
+                {t(metricNative ? 'concrete.faqQ3Metric' : 'concrete.faqQ3')}
               </h4>
               <p className="text-caption text-slate-600 dark:text-slate-400 leading-relaxed">
-                {t('concrete.faqA3')}
+                {t(metricNative ? 'concrete.faqA3Metric' : 'concrete.faqA3')}
               </p>
             </div>
           </div>

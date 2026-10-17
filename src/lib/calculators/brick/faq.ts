@@ -27,3 +27,18 @@ export const BRICK_FAQ_ANSWER_KEYS = [
   'brick.faqA7',
   'brick.faqA8',
 ] as const satisfies readonly TranslationKey[];
+
+/**
+ * Metric-native overrides applied outside English (locale rule, same as the
+ * concrete guide examples): index → replacement keys for the FAQ entry at
+ * that position. Entries without a metric variant fall through to the base
+ * keys because their wording is already unit-neutral (percentages, wythe
+ * counts, supported sizes). The visible FAQ and the FAQPage JSON-LD both
+ * consult this map so the schema always matches the rendered content.
+ */
+export const BRICK_FAQ_METRIC_OVERRIDES: Readonly<
+  Record<number, { question?: TranslationKey; answer?: TranslationKey }>
+> = {
+  1: { question: 'brick.faqQ2Metric', answer: 'brick.faqA2Metric' },
+  3: { answer: 'brick.faqA4Metric' },
+};

@@ -8,6 +8,7 @@ import { formatNumber } from '../../../lib/calculators/common/math';
 import { useViewToPath } from '../../../lib/routes';
 import {
   BRICK_FAQ_ANSWER_KEYS,
+  BRICK_FAQ_METRIC_OVERRIDES,
   BRICK_FAQ_QUESTION_KEYS,
 } from '../../../lib/calculators/brick/faq';
 import { AdSlot } from '../../common/AdSlot';
@@ -43,9 +44,9 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
   const { t, locale } = useLocale();
   // Metric pages outside English state mortar in kg and dry mix in m³.
   const metricWording = isMetric && locale !== 'en';
-  // Guide editorial content is always metric-first outside English, regardless
+  // Guide and FAQ content is always metric-first outside English, regardless
   // of the in-page unit toggle.
-  const guideLocalized = locale !== 'en';
+  const metricNative = locale !== 'en';
   const viewToPath = useViewToPath();
 
   // Form IDs
@@ -775,72 +776,72 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
                 {t('brick.guide.exampleInputsLabel')}
               </span>
               <span className="text-micro font-mono text-slate-500">
-                {guideLocalized
+                {metricNative
                   ? t('brick.guide.exampleInputsMetaMetric')
                   : t('brick.guide.exampleInputsMeta')}
               </span>
             </div>
             <ul className="space-y-1.5 font-mono text-caption text-slate-700 dark:text-slate-300">
               <li>
-                {guideLocalized ? t('brick.guide.exampleInput1Metric') : t('brick.guide.exampleInput1')}
+                {metricNative ? t('brick.guide.exampleInput1Metric') : t('brick.guide.exampleInput1')}
               </li>
               <li>
-                {guideLocalized ? t('brick.guide.exampleInput2Metric') : t('brick.guide.exampleInput2')}
+                {metricNative ? t('brick.guide.exampleInput2Metric') : t('brick.guide.exampleInput2')}
               </li>
             </ul>
             <div className="pt-2 border-t border-paper-200 dark:border-charcoal-800 space-y-1.5 font-mono text-caption text-slate-700 dark:text-slate-300">
               <p
                 dangerouslySetInnerHTML={{
-                  __html: guideLocalized
+                  __html: metricNative
                     ? t('brick.guide.exampleAreaMetric')
                     : t('brick.guide.exampleArea'),
                 }}
               />
               <p
                 dangerouslySetInnerHTML={{
-                  __html: guideLocalized
+                  __html: metricNative
                     ? t('brick.guide.exampleFaceMetric')
                     : t('brick.guide.exampleFace'),
                 }}
               />
               <p
                 dangerouslySetInnerHTML={{
-                  __html: guideLocalized
+                  __html: metricNative
                     ? t('brick.guide.exampleRateMetric')
                     : t('brick.guide.exampleRate'),
                 }}
               />
               <p
                 dangerouslySetInnerHTML={{
-                  __html: guideLocalized
+                  __html: metricNative
                     ? t('brick.guide.exampleBaseMetric')
                     : t('brick.guide.exampleBase'),
                 }}
               />
               <p
                 dangerouslySetInnerHTML={{
-                  __html: guideLocalized
+                  __html: metricNative
                     ? t('brick.guide.exampleWasteMetric')
                     : t('brick.guide.exampleWaste'),
                 }}
               />
               <p
                 dangerouslySetInnerHTML={{
-                  __html: guideLocalized
+                  __html: metricNative
                     ? t('brick.guide.exampleTotalMetric')
                     : t('brick.guide.exampleTotal'),
                 }}
               />
               <p
                 dangerouslySetInnerHTML={{
-                  __html: guideLocalized
+                  __html: metricNative
                     ? t('brick.guide.exampleMortarMetric')
                     : t('brick.guide.exampleMortar'),
                 }}
               />
             </div>
             <p className="text-micro text-slate-500 pt-1">
-              {guideLocalized ? t('brick.guide.exampleNoteMetric') : t('brick.guide.exampleNote')}
+              {metricNative ? t('brick.guide.exampleNoteMetric') : t('brick.guide.exampleNote')}
             </p>
           </div>
         </div>
@@ -887,14 +888,17 @@ export const BrickCalculatorWorkspace: React.FC<BrickCalculatorWorkspaceProps> =
             {t('common.faqTitle')}
           </h2>
           <div className="space-y-5">
-            {BRICK_FAQ_QUESTION_KEYS.map((questionKey, index) => (
-              <div key={questionKey} className="space-y-1.5">
-                <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
-                  {t(questionKey)}
-                </h3>
-                <p>{t(BRICK_FAQ_ANSWER_KEYS[index])}</p>
-              </div>
-            ))}
+            {BRICK_FAQ_QUESTION_KEYS.map((questionKey, index) => {
+              const override = metricNative ? BRICK_FAQ_METRIC_OVERRIDES[index] : undefined;
+              return (
+                <div key={questionKey} className="space-y-1.5">
+                  <h3 className="text-heading-sm font-semibold text-slate-900 dark:text-white">
+                    {t(override?.question ?? questionKey)}
+                  </h3>
+                  <p>{t(override?.answer ?? BRICK_FAQ_ANSWER_KEYS[index])}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
 

@@ -5,6 +5,7 @@ import type { TranslationKey } from '../../lib/i18n/dictionaries';
 
 interface TechnicalDiagramProps {
   type: 'concrete' | 'brick' | 'paint';
+  metricWording?: boolean;
 }
 
 interface DiagramStep {
@@ -36,9 +37,23 @@ const TAKEOFF_LABELS: Record<TechnicalDiagramProps['type'], TranslationKey> = {
   paint: 'diagram.paintTakeoff',
 };
 
-export const TechnicalDiagram: React.FC<TechnicalDiagramProps> = ({ type }) => {
+// Metric variants of diagram value keys that quote US customary units in
+// their base wording. Only keys without a mapping (brick, paint) are
+// unit-neutral and render the same string in both modes.
+const DIAGRAM_METRIC_VALUE_KEYS: Readonly<Partial<Record<TranslationKey, TranslationKey>>> = {
+  'diagram.netVolume': 'diagram.netVolumeMetric',
+  'diagram.orderValue': 'diagram.orderValueMetric',
+};
+
+export const TechnicalDiagram: React.FC<TechnicalDiagramProps> = ({
+  type,
+  metricWording = false,
+}) => {
   const { t } = useLocale();
-  const steps = DIAGRAM_STEPS[type];
+  const steps = DIAGRAM_STEPS[type].map(({ labelKey, valueKey }) => ({
+    labelKey,
+    valueKey: metricWording ? (DIAGRAM_METRIC_VALUE_KEYS[valueKey] ?? valueKey) : valueKey,
+  }));
 
   return (
     <div className="p-4 sm:p-6 rounded-tech-lg bg-paper-100 dark:bg-charcoal-900 border border-paper-300 dark:border-charcoal-750 space-y-4">

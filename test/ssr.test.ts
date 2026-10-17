@@ -238,7 +238,7 @@ describe('buildStructuredDataSchemas', () => {
     );
     const faq = schemas[2] as { mainEntity: { name: string }[] };
     expect(faq.mainEntity).toHaveLength(3);
-    expect(faq.mainEntity[0].name).toBe(translate('de', 'concrete.faqQ1'));
+    expect(faq.mainEntity[0].name).toBe(translate('de', 'concrete.faqQ1Metric'));
     expect(faq.mainEntity[0].name).not.toBe(translate('en', 'concrete.faqQ1'));
   });
 

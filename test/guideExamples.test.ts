@@ -34,6 +34,28 @@ describe('guide worked-example numbers', () => {
     }
   });
 
+  it('concrete guide step5 m³→yd³ factor matches calculateConcrete (1.30795)', () => {
+    const r = calculateConcrete({
+      length: 6,
+      width: 3,
+      thickness: 10,
+      wastePercent: 0,
+      isMetric: true,
+    });
+    expect(r.baseVolumeM3).toBe(1.8);
+    // 1.8 m³ × 1.30795 = 2.35431 yd³ → 2.35 (calculator.ts:25)
+    expect(r.baseVolumeYards).toBe(2.35);
+    // The quoted factor must round-trip to the calculator's own yards output
+    expect(Math.round(1.8 * 1.308 * 100) / 100).toBe(2.35);
+    for (const code of localized) {
+      const dict = dictionaries[code];
+      expect(dict['concrete.guide.step5']).toContain('1,308');
+      expect(dict['concrete.guide.step5']).toContain('27');
+    }
+    // English keeps the ft³ ÷ 27 wording untouched
+    expect(en['concrete.guide.step5']).toContain('Divide Cubic Feet by 27');
+  });
+
   it('concrete imperial example (20 ft × 10 ft × 4 in, 10% waste) matches calculateConcrete', () => {
     const r = calculateConcrete({
       length: 20,

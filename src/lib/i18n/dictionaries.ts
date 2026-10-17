@@ -1886,7 +1886,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.guide.step4':
       '<strong>Multiplique largo × ancho × espesor</strong> para obtener los metros cúbicos (o los pies cúbicos).',
     'concrete.guide.step5':
-      '<strong>Convierta a yardas cúbicas dividiendo entre 27</strong> solo si necesita el equivalente del sistema estadounidense.',
+      '<strong>Convierta los metros cúbicos a yardas cúbicas multiplicando por 1,308</strong> (o desde pies cúbicos dividiendo entre 27) solo si necesita el equivalente del sistema estadounidense.',
     'concrete.guide.step6':
       '<strong>Agregue un margen de desperdicio</strong> del 10% para compensar la desigualdad del terreno y la flexión de las cimbras.',
     'concrete.guide.formulaTitle': 'Fórmula del volumen de concreto',
@@ -2874,7 +2874,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.guide.step4':
       '<strong>Multiplique comprimento × largura × espessura</strong> para obter os metros cúbicos (ou os pés cúbicos).',
     'concrete.guide.step5':
-      '<strong>Divida os metros cúbicos por 27</strong> apenas se precisar do equivalente em yd³ do sistema americano.',
+      '<strong>Converta os metros cúbicos para jardas cúbicas multiplicando por 1,308</strong> (ou a partir de pés cúbicos dividindo por 27) apenas se precisar do equivalente em yd³ do sistema americano.',
     'concrete.guide.step6':
       '<strong>Acrescente uma margem de perda</strong> de 10% para compensar o desnível do terreno e a flexão das fôrmas.',
     'concrete.guide.formulaTitle': 'Fórmula do volume de concreto',
@@ -3881,7 +3881,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.guide.step4':
       '<strong>Multipliez longueur × largeur × épaisseur</strong> pour obtenir les mètres cubes (ou les pieds cubes).',
     'concrete.guide.step5':
-      '<strong>Divisez les mètres cubes par 27</strong> uniquement si vous avez besoin de l’équivalent en yd³ du système américain.',
+      '<strong>Convertissez les mètres cubes en yards cubes en multipliant par 1,308</strong> (ou à partir des pieds cubes en divisant par 27) uniquement si vous avez besoin de l’équivalent en yd³ du système américain.',
     'concrete.guide.step6':
       '<strong>Ajoutez une marge de déchets</strong> de 10 % pour compenser le tassement du terrain et le fléchissement des banches.',
     'concrete.guide.formulaTitle': 'Formule du volume de béton',
@@ -4873,7 +4873,7 @@ export const dictionaries: Record<LocaleCode, LocaleDictionary> = {
     'concrete.guide.step4':
       '<strong>Multiplizieren Sie Länge × Breite × Dicke</strong>, um die Kubikmeter (oder Kubikfuß) zu erhalten.',
     'concrete.guide.step5':
-      '<strong>Teilen Sie die Kubikmeter durch 27</strong>, wenn Sie das US-amerikanische Äquivalent in Kubikyards benötigen.',
+      '<strong>Wandeln Sie die Kubikmeter in Kubikyards um, indem Sie mit 1,308 multiplizieren</strong> (oder ab Kubikfuß durch 27 teilen), wenn Sie das US-amerikanische Äquivalent in Kubikyards benötigen.',
     'concrete.guide.step6':
       '<strong>Fügen Sie eine Zusatzmarge von 10 % hinzu</strong>, um Bodenunebenheiten und Schalungsverformung auszugleichen.',
     'concrete.guide.formulaTitle': 'Formel für das Betonvolumen',
